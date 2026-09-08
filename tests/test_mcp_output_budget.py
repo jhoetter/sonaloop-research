@@ -640,14 +640,27 @@ def _extra_args(ids: dict[str, Any]) -> dict[str, dict]:
 
 
 def _result_chars(server, name: str, args: dict) -> int:
-    """The serialized size of what the host receives: the structured envelope when
-    the tool returns one, otherwise the raw content blocks (e.g. view_asset images)."""
+    """Model-visible native output: structured envelope or raw content blocks.
+    Private MCP App metadata has its own presentation budget and is not model input."""
     res = asyncio.run(server.call_tool(name, args))
-    content, structured = res if isinstance(res, tuple) else (res, None)
+    if hasattr(res, "structuredContent"):
+        content, structured = res.content, res.structuredContent
+    else:
+        content, structured = res if isinstance(res, tuple) else (res, None)
     if structured is not None:
         return len(json.dumps(structured, ensure_ascii=False, default=str))
     return sum(len(getattr(c, "text", "") or "") + len(getattr(c, "data", b"") or b"")
                for c in content)
+
+
+def test_private_ui_result_variant_cannot_bypass_native_output_budget():
+    from mcp.types import CallToolResult, TextContent
+    class Server:
+        async def call_tool(self, name, args):
+            return CallToolResult(content=[TextContent(type="text", text="x" * 90_000)],
+                                  structuredContent={"native": "x" * 90_000},
+                                  _meta={"sonaloop/presentation": {"html": "private"}})
+    assert _result_chars(Server(), "read", {}) > BUDGET_CHARS
 
 
 def test_typed_council_report_brief_is_bounded_with_visible_truncation(store):

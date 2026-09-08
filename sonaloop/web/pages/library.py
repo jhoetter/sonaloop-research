@@ -20,6 +20,7 @@ from ._ctx import *  # noqa: F401,F403  (shared render toolkit)
 from .sessions import _sessions_section
 from .. import ui
 from .._html import register_css
+from ...ui_components.library import note_content, section_content
 from .._filterbar import filter_bar, filter_url, parse_multi
 from .._forms import overflow_delete
 from .edit import note_actions, section_actions
@@ -607,15 +608,8 @@ def register_library(app) -> None:
         pr = _pres.present(sec.get("kind", "theme"), sec.get("presentation"))
         chip = h("span", {"class_": "pill", "style": f'border-color:{pr["color"]};color:{pr["color"]}'},
                  ((pr.get("glyph") + " ") if pr.get("glyph") else ""), pr.get("short", sec.get("kind", "")))
-        rows = []
-        for m in members:
-            head = h("a", {"href": m["href"]}, m["title"]) if m["href"] else m["title"]
-            rows.append(h("div", {"class_": "strow"}, h("b", {}, head), " ", h("span", {"class_": "muted small"}, m["kind"]),
-                          h("div", {"class_": "muted small sl-note-summary"}, (m["summary"] or "")[:240])))
-        note_sub = h("p", {"class_": "sub"}, sec.get("note", "")) if sec.get("note") else ""
         sec_sub = fragment(chip, " ", h("span", {"class_": "muted small"}, t("n_nodes", n=len(members))))
-        body = fragment(note_sub, h("div", {"style": "margin-top:8px"},
-                        fragment(*rows) if rows else raw(_empty_state(t("section"), t("no_members"), icon="squareGrid"))))
+        body = section_content(sec, members)
         return detail_page(
             store, title=sec["title"], active="projects",
             crumbs=[(t("projects"), "/jobs"), (proj["title"], f'/jobs/{proj["id"]}'), (sec["title"], None)],
@@ -645,7 +639,7 @@ def register_library(app) -> None:
             store, title=ntitle, active="projects",   # G5: notes are project-rooted
             crumbs=[(t("projects"), "/jobs"), (proj["title"], f'/jobs/{proj["id"]}'), (ntitle, None)],
             icon="panel", kind=nkind, hid="sec-content",
-            body=h("div", {"class_": "sl-prose", "style": "margin-top:4px"}, raw(_md(note.get("text", "")))),
+            body=note_content(note),
             # Rail order is the §8.2 anatomy: project → dates.
             prop_rows=[("projects", t("project"), h("a", {"href": f'/jobs/{proj["id"]}'}, proj["title"])),
                        *detail_form_rows("note", note),

@@ -164,7 +164,8 @@ def test_creator_is_not_model_controlled_and_ui_renders_only_a_label(store):
     assert summary["created_via"] == expected_public_origin
     assert listed["created_by"] == expected_public_creator
     assert listed["created_via"] == expected_public_origin
-    _, mcp_result = asyncio.run(build_server().call_tool("list_research_projects", {}))
+    result = asyncio.run(build_server().call_tool("list_research_projects", {}))
+    mcp_result = result.structuredContent
     mcp_listed = next(p for p in mcp_result["data"] if p["id"] == attributed["id"])
     assert mcp_listed["created_by"] == expected_public_creator
     assert mcp_listed["created_via"] == expected_public_origin

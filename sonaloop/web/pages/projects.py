@@ -1,6 +1,8 @@
 """Project pages: home/index, detail (outline/graph + hypotheses), report, plan (spec/roadmap.md R2)."""
 from __future__ import annotations
 
+from ...ui_components.discovery import project_heading
+
 from fastapi import Request
 from fastapi.responses import RedirectResponse
 
@@ -359,11 +361,8 @@ def register_projects(app) -> None:
         # float at the page's far left), aligned with the title/outline left edge.
         body = h("div", {"class_": "proj"},
                  h("div", {"class_": "proj-head"},
-                   h("h1", {"class_": "h1 sl-project-title"},
-                     raw(project_icon_html(proj, edit_project_id=proj["id"],
-                                           edit_label=t("f_project_icon"))),
-                     proj["title"]),
-                   h("p", {"class_": "lead"}, proj.get("goal", "")),
+                   project_heading(proj, icon=raw(project_icon_html(proj, edit_project_id=proj["id"],
+                                                                 edit_label=t("f_project_icon")))),
                    raw(experience_header),
                    (h("p", {
                        "class_": "sl-project-creator",

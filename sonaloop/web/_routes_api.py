@@ -218,4 +218,9 @@ def register_api(app) -> None:
                     f"{hashlib.sha256(normalized.encode('utf-8')).hexdigest()[:16]}"
                 ),
             )
-        return JSONResponse({"rows": rows, "closest": closest})
+        from ..ui_components.discovery import search_hit_content
+        def with_presentation(row):
+            return {**row, "presentation_html": str(search_hit_content(
+                row["title"], row.get("subtitle", ""), row.get("date", "")))}
+        return JSONResponse({"rows": [with_presentation(row) for row in rows],
+                             "closest": [with_presentation(row) for row in closest]})

@@ -104,5 +104,6 @@ def test_mcp_exposes_search_and_fetch_unwrapped(store):
     server = build_server()
     names = {t.name for t in asyncio.run(server.list_tools())}
     assert "search" in names and "fetch" in names
-    _, structured = asyncio.run(server.call_tool("search", {"query": "confidential"}))
+    result = asyncio.run(server.call_tool("search", {"query": "confidential"}))
+    structured = result.structuredContent
     assert "results" in structured and "ok" not in structured   # NOT the _env envelope

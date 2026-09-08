@@ -107,6 +107,9 @@ def build_server():
     from ._annotations import apply_annotations
     apply_annotations(mcp)
 
+    from ._research_ui import register_research_ui
+    register_research_ui(mcp)
+
     register_prompts(mcp)
     _load_tool_extensions(mcp)
 

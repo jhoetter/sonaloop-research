@@ -62,7 +62,7 @@ ALLOWED_CLASS_TOKENS = {
     "cnt", "pill", "pills", "sec", "title", "sub", "empty", "avatar",
     "quote", "thought", "lbl", "lbl-soft", "ihint", "identity", "cap-row", "rico",
     # project page: outline chrome (the spatial graph view + its toolbar/panel retired)
-    "proj", "proj-head", "protoframe", "strow",
+    "proj", "proj-head", "protoframe",
     # hypothesis/decision cards (.hyp co-located in pages/hypotheses.py)
     "hyp", "hyprate", "hypseg", "hypstrip", "hypvals",
     # councils: turns/head-to-head tables (the votebar retired with the P3 Library rows)

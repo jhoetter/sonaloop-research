@@ -1,0 +1,5431 @@
+{
+  "schema_version": "sonaloop.mcp-ui-coverage.v1",
+  "native_source": {
+    "repository": "https://github.com/jhoetter/sonaloop-research",
+    "commit": "2b041cc47bb71e330dd94bd682cb4d27a57e528d"
+  },
+  "scope": "Core tools registered by build_server; optional external entry-point extensions are not part of this source inventory.",
+  "tools": [
+    {
+      "tool": "admit_remote_screenshot",
+      "family": "asset",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_assets.py",
+        "symbol": "admit_remote_screenshot",
+        "line": 13,
+        "calls": [
+          "services.admit_remote_screenshot"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "attach_asset",
+      "family": "asset",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_assets.py",
+        "symbol": "attach_asset",
+        "line": 34,
+        "calls": [
+          "services.attach_asset"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "attach_prototype_shot",
+      "family": "asset",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_assets.py",
+        "symbol": "attach_prototype_shot",
+        "line": 50,
+        "calls": [
+          "services.attach_prototype_shot"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_assets",
+      "family": "asset",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_assets.py",
+        "symbol": "list_assets",
+        "line": 59,
+        "calls": [
+          "services.list_assets"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_asset",
+      "family": "asset",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_assets.py",
+        "symbol": "get_asset",
+        "line": 66,
+        "calls": [
+          "services.get_asset"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "view_asset",
+      "family": "asset",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_assets.py",
+        "symbol": "view_asset",
+        "line": 72,
+        "calls": [
+          "services.get_asset_content"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "inspect_reaction_test_screen",
+      "family": "asset",
+      "treatment": "protocol_only",
+      "reason": "Dispatch/checkpoint/admission protocol; reflect existing plan/build/inspection state without exposing tokens or manufacturing an artifact.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_assets.py",
+        "symbol": "inspect_reaction_test_screen",
+        "line": 90,
+        "calls": [
+          "services.inspect_reaction_test_screen"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "remove_asset",
+      "family": "asset",
+      "treatment": "action_confirmation",
+      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_assets.py",
+        "symbol": "remove_asset",
+        "line": 107,
+        "calls": [
+          "services.remove_asset"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_prediction_outcome",
+      "family": "hypothesis_calibration",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_calibration.py",
+        "symbol": "record_prediction_outcome",
+        "line": 13,
+        "calls": [
+          "services.record_prediction_outcome"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "calibration_report",
+      "family": "hypothesis_calibration",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_calibration.py",
+        "symbol": "calibration_report",
+        "line": 25,
+        "calls": [
+          "services.calibration_report"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "calibration_trend",
+      "family": "hypothesis_calibration",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_calibration.py",
+        "symbol": "calibration_trend",
+        "line": 33,
+        "calls": [
+          "services.calibration_trend"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_calibration",
+      "family": "hypothesis_calibration",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_calibration.py",
+        "symbol": "brief_calibration",
+        "line": 40,
+        "calls": [
+          "services.brief_calibration"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_calibration_round",
+      "family": "hypothesis_calibration",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_calibration.py",
+        "symbol": "record_calibration_round",
+        "line": 48,
+        "calls": [
+          "services.record_calibration_round"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "catalog_search",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_catalog.py",
+        "symbol": "catalog_search",
+        "line": 20,
+        "calls": [
+          "services.catalog_search"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "catalog_recommend",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_catalog.py",
+        "symbol": "catalog_recommend",
+        "line": 35,
+        "calls": [
+          "services.catalog_recommend"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "catalog_status",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_catalog.py",
+        "symbol": "catalog_status",
+        "line": 45,
+        "calls": [
+          "services.catalog_status"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "catalog_pull",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_catalog.py",
+        "symbol": "catalog_pull",
+        "line": 59,
+        "calls": [
+          "services.catalog_pull"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "add_artifact",
+      "family": "url_artifact",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "add_artifact",
+        "line": 17,
+        "calls": [
+          "services.add_artifact"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_artifacts",
+      "family": "url_artifact",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "list_artifacts",
+        "line": 34,
+        "calls": [
+          "services.list_artifacts"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_artifact",
+      "family": "url_artifact",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "get_artifact",
+        "line": 40,
+        "calls": [
+          "services.get_artifact"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "delete_artifact",
+      "family": "url_artifact",
+      "treatment": "action_confirmation",
+      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "delete_artifact",
+        "line": 46,
+        "calls": [
+          "services.delete_artifact"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_stances",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "suggest_stances",
+        "line": 53,
+        "calls": [
+          "services.suggest_stances"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_finding_kinds",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "suggest_finding_kinds",
+        "line": 67,
+        "calls": [
+          "services.suggest_finding_kinds"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_council",
+      "family": "council",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "brief_council",
+        "line": 76,
+        "calls": [
+          "services.brief_council"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_ask",
+      "family": "council",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "brief_ask",
+        "line": 90,
+        "calls": [
+          "services.brief_ask"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_council",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "record_council",
+        "line": 97,
+        "calls": [
+          "services.record_council"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_council",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "get_council",
+        "line": 122,
+        "calls": [
+          "services.get_council"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_head_to_head",
+      "family": "council",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "brief_head_to_head",
+        "line": 129,
+        "calls": [
+          "services.brief_head_to_head"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_head_to_head",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "record_head_to_head",
+        "line": 143,
+        "calls": [
+          "services.record_head_to_head"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_head_to_head",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "get_head_to_head",
+        "line": 170,
+        "calls": [
+          "services.get_head_to_head"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_price_ladder",
+      "family": "council",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "brief_price_ladder",
+        "line": 179,
+        "calls": [
+          "services.brief_price_ladder"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_price_ladder",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "record_price_ladder",
+        "line": 193,
+        "calls": [
+          "services.record_price_ladder"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_price_ladder",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "get_price_ladder",
+        "line": 215,
+        "calls": [
+          "services.get_price_ladder"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "price_ladder_analysis",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "price_ladder_analysis",
+        "line": 223,
+        "calls": [
+          "services.price_ladder_analysis"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_red_team",
+      "family": "council",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "brief_red_team",
+        "line": 232,
+        "calls": [
+          "services.brief_red_team"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_red_team",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "record_red_team",
+        "line": 250,
+        "calls": [
+          "services.record_red_team"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_red_team",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "get_red_team",
+        "line": 276,
+        "calls": [
+          "services.get_red_team"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_councils",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "list_councils",
+        "line": 283,
+        "calls": [
+          "services.list_councils",
+          "services.paginate"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "export_council_session",
+      "family": "council",
+      "treatment": "export",
+      "reason": "Family document preview/download using native returned export, no automatic arbitrary path/URL fetch or rerun.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "export_council_session",
+        "line": 300,
+        "calls": [
+          "services.export_council_session"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_synthesis",
+      "family": "synthesis",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "brief_synthesis",
+        "line": 307,
+        "calls": [
+          "services.brief_synthesis"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_synthesis",
+      "family": "synthesis",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "record_synthesis",
+        "line": 314,
+        "calls": [
+          "services.record_synthesis"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_synthesis",
+      "family": "synthesis",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "get_synthesis",
+        "line": 329,
+        "calls": [
+          "services.get_synthesis"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_syntheses",
+      "family": "synthesis",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "list_syntheses",
+        "line": 335,
+        "calls": [
+          "services.list_syntheses"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "export_synthesis",
+      "family": "synthesis",
+      "treatment": "export",
+      "reason": "Family document preview/download using native returned export, no automatic arbitrary path/URL fetch or rerun.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "export_synthesis",
+        "line": 341,
+        "calls": [
+          "services.export_synthesis",
+          "services.export_synthesis_deliverable",
+          "services.write_export"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "export_synthesis_html",
+      "family": "synthesis",
+      "treatment": "export",
+      "reason": "Family document preview/download using native returned export, no automatic arbitrary path/URL fetch or rerun.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_council.py",
+        "symbol": "export_synthesis_html",
+        "line": 361,
+        "calls": [
+          "services.export_synthesis_html"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_decision",
+      "family": "decision",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_decisions.py",
+        "symbol": "record_decision",
+        "line": 18,
+        "calls": [
+          "services.record_decision"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "update_decision",
+      "family": "decision",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_decisions.py",
+        "symbol": "update_decision",
+        "line": 35,
+        "calls": [
+          "services.update_decision"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_decision",
+      "family": "decision",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_decisions.py",
+        "symbol": "get_decision",
+        "line": 46,
+        "calls": [
+          "services.get_decision"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_decisions",
+      "family": "decision",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_decisions.py",
+        "symbol": "list_decisions",
+        "line": 53,
+        "calls": [
+          "services.list_decisions"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "set_world_context",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "set_world_context",
+        "line": 13,
+        "calls": [
+          "services.set_world_context"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_world_context",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "get_world_context",
+        "line": 19,
+        "calls": [
+          "services.get_world_context"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_language",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "get_language",
+        "line": 25,
+        "calls": [],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "set_language",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "set_language",
+        "line": 32,
+        "calls": [],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_persona_revision",
+      "family": "persona",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "brief_persona_revision",
+        "line": 45,
+        "calls": [
+          "services.brief_persona_revision"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_persona_revision",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "record_persona_revision",
+        "line": 51,
+        "calls": [
+          "services.record_persona_revision"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_persona_revisions",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "list_persona_revisions",
+        "line": 57,
+        "calls": [
+          "services.list_persona_revisions"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_memory_anomalies",
+      "family": "quality",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "list_memory_anomalies",
+        "line": 63,
+        "calls": [
+          "services.list_memory_anomalies"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "evaluate_simulation",
+      "family": "quality",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "evaluate_simulation",
+        "line": 69,
+        "calls": [
+          "services.evaluate_simulation"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_eval_critic",
+      "family": "quality",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "brief_eval_critic",
+        "line": 77,
+        "calls": [
+          "services.brief_eval_critic"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_eval_critic",
+      "family": "quality",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "record_eval_critic",
+        "line": 85,
+        "calls": [
+          "services.record_eval_critic"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "evaluate_simulation_full",
+      "family": "quality",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "evaluate_simulation_full",
+        "line": 91,
+        "calls": [
+          "services.evaluate_simulation_full"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "evaluate_cohort_diversity",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "evaluate_cohort_diversity",
+        "line": 98,
+        "calls": [
+          "services.evaluate_cohort_diversity"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_cohort_critic",
+      "family": "persona_catalog",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "brief_cohort_critic",
+        "line": 105,
+        "calls": [
+          "services.brief_cohort_critic"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_cohort_critic",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "record_cohort_critic",
+        "line": 112,
+        "calls": [
+          "services.record_cohort_critic"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_completeness_critic",
+      "family": "quality",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "brief_completeness_critic",
+        "line": 120,
+        "calls": [
+          "services.brief_completeness_critic"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_completeness_critic",
+      "family": "quality",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "record_completeness_critic",
+        "line": 129,
+        "calls": [
+          "services.record_completeness_critic"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "cohort_memory_depth",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "cohort_memory_depth",
+        "line": 141,
+        "calls": [
+          "services.cohort_memory_depth"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "score_run",
+      "family": "quality",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "score_run",
+        "line": 148,
+        "calls": [
+          "services.score_run"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_evidence_check",
+      "family": "quality",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "brief_evidence_check",
+        "line": 156,
+        "calls": [
+          "services.brief_evidence_check"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_evidence_check",
+      "family": "quality",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_eval.py",
+        "symbol": "record_evidence_check",
+        "line": 162,
+        "calls": [
+          "services.record_evidence_check"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_examples",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_examples.py",
+        "symbol": "list_examples",
+        "line": 17,
+        "calls": [
+          "services.list_examples"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "load_example",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_examples.py",
+        "symbol": "load_example",
+        "line": 27,
+        "calls": [
+          "services.list_examples",
+          "services.load_example"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "remove_example",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_examples.py",
+        "symbol": "remove_example",
+        "line": 37,
+        "calls": [
+          "services.remove_example"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_reaction_test_capture_review",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_flows.py",
+        "symbol": "record_reaction_test_capture_review",
+        "line": 18,
+        "calls": [
+          "services.record_reaction_test_capture_review"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "record_flow_manifest",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_flows.py",
+        "symbol": "record_flow_manifest",
+        "line": 38,
+        "calls": [
+          "services.record_flow_manifest"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "list_flow_manifests",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_flows.py",
+        "symbol": "list_flow_manifests",
+        "line": 55,
+        "calls": [
+          "services.list_flow_manifests"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_flow_manifest",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_flows.py",
+        "symbol": "get_flow_manifest",
+        "line": 61,
+        "calls": [
+          "services.get_flow_manifest"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "define_flow",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_flows.py",
+        "symbol": "define_flow",
+        "line": 69,
+        "calls": [
+          "services.define_flow"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_flows",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_flows.py",
+        "symbol": "list_flows",
+        "line": 82,
+        "calls": [
+          "services.list_flows"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_flow_walkthrough",
+      "family": "session_flow",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_flows.py",
+        "symbol": "brief_flow_walkthrough",
+        "line": 88,
+        "calls": [
+          "services.brief_flow_walkthrough"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "flow_funnel",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_flows.py",
+        "symbol": "flow_funnel",
+        "line": 99,
+        "calls": [
+          "services.flow_funnel"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "ingest_corpus",
+      "family": "grounding",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_grounding.py",
+        "symbol": "ingest_corpus",
+        "line": 13,
+        "calls": [
+          "services.ingest_corpus"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_corpora",
+      "family": "grounding",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_grounding.py",
+        "symbol": "list_corpora",
+        "line": 23,
+        "calls": [
+          "services.list_corpora"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_corpus",
+      "family": "grounding",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_grounding.py",
+        "symbol": "get_corpus",
+        "line": 29,
+        "calls": [
+          "services.get_corpus"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "search_corpus",
+      "family": "grounding",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_grounding.py",
+        "symbol": "search_corpus",
+        "line": 40,
+        "calls": [
+          "services.search_corpus"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_grounding",
+      "family": "grounding",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_grounding.py",
+        "symbol": "brief_grounding",
+        "line": 48,
+        "calls": [
+          "services.brief_grounding"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_grounding",
+      "family": "grounding",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_grounding.py",
+        "symbol": "record_grounding",
+        "line": 59,
+        "calls": [
+          "services.record_grounding"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "trace_evidence",
+      "family": "grounding",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_grounding.py",
+        "symbol": "trace_evidence",
+        "line": 72,
+        "calls": [
+          "services.trace_evidence"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_design_handoff",
+      "family": "report",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_handoff.py",
+        "symbol": "get_design_handoff",
+        "line": 12,
+        "calls": [
+          "services.get_design_handoff"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_presentation",
+      "family": "report",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_handoff.py",
+        "symbol": "brief_presentation",
+        "line": 23,
+        "calls": [
+          "services.brief_presentation"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_presentation_plan",
+      "family": "report",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_handoff.py",
+        "symbol": "record_presentation_plan",
+        "line": 33,
+        "calls": [
+          "services.record_presentation_plan"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "list_lifecycle_events",
+      "family": "administration",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hooks.py",
+        "symbol": "list_lifecycle_events",
+        "line": 13,
+        "calls": [
+          "services.list_lifecycle_events"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "register_hook",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hooks.py",
+        "symbol": "register_hook",
+        "line": 21,
+        "calls": [
+          "services.register_hook"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "unregister_hook",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hooks.py",
+        "symbol": "unregister_hook",
+        "line": 31,
+        "calls": [
+          "services.unregister_hook"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_hooks",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hooks.py",
+        "symbol": "list_hooks",
+        "line": 37,
+        "calls": [
+          "services.list_hooks"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "test_hook",
+      "family": "administration",
+      "treatment": "admin_only",
+      "reason": "Workspace configuration, external automation, or example fixture management; clear action receipt/settings surface, no research component or fake evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hooks.py",
+        "symbol": "test_hook",
+        "line": 43,
+        "calls": [
+          "services.test_hook"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_hypothesis",
+      "family": "hypothesis_calibration",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hypotheses.py",
+        "symbol": "brief_hypothesis",
+        "line": 20,
+        "calls": [
+          "services.brief_hypothesis"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_hypothesis",
+      "family": "hypothesis_calibration",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hypotheses.py",
+        "symbol": "record_hypothesis",
+        "line": 29,
+        "calls": [
+          "services.record_hypothesis"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_hypothesis_result",
+      "family": "hypothesis_calibration",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hypotheses.py",
+        "symbol": "record_hypothesis_result",
+        "line": 44,
+        "calls": [
+          "services.record_hypothesis_result"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "drop_hypothesis",
+      "family": "hypothesis_calibration",
+      "treatment": "action_confirmation",
+      "reason": "Retire an open bet without scoring; preserve it with dropped status.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hypotheses.py",
+        "symbol": "drop_hypothesis",
+        "line": 57,
+        "calls": [
+          "services.drop_hypothesis"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "eval_scorecard",
+      "family": "hypothesis_calibration",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hypotheses.py",
+        "symbol": "eval_scorecard",
+        "line": 65,
+        "calls": [
+          "services.eval_scorecard"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_hypothesis",
+      "family": "hypothesis_calibration",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hypotheses.py",
+        "symbol": "get_hypothesis",
+        "line": 74,
+        "calls": [
+          "services.get_hypothesis"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_hypotheses",
+      "family": "hypothesis_calibration",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_hypotheses.py",
+        "symbol": "list_hypotheses",
+        "line": 81,
+        "calls": [
+          "services.list_hypotheses"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_hmw_reframe",
+      "family": "note_ideation",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_ideation.py",
+        "symbol": "record_hmw_reframe",
+        "line": 18,
+        "calls": [
+          "services.record_hmw_reframe"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_ideas",
+      "family": "note_ideation",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_ideation.py",
+        "symbol": "record_ideas",
+        "line": 29,
+        "calls": [
+          "services.record_ideas"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_ideas",
+      "family": "note_ideation",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_ideation.py",
+        "symbol": "list_ideas",
+        "line": 39,
+        "calls": [
+          "services.list_ideas"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_ideation_summary",
+      "family": "note_ideation",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_ideation.py",
+        "symbol": "record_ideation_summary",
+        "line": 47,
+        "calls": [
+          "services.record_ideation_summary"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_ideation",
+      "family": "note_ideation",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_ideation.py",
+        "symbol": "get_ideation",
+        "line": 61,
+        "calls": [
+          "services.get_ideation"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_job_presets",
+      "family": "job_methodology",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "list_job_presets",
+        "line": 17,
+        "calls": [
+          "services.list_job_presets"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_job_preset",
+      "family": "job_methodology",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "get_job_preset",
+        "line": 26,
+        "calls": [
+          "services.get_job_preset"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "sharpen_question",
+      "family": "job_methodology",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "sharpen_question",
+        "line": 33,
+        "calls": [
+          "services.sharpen_question"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "start_job_study",
+      "family": "job_methodology",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "start_job_study",
+        "line": 46,
+        "calls": [
+          "services.start_job_study"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_result_schemas",
+      "family": "outcome_contract",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "list_result_schemas",
+        "line": 58,
+        "calls": [
+          "services.list_result_schemas"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_result_schema",
+      "family": "outcome_contract",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "get_result_schema",
+        "line": 64,
+        "calls": [
+          "services.get_result_schema"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_result_contracts",
+      "family": "outcome_contract",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "list_result_contracts",
+        "line": 70,
+        "calls": [
+          "services.list_result_contracts"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "result_contract_for_job",
+      "family": "outcome_contract",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "result_contract_for_job",
+        "line": 76,
+        "calls": [
+          "services.result_contract_for_job"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "result_contract_for_methodology",
+      "family": "outcome_contract",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "result_contract_for_methodology",
+        "line": 82,
+        "calls": [
+          "services.result_contract_for_methodology"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "set_project_result_schemas",
+      "family": "outcome_contract",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "set_project_result_schemas",
+        "line": 88,
+        "calls": [
+          "services.set_project_result_schemas"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_job_outcome",
+      "family": "outcome_contract",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "record_job_outcome",
+        "line": 94,
+        "calls": [
+          "services.record_job_outcome"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "project_result_contract_state",
+      "family": "outcome_contract",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_jobs.py",
+        "symbol": "project_result_contract_state",
+        "line": 103,
+        "calls": [
+          "services.project_result_contract_state"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_capabilities",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "suggest_capabilities",
+        "line": 17,
+        "calls": [
+          "services.suggest_capabilities"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_roles",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "suggest_roles",
+        "line": 24,
+        "calls": [
+          "services.suggest_roles"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_artifact_types",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "suggest_artifact_types",
+        "line": 30,
+        "calls": [
+          "services.suggest_artifact_types"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_methodologies",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "suggest_methodologies",
+        "line": 37,
+        "calls": [
+          "services.suggest_methodologies"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_methodologies",
+      "family": "job_methodology",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "list_methodologies",
+        "line": 44,
+        "calls": [
+          "services.list_methodologies"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_methodology",
+      "family": "job_methodology",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "get_methodology",
+        "line": 50,
+        "calls": [
+          "services.get_methodology"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "register_methodology",
+      "family": "job_methodology",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "register_methodology",
+        "line": 56,
+        "calls": [
+          "services.register_methodology"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_frameworks",
+      "family": "job_methodology",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "list_frameworks",
+        "line": 71,
+        "calls": [
+          "services.list_frameworks"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "describe_framework",
+      "family": "job_methodology",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "describe_framework",
+        "line": 82,
+        "calls": [
+          "services.describe_framework"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "set_project_methodology",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "set_project_methodology",
+        "line": 93,
+        "calls": [
+          "services.set_project_methodology"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_next",
+      "family": "plan_run",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "brief_next",
+        "line": 100,
+        "calls": [
+          "services.brief_next"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_judgment",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "record_judgment",
+        "line": 108,
+        "calls": [
+          "services.record_judgment"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "park_evidence",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "park_evidence",
+        "line": 122,
+        "calls": [
+          "services.park_evidence"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "unpark_evidence",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_methodology.py",
+        "symbol": "unpark_evidence",
+        "line": 130,
+        "calls": [
+          "services.unpark_evidence"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_persona_surface",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "existing",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_persona_surface.py",
+        "symbol": "get_persona_surface",
+        "line": 86,
+        "calls": [
+          "_service().get_persona_surface"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_persona_surface",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "existing",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_persona_surface.py",
+        "symbol": "record_persona_surface",
+        "line": 92,
+        "calls": [
+          "_service().record_persona_surface"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "update_persona_surface",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "existing",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_persona_surface.py",
+        "symbol": "update_persona_surface",
+        "line": 102,
+        "calls": [
+          "_service().update_persona_surface"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "generate_persona_surface_avatar",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "existing",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_persona_surface.py",
+        "symbol": "generate_persona_surface_avatar",
+        "line": 109,
+        "calls": [
+          "_service().generate_persona_surface_avatar"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "get_persona_surface_operation",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "existing",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_persona_surface.py",
+        "symbol": "get_persona_surface_operation",
+        "line": 117,
+        "calls": [
+          "_service().get_persona_surface_operation"
+        ],
+        "annotation": "R",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "brief_persona",
+      "family": "persona",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "brief_persona",
+        "line": 19,
+        "calls": [
+          "services.brief_persona"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_persona",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "record_persona",
+        "line": 30,
+        "calls": [
+          "services.record_persona"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_persona",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "get_persona",
+        "line": 38,
+        "calls": [
+          "services.get_persona"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "view_persona_avatar",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "view_persona_avatar",
+        "line": 44,
+        "calls": [],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "persona_readiness",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "persona_readiness",
+        "line": 52,
+        "calls": [
+          "services.persona_readiness"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_persona_memory_onboarding",
+      "family": "persona",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "brief_persona_memory_onboarding",
+        "line": 59,
+        "calls": [
+          "services.brief_persona_memory_onboarding"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "persona_task_readiness",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "persona_task_readiness",
+        "line": 67,
+        "calls": [
+          "services.persona_task_readiness"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "prepare_persona_for_task",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "prepare_persona_for_task",
+        "line": 77,
+        "calls": [
+          "services.prepare_persona_for_task"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_persona_context_snapshot",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "get_persona_context_snapshot",
+        "line": 88,
+        "calls": [
+          "services.get_persona_context_snapshot"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_persona_context_snapshots",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "list_persona_context_snapshots",
+        "line": 95,
+        "calls": [
+          "services.list_persona_context_snapshots"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "begin_persona_build",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "begin_persona_build",
+        "line": 102,
+        "calls": [
+          "services.begin_persona_build"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "persona_build_step",
+      "family": "persona",
+      "treatment": "protocol_only",
+      "reason": "Dispatch/checkpoint/admission protocol; reflect existing plan/build/inspection state without exposing tokens or manufacturing an artifact.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "persona_build_step",
+        "line": 110,
+        "calls": [
+          "services.persona_build_step"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_persona_build",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "get_persona_build",
+        "line": 116,
+        "calls": [
+          "services.get_persona_build"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_persona_builds",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "list_persona_builds",
+        "line": 122,
+        "calls": [
+          "services.list_persona_builds"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "validate_persona_output",
+      "family": "persona",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "validate_persona_output",
+        "line": 128,
+        "calls": [
+          "services.validate_persona_output"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_persona_voice_check",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "record_persona_voice_check",
+        "line": 138,
+        "calls": [
+          "services.record_persona_voice_check"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_personas",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "list_personas",
+        "line": 148,
+        "calls": [
+          "services.list_personas",
+          "services.paginate"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_persona_soul",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "get_persona_soul",
+        "line": 166,
+        "calls": [
+          "services.get_persona_soul"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "prepare_persona_agent_context",
+      "family": "persona",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "prepare_persona_agent_context",
+        "line": 172,
+        "calls": [
+          "services.prepare_persona_agent_context"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "preview_persona_update",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "preview_persona_update",
+        "line": 181,
+        "calls": [
+          "services.preview_persona_update"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "update_persona",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "update_persona",
+        "line": 191,
+        "calls": [
+          "services.update_persona"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_tech_comfort",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "suggest_tech_comfort",
+        "line": 207,
+        "calls": [
+          "services.suggest_tech_comfort"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "refresh_persona_from_source",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "refresh_persona_from_source",
+        "line": 218,
+        "calls": [
+          "services.refresh_persona_from_source"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "generate_avatar",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "generate_avatar",
+        "line": 228,
+        "calls": [],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "attach_evidence",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "attach_evidence",
+        "line": 240,
+        "calls": [
+          "services.attach_evidence"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "export_persona",
+      "family": "persona",
+      "treatment": "export",
+      "reason": "Family document preview/download using native returned export, no automatic arbitrary path/URL fetch or rerun.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "export_persona",
+        "line": 246,
+        "calls": [
+          "services.export_persona"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "assess_coverage",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_personas.py",
+        "symbol": "assess_coverage",
+        "line": 252,
+        "calls": [
+          "services.assess_coverage"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "start_project",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "start_project",
+        "line": 20,
+        "calls": [
+          "services.start_project"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "get_plan",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "get_plan",
+        "line": 44,
+        "calls": [
+          "services.get_plan"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "export_plan_md",
+      "family": "plan_run",
+      "treatment": "export",
+      "reason": "Family document preview/download using native returned export, no automatic arbitrary path/URL fetch or rerun.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "export_plan_md",
+        "line": 50,
+        "calls": [
+          "services.export_plan_md"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "add_task",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "add_task",
+        "line": 56,
+        "calls": [
+          "services.add_task"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_frame",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "record_frame",
+        "line": 66,
+        "calls": [
+          "services.record_frame"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "link_evidence",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "link_evidence",
+        "line": 78,
+        "calls": [
+          "services.link_evidence"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "complete_task",
+      "family": "plan_run",
+      "treatment": "protocol_only",
+      "reason": "Dispatch/checkpoint/admission protocol; reflect existing plan/build/inspection state without exposing tokens or manufacturing an artifact.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "complete_task",
+        "line": 89,
+        "calls": [
+          "services.complete_task"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_product_understanding",
+      "family": "plan_run",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "brief_product_understanding",
+        "line": 99,
+        "calls": [
+          "services.brief_product_understanding"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_product_understanding",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "record_product_understanding",
+        "line": 107,
+        "calls": [
+          "services.record_product_understanding"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_manifest_product_understanding",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "record_manifest_product_understanding",
+        "line": 134,
+        "calls": [
+          "services.record_manifest_product_understanding"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_product_understanding",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "get_product_understanding",
+        "line": 160,
+        "calls": [
+          "services.get_product_understanding"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_cohort_preflight",
+      "family": "persona_catalog",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "brief_cohort_preflight",
+        "line": 169,
+        "calls": [
+          "services.brief_cohort_preflight"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "select_reaction_test_cohort",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "select_reaction_test_cohort",
+        "line": 180,
+        "calls": [
+          "services.select_reaction_test_cohort"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "record_cohort_preflight",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "record_cohort_preflight",
+        "line": 199,
+        "calls": [
+          "services.record_cohort_preflight"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_cohort_preflight",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "get_cohort_preflight",
+        "line": 223,
+        "calls": [
+          "services.get_cohort_preflight"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "project_health",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "project_health",
+        "line": 232,
+        "calls": [
+          "services.project_health"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "resume_project_run",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "resume_project_run",
+        "line": 241,
+        "calls": [
+          "services.resume_project_run"
+        ],
+        "annotation": "R",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "supersede_project",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "supersede_project",
+        "line": 251,
+        "calls": [
+          "services.supersede_project"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "archive_project",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "archive_project",
+        "line": 261,
+        "calls": [
+          "services.archive_project"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "iterate_task",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "iterate_task",
+        "line": 269,
+        "calls": [
+          "services.iterate_task"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "assess_progress",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "assess_progress",
+        "line": 278,
+        "calls": [
+          "services.assess_progress"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "next_action",
+      "family": "plan_run",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "next_action",
+        "line": 286,
+        "calls": [
+          "services.next_action"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "assess_project",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "assess_project",
+        "line": 295,
+        "calls": [
+          "services.assess_project"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "start_run",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "start_run",
+        "line": 305,
+        "calls": [
+          "services.start_run"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "run_journal",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "run_journal",
+        "line": 321,
+        "calls": [
+          "services.run_journal"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "checkpoint_step",
+      "family": "plan_run",
+      "treatment": "protocol_only",
+      "reason": "Dispatch/checkpoint/admission protocol; reflect existing plan/build/inspection state without exposing tokens or manufacturing an artifact.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "checkpoint_step",
+        "line": 327,
+        "calls": [
+          "services.checkpoint_step"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_critic_round",
+      "family": "plan_run",
+      "treatment": "protocol_only",
+      "reason": "Dispatch/checkpoint/admission protocol; reflect existing plan/build/inspection state without exposing tokens or manufacturing an artifact.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "record_critic_round",
+        "line": 338,
+        "calls": [
+          "services.record_critic_round"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "finish_run",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "finish_run",
+        "line": 347,
+        "calls": [
+          "services.finish_run"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "run_step",
+      "family": "plan_run",
+      "treatment": "protocol_only",
+      "reason": "Dispatch/checkpoint/admission protocol; reflect existing plan/build/inspection state without exposing tokens or manufacturing an artifact.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "run_step",
+        "line": 355,
+        "calls": [
+          "services.run_step"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "inject_work",
+      "family": "plan_run",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_plan.py",
+        "symbol": "inject_work",
+        "line": 369,
+        "calls": [
+          "services.inject_work"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_likelihood_levels",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_predictions.py",
+        "symbol": "suggest_likelihood_levels",
+        "line": 13,
+        "calls": [
+          "services.suggest_likelihood_levels"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "aggregate_predictions",
+      "family": "hypothesis_calibration",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_predictions.py",
+        "symbol": "aggregate_predictions",
+        "line": 22,
+        "calls": [
+          "services.aggregate_predictions"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "scaffold_prototype",
+      "family": "prototype",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "scaffold_prototype",
+        "line": 19,
+        "calls": [
+          "services.scaffold_prototype"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "register_prototype",
+      "family": "prototype",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "register_prototype",
+        "line": 41,
+        "calls": [
+          "services.register_prototype"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "register_remote_prototype",
+      "family": "prototype",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "register_remote_prototype",
+        "line": 50,
+        "calls": [
+          "services.register_remote_prototype"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_prototypes",
+      "family": "prototype",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "list_prototypes",
+        "line": 63,
+        "calls": [
+          "services.list_prototypes_artifacts"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_prototype",
+      "family": "prototype",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "get_prototype",
+        "line": 69,
+        "calls": [
+          "services.get_prototype_artifact"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "run_prototype",
+      "family": "prototype",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "run_prototype",
+        "line": 75,
+        "calls": [
+          "services.run_prototype"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "stop_prototype",
+      "family": "prototype",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "stop_prototype",
+        "line": 81,
+        "calls": [
+          "services.stop_prototype"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "delete_prototype",
+      "family": "prototype",
+      "treatment": "action_confirmation",
+      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "delete_prototype",
+        "line": 87,
+        "calls": [
+          "services.delete_prototype_artifact"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "proto_open",
+      "family": "prototype",
+      "treatment": "execution_only",
+      "reason": "Live browser actuation/snapshot control, not a persisted research result; keep controlled execution status, render only recorded session evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "proto_open",
+        "line": 94,
+        "calls": [
+          "services.proto_open"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "proto_act",
+      "family": "prototype",
+      "treatment": "execution_only",
+      "reason": "Live browser actuation/snapshot control, not a persisted research result; keep controlled execution status, render only recorded session evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "proto_act",
+        "line": 117,
+        "calls": [
+          "services.proto_act"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "proto_read",
+      "family": "prototype",
+      "treatment": "execution_only",
+      "reason": "Live browser actuation/snapshot control, not a persisted research result; keep controlled execution status, render only recorded session evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "proto_read",
+        "line": 123,
+        "calls": [
+          "services.proto_read"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "proto_close",
+      "family": "prototype",
+      "treatment": "execution_only",
+      "reason": "Live browser actuation/snapshot control, not a persisted research result; keep controlled execution status, render only recorded session evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "proto_close",
+        "line": 129,
+        "calls": [
+          "services.proto_close"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_proto_sessions",
+      "family": "prototype",
+      "treatment": "execution_only",
+      "reason": "Live browser actuation/snapshot control, not a persisted research result; keep controlled execution status, render only recorded session evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "list_proto_sessions",
+        "line": 135,
+        "calls": [
+          "services.list_proto_sessions"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_prototype_session",
+      "family": "session_flow",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "brief_prototype_session",
+        "line": 141,
+        "calls": [
+          "services.brief_prototype_session"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_prototype_session",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_prototypes.py",
+        "symbol": "record_prototype_session",
+        "line": 147,
+        "calls": [
+          "services.record_prototype_session"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "create_research_project",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "create_research_project",
+        "line": 13,
+        "calls": [
+          "services.create_research_project"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_research_projects",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "list_research_projects",
+        "line": 25,
+        "calls": [
+          "services.list_research_projects"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "available_project_icons",
+      "family": "project",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "available_project_icons",
+        "line": 31,
+        "calls": [
+          "services.available_project_icons"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "set_project_icon",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "set_project_icon",
+        "line": 37,
+        "calls": [
+          "services.set_project_icon"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "generate_project_icon",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "generate_project_icon",
+        "line": 47,
+        "calls": [
+          "services.generate_project_icon"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_project_graph",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "get_project_graph",
+        "line": 54,
+        "calls": [
+          "services.get_project_graph"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_open_questions",
+      "family": "note_ideation",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "record_open_questions",
+        "line": 66,
+        "calls": [
+          "services.record_open_questions"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_research_frontier",
+      "family": "note_ideation",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "get_research_frontier",
+        "line": 72,
+        "calls": [
+          "services.get_research_frontier"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_synthesis_outline",
+      "family": "report",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "brief_synthesis_outline",
+        "line": 82,
+        "calls": [
+          "services.brief_synthesis_outline"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_synthesis_outline",
+      "family": "report",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "record_synthesis_outline",
+        "line": 88,
+        "calls": [
+          "services.record_synthesis_outline"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "brief_synthesis_section",
+      "family": "report",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "brief_synthesis_section",
+        "line": 102,
+        "calls": [
+          "services.brief_synthesis_section"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_chart_kinds",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "suggest_chart_kinds",
+        "line": 108,
+        "calls": [
+          "services.suggest_chart_kinds"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_synthesis_section",
+      "family": "report",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "record_synthesis_section",
+        "line": 116,
+        "calls": [
+          "services.record_synthesis_section"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "delete_research_project",
+      "family": "project",
+      "treatment": "action_confirmation",
+      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "delete_research_project",
+        "line": 129,
+        "calls": [
+          "services.delete_research_project"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "delete_synthesis",
+      "family": "synthesis",
+      "treatment": "action_confirmation",
+      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "delete_synthesis",
+        "line": 135,
+        "calls": [
+          "services.delete_synthesis"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "delete_council",
+      "family": "council",
+      "treatment": "action_confirmation",
+      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "delete_council",
+        "line": 141,
+        "calls": [
+          "services.delete_council"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "persona_deletion_impact",
+      "family": "persona",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "persona_deletion_impact",
+        "line": 147,
+        "calls": [
+          "services.persona_deletion_impact"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "delete_persona",
+      "family": "persona",
+      "treatment": "action_confirmation",
+      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_research.py",
+        "symbol": "delete_persona",
+        "line": 154,
+        "calls": [
+          "services.delete_persona_confirmed"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "search",
+      "family": "search",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_retrieval.py",
+        "symbol": "search",
+        "line": 20,
+        "calls": [
+          "services.retrieval_search"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "fetch",
+      "family": "search",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_retrieval.py",
+        "symbol": "fetch",
+        "line": 29,
+        "calls": [
+          "services.retrieval_fetch"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "create_section",
+      "family": "section",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "create_section",
+        "line": 15,
+        "calls": [
+          "services.create_section"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "update_section",
+      "family": "section",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "update_section",
+        "line": 28,
+        "calls": [
+          "services.update_section"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "add_to_section",
+      "family": "section",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "add_to_section",
+        "line": 34,
+        "calls": [
+          "services.add_to_section"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "remove_from_section",
+      "family": "section",
+      "treatment": "action_confirmation",
+      "reason": "Remove membership only; retain nodes and render the resulting Section membership.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "remove_from_section",
+        "line": 40,
+        "calls": [
+          "services.remove_from_section"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "set_section_members",
+      "family": "section",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "set_section_members",
+        "line": 46,
+        "calls": [
+          "services.set_section_members"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "reorder_sections",
+      "family": "section",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "reorder_sections",
+        "line": 52,
+        "calls": [
+          "services.reorder_sections"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_sections",
+      "family": "section",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "list_sections",
+        "line": 58,
+        "calls": [
+          "services.list_sections"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_section",
+      "family": "section",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "get_section",
+        "line": 64,
+        "calls": [
+          "services.get_section"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "delete_section",
+      "family": "section",
+      "treatment": "action_confirmation",
+      "reason": "Delete the Section overlay only; explicitly retain member nodes.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "delete_section",
+        "line": 70,
+        "calls": [
+          "services.delete_section"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_section_kinds",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "suggest_section_kinds",
+        "line": 76,
+        "calls": [
+          "services.suggest_section_kinds"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_section_members",
+      "family": "section",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "get_section_members",
+        "line": 82,
+        "calls": [
+          "services.section_members"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "export_section",
+      "family": "section",
+      "treatment": "export",
+      "reason": "Family document preview/download using native returned export, no automatic arbitrary path/URL fetch or rerun.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "export_section",
+        "line": 88,
+        "calls": [
+          "services.export_section"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "create_note",
+      "family": "note_ideation",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "create_note",
+        "line": 95,
+        "calls": [
+          "services.create_note"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "set_note_data",
+      "family": "note_ideation",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "set_note_data",
+        "line": 106,
+        "calls": [
+          "services.set_note_data"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_notes",
+      "family": "note_ideation",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "supported",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "list_notes",
+        "line": 113,
+        "calls": [
+          "services.list_notes",
+          "services.paginate"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "delete_note",
+      "family": "note_ideation",
+      "treatment": "action_confirmation",
+      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "delete_note",
+        "line": 127,
+        "calls": [
+          "services.delete_note"
+        ],
+        "annotation": "D",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "derive_sections",
+      "family": "section",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "derive_sections",
+        "line": 134,
+        "calls": [
+          "services.derive_sections"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "scaffold_synthesis",
+      "family": "report",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_sections.py",
+        "symbol": "scaffold_synthesis",
+        "line": 142,
+        "calls": [
+          "services.scaffold_synthesis"
+        ],
+        "annotation": "W",
+        "operation_id": true
+      }
+    },
+    {
+      "tool": "brief_day",
+      "family": "memory_calendar",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "brief_day",
+        "line": 13,
+        "calls": [
+          "services.brief_day"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "put_day_plan",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "put_day_plan",
+        "line": 20,
+        "calls": [
+          "services.put_day_plan"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_day",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "record_day",
+        "line": 26,
+        "calls": [
+          "services.record_day"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_day_plan",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_day_plan",
+        "line": 36,
+        "calls": [
+          "services.get_day_plan"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_period",
+      "family": "memory_calendar",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "brief_period",
+        "line": 42,
+        "calls": [
+          "services.brief_period"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "put_period_plan",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "put_period_plan",
+        "line": 50,
+        "calls": [
+          "services.put_period_plan"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_period_plan",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_period_plan",
+        "line": 56,
+        "calls": [
+          "services.get_period_plan"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_period_plans",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "list_period_plans",
+        "line": 62,
+        "calls": [
+          "services.list_period_plans"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_consolidation",
+      "family": "memory_calendar",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "brief_consolidation",
+        "line": 77,
+        "calls": [
+          "services.brief_consolidation"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_memory_deltas",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "record_memory_deltas",
+        "line": 84,
+        "calls": [
+          "services.record_memory_deltas"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_digest",
+      "family": "memory_calendar",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "brief_digest",
+        "line": 92,
+        "calls": [
+          "services.brief_digest"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "put_digest",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "put_digest",
+        "line": 98,
+        "calls": [
+          "services.put_digest"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_digests",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "list_digests",
+        "line": 104,
+        "calls": [
+          "services.list_digests"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "recall_memory",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "recall_memory",
+        "line": 111,
+        "calls": [
+          "services.recall_memory"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_active_projects",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "list_active_projects",
+        "line": 119,
+        "calls": [
+          "services.list_active_projects"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_project",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_project",
+        "line": 125,
+        "calls": [
+          "services.get_project"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_state_at",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_state_at",
+        "line": 131,
+        "calls": [
+          "services.get_state_at"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_timeline",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_timeline",
+        "line": 137,
+        "calls": [
+          "services.get_timeline"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "search_entities",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "search_entities",
+        "line": 150,
+        "calls": [
+          "services.search_entities"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_open_loops",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_open_loops",
+        "line": 156,
+        "calls": [
+          "services.get_open_loops"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "resolve_entity",
+      "family": "memory_calendar",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "resolve_entity",
+        "line": 162,
+        "calls": [
+          "services.resolve_entity"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_persona_memory",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_persona_memory",
+        "line": 168,
+        "calls": [
+          "services.get_persona_memory"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "export_persona_memory",
+      "family": "memory_calendar",
+      "treatment": "export",
+      "reason": "Family document preview/download using native returned export, no automatic arbitrary path/URL fetch or rerun.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "export_persona_memory",
+        "line": 174,
+        "calls": [
+          "services.export_persona_memory"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_month",
+      "family": "memory_calendar",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "brief_month",
+        "line": 182,
+        "calls": [
+          "services.brief_month"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_month_bundle",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "record_month_bundle",
+        "line": 189,
+        "calls": [
+          "services.record_month_bundle"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_current_state",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_current_state",
+        "line": 197,
+        "calls": [
+          "services.get_current_state"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_calendar",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_calendar",
+        "line": 203,
+        "calls": [
+          "services.get_calendar"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_calendar_period",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_calendar_period",
+        "line": 209,
+        "calls": [
+          "services.get_calendar_period"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_activity",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "get_activity",
+        "line": 218,
+        "calls": [
+          "services.get_activity"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "summarize_persona_period",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "summarize_persona_period",
+        "line": 224,
+        "calls": [
+          "services.summarize_persona_period"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "extract_pain_points",
+      "family": "memory_calendar",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_simulation.py",
+        "symbol": "extract_pain_points",
+        "line": 230,
+        "calls": [
+          "services.extract_pain_points"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "substrate_schema",
+      "family": "outcome_contract",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "substrate_schema",
+        "line": 13,
+        "calls": [
+          "services.substrate_schema"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "query_personas",
+      "family": "persona_catalog",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "query_personas",
+        "line": 20,
+        "calls": [
+          "services.query_personas"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "query_projects",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "query_projects",
+        "line": 26,
+        "calls": [
+          "services.query_projects"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "query_councils",
+      "family": "council",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "query_councils",
+        "line": 34,
+        "calls": [
+          "services.query_councils"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "query_syntheses",
+      "family": "synthesis",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "query_syntheses",
+        "line": 43,
+        "calls": [
+          "services.query_syntheses"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_study_result",
+      "family": "project",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "get_study_result",
+        "line": 50,
+        "calls": [
+          "services.get_study_result"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "chat_with_persona",
+      "family": "persona_chat",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "chat_with_persona",
+        "line": 58,
+        "calls": [
+          "services.chat_with_persona"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_chat_turn",
+      "family": "persona_chat",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "record_chat_turn",
+        "line": 66,
+        "calls": [
+          "services.record_chat_turn"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_memory_from_chat",
+      "family": "persona_chat",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "brief_memory_from_chat",
+        "line": 75,
+        "calls": [
+          "services.brief_memory_from_chat"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_memory_proposal",
+      "family": "persona_chat",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "record_memory_proposal",
+        "line": 84,
+        "calls": [
+          "services.record_memory_proposal"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "review_memory_proposal",
+      "family": "persona_chat",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "review_memory_proposal",
+        "line": 93,
+        "calls": [
+          "services.review_memory_proposal"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_memory_proposal",
+      "family": "persona_chat",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "get_memory_proposal",
+        "line": 102,
+        "calls": [
+          "services.get_memory_proposal"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_memory_proposals",
+      "family": "persona_chat",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "list_memory_proposals",
+        "line": 108,
+        "calls": [
+          "services.list_memory_proposals"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_chat",
+      "family": "persona_chat",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "get_chat",
+        "line": 116,
+        "calls": [
+          "services.get_chat"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_chats",
+      "family": "persona_chat",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_substrate.py",
+        "symbol": "list_chats",
+        "line": 122,
+        "calls": [
+          "services.list_chats"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_survey",
+      "family": "survey",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_surveys.py",
+        "symbol": "brief_survey",
+        "line": 19,
+        "calls": [
+          "services.brief_survey"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_survey",
+      "family": "survey",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_surveys.py",
+        "symbol": "record_survey",
+        "line": 28,
+        "calls": [
+          "services.record_survey"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_survey",
+      "family": "survey",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_surveys.py",
+        "symbol": "get_survey",
+        "line": 45,
+        "calls": [
+          "services.get_survey"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_surveys",
+      "family": "survey",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_surveys.py",
+        "symbol": "list_surveys",
+        "line": 51,
+        "calls": [
+          "services.list_surveys"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "export_survey",
+      "family": "survey",
+      "treatment": "export",
+      "reason": "Family document preview/download using native returned export, no automatic arbitrary path/URL fetch or rerun.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_surveys.py",
+        "symbol": "export_survey",
+        "line": 57,
+        "calls": [
+          "services.export_survey"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "import_survey_responses",
+      "family": "survey",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_surveys.py",
+        "symbol": "import_survey_responses",
+        "line": 68,
+        "calls": [
+          "services.import_survey_responses"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "survey_results",
+      "family": "survey",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_surveys.py",
+        "symbol": "survey_results",
+        "line": 81,
+        "calls": [
+          "services.survey_results"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "attach_survey_evidence",
+      "family": "survey",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_surveys.py",
+        "symbol": "attach_survey_evidence",
+        "line": 89,
+        "calls": [
+          "services.attach_survey_evidence"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_primitives",
+      "family": "library_taxonomy",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_taxonomy.py",
+        "symbol": "list_primitives",
+        "line": 12,
+        "calls": [
+          "services.list_primitives"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_forms",
+      "family": "library_taxonomy",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_taxonomy.py",
+        "symbol": "list_forms",
+        "line": 18,
+        "calls": [
+          "services.list_forms"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_form",
+      "family": "library_taxonomy",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_taxonomy.py",
+        "symbol": "get_form",
+        "line": 24,
+        "calls": [
+          "services.get_form"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_forms",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_taxonomy.py",
+        "symbol": "suggest_forms",
+        "line": 30,
+        "calls": [
+          "services.suggest_forms"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "brief_usability_session",
+      "family": "session_flow",
+      "treatment": "context_only",
+      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_usability.py",
+        "symbol": "brief_usability_session",
+        "line": 17,
+        "calls": [
+          "services.brief_usability_session"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_usability_session",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_usability.py",
+        "symbol": "record_usability_session",
+        "line": 31,
+        "calls": [
+          "services.record_usability_session"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_usability_session",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_usability.py",
+        "symbol": "get_usability_session",
+        "line": 58,
+        "calls": [
+          "services.get_usability_session"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "list_usability_sessions",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_usability.py",
+        "symbol": "list_usability_sessions",
+        "line": 65,
+        "calls": [
+          "services.list_usability_sessions"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "suggest_friction_levels",
+      "family": "library_taxonomy",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_usability.py",
+        "symbol": "suggest_friction_levels",
+        "line": 74,
+        "calls": [
+          "services.suggest_friction_levels"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "get_session_funnel",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_usability.py",
+        "symbol": "get_session_funnel",
+        "line": 85,
+        "calls": [
+          "services.get_session_funnel"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "walk_policy_defaults",
+      "family": "session_flow",
+      "treatment": "reference_only",
+      "reason": "Vocabulary/schema/protocol data for authoring or configuration; reuse in family controls/help, no standalone result card.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_walkthrough.py",
+        "symbol": "walk_policy_defaults",
+        "line": 17,
+        "calls": [
+          "services.walk_policy_defaults"
+        ],
+        "annotation": "R",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "walk_open",
+      "family": "session_flow",
+      "treatment": "execution_only",
+      "reason": "Live browser actuation/snapshot control, not a persisted research result; keep controlled execution status, render only recorded session evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_walkthrough.py",
+        "symbol": "walk_open",
+        "line": 27,
+        "calls": [
+          "services.walk_open"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "walk_own",
+      "family": "session_flow",
+      "treatment": "execution_only",
+      "reason": "Live browser actuation/snapshot control, not a persisted research result; keep controlled execution status, render only recorded session evidence.",
+      "status": "not_applicable",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_walkthrough.py",
+        "symbol": "walk_own",
+        "line": 46,
+        "calls": [
+          "services.walk_own"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    },
+    {
+      "tool": "record_actuation_gate",
+      "family": "session_flow",
+      "treatment": "surface",
+      "reason": "Render the native result using this shared semantic product family.",
+      "status": "planned",
+      "native": {
+        "module": "sonaloop/mcp_server/_tools_walkthrough.py",
+        "symbol": "record_actuation_gate",
+        "line": 56,
+        "calls": [
+          "services.record_actuation_gate"
+        ],
+        "annotation": "W",
+        "operation_id": false
+      }
+    }
+  ]
+}

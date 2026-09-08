@@ -83,8 +83,8 @@ def test_limit_is_clamped():
 # --------------------------------------------------------------------------- #
 
 def _call(server, name, args):
-    _, env = asyncio.run(server.call_tool(name, args))
-    return env
+    result = asyncio.run(server.call_tool(name, args))
+    return result.structuredContent if hasattr(result, "structuredContent") else result[1]
 
 
 def test_list_personas_tool_pages_with_stable_cursor(store):

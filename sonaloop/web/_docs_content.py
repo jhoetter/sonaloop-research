@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from . import _docs_styles as _docs_styles  # noqa: F401  (registers hub styles)
 from ._docs_privacy_content import CLOUD_PRIVACY_DE, CLOUD_PRIVACY_EN
+from ._docs_interaction_content import EDITING_SECTION, PERSONA_VIEW_SECTION
 
 # ============================ Page registry ============================ #
 # Ordered: drives the tab bar AND prev/next. Shape: (slug, icon, (label_de, label_en)). "" == Overview.
@@ -667,35 +668,8 @@ INSPECTOR_SECTIONS = [
       "ends it any time. In shared, Postgres row-tenanted Cloud, the tour and onboarding-showcase "
       "browser loader are off by default; `SONALOOP_PRODUCT_TOUR_ENABLED` explicitly overrides "
       "that default.")),
-    ("editing", "pencil",
-     ("Was du bearbeiten kannst", "What you can edit"),
-     ("Der Inspector ist eine Lese-Oberfläche mit einer klaren Grenze: Forschungsartefakte entstehen über deinen Agenten; eine **eigene Persona** kannst du als bewusst ausführliche Ausnahme selbst "
-      "anlegen. Der Flow fragt Alltag, Ziele, Grenzen, Werkzeuge, Sprache, Beziehungen und Evidenz ab und zeigt danach ehrlich, wie viel Memory noch fehlt. Bearbeiten und Löschen "
-      "wohnen im **„…“-Menü**, das jeder Seitenkopf trägt (auch im Panel): **Bearbeiten** öffnet "
-      "einen Dialog direkt über der Seite — Projekt-Titel, Goal und Icon; Notiz- und Section-Metadaten sowie "
-      "Persona-Metadaten (Segment, Branche). Name, Rolle und die kompakten Profilfelder lassen sich zusätzlich direkt im Persona-Profil bearbeiten; das Gesicht öffnet die native Bildgenerierung. Projekt-Icons kannst du dort aus "
-      "dem bestehenden Katalog wählen; ein Klick auf das Header-Icon öffnet denselben Dialog "
-      "direkt am Icon-Picker. Custom-SVGs erzeugt/setzt dein Agent per MCP/CLI. "
-      "**Löschen** öffnet einen Bestätigungs-Dialog. Bei Personas zeigt er zuerst, wie viele Projekte gelöst und welche persönliche Memory entfernt wird; historische Sessions bleiben erhalten, aktive Research-Runs blockieren die Löschung. "
-      "In der Jobliste steht dasselbe ruhige „…“-Menü direkt rechts vom Stern: **Umbenennen** ändert nur den Titel; **Job löschen** entfernt nie gestartete Container endgültig und archiviert Jobs mit abgeschlossener Run-Historie evidenzerhaltend. Aktive Runs bleiben geschützt. Generierter Text — "
-      "Councils, Reports, Prototypen — bleibt unantastbar; Erinnerungen, SOULs und Evidenz komplett.",
-      "The inspector is a reading surface with one clear boundary: research artifacts come from your agent; as one deliberately detailed exception, you can create a **custom persona** yourself. "
-      "The flow asks for everyday context, goals, constraints, tools, language, relationships and evidence, then shows honestly how much memory is still missing. Edit and delete live in the **“…” menu** every "
-      "page header carries (in the side panel too): **Edit** opens a dialog right over the page — "
-      "project title, goal and icon; note and section metadata plus persona metadata (segment, industry). The name, role and compact profile fields can also be edited directly in the persona profile; the face opens native image generation. "
-      "Project icons can be chosen there from the existing catalogue; clicking the header icon "
-      "opens the same dialog directly at the icon picker. Custom SVGs are generated/set by your "
-      "agent through MCP/CLI. **Delete** opens a confirm dialog. For personas it first explains which projects are detached and which personal memory is removed; historical sessions remain and active research runs block deletion. "
-      "The Jobs list repeats the same quiet “…” menu immediately after the star: **Rename** changes only the title; **Delete job** permanently removes never-started containers and evidence-preservingly archives jobs with terminal run history. Active runs stay protected. Generated text — councils, reports, prototypes — stays untouchable; memories, SOULs and "
-      "evidence entirely so.")),
-    ("persona-view", "personas",
-     ("Persona direkt bearbeiten", "Edit a persona directly"),
-     ("Klicke im Persona-Profil auf **Name, Rolle, Alter, Ort, Ziele oder Hürden**, um genau dieses Feld zu ändern. Enter oder ✓ speichert, Esc verwirft die Eingabe. Ein Klick auf das Gesicht öffnet eine kurze Beschreibung und **Generieren**; das neue Bild wird am selben Research-Profil gespeichert. Der Bild-Prompt ändert die Profilbeschreibung nicht. Bei einem Konflikt bleibt deine Eingabe erhalten; **Neu laden** verwirft sie zugunsten des aktuellen Profils. **Status prüfen** liest den gespeicherten Ausgang einer unklaren Aktion und startet keine zweite Generierung. Importierte Profile bleiben lesbar, auch wenn einzelne Feldformen nicht bearbeitbar sind. Ein MCP-Apps-fähiger Host kann dieselbe Persona-Oberfläche anzeigen; andere Hosts erhalten weiterhin die Profilfelder als Text.\n\n"
-      "Unterstützt dein Host die Vorabvorschau, siehst du vor der Bestätigung der Persona-Erstellung eine ausdrücklich ungespeicherte Karte mit Bildplatzhalter. Die Vorschau lässt sich noch nicht bearbeiten und erzeugt kein Bild. Erst das erfolgreiche Speichern schaltet dieselbe Karte für die Bearbeitung frei. Research prüft das Profil beim Speichern und kann Angaben anpassen oder ablehnen. Bei Ablehnung, **Stop** vor der Ausführung oder einem Fehler bleibt die Vorschau mit entsprechendem Hinweis sichtbar; sie behauptet keinen erfolgreichen Speichervorgang.\n\n"
-      "Im optionalen Kunden-Agentchat wird die Nachricht beim Senden sofort aus dem Eingabefeld übernommen. Dein nächster Entwurf bleibt erhalten, während Text und Tool-Fortschritt erscheinen. Erforderliche Bestätigungen stehen direkt bei der vorgeschlagenen Tool-Aktion. **Stop** verhindert weitere Agent-Aktionen; eine bereits laufende Aktion kann noch fertig werden. Gespeicherte Änderungen werden dadurch nicht rückgängig gemacht. Bei einer unterbrochenen Verbindung liest **Status prüfen** den vorhandenen Chat-Stand und sendet keine Aktion erneut. Chat-Verlauf und Wiederherstellung gelten nur für den laufenden Host-Prozess; das Research-Profil bleibt separat gespeichert. Der Referenzhost verwendet standardmäßig GPT-5.6 Terra; im Chat steht das tatsächlich konfigurierte Modell.",
-      "Click **name, role, age, location, goals or everyday challenges** in the persona profile to change that field. Enter or ✓ saves; Esc cancels. Clicking the face opens a short description and **Generate**; the new image is saved on the same Research profile. The image prompt does not change the profile description. A conflict keeps your input; **Reload** discards it in favour of the current profile. **Check status** reads the saved outcome of an uncertain action without generating a second image. Imported profiles stay readable even when an individual field format cannot be edited. An MCP Apps host can show the same persona interface; other hosts still receive the profile fields as text.\n\n"
-      "If your host supports input previews, an explicitly unsaved card with a portrait placeholder appears before you confirm Persona creation. The preview cannot be edited and does not generate an image. A successful save enables editing in the same card. Research validates the profile when saving and may adjust or reject the proposed fields. After a decline, **Stop** before execution, or an error, the preview remains visible with the corresponding notice; it does not claim a successful save.\n\n"
-      "In the optional customer agent chat, sending immediately moves the message out of the composer. Your next draft stays intact while text and tool progress appear. Required approvals sit beside the proposed tool action. **Stop** prevents further agent actions; an action already running may still finish. It does not undo saved changes. After a connection interruption, **Check status** reads the existing chat state without resending an action. Chat history and recovery last for the current host process; the Research profile remains separately stored. The reference host defaults to GPT-5.6 Terra; the chat displays the model actually configured.")),
+    EDITING_SECTION,
+    PERSONA_VIEW_SECTION,
     ("filtering", "filter",
      ("Filtern wie in Linear", "Filtering, Linear-style"),
      ("Job-Outline und Formate tragen eine **Filterleiste**: „Filter“ öffnet das Facetten-Menü "

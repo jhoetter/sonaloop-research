@@ -16,8 +16,8 @@ from sonaloop.mcp_server import build_server
 
 
 def _call(server, name: str, args: dict):
-    _, structured = asyncio.run(server.call_tool(name, args))
-    return structured
+    result = asyncio.run(server.call_tool(name, args))
+    return result.structuredContent if hasattr(result, "structuredContent") else result[1]
 
 
 # ---------- 1. cold start: fresh environment, no .env, no data dir ----------

@@ -127,10 +127,9 @@ def test_catalogue_covers_every_tool_grouped_by_domain():
 
 
 def _call(server, name: str, args: dict):
-    """Call a tool through the live server; FastMCP returns (content, structured) — the
-    structured result is the `_env` envelope the host agent sees."""
-    _, structured = asyncio.run(server.call_tool(name, args))
-    return structured
+    """Normalize both standard FastMCP result variants; keep native envelope assertions."""
+    result = asyncio.run(server.call_tool(name, args))
+    return result.structuredContent if hasattr(result, "structuredContent") else result[1]
 
 
 def test_register_methodology_roundtrip_over_mcp():
