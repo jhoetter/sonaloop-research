@@ -30,7 +30,10 @@ The native avatar remains authoritative. DTOs contain no paths, bearer tokens,
 arbitrary URLs or image bytes. Reads do not repair SOUL or mutate the store.
 
 Every write binds an operation ID to the authenticated actor/workspace and exact
-request digest. Exact retry returns the durable outcome; mismatched reuse fails.
+request digest. Exact retry rechecks current authority and returns the current
+canonical DTO without re-executing the durable operation; mismatched reuse fails.
+Operation inspection retains the outcome status but projects its result from the
+current authorized record, so replay cannot roll the card back to an older DTO.
 Conflicts never overwrite newer values. An unknown provider outcome is durable,
 must be inspected, and is never retried automatically. Existing native write paths
 must share the atomic protection. SOUL must describe the winning native record.
