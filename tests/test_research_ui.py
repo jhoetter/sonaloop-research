@@ -20,6 +20,8 @@ from sonaloop.ui_components.registry import SURFACES
 
 NOTE = {"id": "note_one", "title": "A <script>title</script>", "text": "**Actual** native note", "kind": "note"}
 SECTION = {"id": "section_one", "title": "Research stage", "member_ids": ["note:note_one"], "note": "What we learned"}
+HYPOTHESIS = {"id": "hyp_one", "text": "Handover gets faster", "prediction": {"metric": "minutes", "expected_value": 4}, "status": "open"}
+DECISION = {"id": "dec_one", "title": "Name the handover owner", "decision": "Make responsibility explicit.", "status": "proposed", "based_on": [{"kind": "hypothesis", "id": "hyp_one"}]}
 
 
 def test_cold_product_bootstrap_registers_shared_css_before_shell_digest():
@@ -74,7 +76,19 @@ def test_native_schema_text_and_structured_output_are_unchanged():
 def test_every_registered_surface_has_a_real_projection_and_resource(name):
     server = build_server()
     tool = server._tool_manager._tools[name]
-    if name == "search":
+    if name in {"record_hypothesis", "record_hypothesis_result", "drop_hypothesis"}:
+        data = {"hypothesis": HYPOTHESIS}
+    elif name == "get_hypothesis":
+        data = HYPOTHESIS
+    elif name == "list_hypotheses":
+        data = {"hypotheses": [HYPOTHESIS]}
+    elif name in {"record_decision", "update_decision"}:
+        data = {"decision": DECISION}
+    elif name == "get_decision":
+        data = DECISION
+    elif name == "list_decisions":
+        data = {"decisions": [DECISION]}
+    elif name == "search":
         data = {"results": [{"id": "project:p", "title": "Study", "text": "Actual snippet", "url": "/jobs/p"}]}
     elif name == "fetch":
         data = {"id": "project:p", "title": "Study", "text": "Actual fetched document", "url": "/jobs/p", "metadata": {"kind": "project"}}

@@ -14,52 +14,25 @@ from ._ctx import *  # noqa: F401,F403  (shared render toolkit)
 from .._html import register_css
 from .._presence import HYP_STATUS_COLORS, hypothesis_status_label, hypothesis_status_pill
 from .._render import _refs_line
+from ...ui_components.bets import predicted_text as _hyp_predicted_text, hypothesis_reads
 
 # Card CSS shared by hypothesis AND decision rows (.hyp is the generic artifact card; decisions.py
 # reuses it — co-located here with its primary owner).
 register_css(r"""
 .hyp{border:1px solid var(--line-2);border-radius:9px;padding:10px 14px;margin:8px 0;background:var(--panel)}
 .hyp p{margin:4px 0 0}
-.hypvals{display:flex;gap:16px;flex-wrap:wrap;margin-top:4px;font-size:var(--t-sm)}
 .hyprate{display:flex;gap:10px;align-items:center;margin:6px 0 12px}
 .hypstrip{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line-2);flex:1;max-width:340px}
 .hypseg{height:100%}
 """)
 
 
-def _hyp_predicted_text(pred: dict) -> str:
-    """metric → expectation (value ±tolerance, or the direction word) · confidence."""
-    if "expected_value" in pred:
-        expected = str(pred.get("expected_value"))
-        if pred.get("tolerance"):
-            expected += f' ±{pred["tolerance"]:g}'
-    else:
-        expected = (t("hyp_dir_increase") if pred.get("expected_direction") == "increase"
-                    else t("hyp_dir_decrease"))
-    out = f'{pred.get("metric", "")} → {expected}'
-    conf = pred.get("confidence")
-    if conf is not None:
-        out += f' · {t("hyp_confidence")} {conf:.0%}'
-    return out
-
-
 def _hypothesis_reads(hx: dict, store):
-    """The bet's record reads, shared by the row card and the detail page: predicted vs observed
-    values, the resolution note, the observation's source chip and the derived-from chips."""
-    pred = hx.get("prediction") or {}
-    res = hx.get("result") or {}
-    vals = [h("span", {}, h("span", {"class_": "muted"}, t("hyp_predicted"), ": "),
-              _hyp_predicted_text(pred))]
-    if res:
-        vals.append(h("span", {}, h("span", {"class_": "muted"}, t("hyp_observed"), ": "),
-                      str(res.get("observed_value", ""))))
-    note = (h("p", {"class_": "muted small"}, res["note"])
-            if res.get("note") else None)
-    src = (raw(_refs_line([res["source"]], t("hyp_observed"), store))
-           if res.get("source") else None)
-    derived = (raw(_refs_line(hx["derived_from"], t("rel_based_on"), store))
-               if hx.get("derived_from") else None)
-    return h("div", {"class_": "hypvals"}, fragment(*vals)), note, src, derived
+    """Resolve product references; the shared body receives only supplied values."""
+    result = hx.get("result") or {}
+    source = raw(_refs_line([result["source"]], t("hyp_observed"), store)) if result.get("source") else None
+    derived = raw(_refs_line(hx["derived_from"], t("rel_based_on"), store)) if hx.get("derived_from") else None
+    return hypothesis_reads(hx, source=source, derived=derived)
 
 
 def _hypothesis_row(hx: dict, store, *, title_href: str | None = None,

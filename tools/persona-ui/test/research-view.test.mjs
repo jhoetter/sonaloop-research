@@ -37,8 +37,8 @@ test('logging notification failure cannot erase a successfully rendered native r
   } finally { await session.page.close(); }
 });
 
-test('all four built resources bind the passive manifest, source and declared tools', async () => {
-  for (const family of ['notes', 'sections', 'projects', 'search']) {
+test('all built resources bind the passive manifest, source and declared tools', async () => {
+  for (const family of ['notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions']) {
     const { manifest } = await loadAsset(family, { verifySources: true });
     const tools = declarations.filter(item => item.componentId === manifest.component_id);
     assert.ok(tools.length > 0);
@@ -120,8 +120,24 @@ test('packaged resource keeps hostile result HTML passive inside the MCP Apps sa
   } finally { await session.page.close(); }
 });
 
+test('passive native reference keeps the final qualifier and source anchor after sanitizing', async () => {
+  const session = await openApp(browser, { viewport: { width: 390, height: 900 } });
+  try {
+    await session.send(toolResult(fixtures[0].passive_reference_html));
+    await session.rendered();
+    const text = await session.root.innerText();
+    assert.ok(text.includes('An observation with substantial context. '.repeat(12).trim()));
+    assert.ok(text.includes('Only applies during the pilot.'));
+    assert.equal(await session.root.locator('code').innerText(), 'council:council_real#statement_3');
+    assert.equal(await session.root.locator('[href],[title]').count(), 0);
+    await session.assertPassive();
+  } finally { await session.page.close(); }
+});
+
 for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'sections-empty', 'sections-detail',
-  'projects-ready', 'projects-empty', 'projects-detail', 'search-ready', 'search-empty', 'search-detail'])
+  'projects-ready', 'projects-empty', 'projects-detail', 'search-ready', 'search-empty', 'search-detail',
+  'hypotheses-open', 'hypotheses-observed', 'hypotheses-dropped', 'hypotheses-empty',
+  'decisions-proposed', 'decisions-adopted', 'decisions-superseded', 'decisions-empty'])
   test(`actual packaged MCP Apps bridge renders shared native ${scenario} HTML`, async () => {
     const fixture = fixtures.find(item => item.scenario === scenario);
     const session = await openApp(browser, { family: fixture.family, viewport: { width: 390, height: 844 } });
@@ -154,6 +170,25 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
         const nativeContent = await session.root.evaluate((_, html) => new DOMParser().parseFromString(html, 'text/html').body.firstElementChild.innerHTML, fixture.fetched_content);
         assert.equal(await session.root.locator('.sl-research-note-content').innerHTML(), nativeContent);
         assert.equal(await session.root.getByRole('heading', { name: 'Handover questions' }).count(), 1);
+      } else if (scenario.startsWith('hypotheses-') && scenario !== 'hypotheses-empty') {
+        assert.equal(await session.root.getByRole('heading', { name: 'A named owner reduces handover time' }).count(), 1);
+        const text = await session.root.innerText();
+        assert.ok(text.includes('minutes → 4 ±1 · Confidence 80%'));
+        if (scenario === 'hypotheses-observed') {
+          assert.ok(text.includes('4.5') && text.includes('The pilot falls within the predicted range.'));
+          assert.ok(text.includes('Synthetic observation, not research evidence'));
+        }
+        if (scenario === 'hypotheses-dropped') assert.ok(text.includes('The team no longer uses this handover process.'));
+      } else if (scenario.startsWith('decisions-') && scenario !== 'decisions-empty') {
+        assert.equal(await session.root.getByRole('heading', { name: 'Name a handover owner' }).count(), 1);
+        const text = await session.root.innerText();
+        assert.ok(text.includes('Show the current owner before the next shift begins.'));
+        assert.ok(text.includes('The alternative has no explicit owner.'));
+        assert.ok(text.includes('hyp_fixture'));
+        if (scenario === 'decisions-superseded') {
+          assert.equal(await session.root.locator('.sl-research-card').count(), 2);
+          assert.equal(await session.root.getByRole('heading', { name: 'Make the current owner visible' }).count(), 1);
+        }
       } else assert.equal(await session.root.locator('.sl-research-empty').count(), 1);
       assert.ok(await session.frame.locator('html').evaluate(node => node.scrollWidth <= innerWidth));
       const box = await session.root.boundingBox();

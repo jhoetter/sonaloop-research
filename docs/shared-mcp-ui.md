@@ -89,13 +89,26 @@ accepted human review remain separate from the ledger's classifications.
 
 ## Passive shared views
 
-Notes, Sections, Projects and Search have passive MCP resources registered on
+Notes, Sections, Projects, Search, Hypotheses and Decisions have passive MCP resources registered on
 existing native tools. `registry.py` names each exact tool/result projection;
 only those names receive `supported` rows. The Note and Section detail pages,
 Project heading and server-rendered command-palette hit content call the same
 functions as these resources. Product navigation and native editing stay in their
 existing adapters. This is shared semantic content, not a copy of the complete
 product shell inside chat.
+
+Hypothesis views use the product's prediction/observation body and display the
+recorded status; they never recalculate a verdict. A dropped hypothesis includes
+its native retirement note in both product and App. Decision views reuse the
+decision body, evidence references, rejected alternatives and supersession links.
+The product adapter resolves references before rendering. Passive Apps show only
+references supplied in the result; they do not resolve missing records or titles.
+Their reference mode keeps full supplied text and `kind:id#anchor` visible because
+the passive surface does not have the product's tooltip or deep-link affordance.
+Long decision text stays fully visible because the passive App has no expand action.
+When a native supersession result supplies both predecessor and successor, both
+records are shown. Writer results are projected from their actual nested
+`hypothesis` or `decision` object; read and list envelopes retain their native shapes.
 
 The MCP adapter calls each original native function once. FastMCP's original
 input/output metadata remains in place, including the bare `search` and `fetch`

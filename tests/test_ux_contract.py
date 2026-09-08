@@ -64,7 +64,7 @@ ALLOWED_CLASS_TOKENS = {
     # project page: outline chrome (the spatial graph view + its toolbar/panel retired)
     "proj", "proj-head", "protoframe",
     # hypothesis/decision cards (.hyp co-located in pages/hypotheses.py)
-    "hyp", "hyprate", "hypseg", "hypstrip", "hypvals",
+    "hyp", "hyprate", "hypseg", "hypstrip",
     # councils: turns/head-to-head tables (the votebar retired with the P3 Library rows)
     "turn-refs", "turn-who", "h2h-pref", "h2h-table", "qhead", "qnum",
     # persona memory page

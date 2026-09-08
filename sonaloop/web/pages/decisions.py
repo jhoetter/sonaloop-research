@@ -15,39 +15,15 @@ from ._ctx import *  # noqa: F401,F403  (shared render toolkit)
 from .. import ui
 from .._presence import decision_status_pill
 from .._render import render_ref
+from ...ui_components.bets import decision_reads
 
 
 def _decision_reads(d: dict, store, by_id: dict, *, clamp_at: int = ui.CLAMP_THRESHOLD,
                     dec_href=lambda oid: f"#dec-{oid}"):
-    """The decision's record reads, shared by the row card and the detail page: the clamped ADR
-    body, evidence chips (render_ref deep-links into the source studies), rejected alternatives
-    with their why-not notes, and the supersede links in both directions (`dec_href` decides
-    whether those address the in-page anchor or the sibling's detail page)."""
-    # ADR bodies are LONG by design (ranking rationales, shortlist, must-haves) — ui.clamp keeps
-    # the record scanning like a row: 5 lines + an expand toggle above the threshold, a plain
-    # paragraph below it (no toggle chrome for three lines of text). UX contract C6.
-    body = ui.clamp(d.get("decision", ""), threshold=clamp_at)
-    # the line's lead label already states the role — the chips drop their "· based on"/
-    # "· rejected" suffix (round-3 craft: no label said twice in one line)
-    based = h("p", {"class_": "muted small turn-refs"},
-              t("rel_based_on"), ": ",
-              fragment(*(raw(render_ref(r, store, show_role=False))
-                         for r in d.get("based_on") or [])))
-    rejected = fragment(*(
-        h("p", {"class_": "muted small turn-refs"},
-          t("dec_rejected"), ": ", raw(render_ref(r, store, show_role=False)),
-          (f' — {r["note"]}' if r.get("note") else ""))
-        for r in d.get("rejected") or []))
-    def _link(oid: str, label: str) -> str:
-        return h("p", {"class_": "muted small"}, label, ": ",
-                 h("a", {"href": dec_href(oid)}, (by_id.get(oid) or {}).get("title", oid)))
-
-    links = []
-    if d.get("superseded_by"):
-        links.append(_link(d["superseded_by"], t("dec_superseded_by")))
-    if d.get("supersedes"):
-        links.append(_link(d["supersedes"], t("dec_supersedes")))
-    return body, based, rejected, fragment(*links)
+    """Resolve product references before entering the shared pure renderer."""
+    return decision_reads(d, based=[raw(render_ref(ref, store, show_role=False)) for ref in d.get("based_on") or []],
+                          rejected=[raw(render_ref(ref, store, show_role=False)) for ref in d.get("rejected") or []],
+                          by_id=by_id, clamp_at=clamp_at, dec_href=dec_href)
 
 
 def _decision_row(d: dict, store, by_id: dict, *, title_href: str | None = None,

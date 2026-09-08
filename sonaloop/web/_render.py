@@ -178,7 +178,20 @@ def _trim(text: str, n: int = 110) -> str:
     return s[:n].rsplit(" ", 1)[0].rstrip(" ,;:·–—-") + "…"
 
 
-def render_ref(r: dict, store=None, *, show_role: bool = True) -> str:
+def _passive_ref(r: dict, *, show_role: bool) -> str:
+    """Full supplied reference for a surface without tooltips or navigation."""
+    address = f'{r.get("kind", "")}:{r["id"]}' if r.get("id") else ""
+    if address and r.get("anchor"):
+        address += f'#{r["anchor"]}'
+    texts = list(dict.fromkeys(str(r[key]) for key in ("quote", "text") if r.get(key)))
+    return h("span", {"class_": "sl-research-reference"},
+             [h("span", {}, text) for text in texts],
+             h("code", {}, address) if address else None,
+             h("span", {"class_": "muted small"}, str(r["role"]).replace("_", " "))
+             if show_role and r.get("role") else None)
+
+
+def render_ref(r: dict, store=None, *, show_role: bool = True, passive: bool = False) -> str:
     """A cross-reference chip (spec/artifact-cross-references.md). With a `store` and a record-pointing
     Ref, it RESOLVES the addressed artifact/part LIVE — showing the current persona/title + the typed
     role + a deep-link to the part (never a stale copy); a broken ref renders honestly. Without a store
@@ -187,7 +200,11 @@ def render_ref(r: dict, store=None, *, show_role: bool = True) -> str:
     "Open loop:" marker as a localized quiet label, and the body is word-trimmed with the full text
     on the tooltip. The kind→route mapping lives in the domain layer (artifacts.ref_href) so no kind
     literal is hardcoded here. `show_role=False` drops the typed-role suffix — for chip groups whose
-    lead label already states the role ("Based on: …"), where the suffix would just repeat it."""
+    lead label already states the role ("Based on: …"), where the suffix would just repeat it.
+    `passive=True` never resolves: full supplied text and kind:id#anchor remain visible
+    when tooltips and navigation are unavailable."""
+    if passive:
+        return _passive_ref(r, show_role=show_role)
     role = r.get("role") if show_role else None
     rolebit = (" · " + role.replace("_", " ")) if role else ""
     if store is not None and r.get("id") and _A.ref_href(r):
@@ -220,12 +237,12 @@ def render_ref(r: dict, store=None, *, show_role: bool = True) -> str:
              raw(_icon(ico)), " ", ts_html, loop_html, _trim(txt))
 
 
-def _refs_line(refs: list, label: str, store=None) -> str:
+def _refs_line(refs: list, label: str, store=None, *, passive: bool = False) -> str:
     if not refs:
         return ""
     return h("p", {"class_": "muted small turn-refs"},
              h("span", {"class_": "turn-refs__lbl"}, label, ": "),
-             fragment(*(raw(render_ref(r, store)) for r in refs)))
+             fragment(*(raw(render_ref(r, store, passive=passive)) for r in refs)))
 
 
 def render_prompt(p: dict, *, n: int | None = None) -> str:

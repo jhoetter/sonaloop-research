@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Callable
 
 from .library import collection, note_card, section_card
-from . import discovery
+from . import bets, discovery
 
 SCHEMA = "sonaloop.research-presentation.v1"
 
@@ -67,6 +67,13 @@ def _members(value):
 
 
 SURFACES = {
+    **{name: Surface("hypotheses", bets.hypothesis_write) for name in (
+        "record_hypothesis", "record_hypothesis_result", "drop_hypothesis")},
+    "get_hypothesis": Surface("hypotheses", bets.hypothesis),
+    "list_hypotheses": Surface("hypotheses", bets.hypotheses),
+    **{name: Surface("decisions", bets.decision_write) for name in ("record_decision", "update_decision")},
+    "get_decision": Surface("decisions", bets.decision),
+    "list_decisions": Surface("decisions", bets.decisions),
     "create_research_project": Surface("projects", discovery.project),
     "list_research_projects": Surface("projects", discovery.projects),
     "search": Surface("search", discovery.search),

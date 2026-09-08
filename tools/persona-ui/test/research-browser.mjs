@@ -138,6 +138,7 @@ sys.addaudithook(audit)
 from sonaloop.ui_components.registry import render_tool, SURFACES
 from sonaloop.ui_components.library import note_content
 from sonaloop.ui_components.discovery import project_heading, search_hit_content
+from sonaloop.web._render import render_ref
 from sonaloop.web._i18n import _UI_LANG
 _UI_LANG.set("en")
 note = {"id": "note_fixture", "kind": "observation", "title": "Handover needs a visible owner",
@@ -152,6 +153,17 @@ project = {"id": "project_fixture", "title": "Understanding shift handovers",
 hit = {"id": "project:project_fixture", "title": project["title"], "text": project["goal"], "url": "/projects/project_fixture"}
 fetched = {**hit, "text": "## Handover questions\n\nWhat context helps the next shift?\n\n- Who owns the open issue?\n- What has already been checked?\n\n**Fixture:** this is a readable example, not collected research.",
            "metadata": {"kind": "project"}}
+hypothesis = {"id": "hyp_fixture", "text": "A named owner reduces handover time",
+              "prediction": {"metric": "minutes", "expected_value": 4, "tolerance": 1, "confidence": .8},
+              "status": "open", "result": None, "derived_from": [{"kind": "council", "id": "council_fixture"}]}
+resolved = {**hypothesis, "status": "validated", "result": {"observed_value": 4.5,
+            "note": "The pilot falls within the predicted range.", "source": {"kind": "external", "text": "Synthetic observation, not research evidence"}}}
+dropped = {**hypothesis, "status": "dropped", "drop_note": "The team no longer uses this handover process."}
+decision = {"id": "dec_fixture", "title": "Name a handover owner", "decision": "Show the current owner before the next shift begins.\nKeep unresolved questions visible.",
+            "status": "proposed", "based_on": [{"kind": "hypothesis", "id": "hyp_fixture"}],
+            "rejected": [{"kind": "council", "id": "council_fixture", "note": "The alternative has no explicit owner."}]}
+adopted = {**decision, "status": "adopted"}
+successor = {**adopted, "id": "dec_next", "title": "Make the current owner visible", "supersedes": "dec_fixture"}
 specs = [
     ("notes-ready", "notes", "list_notes", {"project_id": "project_fixture"}, {"items": [note], "total": 1, "has_more": False}),
     ("notes-empty", "notes", "list_notes", {"project_id": "project_fixture"}, {"items": [], "total": 0, "has_more": False}),
@@ -164,6 +176,14 @@ specs = [
     ("search-ready", "search", "search", {"query": "handover"}, {"results": [hit]}),
     ("search-empty", "search", "search", {"query": "unmatched synthetic phrase"}, {"results": []}),
     ("search-detail", "search", "fetch", {"id": hit["id"]}, fetched),
+    ("hypotheses-open", "hypotheses", "record_hypothesis", {"project_id": "project_fixture", "text": hypothesis["text"], "prediction": hypothesis["prediction"]}, {"hypothesis": hypothesis}),
+    ("hypotheses-observed", "hypotheses", "get_hypothesis", {"hypothesis_id": "hyp_fixture"}, resolved),
+    ("hypotheses-dropped", "hypotheses", "drop_hypothesis", {"hypothesis_id": "hyp_fixture", "note": dropped["drop_note"]}, {"hypothesis": dropped}),
+    ("hypotheses-empty", "hypotheses", "list_hypotheses", {"project_id": "project_fixture"}, {"hypotheses": []}),
+    ("decisions-proposed", "decisions", "record_decision", {"project_id": "project_fixture", **{key: decision[key] for key in ("title", "decision", "based_on", "rejected")}}, {"decision": decision}),
+    ("decisions-adopted", "decisions", "get_decision", {"decision_id": "dec_fixture"}, adopted),
+    ("decisions-superseded", "decisions", "update_decision", {"decision_id": "dec_fixture", "superseded_by": "dec_next"}, {"decision": {**decision, "status": "superseded", "superseded_by": "dec_next"}, "successor": successor}),
+    ("decisions-empty", "decisions", "list_decisions", {"project_id": "project_fixture"}, {"decisions": []}),
 ]
 output = []
 for scenario, family, tool, arguments, data in specs:
@@ -173,7 +193,9 @@ for scenario, family, tool, arguments, data in specs:
                        html=str(html), state=state, note_content=str(note_content(note)),
                        project_heading=str(project_heading(project, level="h2")),
                        search_hit_content=str(search_hit_content(hit["title"], hit["text"])),
-                       fetched_content=str(note_content(fetched))))
+                       fetched_content=str(note_content(fetched)),
+                       passive_reference_html=str(render_ref({"kind": "council", "id": "council_real", "anchor": "statement_3",
+                          "quote": "An observation with substantial context. " * 12 + "Only applies during the pilot."}, passive=True))))
 declarations = [dict(tool=name, componentId=surface.component_id, resourceUri=surface.uri)
                 for name, surface in sorted(SURFACES.items())]
 print(json.dumps(dict(fixtures=output, declarations=declarations)))
