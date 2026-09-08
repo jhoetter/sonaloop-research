@@ -8,6 +8,7 @@ import { ContractError, createPolicy, checkedResource, sha } from './policy.mjs'
 import { json, fail, body, originGuard, createSessions } from './http.mjs';
 import { createAgent } from './agent.mjs';
 import { serveChatStream } from './chat-http.mjs';
+import { MAX_MCP_STDIO_BUFFER_BYTES } from './host-limits.mjs';
 
 const config = JSON.parse(readFileSync(resolve(process.env.MCP_APP_HOST_CONFIG || 'config.json'), 'utf8'));
 const origin = new URL(config.hostOrigin);
@@ -16,8 +17,8 @@ if (!['127.0.0.1','localhost'].includes(origin.hostname) || origin.protocol !== 
     || !config.allowedTools.length || config.allowedTools.length > 64) throw new Error('Explicit loopback origin and bounded tool policy required.');
 const product = config.productProxy && new URL(config.productProxy);
 if (product && (product.protocol !== 'http:' || !['localhost','127.0.0.1'].includes(product.hostname) || product.origin === origin.origin || product.pathname !== '/')) throw new Error('Product proxy must name another loopback HTTP origin.');
-const client = new Client({name:'customer-mcp-app-reference-host',version:'0.1.0'},{capabilities:{extensions:{'io.modelcontextprotocol/ui':{mimeTypes:['text/html;profile=mcp-app']}}}});
-const transport = new StdioClientTransport({command:config.command, args:config.args || [], cwd:config.cwd,
+const client = new Client({name:'customer-mcp-app-reference-host',version:'0.2.0'},{capabilities:{extensions:{'io.modelcontextprotocol/ui':{mimeTypes:['text/html;profile=mcp-app']}}}});
+const transport = new StdioClientTransport({command:config.command, args:config.args || [], cwd:config.cwd, maxBufferSize:MAX_MCP_STDIO_BUFFER_BYTES,
   env:{PATH:process.env.PATH, ...(process.env.OPENAI_API_KEY ? {OPENAI_API_KEY:process.env.OPENAI_API_KEY} : {}), ...config.env}, stderr:'pipe'});
 let server;
 try {
