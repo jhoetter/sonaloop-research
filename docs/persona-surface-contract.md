@@ -65,6 +65,9 @@ Tools `get_persona_surface` and `record_persona_surface` are model-visible.
 `get_persona_surface` is also app-visible so a card can refresh. The resource is
 `ui://sonaloop/persona/v1`, MIME `text/html;profile=mcp-app`. Tool metadata declares
 `_meta.ui.resourceUri` and visibility. Existing native text tools remain compatible.
+The optional `_meta["sonaloop/uiManifestUri"]` points to the read-only JSON resource
+`sonaloop://ui/persona/manifest`, making the packaged build declaration inspectable
+without local source access. It supplies provenance, never runtime permissions.
 
 Successful surface tools return the DTO as `structuredContent` and bounded useful
 text in `content`. The optional validated PNG data URI is private to the rendering

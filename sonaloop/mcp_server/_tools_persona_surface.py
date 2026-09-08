@@ -12,6 +12,8 @@ from ..persona_surface_contract import (
     PersonaSurfaceError,
 )
 
+MANIFEST_URI = "sonaloop://ui/persona/manifest"
+
 
 def _service():
     # Kept lazy so registration and text clients do not initialize a runtime store.
@@ -74,7 +76,8 @@ def _result(invoke):
 
 
 def _ui(*, model: bool = False) -> dict[str, Any]:
-    return {"ui": {"resourceUri": RESOURCE_URI,
+    return {"sonaloop/uiManifestUri": MANIFEST_URI,
+            "ui": {"resourceUri": RESOURCE_URI,
                    "visibility": ["model", "app"] if model else ["app"]}}
 
 
@@ -121,3 +124,8 @@ def register_persona_surface(mcp):
         """The same customer-owned PersonaView used by the Research product page."""
         root = Path(__file__).parent / "ui"
         return (root / "persona.html").read_text(encoding="utf-8")
+
+    @mcp.resource(MANIFEST_URI, name="Persona UI build manifest", mime_type="application/json")
+    def persona_surface_manifest() -> str:
+        """Customer component, source and artifact hashes; a declaration, not a grant."""
+        return (Path(__file__).parent / "ui" / "persona.manifest.json").read_text(encoding="utf-8")

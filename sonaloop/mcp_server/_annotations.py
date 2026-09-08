@@ -247,7 +247,7 @@ TOOL_ANNOTATIONS: dict[str, dict[str, Any]] = {
     "record_persona_voice_check": W("Record persona voice check", idempotent=True),
     "preview_persona_update": R("Preview persona update"),
     "list_personas": R("List personas"),
-    "get_persona_soul": R("Get persona SOUL"),
+    "get_persona_soul": W("Get persona SOUL"),  # verifies/repairs native materialized identity
     "prepare_persona_agent_context": R("Prepare persona agent context"),
     "update_persona": W("Update persona"),  # appends a revision per call → no idempotentHint
     "suggest_tech_comfort": R("Suggest tech-comfort levels"),
