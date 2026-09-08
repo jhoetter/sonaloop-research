@@ -1,18 +1,20 @@
 import {AppBridge} from '@modelcontextprotocol/ext-apps/app-bridge';
 import {JSONRPCMessageSchema} from '@modelcontextprotocol/sdk/types.js';
 const $=id=>document.getElementById(id);
-const views=[];let status,sessionId,busy=false;
+const views=[];let status,sessionId,busy=false,approvalQueue=Promise.resolve();
 const node=(tag,text,cls)=>{const item=document.createElement(tag);if(text!==undefined)item.textContent=text;if(cls)item.className=cls;return item;};
 async function request(path,value){
   const response=await fetch(path,{method:value===undefined?'GET':'POST',credentials:'same-origin',cache:'no-store',headers:value===undefined?{}:{'Content-Type':'application/json','X-Host-CSRF':status.csrf},body:value===undefined?undefined:JSON.stringify(value),signal:AbortSignal.timeout(280000)});
   const data=await response.json();if(!response.ok)throw Object.assign(new Error(data.error?.message || 'Anfrage fehlgeschlagen.'),{code:data.error?.code});return data;
 }
 function confirmAction(approval){
-  return new Promise(resolve=>{
+  const answer=approvalQueue.then(()=>new Promise(resolve=>{
     const dialog=$('approval');$('approval-name').textContent=approval.name;$('approval-args').textContent=JSON.stringify(approval.arguments,null,2);
     const done=value=>{dialog.close();dialog.oncancel=null;$('accept').onclick=null;$('decline').onclick=null;resolve(value);};
     $('accept').onclick=()=>done(true);$('decline').onclick=()=>done(false);dialog.oncancel=event=>{event.preventDefault();done(false);};dialog.showModal();
-  });
+  }));
+  approvalQueue=answer.then(()=>undefined,()=>undefined);
+  return answer;
 }
 const fallback=result=>(result.content || []).filter(item=>item.type==='text').map(item=>item.text).join('\n');
 class OpaqueFrameTransport{

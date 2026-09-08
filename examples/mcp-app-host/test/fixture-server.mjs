@@ -15,7 +15,10 @@ const html='<html><head><meta charset="utf-8"></head><body><p>Loading fixture</p
 const server=new Server({name:'protocol-fixture',version:'1.0.0'},{capabilities:{tools:{},resources:{}}});
 const tools=['fixture_read','fixture_save'].map(name=>({name,description:'Synthetic protocol fixture',inputSchema:{type:'object',properties:{value:{type:'string'}},required:['value'],additionalProperties:false},annotations:{readOnlyHint:name==='fixture_read'},_meta:{ui:{resourceUri:uri,visibility:name==='fixture_read'?['model','app']:['app']}}}));
 server.setRequestHandler(ListToolsRequestSchema,async()=>({tools}));
-server.setRequestHandler(CallToolRequestSchema,async request=>({content:[{type:'text',text:request.params.arguments.value}],structuredContent:{value:request.params.arguments.value},_meta:{private:'fixture-secret'}}));
+server.setRequestHandler(CallToolRequestSchema,async request=>{
+  if(request.params.arguments.value==='fixture-disconnect')process.exit(0);
+  return {content:[{type:'text',text:request.params.arguments.value}],structuredContent:{value:request.params.arguments.value},_meta:{private:'fixture-secret'}};
+});
 server.setRequestHandler(ListResourcesRequestSchema,async()=>({resources:[{uri,name:'Fixture',mimeType:'text/html;profile=mcp-app'}]}));
 server.setRequestHandler(ReadResourceRequestSchema,async()=>({contents:[{uri,mimeType:'text/html;profile=mcp-app',text:html}]}));
 await server.connect(new StdioServerTransport());

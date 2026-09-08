@@ -39,10 +39,10 @@ try {
     const uri = !result.isError && tool?._meta?.ui?.resourceUri;
     const call = {id:randomUUID(), name, arguments:args, result};
     if (typeof uri === 'string' && uri.startsWith('ui://')) {
-      if(views.size>=200) throw new ContractError('view_limit','Zu viele offene Ansichten.',429);
       // Discovery is data. Only resources/read on this connected server is used;
       // no HTTP fetch, filesystem import or catalog service is inferred from metadata.
       try {
+        if(views.size>=200) throw new ContractError('view_limit','Zu viele offene Ansichten.',429);
         const resource = checkedResource(await client.readResource({uri}), uri);
         const viewToken=randomUUID();
         views.set(viewToken,{owner,uri,sha256:resource.sha256,created:Date.now(),calls:0});
@@ -64,6 +64,7 @@ try {
     return view;
   }
   async function invoke(input,owner) {
+    sweep();
     const audience=input.viewToken?'app':'model';
     const view=input.viewToken && getView(input.viewToken,owner);
     const authorization=policy.authorize(input.name,input.arguments,audience,view?.uri);
@@ -78,7 +79,9 @@ try {
       }
       approvals.delete(input.approvalToken);
     }
-    const result=await client.callTool({name:input.name,arguments:input.arguments},undefined,{timeout:240000});
+    let result;
+    try { result=await client.callTool({name:input.name,arguments:input.arguments},undefined,{timeout:240000}); }
+    catch { throw new ContractError('outcome_unknown','Tool-Ausgang unklar. Bitte den gespeicherten Operationsstatus prüfen; die Aktion wird nicht wiederholt.',502); }
     return input.viewToken ? {result} : {call:await grant(input.name,input.arguments,result,owner)};
   }
   server=createServer(async(req,res)=>{

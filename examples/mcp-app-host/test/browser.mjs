@@ -18,7 +18,9 @@ try{
   page.on('pageerror',error=>failures.push(error.message));
   await page.goto(origin);await page.locator('#status').filter({hasText:'verbunden'}).waitFor();
   await page.locator('.tools').evaluate(el=>el.open=true);
-  await page.locator('#tool').selectOption('fixture_read');await page.locator('#arguments').fill(JSON.stringify({value:'Hello <script>fixture</script>'}));await page.locator('#call').click();
+  await page.locator('#tool').selectOption('fixture_read');await page.locator('#arguments').fill(JSON.stringify({value:'Hello <script>fixture</script>'}));
+  const firstCall=page.waitForResponse(response=>response.url().endsWith('/api/host/call'));
+  await page.locator('#call').click();const viewToken=(await (await firstCall).json()).call.viewToken;
   const frame=page.frameLocator('.app-frame');await frame.locator('p').filter({hasText:'Hello <script>fixture</script>'}).waitFor();
   assert.equal(await frame.locator('p').innerText(),'Hello <script>fixture</script>');
   await frame.getByRole('button',{name:'Change fixture'}).click();await page.locator('#approval[open]').waitFor();
@@ -28,6 +30,12 @@ try{
   const denied=await page.request.post(origin+'/api/host/call',{data:{name:'fixture_save',arguments:{value:'bypass'}},headers:{Origin:origin}});assert.equal(denied.status(),403);
   const wrongOrigin=await page.request.get(origin+'/api/host/status',{headers:{Origin:'https://untrusted.example'}});assert.equal(wrongOrigin.status(),403);
   await page.locator('#text-only').check();assert.equal(await page.locator('.app-frame').count(),0);assert.match(await page.locator('.fallback').innerText(),/Changed through MCP/);
+  const hostStatus=await (await page.request.get(origin+'/api/host/status')).json();
+  const headers={Origin:origin,'X-Host-CSRF':hostStatus.csrf};
+  const uncertainInput={viewToken,name:'fixture_save',arguments:{value:'fixture-disconnect'}};
+  const pending=await (await page.request.post(origin+'/api/host/call',{data:uncertainInput,headers})).json();
+  const uncertain=await page.request.post(origin+'/api/host/call',{data:{...uncertainInput,approvalToken:pending.approval.token},headers});
+  assert.equal(uncertain.status(),502);assert.equal((await uncertain.json()).error.code,'outcome_unknown');
   assert.deepEqual(failures,[]);
-  console.log(JSON.stringify({kind:'protocol_fixture',passed:['MCP discovery','opaque same-port AppBridge','literal text','app write confirmation','CSRF bypass rejected','origin guard','text fallback'],providerCalls:0}));
+  console.log(JSON.stringify({kind:'protocol_fixture',passed:['MCP discovery','opaque same-port AppBridge','literal text','app write confirmation','CSRF bypass rejected','origin guard','text fallback','app transport unknown outcome'],providerCalls:0}));
 }finally{await browser?.close();child.kill('SIGTERM');await new Promise(resolve=>{if(child.exitCode!==null)resolve();else{child.once('exit',resolve);setTimeout(()=>{child.kill('SIGKILL');resolve();},3000).unref();}});await rm(dir,{recursive:true,force:true});}

@@ -9,7 +9,7 @@ export function json(res, status, body) {
 export function fail(res, error) {
   json(res, error instanceof ContractError ? error.status : 503, { error: {
     code: error instanceof ContractError ? error.code : 'service_unavailable',
-    message: error instanceof ContractError ? error.message : 'Der Testdienst ist momentan nicht verfügbar. Bitte erneut versuchen.',
+    message: error instanceof ContractError ? error.message : 'Der Testdienst konnte die Anfrage nicht bestätigen. Prüfe bei einer Schreibaktion zuerst den gespeicherten Stand.',
   } });
 }
 export async function body(req, maximumBytes = 16384) {
