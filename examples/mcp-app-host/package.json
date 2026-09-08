@@ -12,7 +12,7 @@
     "config.example.json",
     "web",
     "dist",
-    "package-lock.json"
+    "npm-shrinkwrap.json"
   ],
   "scripts": {
     "build": "node build.mjs",
