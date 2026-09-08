@@ -4,7 +4,19 @@
  * Every SSE data object contains {schemaVersion,seq,sessionId,turnId,type}.
  * - turn.started: {clientTurnId}
  * - text.delta: {partId,delta}
- * - tool.state: {partId,name,state,arguments?,approval?,call?,error?}
+ * - tool.state: {partId,name,state,arguments?,approval?,preview?,previewError?,call?,error?}
+ * preview is {id,name,arguments,argumentsSha256,resourceUri,resourceSha256,
+ *   viewToken,mode:'preview'}. It contains complete validated tool input, never a
+ * synthetic result, native identity or execution grant. Preview tokens are
+ * owner/resource/content-hash/argument-hash bound and permanently deny ALL App
+ * tools/call, including reads. previewError is an optional safe fallback string;
+ * unavailable previews do not grant or block the existing approval decision.
+ * Snapshot tool parts retain preview/previewError. An actual call takes precedence.
+ * A successful execution supplies a fresh live call grant. The host may reuse
+ * the initialized frame only if resourceUri and resourceSha256 still match:
+ * replace its host-side active token, then send the actual tool result. Send
+ * complete tool input exactly once per frame. Decline/Stop before native
+ * admission sends tool-cancelled; an admitted operation retains its real outcome.
  * - turn.paused: {approval:{id,name,arguments,partId}}
  * - turn.finished: {status:'completed'|'stopped'|'failed',error?,responseId?,resolvedModel?,usage?}
  * resolvedModel is the bounded model identifier from a completed provider response,
