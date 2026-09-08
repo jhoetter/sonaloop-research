@@ -24,6 +24,7 @@ _DOMAIN_LABELS = {
     "jobs": "Jobs (presets + sharpen-the-question)",
     "methodology": "Methodologies (plan seeds)",
     "personas": "Personas (profiles + evidence)",
+    "persona_surface": "Shared Persona card (product + MCP App)",
     "catalog": "Persona catalog (browse, recommend & pull from sonaloop-data)",
     "simulation": "Simulation & memory (days/months/recall/timeline)",
     "eval": "Evaluation & critics",

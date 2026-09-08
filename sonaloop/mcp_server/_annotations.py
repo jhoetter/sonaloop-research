@@ -47,6 +47,12 @@ def D(title: str, *, open_world: bool = False, idempotent: bool | None = None) -
 
 
 TOOL_ANNOTATIONS: dict[str, dict[str, Any]] = {
+    # Native shared product/MCP App surface. Visibility is not authorization.
+    "get_persona_surface": R("Open Persona card", idempotent=True),
+    "record_persona_surface": W("Create Persona card", idempotent=True),
+    "update_persona_surface": W("Save Persona card", idempotent=True),
+    "generate_persona_surface_avatar": W("Generate Persona portrait", open_world=True, idempotent=True),
+    "get_persona_surface_operation": R("Inspect Persona operation", idempotent=True),
     # ---- assets (_tools_assets) ----
     "attach_asset": W("Attach project asset", idempotent=True),  # idempotent on content (stable id)
     "attach_prototype_shot": W("Attach prototype screenshot", open_world=True),  # Playwright capture
@@ -225,7 +231,7 @@ TOOL_ANNOTATIONS: dict[str, dict[str, Any]] = {
     # ---- personas (_tools_personas) ----
     "brief_persona": R("Brief persona authoring"),
     "record_persona": W("Record persona"),
-    "get_persona": R("Get persona"),
+    "get_persona": W("Get persona"),  # legacy read can repair SOUL/runtime fields
     "view_persona_avatar": R("View persona avatar"),
     "persona_readiness": R("Assess persona readiness"),
     "brief_persona_memory_onboarding": R("Brief persona memory onboarding"),

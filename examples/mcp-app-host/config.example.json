@@ -1,0 +1,11 @@
+{
+  "hostOrigin": "http://127.0.0.1:16007",
+  "command": "/absolute/customer/venv/bin/sonaloop-mcp",
+  "args": [],
+  "cwd": "/absolute/customer/runtime",
+  "env": {"SONALOOP_DATA_DIR": "/absolute/customer/runtime/data"},
+  "allowedTools": ["brief_persona", "list_personas", "get_persona_surface", "record_persona_surface", "update_persona_surface", "generate_persona_surface_avatar", "get_persona_surface_operation"],
+  "autoApproveTools": [],
+  "model": "gpt-4.1-mini",
+  "productProxy": "http://127.0.0.1:17083"
+}

@@ -1,0 +1,33 @@
+import {mkdtemp,writeFile,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {spawn} from 'node:child_process';
+import assert from 'node:assert/strict';
+import {chromium} from 'playwright-core';
+const root=fileURLToPath(new URL('../',import.meta.url));
+const dir=await mkdtemp(join(tmpdir(),'mcp-host-browser-'));
+const origin='http://127.0.0.1:17461';
+await writeFile(join(dir,'config.json'),JSON.stringify({hostOrigin:origin,command:process.execPath,args:[join(root,'test/fixture-server.mjs')],cwd:root,env:{},allowedTools:['fixture_read','fixture_save'],autoApproveTools:[]}));
+const child=spawn(process.execPath,['server.mjs'],{cwd:root,env:{...process.env,OPENAI_API_KEY:'',MCP_APP_HOST_CONFIG:join(dir,'config.json')},stdio:['ignore','pipe','pipe']});
+let browser;
+try{
+  await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('Host start timeout')),20000);child.stdout.on('data',chunk=>{if(chunk.toString().includes('"ready":true')){clearTimeout(timer);resolve();}});child.once('exit',code=>{clearTimeout(timer);reject(new Error(`Host exit ${code}`));});});
+  browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH || '/home/sonaloop/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome',headless:true});
+  const page=await browser.newPage({viewport:{width:1000,height:1000},reducedMotion:'reduce'});const failures=[];
+  page.on('pageerror',error=>failures.push(error.message));
+  await page.goto(origin);await page.locator('#status').filter({hasText:'verbunden'}).waitFor();
+  await page.locator('.tools').evaluate(el=>el.open=true);
+  await page.locator('#tool').selectOption('fixture_read');await page.locator('#arguments').fill(JSON.stringify({value:'Hello <script>fixture</script>'}));await page.locator('#call').click();
+  const frame=page.frameLocator('.app-frame');await frame.locator('p').filter({hasText:'Hello <script>fixture</script>'}).waitFor();
+  assert.equal(await frame.locator('p').innerText(),'Hello <script>fixture</script>');
+  await frame.getByRole('button',{name:'Change fixture'}).click();await page.locator('#approval[open]').waitFor();
+  await page.locator('#accept').click();await frame.locator('p').filter({hasText:'Changed through MCP'}).waitFor();
+  const isolation=await page.frames().find(f=>f.url().includes('/app-frame/')).evaluate(()=>{let parentDenied=false;try{void parent.document.body;}catch{parentDenied=true;}return{origin:self.origin,parentDenied};});
+  assert.equal(isolation.origin,'null');assert.equal(isolation.parentDenied,true);
+  const denied=await page.request.post(origin+'/api/host/call',{data:{name:'fixture_save',arguments:{value:'bypass'}},headers:{Origin:origin}});assert.equal(denied.status(),403);
+  const wrongOrigin=await page.request.get(origin+'/api/host/status',{headers:{Origin:'https://untrusted.example'}});assert.equal(wrongOrigin.status(),403);
+  await page.locator('#text-only').check();assert.equal(await page.locator('.app-frame').count(),0);assert.match(await page.locator('.fallback').innerText(),/Changed through MCP/);
+  assert.deepEqual(failures,[]);
+  console.log(JSON.stringify({kind:'protocol_fixture',passed:['MCP discovery','opaque same-port AppBridge','literal text','app write confirmation','CSRF bypass rejected','origin guard','text fallback'],providerCalls:0}));
+}finally{await browser?.close();child.kill('SIGTERM');await new Promise(resolve=>{if(child.exitCode!==null)resolve();else{child.once('exit',resolve);setTimeout(()=>{child.kill('SIGKILL');resolve();},3000).unref();}});await rm(dir,{recursive:true,force:true});}

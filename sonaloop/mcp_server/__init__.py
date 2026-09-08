@@ -13,6 +13,7 @@ from ._catalogue import catalogue_data  # public: API-docs / tool-reference gene
 #: (sonaloop-cloud) to wrap their tool results the same way the core tools do.
 tool_response = _env
 from ._tools_personas import register_personas
+from ._tools_persona_surface import register_persona_surface
 from ._tools_catalog import register_catalog
 from ._tools_taxonomy import register_taxonomy
 from ._tools_simulation import register_simulation
@@ -72,6 +73,7 @@ def build_server():
     mcp = FastMCP("sonaloop", instructions=SERVER_INSTRUCTIONS)
 
     register_personas(mcp)
+    register_persona_surface(mcp)
     register_catalog(mcp)
     register_taxonomy(mcp)
     register_simulation(mcp)
