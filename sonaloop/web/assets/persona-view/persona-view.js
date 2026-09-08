@@ -1,4 +1,4 @@
-import { validateSurface } from './persona-contract.js';
+import { validateSurface, validatePreview } from './persona-contract.js';
 import { language, messages } from './persona-i18n.js';
 
 let instances = 0;
@@ -8,8 +8,9 @@ const unknown = error => ['in_progress', 'outcome_unknown', 'request_failed'].in
 
 /** One customer-owned, transport-free view. Adapters return canonical values only. */
 export function createPersonaView(root, options) {
-  validateSurface(options.value);
-  let opts = { ...options }, value = options.value, copy = messages[language(options.locale)];
+  const initialPreview = options.value === undefined ? validatePreview(options.preview) : null;
+  if (!initialPreview) validateSurface(options.value);
+  let opts = { ...options }, value = options.value, preview = initialPreview, copy = messages[language(options.locale)];
   let editor, dialog, busy = '', error, conflict = false, uncertain = false, disposed = false, imageSource = null, imageSequence = 0;
   const prefix = `sl-persona-${++instances}`;
   const card = node('article', 'sl-persona-view');
@@ -18,7 +19,7 @@ export function createPersonaView(root, options) {
   root.replaceChildren(card); card.append(body, status);
   function dirty() { return !!editor || !!dialog || uncertain || ['update', 'generate'].includes(busy); }
   function notifyDirty() { opts.onDirtyChange?.(dirty()); }
-  function writable(field) { return !busy && !uncertain && !conflict && !!opts.actions && (field ? value.capabilities.edit.includes(field) : value.capabilities.generate_avatar); }
+  function writable(field) { return !preview && !busy && !uncertain && !conflict && !!opts.actions && (field ? value.capabilities.edit.includes(field) : value.capabilities.generate_avatar); }
   function report(cause) {
     error = cause; uncertain = uncertain || unknown(cause); conflict = cause?.code === 'conflict';
     notifyDirty(); renderStatus(); updateDisabled();
@@ -31,6 +32,14 @@ export function createPersonaView(root, options) {
   }
   function renderStatus() {
     status.replaceChildren(); card.setAttribute('aria-busy', busy ? 'true' : 'false');
+    card.dataset.mode = preview ? 'preview' : 'persisted';
+    if (preview) {
+      const state = ['cancelled', 'failed'].includes(opts.previewStatus) ? opts.previewStatus : 'pending';
+      card.dataset.previewStatus = state;
+      status.append(node('p', 'sl-persona-view__preview-state', copy[`preview_${state}`]), node('p', '', copy.previewHint));
+      return;
+    }
+    delete card.dataset.previewStatus;
     if (busy) status.append(node('p', '', busy === 'generate' ? copy.generating : copy.saving));
     else if (error) {
       const p = node('p', 'sl-persona-view__error', uncertain ? copy.pending : conflict ? copy.conflict : `${error.message || copy.unavailable} ${copy.retained}`);
@@ -40,12 +49,12 @@ export function createPersonaView(root, options) {
   }
   function renderField(field, tag = 'div') {
     const wrap = node(tag, `sl-persona-view__field sl-persona-view__field--${field}`); wrap.dataset.personaField = field;
-    const v = value.fields[field];
+    const v = (preview || value).fields[field];
     if (field !== 'display_name') wrap.append(node('span', 'sl-persona-view__label', copy[field]));
     const content = node('span', 'sl-persona-view__field-value');
     if (Array.isArray(v) && v.length) { const list = node('ul'); for (const item of v) list.append(node('li', '', item)); content.append(list); }
     else content.textContent = v == null || v === '' || Array.isArray(v) ? copy.empty : String(v);
-    if (value.capabilities.edit.includes(field) && opts.actions?.update) {
+    if (!preview && value.capabilities.edit.includes(field) && opts.actions?.update) {
       const control = button('', `${copy.edit}: ${copy[field]}`, () => editField(field), 'sl-persona-view__edit');
       control.dataset.field = field; control.append(content, node('span', 'sl-persona-view__pencil', '✎')); wrap.append(control);
     } else wrap.append(content);
@@ -56,17 +65,19 @@ export function createPersonaView(root, options) {
     body.replaceChildren();
     const top = node('div', 'sl-persona-view__top');
     const portrait = node('div', 'sl-persona-view__portrait');
-    const avatar = button('', imageSource ? copy.change : copy.create, openPrompt, 'sl-persona-view__avatar'); avatar.dataset.action = 'avatar';
+    const avatar = preview ? node('div', 'sl-persona-view__avatar sl-persona-view__avatar--preview')
+      : button('', imageSource ? copy.change : copy.create, openPrompt, 'sl-persona-view__avatar');
+    if (!preview) avatar.dataset.action = 'avatar';
     if (imageSource) { const img = node('img'); img.src = imageSource; img.alt = `${copy.imageAlt}: ${value.fields.display_name}`; img.width = 320; img.height = 320; avatar.append(img); }
-    else { avatar.append(node('span', 'sl-persona-view__silhouette', '◯'), node('span', '', copy.missing)); }
-    avatar.append(node('span', 'sl-persona-view__avatar-action', imageSource ? copy.change : copy.create));
-    portrait.append(avatar, node('p', 'sl-persona-view__caption', value.avatar.state === 'unavailable' ? copy.unavailable : value.avatar.state === 'stale' ? copy.stale : imageSource ? copy.generated : ''));
-    const identity = node('div', 'sl-persona-view__identity'); identity.append(node('span', 'sl-persona-view__eyebrow', copy.persona), renderField('display_name', 'h2'), renderField('role_title'));
+    else { avatar.append(node('span', 'sl-persona-view__silhouette', '◯'), node('span', '', preview ? copy.previewPortrait : copy.missing)); }
+    if (!preview) avatar.append(node('span', 'sl-persona-view__avatar-action', imageSource ? copy.change : copy.create));
+    portrait.append(avatar, node('p', 'sl-persona-view__caption', preview ? '' : value.avatar.state === 'unavailable' ? copy.unavailable : value.avatar.state === 'stale' ? copy.stale : imageSource ? copy.generated : ''));
+    const identity = node('div', 'sl-persona-view__identity'); identity.append(node('span', 'sl-persona-view__eyebrow', preview ? copy.previewTitle : copy.persona), renderField('display_name', 'h2'), renderField('role_title'));
     const facts = node('div', 'sl-persona-view__facts'); facts.append(renderField('age'), renderField('location')); identity.append(facts); top.append(portrait, identity);
     const lists = node('div', 'sl-persona-view__lists'); lists.append(renderField('goals'), renderField('pain_points'));
-    const details = node('details', 'sl-persona-view__details'); details.append(node('summary', '', copy.details), renderField('portrait_description'), node('p', '', copy.native));
-    if (!opts.actions || !value.capabilities.edit.length) details.append(node('p', '', copy.readonly));
-    for (const warning of [...value.capabilities.reasons, ...value.warnings]) details.append(node('p', '', warning));
+    const details = node('details', 'sl-persona-view__details'); details.append(node('summary', '', copy.details), renderField('portrait_description'), node('p', '', preview ? copy.previewValidation : copy.native));
+    if (!preview && (!opts.actions || !value.capabilities.edit.length)) details.append(node('p', '', copy.readonly));
+    if (!preview) for (const warning of [...value.capabilities.reasons, ...value.warnings]) details.append(node('p', '', warning));
     body.append(top, lists, details); renderStatus(); updateDisabled();
   }
   function cancelEdit() {
@@ -138,7 +149,7 @@ export function createPersonaView(root, options) {
     } catch (cause) { if (!disposed) { busy = ''; report(cause); dialog.feedback.replaceChildren(node('span', '', uncertain ? copy.pending : cause.message || copy.unavailable), button(uncertain ? copy.unknown : copy.refreshDirty, null, refresh, 'sl-persona-view__secondary'));  } }
   }
   async function refresh() {
-    if (busy) return;
+    if (preview || busy) return;
     busy = 'refresh'; renderStatus(); updateDisabled();
     try {
       const result = await opts.actions.refresh(); if (disposed) return;
@@ -161,14 +172,22 @@ export function createPersonaView(root, options) {
     } else if (!source && ['missing', 'unavailable'].includes(value.avatar.state)) imageSource = null;
     if (!disposed && !editor) render();
   }
-  render(); void apply({ value, avatarSource: opts.avatarSource });
+  render(); if (!preview) void apply({ value, avatarSource: opts.avatarSource });
   return {
     update(next) {
       if (disposed) return;
+      if (!preview && next.preview !== undefined) return;
+      if (preview && next.value === undefined) {
+        if (next.preview !== undefined) validatePreview(next.preview);
+        opts = { ...opts, ...next }; copy = messages[language(opts.locale)];
+        render(); return;
+      }
       validateSurface(next.value ?? value, value);
+      preview = null;
       opts = { ...opts, ...next }; copy = messages[language(opts.locale)];
       void apply({ value: next.value ?? value, avatarSource: next.avatarSource === undefined ? imageSource : next.avatarSource });
     },
+    refresh,
     hasUnsavedChanges: dirty,
     dispose() { disposed = true; imageSequence++; if (dialog) { dialog.element.close(); dialog.element.remove(); } editor = undefined; dialog = undefined; opts.onDirtyChange?.(false); root.replaceChildren(); },
   };
