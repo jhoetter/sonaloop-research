@@ -48,6 +48,11 @@ export function createAgent({client, policy, model = 'gpt-5.6-terra', apiKey, gr
     return structuredClone({schemaVersion:TURN_SCHEMA_VERSION,sessionId:turn.sessionId,turnId:turn.id,clientTurnId:turn.clientTurnId,
       status:turn.status,seq:turn.seq,parts:turn.parts,toolInFlight:turn.toolInFlight,...(turn.error ? {error:turn.error} : {})});
   }
+  function requestSnapshot(clientTurnId, owner) {
+    const turn=identifier(clientTurnId) && [...turns.values()].find(item=>item.owner===owner&&item.clientTurnId===clientTurnId);
+    if(!turn) throw new ContractError('turn_missing','Dieser Chat-Schritt ist nicht mehr verfügbar. Aktionen nicht ungeprüft wiederholen.',404);
+    return snapshot(turn.id,owner);
+  }
   function stop(input, owner) {
     const turn = lookup(input.turnId,owner,input.sessionId);
     if (!input.sessionId) throw new ContractError('session_missing','Chat fehlt.',409);
@@ -210,5 +215,5 @@ export function createAgent({client, policy, model = 'gpt-5.6-terra', apiKey, gr
     const turn=turns.get(result.turnId);
     return {sessionId:result.sessionId,turnId:result.turnId,calls,text:result.parts.filter(part=>part.kind === 'text').map(part=>part.text).join('\n'),responseId:turn.responseId,usage:turn.usage,...(approval ? {approval} : {})};
   }
-  return {chat,open,snapshot,stop};
+  return {chat,open,snapshot,requestSnapshot,stop};
 }

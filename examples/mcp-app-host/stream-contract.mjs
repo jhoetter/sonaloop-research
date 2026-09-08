@@ -13,6 +13,10 @@
  * GET /api/host/chat/turns/:turnId returns an owner-bound snapshot with
  * {schemaVersion,sessionId,turnId,clientTurnId,status,seq,parts,error?,toolInFlight}.
  * Parts are {kind:'text',id,text} or {kind:'tool',id,name,state,...toolStateFields}.
+ * GET /api/host/chat/requests/:clientTurnId returns the same snapshot for this
+ * cookie owner when turn.started was lost. It never starts/repeats a request.
+ * Unknown and other-owner request IDs both return turn_missing (404). A 404
+ * alone is not evidence that an earlier network request cannot still be admitted.
  * POST /api/host/chat/stop {sessionId,turnId} returns
  * {sessionId,turnId,status,toolInFlight}. Stop fences future dispatches; already
  * admitted native operations retain their actual result or unknown outcome.

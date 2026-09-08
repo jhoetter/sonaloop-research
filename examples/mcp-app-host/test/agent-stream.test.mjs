@@ -119,3 +119,11 @@ test('incremental reconnect replays exact deltas without duplicating an already 
   replay.subscribe(e=>{if(e.seq>a.seq&&e.type==='text.delta')displayed+=e.delta;});await replay.start();
   assert.equal(displayed,'AB');assert.equal(f.payloads.length,1);
 });
+test('client request lookup is read-only, owner-bound and available before provider execution',async()=>{
+  const f=fixture(),request=f.open();const pending=f.agent.requestSnapshot('client_turn_1','owner');
+  assert.equal(pending.turnId,request.turnId);assert.equal(pending.sessionId,request.sessionId);assert.equal(pending.status,'running');assert.equal(f.payloads.length,0);
+  assert.throws(()=>f.agent.requestSnapshot('client_turn_1','other'),e=>e.code==='turn_missing'&&e.status===404);
+  assert.throws(()=>f.agent.requestSnapshot('missing_turn','owner'),e=>e.code==='turn_missing'&&e.status===404);
+  await request.start();const done=f.agent.requestSnapshot('client_turn_1','owner');assert.equal(done.status,'completed');
+  f.agent.requestSnapshot('client_turn_1','owner');assert.equal(f.invocations.length,1);assert.equal(f.payloads.length,2);
+});

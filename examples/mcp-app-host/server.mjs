@@ -98,6 +98,7 @@ try {
       }
       if(url.pathname.startsWith('/api/host/') || url.pathname.startsWith('/app-frame/')) {
         const session=sessions.session(req,res);
+        if(req.method==='GET' && /^\/api\/host\/chat\/requests\/[a-zA-Z0-9_-]+$/.test(url.pathname)) return json(res,200,agent.requestSnapshot(url.pathname.split('/').at(-1),session.id));
         if(req.method==='GET' && /^\/api\/host\/chat\/turns\/[a-zA-Z0-9_-]+$/.test(url.pathname)) return json(res,200,agent.snapshot(url.pathname.split('/').at(-1),session.id));
         if(req.method==='GET' && url.pathname.startsWith('/app-frame/')) {
           const token=url.pathname.slice('/app-frame/'.length);const view=getView(token,session.id);

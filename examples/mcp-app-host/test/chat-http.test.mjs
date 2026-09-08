@@ -22,6 +22,7 @@ async function fixture(t,{fetcher,invoke=async()=>({content:[{type:'text',text:'
       originGuard(req,origin,req.method==='POST');
       if(req.url==='/status'){const owner=auth.session(req,res,true);return json(res,200,{csrf:owner.csrf});}
       const owner=auth.session(req,res);
+      if(req.method==='GET' && req.url.startsWith('/requests/'))return json(res,200,agent.requestSnapshot(req.url.slice('/requests/'.length),owner.id));
       if(req.method==='GET')return json(res,200,agent.snapshot(req.url.slice(1),owner.id));
       auth.csrf(req,owner);const input=await body(req);
       if(req.url==='/stop')return json(res,200,agent.stop(input,owner.id));
@@ -42,13 +43,19 @@ test('actual HTTP disconnect stops provider dispatch, keeps owner-bound snapshot
   const f=await fixture(t,{fetcher:async()=>new Response(new ReadableStream({start(c){providerController=c;},cancel(){cancelled=true;}}),{headers:{'Content-Type':'text/event-stream'}})});
   const rejected=await f.send({headers:{...f.headers,'X-Host-CSRF':''}});assert.equal(rejected.status,403);assert.equal(f.providerCalls(),0);
   const abort=new AbortController(),response=await f.send({signal:abort.signal});assert.match(response.headers.get('content-type'),/text\/event-stream/);
+  const lookup=await f.read('requests/fixture_client_turn');assert.equal(lookup.schemaVersion,'customer_agent_turn.v1');assert.equal(lookup.clientTurnId,'fixture_client_turn');
   const first=await firstEvent(response);assert.equal(first.event.type,'turn.started');await until(()=>providerController);
+  assert.equal(lookup.turnId,first.event.turnId);
   providerController.enqueue(encoded({type:'response.output_text.delta',item_id:text.id,content_index:0,delta:'Fi'}));
   await first.reader.read();abort.abort();await first.reader.cancel().catch(()=>{});
   let snapshot;await until(()=>cancelled);snapshot=await f.read(first.event.turnId);
   assert.equal(snapshot.status,'stopped');assert.equal(snapshot.parts[0].text,'Fi');assert.equal(f.nativeCalls(),0);
   const foreign=await fetch(`${f.origin}/status`),foreignCookie=foreign.headers.get('set-cookie').split(';')[0];
   const denied=await fetch(`${f.origin}/${first.event.turnId}`,{headers:{Cookie:foreignCookie}});assert.equal(denied.status,404);
+  const deniedRequest=await fetch(`${f.origin}/requests/fixture_client_turn`,{headers:{Cookie:foreignCookie}});assert.equal(deniedRequest.status,404);
+  const missingRequest=await fetch(`${f.origin}/requests/missing_client_turn`,{headers:{Cookie:foreignCookie}});assert.deepEqual(await deniedRequest.json(),await missingRequest.json());
+  const noCookie=await fetch(`${f.origin}/requests/fixture_client_turn`);assert.equal(noCookie.status,401);
+  assert.equal(f.providerCalls(),1);assert.equal(f.nativeCalls(),0);
 });
 test('HTTP disconnect during native work retains actual result and does not start another model round',async t=>{
   const native=Promise.withResolvers();
