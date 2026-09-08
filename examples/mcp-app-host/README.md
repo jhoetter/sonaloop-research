@@ -57,7 +57,11 @@ an external provider, according to its semantics and the customer's policy. The
 chat path uses the [OpenAI Responses function-calling flow](https://developers.openai.com/api/docs/guides/function-calling):
 discovered MCP schemas become function definitions, the host executes chosen calls,
 then returns bounded tool output to the model. `store:false`, serial tool calls and
-round/context limits are set. `OPENAI_MODEL` overrides the configured model.
+round/context limits are set. The default is **GPT-5.6 Terra** (`gpt-5.6-terra`),
+with explicit `reasoning.effort: none` to preserve the prior interactive latency
+baseline. `OPENAI_MODEL` overrides the configured model. No silent fallback to an
+older model occurs. Model access is checked by the real API, not inferred from a
+label in the UI.
 
 ## Integration checks
 
@@ -71,3 +75,57 @@ execution. A successful synthetic fixture is not proof of a real provider call o
 third-party host support. For a release, install the customer wheel outside its
 checkout, inspect tools/list + resources/read, compare product/card native changes,
 and test with the capture/governance service unreachable.
+
+## Chat interaction and recovery
+
+The composer clears the submitted text immediately and keeps focus. You can write
+another draft while the response streams; finishing, stopping or approving the
+current turn never erases that draft. Enter sends, Shift+Enter inserts a newline,
+and IME composition does not submit. New chat resets the conversation after active
+work finishes; unsaved edits in an MCP App must be completed first.
+
+Text, tool preparation/execution/results and follow-up text arrive in chronological
+parts. Tool details are collapsed by default. Customer MCP App frames remain
+mounted while text streams, preserving their edit state. Write approvals appear
+inside the corresponding tool step. App-initiated writes retain their exact generic
+confirmation dialog. Tools and connection settings live behind the header button.
+
+Scrolling follows new content only while you are near the bottom. After scrolling
+up, use **Zur neuesten Nachricht** to follow again. The composer remains at the
+bottom of short/mobile viewports. Markdown is parsed with pinned Marked and
+sanitized with DOMPurify; arbitrary HTML, embedded media, scripts and event handlers
+are not admitted into the chat DOM. Executable customer UI remains in its separate
+opaque MCP App sandbox.
+
+**Stop** requests a server-side fence against future work. A tool that already
+started may still finish; its actual result is retained and the UI says so.
+Stopping is not a rollback. If the stream disconnects, the host reads the saved turn
+snapshot to recover completed effects, without repeating the original request.
+The same browser can resolve its `clientTurnId` if the connection broke before
+the first event. Unreachable status offers **Status prüfen**; it does not cause
+an automatic POST retry. Text-only mode hides an existing App without remounting it.
+Provider failures after a successful tool preserve its visible result/card.
+The local host keeps bounded in-memory sessions/turns, not durable chat history
+across host restarts (20 sessions, 40 turns per process). Native customer operations
+retain their own durable authority. Displayed call payloads are bounded to 12 MiB
+each and 48 MiB in aggregate per agent, including private rendering metadata.
+A completed oversized result has an explicit text fallback; it never triggers a
+repeat action. These limits also accommodate customer images encoded as data.
+
+`stream-contract.mjs` describes the generic SSE/event/snapshot contract. The
+production stream is actual OpenAI Responses + connected MCP execution. The
+[shadcn AI SDK helper](https://ui.shadcn.com/docs/helpers/ai-sdk) informed the chat,
+message-part, tool-state and approval interaction patterns; its predefined demo
+transport is not used as a production agent. The existing framework-free host
+keeps the customer package independent of a frontend framework migration.
+
+Run the additional deterministic browser journey with `npm run test:chat-browser`.
+It uses the real host, MCP fixture and AppBridge with a clearly synthetic provider
+stream. It checks draft preservation, streamed text, inline approval, stable card
+mounts, Stop, retained effects on failure, markdown and small viewports. No real
+provider call or customer data write occurs in that test. `CHROMIUM_PATH` can name
+an installed browser. The optional `HOST_UX_SCREENSHOTS` directory receives evidence.
+
+Transport-failure regressions run with `npm run test:chat-recovery-browser`: stale
+snapshots, recoverable approval, manual status recovery, early Stop and stable App
+identity. These use injected local failures and make no real provider calls.

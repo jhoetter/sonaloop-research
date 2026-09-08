@@ -1,6 +1,26 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MCP App · Kunden-Agent</title><link rel="stylesheet" href="/style.css"><script type="module" src="/host.js"></script></head>
-<body><main><header><p class="eyebrow">KUNDENEIGENE MCP APPS</p><h1>Mit deinem Produkt arbeiten.</h1><p id="status" role="status">MCP wird verbunden …</p><label><input id="text-only" type="checkbox"> Nur Text</label></header>
-<section id="messages" aria-live="polite"></section><p id="error" role="alert" hidden></p>
-<form id="chat"><label for="prompt">Deine Nachricht</label><textarea id="prompt" rows="3" placeholder="Was möchtest du im verbundenen Produkt tun?"></textarea><div class="row"><span id="model"></span><button id="send" type="submit">Senden ↑</button></div><p class="hint">Modellaufrufe können Kosten auslösen. Der API-Schlüssel bleibt auf dem Server.</p></form>
-<details class="tools"><summary>Verbundenes MCP direkt testen</summary><label for="tool">Freigegebenes Tool</label><select id="tool"></select><label for="arguments">Argumente (JSON)</label><textarea id="arguments" rows="5">{}</textarea><button id="call" type="button">Tool aufrufen</button><p class="hint">Der direkte Test verwendet kein Sprachmodell. Ein Tool kann selbst einen externen Dienst aufrufen.</p></details></main>
-<dialog id="approval"><h2>Tool-Aktion ausführen?</h2><p id="approval-name"></p><pre id="approval-args"></pre><div class="row"><button id="decline" type="button">Abbrechen</button><button id="accept" type="button">Ausführen</button></div></dialog></body></html>
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Produkt-Agent</title><link rel="stylesheet" href="/style.css"><script type="module" src="/host.js"></script></head>
+<body>
+<div class="chat-shell">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" data-icon="spark"></span><div><strong>Produkt-Agent</strong><p id="status" role="status">Verbindung wird hergestellt …</p></div></div>
+    <nav aria-label="Chat"><button id="new-chat" aria-label="Neuer Chat" class="quiet-button" type="button"><span data-icon="plus"></span><span>Neuer Chat</span></button><button id="connection" class="icon-button" type="button" title="Tools und Verbindung" aria-label="Tools und Verbindung"><span data-icon="settings"></span></button></nav>
+  </header>
+  <main id="scroll-area" aria-label="Unterhaltung">
+    <div class="conversation">
+      <section id="welcome" class="welcome"><span class="welcome-mark" data-icon="spark"></span><h1>Was möchtest du erledigen?</h1><p>Arbeite mit deinem Produkt direkt im Chat.</p><div class="suggestions"><button type="button" data-prompt="Was kann ich mit dem verbundenen Produkt machen?">Möglichkeiten entdecken <span>↗</span></button><button type="button" data-prompt="Zeige mir vorhandene Inhalte, die ich hier bearbeiten kann.">Inhalte ansehen <span>↗</span></button></div></section>
+      <section id="messages" role="log" aria-label="Chatverlauf" aria-live="off" aria-relevant="additions"></section>
+    </div>
+  </main>
+  <footer class="composer-area">
+    <button id="to-latest" class="latest-button" type="button" hidden><span data-icon="down"></span>Zur neuesten Nachricht</button>
+    <div id="error" class="connection-error" role="alert" hidden></div>
+    <form id="chat"><label class="sr-only" for="prompt">Deine Nachricht</label><textarea id="prompt" rows="1" maxlength="4000" placeholder="Schreib eine Nachricht …" autofocus></textarea><div class="composer-toolbar"><span class="model-label"><span data-icon="spark"></span><span id="model">Modell wird geladen</span></span><div class="composer-actions"><span id="draft-hint"></span><button id="stop" class="send-button" type="button" aria-label="Antwort stoppen" title="Antwort stoppen" hidden><span data-icon="stop"></span></button><button id="send" class="send-button" type="submit" aria-label="Nachricht senden" title="Nachricht senden" disabled><span data-icon="arrow"></span></button></div></div></form>
+    <p class="composer-hint"><span>Enter sendet · Shift + Enter für eine neue Zeile</span><span>KI kann Fehler machen.</span></p>
+  </footer>
+</div>
+<p id="announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+<dialog id="connection-dialog" class="settings-dialog" aria-labelledby="connection-title"><header class="dialog-heading"><h2 id="connection-title">Tools und Verbindung</h2><button id="close-connection" class="icon-button" type="button" aria-label="Schließen"><span data-icon="close"></span></button></header><p id="connection-info"></p><label class="toggle"><input id="text-only" type="checkbox"><span>Nur Textantworten anzeigen</span></label><p class="hint">Interaktive Ansichten kommen vom verbundenen MCP-Server.</p><details class="tools"><summary>Tool direkt testen</summary><p class="hint">Ohne Sprachmodell. Ein Tool kann selbst einen externen Dienst aufrufen.</p><label for="tool">Freigegebenes Tool</label><select id="tool"></select><label for="arguments">Argumente (JSON)</label><textarea id="arguments" rows="5">{}</textarea><button id="call" class="primary-button" type="button">Tool aufrufen</button></details><p class="hint">Modellaufrufe können Kosten auslösen. Der API-Schlüssel bleibt auf dem Server.</p></dialog>
+<dialog id="approval" aria-labelledby="approval-title"><header class="dialog-heading"><h2 id="approval-title">Aktion bestätigen</h2></header><p id="approval-name"></p><pre id="approval-args"></pre><div class="dialog-actions"><button id="decline" class="quiet-button" type="button">Ablehnen</button><button id="accept" class="primary-button" type="button">Ausführen</button></div></dialog>
+</body></html>

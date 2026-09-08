@@ -17,7 +17,7 @@ try{
   const page=await browser.newPage({viewport:{width:1000,height:1000},reducedMotion:'reduce'});const failures=[];
   page.on('pageerror',error=>failures.push(error.message));
   await page.goto(origin);await page.locator('#status').filter({hasText:'verbunden'}).waitFor();
-  await page.locator('.tools').evaluate(el=>el.open=true);
+  await page.locator('#connection').click();await page.locator('.tools').evaluate(el=>el.open=true);
   await page.locator('#tool').selectOption('fixture_read');await page.locator('#arguments').fill(JSON.stringify({value:'Hello <script>fixture</script>'}));
   const firstCall=page.waitForResponse(response=>response.url().endsWith('/api/host/call'));
   await page.locator('#call').click();const viewToken=(await (await firstCall).json()).call.viewToken;
@@ -29,7 +29,7 @@ try{
   assert.equal(isolation.origin,'null');assert.equal(isolation.parentDenied,true);
   const denied=await page.request.post(origin+'/api/host/call',{data:{name:'fixture_save',arguments:{value:'bypass'}},headers:{Origin:origin}});assert.equal(denied.status(),403);
   const wrongOrigin=await page.request.get(origin+'/api/host/status',{headers:{Origin:'https://untrusted.example'}});assert.equal(wrongOrigin.status(),403);
-  await page.locator('#text-only').check();assert.equal(await page.locator('.app-frame').count(),0);assert.match(await page.locator('.fallback').innerText(),/Changed through MCP/);
+  await page.locator('#connection').click();await page.locator('#text-only').check();await page.locator('#close-connection').click();assert.equal(await page.locator('.app-frame').isVisible(),false);assert.match(await page.locator('.fallback').innerText(),/Changed through MCP/);
   const hostStatus=await (await page.request.get(origin+'/api/host/status')).json();
   const headers={Origin:origin,'X-Host-CSRF':hostStatus.csrf};
   const uncertainInput={viewToken,name:'fixture_save',arguments:{value:'fixture-disconnect'}};

@@ -1,65 +1,141 @@
-import {AppBridge} from '@modelcontextprotocol/ext-apps/app-bridge';
-import {JSONRPCMessageSchema} from '@modelcontextprotocol/sdk/types.js';
-const $=id=>document.getElementById(id);
-const views=[];let status,sessionId,busy=false,approvalQueue=Promise.resolve();
-const node=(tag,text,cls)=>{const item=document.createElement(tag);if(text!==undefined)item.textContent=text;if(cls)item.className=cls;return item;};
+import {$,node,icon,toolLabel} from './dom.js';
+import {createAppViews} from './app-view.js';
+import {createConversation} from './conversation.js';
+import {readTurnStream} from './stream.js';
+import {TURN_SCHEMA_VERSION} from '../stream-contract.mjs';
+let status,sessionId,active=null,directBusy=false,draftRevision=0,approvalQueue=Promise.resolve(),conversation,conversationGeneration=0;
+const current=state=>state.generation===conversationGeneration;
+const requestHeaders=()=>({'Content-Type':'application/json','X-Host-CSRF':status?.csrf||''});
 async function request(path,value){
-  const response=await fetch(path,{method:value===undefined?'GET':'POST',credentials:'same-origin',cache:'no-store',headers:value===undefined?{}:{'Content-Type':'application/json','X-Host-CSRF':status.csrf},body:value===undefined?undefined:JSON.stringify(value),signal:AbortSignal.timeout(280000)});
-  const data=await response.json();if(!response.ok)throw Object.assign(new Error(data.error?.message || 'Anfrage fehlgeschlagen.'),{code:data.error?.code});return data;
+  const response=await fetch(path,{method:value===undefined?'GET':'POST',credentials:'same-origin',cache:'no-store',headers:value===undefined?{}:requestHeaders(),body:value===undefined?undefined:JSON.stringify(value),signal:AbortSignal.timeout(280000)});
+  let data;try{data=await response.json();}catch{throw new Error('Verbindung unterbrochen. Der Aktionsstatus ist möglicherweise noch offen.');}
+  if(!response.ok)throw Object.assign(new Error(data.error?.message||'Anfrage fehlgeschlagen.'),{code:data.error?.code});return data;
 }
+function showError(error){$('error').hidden=false;$('error').textContent=error.message||'Verbindung fehlgeschlagen.';}
 function confirmAction(approval){
   const answer=approvalQueue.then(()=>new Promise(resolve=>{
-    const dialog=$('approval');$('approval-name').textContent=approval.name;$('approval-args').textContent=JSON.stringify(approval.arguments,null,2);
+    const dialog=$('approval');$('approval-name').textContent=toolLabel(status,approval.name);$('approval-args').textContent=JSON.stringify(approval.arguments,null,2);
     const done=value=>{dialog.close();dialog.oncancel=null;$('accept').onclick=null;$('decline').onclick=null;resolve(value);};
-    $('accept').onclick=()=>done(true);$('decline').onclick=()=>done(false);dialog.oncancel=event=>{event.preventDefault();done(false);};dialog.showModal();
-  }));
-  approvalQueue=answer.then(()=>undefined,()=>undefined);
-  return answer;
+    $('accept').onclick=()=>done(true);$('decline').onclick=()=>done(false);dialog.oncancel=event=>{event.preventDefault();done(false);};dialog.showModal();$('decline').focus();
+  }));approvalQueue=answer.then(()=>undefined,()=>undefined);return answer;
 }
-const fallback=result=>(result.content || []).filter(item=>item.type==='text').map(item=>item.text).join('\n');
-class OpaqueFrameTransport{
-  constructor(target){this.target=target;this.listener=event=>{if(event.source!==target || event.origin!=='null')return;const parsed=JSONRPCMessageSchema.safeParse(event.data);if(parsed.success)this.onmessage?.(parsed.data);};}
-  async start(){window.addEventListener('message',this.listener);}
-  async send(message){this.target.postMessage(message,'*');}
-  async close(){window.removeEventListener('message',this.listener);this.onclose?.();}
+const apps=createAppViews({request,confirmAction,onChange:()=>conversation?.changed()});
+function resize(){const prompt=$('prompt');prompt.style.height='auto';prompt.style.height=`${Math.min(190,prompt.scrollHeight)}px`;controls();}
+function controls(){
+  const waiting=!!active||directBusy;$('send').hidden=!!active;$('stop').hidden=!active;
+  $('send').disabled=waiting||!status?.providerConfigured||!$('prompt').value.trim();
+  $('stop').disabled=!!active?.stopRequested;$('new-chat').disabled=waiting;
+  $('draft-hint').textContent=waiting&&$('prompt').value?'Entwurf für danach':'';$('call').disabled=waiting;
 }
-async function renderCall(call,parent){
-  const card=node('section',undefined,'card');card.setAttribute('aria-label',`MCP ${call.name}`);
-  const head=node('div',undefined,'card-head');head.append(node('strong',call.name),node('span',call.resourceUri || 'Textantwort'));card.append(head);
-  const appStatus=node('div',call.uiError || 'MCP App wird geladen …','app-status');const slot=node('div');
-  const text=node('div',undefined,'fallback');text.append(node('pre',fallback(call.result)));card.append(appStatus,slot,text);
-  const details=node('details');details.append(node('summary','Aufruf und Ressource prüfen'),node('pre',JSON.stringify({arguments:call.arguments,resourceUri:call.resourceUri,sha256:call.resourceSha256},null,2)));card.append(details);parent.append(card);
-  const view={bridge:null,dirty:false,pending:false,call,slot,text,appStatus};views.push(view);
-  async function mount(){
-    await view.bridge?.close();slot.replaceChildren();text.hidden=false;
-    if(!call.viewToken || $('text-only').checked){appStatus.textContent=call.uiError || 'Textantwort · kein UI-Renderer aktiv';return;}
-    const frame=node('iframe',undefined,'app-frame');frame.title=`${call.name} · MCP App`;frame.setAttribute('sandbox','allow-scripts');frame.referrerPolicy='no-referrer';slot.append(frame);
-    const bridge=new AppBridge(null,{name:'Customer MCP App host',version:'0.1.0'},{serverTools:{},logging:{}},{hostContext:{platform:'web',theme:'light',displayMode:'inline',locale:'de-DE'}});view.bridge=bridge;
-    bridge.oncalltool=async params=>{
-      if(view.pending)return{isError:true,content:[{type:'text',text:'Eine Aktion läuft bereits.'}]};view.pending=true;
-      try{
-        const input={viewToken:call.viewToken,name:params.name,arguments:params.arguments};let data=await request('/api/host/call',input);
-        if(data.approval){if(!await confirmAction(data.approval))return{isError:true,content:[{type:'text',text:'Aktion abgebrochen.'}],structuredContent:{error:{code:'forbidden',message:'Aktion abgebrochen.'}}};data=await request('/api/host/call',{...input,approvalToken:data.approval.token});}
-        if(!data.result.isError){text.querySelector('pre').textContent=fallback(data.result);}
-        return data.result;
-      }catch(error){return{isError:true,content:[{type:'text',text:error.message}],structuredContent:{error:{code:error.code || 'outcome_unknown',message:error.message}}};}finally{view.pending=false;}
-    };
-    bridge.addEventListener('initialized',async()=>{appStatus.textContent='MCP App verbunden';await bridge.sendToolInput({arguments:call.arguments});await bridge.sendToolResult(call.result);});
-    bridge.addEventListener('sizechange',({height})=>{if(Number.isFinite(height))frame.style.height=`${Math.max(200,Math.min(1200,Math.ceil(height)))}px`;});
-    // Generic lifecycle telemetry is optional; no component names or business fields.
-    bridge.addEventListener('loggingmessage',({data})=>{if(data?.event==='view-rendered'){appStatus.textContent='MCP App dargestellt';text.hidden=true;}if(data?.event==='view-dirty' && typeof data.dirty==='boolean')view.dirty=data.dirty;});
-    bridge.onerror=()=>{appStatus.textContent='MCP App nicht verfügbar · Textantwort bleibt sichtbar';text.hidden=false;};
-    await bridge.connect(new OpaqueFrameTransport(frame.contentWindow));frame.src=`/app-frame/${encodeURIComponent(call.viewToken)}`;
-  }
-  view.mount=mount;await mount();
+function serial(state,work){const next=(state.updates||Promise.resolve()).then(work);state.updates=next.catch(()=>{});return next;}
+function applyEvent(state,event){return serial(state,()=>applyEventNow(state,event));}
+async function applyEventNow(state,event){
+  if(!current(state))return;
+  if(state.turnId&&event.turnId!==state.turnId||state.sessionId&&event.sessionId!==state.sessionId)throw new Error('Die Antwort gehört zu einem anderen Chat.');
+  if(event.seq<=state.seq)return;state.seq=event.seq;state.turnId=event.turnId;state.sessionId=event.sessionId;sessionId=event.sessionId;
+  if(event.type==='turn.started'){state.status='running';$('announcer').textContent='Der Agent antwortet.';}
+  else if(event.type==='text.delta')conversation.text(state,event.partId,event.delta);
+  else if(event.type==='tool.state')await conversation.tool(state,event);
+  else if(event.type==='turn.paused'){state.status='waiting_approval';state.progress.hidden=true;$('announcer').textContent='Eine Aktion braucht deine Freigabe.';}
+  else if(event.type==='turn.finished'){state.terminal=true;conversation.finish(state,event.status,event.error);if(active===state)active=null;}
+  controls();
 }
-function message(role,text){const item=node('article',undefined,`message ${role}`);item.append(node('p',text));$('messages').append(item);return item;}
-async function showTurn(turn){sessionId=turn.sessionId;const item=message('assistant',turn.text || 'Tool-Aktion abgeschlossen.');for(const call of turn.calls || [])await renderCall(call,item);if(turn.approval){const accepted=await confirmAction(turn.approval);await showTurn(await request('/api/host/chat',{sessionId,approved:{id:turn.approval.id,accepted}}));}}
-function error(error){$('error').hidden=false;$('error').textContent=error.message || 'Anfrage fehlgeschlagen.';}
-$('chat').addEventListener('submit',async event=>{event.preventDefault();if(busy || !$('prompt').value.trim())return;busy=true;$('send').disabled=true;$('error').hidden=true;const value=$('prompt').value;message('user',value);try{await showTurn(await request('/api/host/chat',{message:value,sessionId}));$('prompt').value='';}catch(e){error(e);}finally{busy=false;$('send').disabled=!status.providerConfigured;}});
-$('prompt').addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey&&!event.isComposing){event.preventDefault();$('chat').requestSubmit();}});
-$('call').addEventListener('click',async()=>{if(busy)return;busy=true;$('call').disabled=true;$('error').hidden=true;try{const input={name:$('tool').value,arguments:JSON.parse($('arguments').value)};let data=await request('/api/host/call',input);if(data.approval){if(!await confirmAction(data.approval))return;data=await request('/api/host/call',{...input,approvalToken:data.approval.token});}await renderCall(data.call,message('assistant','Direkter MCP-Aufruf'));}catch(e){error(e);}finally{busy=false;$('call').disabled=false;}});
-$('text-only').addEventListener('change',async()=>{if(views.some(view=>view.dirty||view.pending)){$('text-only').checked=!$('text-only').checked;error(new Error('Bitte die laufende Bearbeitung zuerst abschließen.'));return;}for(const view of views)await view.mount();});
-window.addEventListener('beforeunload',event=>{if(views.some(view=>view.dirty||view.pending)){event.preventDefault();event.returnValue='';}});
-window.addEventListener('pagehide',()=>{for(const view of views)view.bridge?.close();});
-try{status=await request('/api/host/status');$('status').textContent=`${status.server?.name || 'MCP'} verbunden · ${status.tools.length} freigegebene Tools`;$('model').textContent=status.model;$('send').disabled=!status.providerConfigured;for(const tool of status.tools.filter(tool=>!tool._meta?.ui?.visibility || tool._meta.ui.visibility.includes('model'))){const option=node('option',tool.title || tool.name);option.value=tool.name;$('tool').append(option);}}catch(e){error(e);$('send').disabled=true;}
+async function snapshot(state){
+  if(!current(state))return;
+  const path=state.turnId?`/api/host/chat/turns/${encodeURIComponent(state.turnId)}`:`/api/host/chat/requests/${encodeURIComponent(state.clientTurnId)}`;
+  const value=await request(path);
+  if(!current(state))return;
+  if(value.schemaVersion!==TURN_SCHEMA_VERSION||state.turnId&&value.turnId!==state.turnId||state.sessionId&&value.sessionId!==state.sessionId||!state.turnId&&value.clientTurnId!==state.clientTurnId)throw new Error('Der gespeicherte Status passt nicht zur Anfrage.');
+  const result=await serial(state,async()=>{
+  if(!current(state)||value.seq<state.seq)return value;
+  state.turnId=value.turnId;state.sessionId=value.sessionId;sessionId=value.sessionId;
+  conversation.clearRecovery(state);if(state.recoveryError){if($('error').textContent===state.recoveryError)$('error').hidden=true;state.recoveryError=null;}
+  for(const part of value.parts){if(part.kind==='text')conversation.text(state,part.id,part.text,false);else if(part.kind==='tool')await conversation.tool(state,{...part,partId:part.id,confirmedWaiting:value.status==='waiting_approval'});}
+  state.seq=Math.max(state.seq,value.seq);state.status=value.status;
+  if(['completed','stopped','failed'].includes(value.status)){state.terminal=true;conversation.finish(state,value.status,value.error);if(active===state)active=null;}
+  else if(value.status==='waiting_approval')state.progress.hidden=true;
+  else{state.progress.hidden=false;state.progressText.textContent=value.toolInFlight?'Laufende Aktion wird abgeschlossen …':'Aktionsstatus wird geprüft …';}
+  controls();return value;
+  });
+  if(current(state)&&state.stopRequested&&!state.stopSent&&!state.terminal){state.stopSent=true;try{await request('/api/host/chat/stop',{sessionId:state.sessionId,turnId:state.turnId});}catch(error){state.stopSent=false;throw error;}}
+  return result;
+}
+async function recover(state){
+  if(!current(state)||state.recovering)return;state.recovering=true;
+  try{
+    for(let attempt=0;attempt<100&&current(state);attempt++){
+      try{await snapshot(state);}catch(error){if(!(error.code==='turn_missing'&&!state.turnId&&attempt<7))throw error;}
+      if(state.terminal||state.status==='waiting_approval'&&!state.stopRequested)break;
+      await new Promise(resolve=>setTimeout(resolve,attempt<5?1000:3000));
+    }
+    if(current(state)&&!state.terminal&&state.status!=='waiting_approval')conversation.note(state,'Der Aktionsstatus ist noch offen. Es wurde nichts erneut ausgeführt.',()=>recover(state));
+  }catch(error){if(!current(state))return;conversation.note(state,'Status derzeit nicht erreichbar. Bereits ausgeführte Aktionen werden nicht wiederholt.',()=>recover(state));state.recoveryError=error.message;showError(error);}
+  finally{state.recovering=false;controls();}
+}
+async function stream(state,input){
+  state.controller=new AbortController();state.terminal=false;state.progress.hidden=false;
+  try{
+    const response=await fetch('/api/host/chat',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{...requestHeaders(),Accept:'text/event-stream'},body:JSON.stringify(input),signal:AbortSignal.any([state.controller.signal,AbortSignal.timeout(660000)])});
+    await readTurnStream(response,event=>applyEvent(state,event));
+    if(!state.terminal&&state.status!=='waiting_approval')throw new Error('Die Verbindung wurde vor Abschluss unterbrochen.');
+  }catch(error){
+    if(!current(state))return;
+    if(state.turnId||!error.notAccepted){conversation.note(state,'Verbindung unterbrochen. Der gespeicherte Aktionsstatus wird geprüft.',()=>recover(state));await recover(state);}
+    else{
+      conversation.finish(state,'failed',{message:error.notAccepted?error.message:'Verbindung unterbrochen. Der Ausgang ist unklar; die Anfrage wurde nicht erneut gesendet.'});
+      if(error.notAccepted&&state.draftRevision===draftRevision&&!$('prompt').value){$('prompt').value=state.sentText;resize();}
+      if(active===state)active=null;
+    }
+  }finally{controls();}
+}
+async function approve(state,approval,accepted){
+  if(state.streamingApproval)return;state.streamingApproval=true;active=state;state.status='running';controls();
+  try{await stream(state,{sessionId:state.sessionId,turnId:state.turnId,approved:{id:approval.id,accepted}});}
+  finally{state.streamingApproval=false;}
+}
+conversation=createConversation({getStatus:()=>status,apps,approve,recover});
+$('chat').addEventListener('submit',async event=>{
+  event.preventDefault();const prompt=$('prompt'),message=prompt.value.trim();if(active||directBusy||!status?.providerConfigured||!message)return;
+  $('error').hidden=true;conversation.user(message);active=conversation.turn();
+  Object.assign(active,{seq:-1,generation:conversationGeneration,sentText:prompt.value,draftRevision,clientTurnId:crypto.randomUUID()});
+  prompt.value='';resize();prompt.focus();controls();await stream(active,{message,sessionId,clientTurnId:active.clientTurnId});
+});
+$('prompt').addEventListener('input',()=>{draftRevision++;resize();});
+$('prompt').addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey&&!event.isComposing){event.preventDefault();if(!active&&!directBusy)$('chat').requestSubmit();}});
+$('stop').onclick=async()=>{
+  const state=active;if(!state||state.stopRequested)return;state.stopRequested=true;controls();state.progress.hidden=false;state.progressText.textContent='Stop wird angefordert …';
+  if(!state.turnId){state.controller?.abort();return;}
+  try{
+    state.stopSent=true;const result=await request('/api/host/chat/stop',{sessionId:state.sessionId,turnId:state.turnId});
+    state.progressText.textContent=result.toolInFlight?'Laufende Aktion wird abgeschlossen, danach gestoppt …':'Antwort wird gestoppt …';
+    await recover(state);
+  }catch(error){state.stopRequested=false;state.stopSent=false;showError(error);controls();}
+};
+$('new-chat').onclick=async()=>{
+  if(active||directBusy)return;if(apps.hasWork()){showError(new Error('Bitte die Bearbeitung in der Ansicht zuerst speichern oder abbrechen.'));return;}
+  conversationGeneration++;await apps.clear();conversation.clear();sessionId=undefined;$('error').hidden=true;$('prompt').focus();controls();
+};
+$('connection').onclick=()=>{$('connection-dialog').showModal();};$('close-connection').onclick=()=>{$('connection-dialog').close();};
+$('call').onclick=async()=>{
+  if(active||directBusy)return;directBusy=true;controls();$('error').hidden=true;let state;
+  try{
+    const input={name:$('tool').value,arguments:JSON.parse($('arguments').value)};$('connection-dialog').close();$('welcome').hidden=true;state=conversation.turn();
+    const id=crypto.randomUUID();await conversation.tool(state,{partId:id,name:input.name,state:'running',arguments:input.arguments});
+    let data=await request('/api/host/call',input);
+    if(data.approval){if(!await confirmAction(data.approval)){await conversation.tool(state,{partId:id,name:input.name,state:'denied'});conversation.finish(state,'completed');return;}data=await request('/api/host/call',{...input,approvalToken:data.approval.token});}
+    await conversation.tool(state,{partId:id,name:input.name,state:data.call.result.isError?'failed':'completed',call:data.call});conversation.finish(state,'completed');
+  }catch(error){if(state)conversation.finish(state,'failed',error);else showError(error);}
+  finally{directBusy=false;controls();}
+};
+$('text-only').onchange=async()=>{if(apps.hasWork()){$('text-only').checked=!$('text-only').checked;showError(new Error('Bitte die laufende Bearbeitung zuerst abschließen.'));return;}await apps.setTextOnly();};
+for(const el of document.querySelectorAll('[data-icon]'))el.replaceChildren(icon(el.dataset.icon));
+for(const el of document.querySelectorAll('[data-prompt]'))el.onclick=()=>{if(active)return;$('prompt').value=el.dataset.prompt;draftRevision++;resize();$('prompt').focus();};
+window.addEventListener('beforeunload',event=>{if(active||directBusy||apps.hasWork()){event.preventDefault();event.returnValue='';}});
+window.addEventListener('pagehide',()=>{active?.controller?.abort();void apps.clear();});
+try{
+  status=await request('/api/host/status');const server=status.server?.name||'MCP';$('status').textContent=`${server} · verbunden`;
+  $('connection-info').textContent=`${server} · ${status.tools.length} freigegebene Tools`;$('model').textContent=status.model.replace(/^gpt-/,'GPT-').replace(/-terra$/,' Terra').replace(/-luna$/,' Luna');
+  for(const tool of status.tools.filter(tool=>!tool._meta?.ui?.visibility||tool._meta.ui.visibility.includes('model'))){const option=node('option',tool.title||tool.name);option.value=tool.name;$('tool').append(option);}
+  if(!status.providerConfigured)showError(new Error('Für den Chat ist noch kein API-Schlüssel konfiguriert. Tools kannst du unter „Tools und Verbindung“ direkt testen.'));
+}catch(error){$('status').textContent='Verbindung nicht verfügbar';showError(error);}
+controls();
