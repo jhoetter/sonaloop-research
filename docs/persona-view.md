@@ -17,7 +17,9 @@ description; that field can be edited explicitly under Details.
 The UI preserves typed input and the last confirmed image after failure. A
 conflicting version blocks another save until the user explicitly reloads the
 canonical profile. An uncertain write blocks further writes; Check status reads
-the durable native operation and does not repeat the request or provider call.
+the durable native operation and does not repeat the request or provider call. Closing an editor or prompt does not clear that
+uncertainty: navigation and MCP host dirty-state guards remain active until an
+explicit status read and canonical refresh succeed.
 Imported profile shapes remain readable. Unsupported fields have no edit action;
 capability reasons are available under Details. Profile edits retain native ID
 and slug. An existing face is labelled stale when it belongs to an older profile.
