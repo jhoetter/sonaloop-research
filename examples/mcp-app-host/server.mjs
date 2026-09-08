@@ -17,7 +17,7 @@ if (!['127.0.0.1','localhost'].includes(origin.hostname) || origin.protocol !== 
     || !config.allowedTools.length || config.allowedTools.length > 64) throw new Error('Explicit loopback origin and bounded tool policy required.');
 const product = config.productProxy && new URL(config.productProxy);
 if (product && (product.protocol !== 'http:' || !['localhost','127.0.0.1'].includes(product.hostname) || product.origin === origin.origin || product.pathname !== '/')) throw new Error('Product proxy must name another loopback HTTP origin.');
-const client = new Client({name:'customer-mcp-app-reference-host',version:'0.2.0'},{capabilities:{extensions:{'io.modelcontextprotocol/ui':{mimeTypes:['text/html;profile=mcp-app']}}}});
+const client = new Client({name:'customer-mcp-app-reference-host',version:'0.3.0'},{capabilities:{extensions:{'io.modelcontextprotocol/ui':{mimeTypes:['text/html;profile=mcp-app']}}}});
 const transport = new StdioClientTransport({command:config.command, args:config.args || [], cwd:config.cwd, maxBufferSize:MAX_MCP_STDIO_BUFFER_BYTES,
   env:{PATH:process.env.PATH, ...(process.env.OPENAI_API_KEY ? {OPENAI_API_KEY:process.env.OPENAI_API_KEY} : {}), ...config.env}, stderr:'pipe'});
 let server;
@@ -46,14 +46,29 @@ try {
       try {
         if(views.size>=200) throw new ContractError('view_limit','Zu viele offene Ansichten.',429);
         const resource = checkedResource(await client.readResource({uri}), uri);
+        if(views.size>=200) throw new ContractError('view_limit','Zu viele offene Ansichten.',429);
         const viewToken=randomUUID();
-        views.set(viewToken,{owner,uri,sha256:resource.sha256,created:Date.now(),calls:0});
+        views.set(viewToken,{owner,uri,sha256:resource.sha256,mode:'result',created:Date.now(),calls:0});
         Object.assign(call,{resourceUri:uri,resourceSha256:resource.sha256,viewToken});
       } catch { call.uiError='Die gebundene MCP-App ist nicht verfügbar; Textantwort bleibt verfügbar.'; }
     }
     return call;
   }
-  const agent=createAgent({client,policy,model,apiKey:process.env.OPENAI_API_KEY,grant});
+  async function preparePreview(name,args,owner,{signal}={}) {
+    sweep();policy.authorize(name,args,'model');
+    const uri=policy.tools.find(tool=>tool.name===name)?._meta?.ui?.resourceUri;
+    if(typeof uri!=='string'||!uri.startsWith('ui://'))return;
+    if(views.size>=200)throw new ContractError('view_limit','Zu viele offene Ansichten.',429);
+    const argumentsSha256=sha(args);
+    // Resource inspection only. No model request or tools/call prepares a preview.
+    const resource=checkedResource(await client.readResource({uri},{timeout:10000,signal}),uri);
+    signal?.throwIfAborted();
+    if(views.size>=200)throw new ContractError('view_limit','Zu viele offene Ansichten.',429);
+    const viewToken=randomUUID();
+    views.set(viewToken,{owner,uri,sha256:resource.sha256,mode:'preview',toolName:name,argumentsSha256,created:Date.now(),calls:0});
+    return {id:randomUUID(),name,arguments:args,argumentsSha256,resourceUri:uri,resourceSha256:resource.sha256,viewToken,mode:'preview'};
+  }
+  const agent=createAgent({client,policy,model,apiKey:process.env.OPENAI_API_KEY,grant,preparePreview});
   const csp="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src data: 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
   function staticFile(res,name) {
     res.writeHead(200,{'Content-Type':name.endsWith('.html')?'text/html; charset=utf-8':name.endsWith('.css')?'text/css; charset=utf-8':'text/javascript; charset=utf-8',
@@ -69,6 +84,9 @@ try {
     sweep();
     const audience=input.viewToken?'app':'model';
     const view=input.viewToken && getView(input.viewToken,owner);
+    // This check precedes schema/approval handling and never upgrades. Even reads
+    // are forbidden: a preview can inspect tool input, not invoke the product.
+    if(view?.mode==='preview')throw new ContractError('preview_readonly','Diese Vorschau wurde noch nicht ausgeführt. Tool-Aufrufe sind in ihr nicht freigegeben.',403);
     const authorization=policy.authorize(input.name,input.arguments,audience,view?.uri);
     if(view && ++view.calls>100) throw new ContractError('call_limit','Aufruflimit der Ansicht erreicht.',429);
     if(authorization.confirmation) {
