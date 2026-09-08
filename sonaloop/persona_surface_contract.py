@@ -16,6 +16,8 @@ EDITABLE_FIELDS = (
     "portrait_description",
 )
 MAX_AVATAR_BYTES = 8 * 1024 * 1024
+MAX_AVATAR_DIMENSION = 2048
+MAX_AVATAR_PROMPT = 500
 
 
 class PersonaFields(TypedDict):

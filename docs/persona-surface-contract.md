@@ -69,7 +69,8 @@ Tools `get_persona_surface` and `record_persona_surface` are model-visible.
 Successful surface tools return the DTO as `structuredContent` and bounded useful
 text in `content`. The optional validated PNG data URI is private to the rendering
 host in result `_meta["sonaloop/avatarDataUri"]`. It is not sent in model context.
-The adapter validates byte limits, PNG decode and dimensions before delivery.
+The adapter validates an 8 MiB byte limit, PNG decode and maximum 2048×2048
+dimensions before delivery. User image prompts are limited to 500 characters.
 Errors use `isError: true`, bounded text and `structuredContent.error`.
 Operation inspection returns `{operation_id, status, result?, error?}`; result is
 the safe DTO, never native provider metadata. Terminal statuses are `succeeded`,
@@ -98,7 +99,7 @@ SPA teardown must work. English and German use the native product language.
 The product adapter and MCP adapter import that same source. Product assets use
 content-hashed URLs because the existing static mount caches immutably. The built
 self-contained HTML and a deterministic build manifest are shipped as package
-data under `sonaloop/mcp_server/ui/`. The manifest binds source-file SHA-256s,
+data under `sonaloop/mcp_server/ui/` as `persona.html` and `persona.manifest.json`. The manifest binds source-file SHA-256s,
 component ID, DTO version, resource URI, MIME, HTML bytes hash, fields, actions,
 states and text fallback. Customer CI publishes both assets in the same wheel.
 No build timestamp, absolute checkout path, private runtime data or secret is an
