@@ -13,7 +13,7 @@ sessions) are still created by the MCP/CLI host. This page documents that bounda
 | Entity | Create | Edit | Delete | Notes |
 | --- | --- | --- | --- | --- |
 | Project | ❌ UI (MCP/CLI: `start_project` / `create_research_project`; `POST /jobs/new` stays as API surface) | ✅ title/goal/icon; title-only rename in the Jobs list | ✅ typed-confirmation (type the project title) | the row's `…` menu sits beside Favorite; never-started containers hard-delete, while jobs with terminal run history leave the working set through evidence-preserving archive; active runs remain protected |
-| Persona | ✅ guided detailed intake at `/personas/new`; ✅ catalog import; ✅ MCP `brief_persona` → `record_persona` | ✅ metadata: name, role title, segment, industry | ✅ typed-confirmation with an impact preview | creation yields a validated profile and SOUL, not invented lived memory; readiness makes the remaining depth visible |
+| Persona | ✅ guided detailed intake at `/personas/new`; ✅ catalog import; ✅ MCP `brief_persona` → `record_persona` | ✅ shared Persona view: name, age, location, role title, goals, pain points and portrait description; existing metadata form retains segment/industry | ✅ typed-confirmation with an impact preview | creation yields a validated profile and SOUL, not invented lived memory; explicit portrait generation updates the same native avatar used by product and MCP |
 | Note | ❌ UI (MCP: `create_note`; `POST /jobs/{id}/notes/new` stays as API surface) | ✅ title/text | ✅ | notes are observations the agent records; editing their text in the browser stays fine |
 | Section | ❌ UI (MCP: `create_section`; `POST /jobs/{id}/sections/new` stays as API surface) | ✅ title/kind/note | ✅ (member nodes untouched) | a section is a view; membership editing stays MCP (`add_to_section` …) |
 | Council | ❌ | ❌ | ✅ delete only | statements are generated prose — never editable |
@@ -24,6 +24,34 @@ sessions) are still created by the MCP/CLI host. This page documents that bounda
 The `POST …/new` routes remain registered (CSRF + access-guard gated) so hosts and
 automations keep a stable HTTP surface, but their GET forms are gone and nothing in
 the UI links them.
+
+### Shared Persona view
+
+The product Persona view and its MCP App call the same native service specified in
+`docs/persona-surface-contract.md`. Click a field to edit it, or the portrait to
+describe a new image. Generating an image uses that operation's prompt without
+silently rewriting the stored profile. Provider credentials stay in the customer's
+Research runtime; the product and MCP render the same native avatar.
+
+The JSON adapter exposes `GET /api/personas/{id}/surface`,
+`POST /api/personas/{id}/surface/actions` and
+`GET /api/personas/surface-operations/{operation_id}`. Writes retain the existing
+CSRF and access-guard rules. Each operation binds the authenticated actor, active
+workspace, exact request and native version. A retry returns the current canonical
+record without repeating the operation. Conflicts preserve newer data. An unknown
+image-provider outcome remains visible in native operation history and is never
+automatically retried. Unsupported imported field shapes are shown as unavailable
+for editing, with an explanation; their native values are preserved.
+
+Native writes use optimistic record checks across existing CLI/MCP and browser
+paths. SOUL is staged and published after the winning record commits; a publication
+failure is detected by its stored content hash and repaired by existing explicit
+SOUL/runtime-repair reads. The shared surface read itself performs no repair.
+Portrait files are immutable and content-addressed. A generation based on an older
+profile cannot overwrite an intervening native edit, and failures preserve the
+last confirmed avatar. Image delivery validates PNG decoding, dimensions up to
+2048×2048 and an 8 MiB limit. Native operation history resides in the same Research
+database, under its existing workspace isolation.
 
 ### Product-tour and showcase boundary
 

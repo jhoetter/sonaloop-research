@@ -76,6 +76,8 @@ async def _event_stream(request, last_id: int | None, partition=None, scope=None
 
 
 def register_api(app) -> None:
+    from ._persona_surface_api import register_persona_surface_api
+    register_persona_surface_api(app)
     from fastapi import Query
     from fastapi.responses import JSONResponse, StreamingResponse
 

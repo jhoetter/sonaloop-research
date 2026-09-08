@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import copy
 import hashlib
 import hmac
 from typing import Any
@@ -65,7 +66,7 @@ def _validated_persona_patch(persona: dict[str, Any],
     if "capabilities" in clean:
         clean["capabilities"] = merge_capabilities(  # noqa: F821 (bound)
             persona.get("capabilities"), clean["capabilities"])
-    candidate = json.loads(json.dumps(persona))
+    candidate = copy.deepcopy(persona)
     for key, value in clean.items():
         if isinstance(value, dict) and isinstance(candidate.get(key), dict):
             candidate[key].update(value)
@@ -84,7 +85,7 @@ def preview_persona_update(persona_id: str, patch: dict[str, Any],
                            store: Store | None = None) -> dict[str, Any]:
     """Validate a patch and show a bounded field-level diff without mutating."""
     store = store or Store()
-    persona = store.get_persona(persona_id)
+    persona = store.get_persona_for_active_workspace(persona_id)
     if not persona:
         raise KeyError(f"Unknown persona: {persona_id}")
     if expected_updated_at and expected_updated_at != persona.get("updated_at"):
@@ -118,7 +119,7 @@ def update_persona(persona_id: str, patch: dict[str, Any], reason: str,
                    preview_token: str | None = None,
                    store: Store | None = None) -> dict[str, Any]:
     store = store or Store()
-    persona = store.get_persona(persona_id)
+    persona = store.get_persona_for_active_workspace(persona_id)
     if not persona:
         raise KeyError(f"Unknown persona: {persona_id}")
     if not str(reason or "").strip():

@@ -17,6 +17,7 @@ from ._hypotheses import HypothesesMixin
 from ._memory import MemoryMixin
 from ._personas import PersonasMixin
 from ._persona_lifecycle import PersonaLifecycleMixin
+from ._persona_operations import PersonaOperationsMixin
 from ._prototypes import PrototypesMixin
 from ._research import ResearchMixin
 from ._schema import SCHEMA
@@ -28,6 +29,7 @@ from ._usability_sessions import UsabilitySessionsMixin
 class Store(
     PersonasMixin,
     PersonaLifecycleMixin,
+    PersonaOperationsMixin,
     SimulationMixin,
     CouncilsMixin,
     ResearchMixin,
