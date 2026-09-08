@@ -2,6 +2,9 @@
 from copy import deepcopy
 from importlib import import_module
 from pathlib import Path
+import asyncio
+import hashlib
+import json
 
 import pytest
 
@@ -194,3 +197,69 @@ def test_recorded_trust_and_special_verdicts_are_displayed_without_derivation(mo
     assert "B — Recorded winner" in html and "0.25" in html and "Recorded blocker" in html
     assert "claim-notice--unverified" in html and "Full source qualifier." in html
     assert "<details" not in html
+
+
+def test_native_council_mcp_roundtrip_keeps_sdk_envelopes_and_schemas(store, monkeypatch):
+    from mcp.server.fastmcp import FastMCP
+    from sonaloop import services
+    from sonaloop.mcp_server import build_server, _tools_council
+
+    original = FastMCP("original-council")
+    _tools_council.register_council(original)
+    server = build_server()
+    original_tools = {tool.name: tool for tool in asyncio.run(original.list_tools())}
+    decorated_tools = {tool.name: tool for tool in asyncio.run(server.list_tools())}
+    names = ("record_council", "get_council", "list_councils")
+    for name in names:
+        assert decorated_tools[name].inputSchema == original_tools[name].inputSchema
+        assert decorated_tools[name].outputSchema == original_tools[name].outputSchema
+        assert decorated_tools[name].meta["ui"]["resourceUri"] == "ui://sonaloop/councils/v1"
+
+    # Observe the actual native envelope before presentation decoration, then ask
+    # the original SDK metadata to convert that exact value. No second writer call.
+    envelopes = []
+    native_env = _tools_council._env
+    def capture(name, *args, **kwargs):
+        envelope = native_env(name, *args, **kwargs)
+        envelopes.append((name, deepcopy(envelope)))
+        return envelope
+    monkeypatch.setattr(_tools_council, "_env", capture)
+
+    def call(name, **arguments):
+        result = asyncio.run(server.call_tool(name, arguments))
+        assert not result.isError
+        assert envelopes[-1][0] == name
+        native_content, native_structured = original._tool_manager._tools[name].fn_metadata.convert_result(envelopes[-1][1])
+        assert result.content == native_content
+        assert result.structuredContent == native_structured == json.loads(result.content[0].text)
+        presentation = result.meta["sonaloop/presentation"]
+        assert presentation["tool"] == name and presentation["state"] == "ready"
+        assert presentation["component_id"] == "sonaloop.research.councils-view"
+        assert presentation["text_sha256"] == hashlib.sha256(result.content[0].text.encode()).hexdigest()
+        assert "sonaloop/presentation" not in result.content[0].text
+        assert "sl-research-card" not in result.content[0].text
+        return result.structuredContent["data"], presentation["html"]
+
+    project = services.create_research_project("Council MCP fixture", "Isolated native roundtrip", store=store)
+    written, html = call("record_council", project_id=project["id"], prompt="Who owns the **handover**?",
+        persona_ids=["persona_fixture"], key="shared-council-mcp-fixture", summary="A named owner helps.",
+        statements=[{"persona_id": "persona_fixture", "text": "Keep the **final context**.",
+                     "stance": {"value": 1}, "about": {"kind": "prompt", "id": "q0"},
+                     "refs": [{"kind": "external", "text": "Only applies during the pilot."}]}],
+        prompts=[{"id": "q0", "kind": "question", "text": "Who owns the unresolved issue?"}],
+        findings=[{"kind": "summary", "text": "The owner needs to stay visible."}])
+    assert written["statements"][0]["stance"] == {"value": 1, "label": "conditional"}
+    assert "Keep the <strong>final context</strong>." in html and "1 · conditional" in html
+    assert "Only applies during the pilot." in html
+    fetched, fetched_html = call("get_council", session_id=written["id"])
+    assert all(fetched[key] == value for key, value in store.get_council_session(written["id"]).items())
+    # The native writer also returns transient dispatch/warning fields; the
+    # stored read is its own canonical envelope, not a fabricated write replay.
+    assert all(written[key] == value for key, value in fetched.items())
+    assert fetched_html == html
+    page, list_html = call("list_councils", limit=1)
+    assert page["total"] == 1 and page["has_more"] is False and page.get("next_cursor") is None
+    assert page["items"][0]["id"] == written["id"]
+    assert page["items"][0]["personas"] == 1 and page["items"][0]["turns"] == 1
+    assert "Participants: 1" in list_html and "Voices: 1" in list_html
+    assert [name for name, _ in envelopes] == list(names)
