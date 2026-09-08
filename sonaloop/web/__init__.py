@@ -252,7 +252,7 @@ def create_app():
 
     # Opt-in product tour (web/_tour.py): the chrome rides the public body_end slot
     # (registered on import); the quiet offer is in the sidebar footer.
-    from . import _tour  # noqa: F401
+    from . import _tour, _persona_view  # noqa: F401
 
     # Feedback button (web/_feedback.py): modal POST + thanks + the read-only
     # /feedback admin list; the trigger is in the sidebar footer, the modal rides body_end.

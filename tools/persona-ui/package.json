@@ -1,0 +1,9 @@
+{
+  "name": "@sonaloop/research-persona-view-build",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {"build": "node build.mjs", "test": "node --test test/*.test.mjs"},
+  "dependencies": {"@modelcontextprotocol/ext-apps": "1.7.5", "@modelcontextprotocol/sdk": "1.30.0", "esbuild": "0.25.12"},
+  "devDependencies": {"playwright-core": "1.55.1"}
+}

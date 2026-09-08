@@ -1,0 +1,31 @@
+export const messages = {
+  de: {
+    persona: 'Persona', display_name: 'Name', age: 'Alter', location: 'Ort', role_title: 'Rolle', goals: 'Ziele', pain_points: 'Hürden im Alltag', portrait_description: 'Profilbeschreibung des Gesichts',
+    edit: 'Bearbeiten', save: 'Speichern', cancel: 'Abbrechen', refresh: 'Neu laden', details: 'Details', create: 'Gesicht erstellen', change: 'Gesicht ändern', generate: 'Generieren',
+    prompt: 'Wie soll das Gesicht aussehen?', promptHint: 'Beschreibe das gewünschte Gesicht. Die Generierung kann Kosten verursachen; sie ändert nicht die Profilbeschreibung.',
+    promptExample: 'Zum Beispiel: freundlicher Blick, kurze dunkle Haare, natürliches Licht …', promptLimit: 'Bitte 1 bis 500 Zeichen eingeben.',
+    keyHint: 'Enter speichert · Esc verwirft', listHint: 'Enter speichert · Shift+Enter für eine neue Zeile', dirty: 'Ungespeicherte Änderung', saving: 'Wird gespeichert …', generating: 'Gesicht wird generiert …',
+    missing: 'Ein Gesicht für diese Persona', generated: 'KI-generiertes Gesicht', stale: 'KI-Gesicht · frühere Profilversion', unavailable: 'Bild nicht verfügbar', imageAlt: 'Portrait der Persona',
+    readonly: 'Nur ansehen', unsupported: 'Dieses Feld kann in dieser Profilform nicht bearbeitet werden.', empty: 'Nicht angegeben', unknown: 'Status prüfen',
+    conflict: 'Das Profil wurde inzwischen geändert. Deine Eingaben bleiben erhalten. Lade den aktuellen Stand, bevor du erneut speicherst.',
+    refreshDirty: 'Neu laden · Eingabe verwerfen', discard: 'Ungespeicherte Änderungen verwerfen?', retained: 'Deine Eingabe und das bisherige Bild bleiben erhalten.',
+    pending: 'Die Aktion ist noch nicht abschließend bestätigt. „Status prüfen“ fragt ihren gespeicherten Status ab und startet sie nicht erneut.',
+    required: 'Bitte einen Wert eingeben.', invalidList: 'Bitte 1 bis 8 Einträge mit höchstens 180 Zeichen pro Zeile angeben.',
+    native: 'Profil und Gesicht werden in Research gespeichert.',
+  },
+  en: {
+    persona: 'Persona', display_name: 'Name', age: 'Age', location: 'Location', role_title: 'Role', goals: 'Goals', pain_points: 'Everyday challenges', portrait_description: 'Profile face description',
+    edit: 'Edit', save: 'Save', cancel: 'Cancel', refresh: 'Reload', details: 'Details', create: 'Create face', change: 'Change face', generate: 'Generate',
+    prompt: 'What should the face look like?', promptHint: 'Describe the face you want. Generation may incur a charge; it does not change the profile description.',
+    promptExample: 'For example: friendly expression, short dark hair, natural light …', promptLimit: 'Please enter 1 to 500 characters.',
+    keyHint: 'Enter saves · Esc cancels', listHint: 'Enter saves · Shift+Enter adds a line', dirty: 'Unsaved change', saving: 'Saving …', generating: 'Generating face …',
+    missing: 'A face for this persona', generated: 'AI-generated face', stale: 'AI face · earlier profile version', unavailable: 'Image unavailable', imageAlt: 'Persona portrait',
+    readonly: 'View only', unsupported: 'This field cannot be edited in its current profile format.', empty: 'Not specified', unknown: 'Check status',
+    conflict: 'The profile has changed since you opened it. Your input is retained. Reload the current version before saving again.',
+    refreshDirty: 'Reload · discard input', discard: 'Discard unsaved changes?', retained: 'Your input and previous image are retained.',
+    pending: 'The action has not been confirmed yet. “Check status” inspects its saved status without starting it again.',
+    required: 'Please enter a value.', invalidList: 'Please enter 1 to 8 items, with at most 180 characters per line.',
+    native: 'The profile and face are stored in Research.',
+  },
+};
+export const language = locale => String(locale || 'en').toLowerCase().startsWith('de') ? 'de' : 'en';
