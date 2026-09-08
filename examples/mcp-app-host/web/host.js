@@ -19,7 +19,7 @@ function confirmAction(approval){
     $('accept').onclick=()=>done(true);$('decline').onclick=()=>done(false);dialog.oncancel=event=>{event.preventDefault();done(false);};dialog.showModal();$('decline').focus();
   }));approvalQueue=answer.then(()=>undefined,()=>undefined);return answer;
 }
-const apps=createAppViews({request,confirmAction,onChange:()=>conversation?.changed()});
+const apps=createAppViews({request,confirmAction,getTool:name=>status?.tools.find(tool=>tool.name===name),onChange:()=>conversation?.changed()});
 function resize(){const prompt=$('prompt');prompt.style.height='auto';prompt.style.height=`${Math.min(190,prompt.scrollHeight)}px`;controls();}
 function controls(){
   const waiting=!!active||directBusy;$('send').hidden=!!active;$('stop').hidden=!active;

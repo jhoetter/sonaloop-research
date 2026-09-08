@@ -1,6 +1,6 @@
 {
   "name": "@sonaloop/mcp-app-reference-host",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -20,7 +20,8 @@
     "test": "node --test test/*.test.mjs",
     "test:browser": "node test/browser.mjs",
     "test:chat-browser": "node test/chat-browser.mjs",
-    "test:chat-recovery-browser": "node test/chat-recovery-browser.mjs"
+    "test:chat-recovery-browser": "node test/chat-recovery-browser.mjs",
+    "test:input-preview-browser": "node test/input-preview-browser.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/ext-apps": "1.7.5",

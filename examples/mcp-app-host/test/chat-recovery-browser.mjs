@@ -82,7 +82,7 @@ try{
   await approvalRecovery;
   await page.locator('.approval-inline button:not([disabled])').first().waitFor();
   check('real waiting snapshot restores approval after pre-admission transport failure',snapshots().length>beforeSnapshots&&await page.locator('.approval-inline button:enabled').count()===2);
-  check('approval recovery does not execute the fixture tool automatically',approvalAccepted===0&&await page.locator('.app-frame').count()===0);
+  check('approval recovery does not execute the fixture tool automatically',approvalAccepted===0&&await page.frameLocator('.app-frame').locator('p').innerText().then(t=>t.startsWith('Vorschau')));
   await page.locator('.approval-inline').getByRole('button',{name:'Ausführen',exact:true}).click();await done();
   check('explicit second approval resumes the same turn exactly once',approvalAccepted===1&&await page.locator('.message.assistant').count()===1&&await page.locator('.app-frame').count()===1);
   check('approval recovery preserves the next composer draft',await page.locator('#prompt').inputValue()==='Entwurf während Verbindungsfehler');

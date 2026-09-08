@@ -33,8 +33,8 @@ export function createConversation({getStatus,apps,approve,recover}){
       const el=node('section',undefined,'tool-part'),details=node('details',undefined,'tool-inspector'),summary=node('summary');
       const glyph=node('span',undefined,'tool-icon'),name=node('span',toolLabel(getStatus(),event.name),'tool-name'),badge=node('span',undefined,'tool-state'),chevron=node('span',undefined,'tool-chevron');glyph.append(icon('tool'));chevron.append(icon('chevron'));summary.append(glyph,name,badge,chevron);
       const body=node('div',undefined,'tool-details'),argsTitle=node('h4','Eingabe'),args=node('pre'),outputTitle=node('h4','Ergebnis'),output=node('pre');outputTitle.hidden=true;output.hidden=true;body.append(argsTitle,args,outputTitle,output);details.append(summary,body);
-      const app=node('div'),decision=node('div');el.append(details,decision,app);state.parts.append(el);
-      item={kind:'tool',el,details,summary,name,badge,glyph,args,output,outputTitle,app,decision,rendered:false,approvalId:null};state.items.set(event.partId,item);
+      const app=node('div'),decision=node('div');el.append(details,app,decision);state.parts.append(el);
+      item={kind:'tool',el,details,summary,name,badge,glyph,args,output,outputTitle,app,decision,rendered:false,view:null,previewId:null,approvalId:null};state.items.set(event.partId,item);
     }
     if(item.kind!=='tool')throw new Error('Ungültige Tool-Struktur.');
     if(item.lastState!==event.state&&['running','completed','failed','outcome_unknown'].includes(event.state))$('announcer').textContent=`${toolLabel(getStatus(),event.name)}: ${labels[event.state]}.`;
@@ -42,13 +42,19 @@ export function createConversation({getStatus,apps,approve,recover}){
     item.glyph.replaceChildren(event.state==='running'||event.state==='preparing'?node('span',undefined,'spinner'):icon(event.state==='completed'?'check':event.state==='failed'||event.state==='outcome_unknown'?'alert':'tool'));
     if(event.arguments!==undefined)item.args.textContent=JSON.stringify(event.arguments,null,2);
     if(event.error){item.outputTitle.hidden=false;item.output.hidden=false;item.output.textContent=event.error.message||'Tool-Aktion fehlgeschlagen.';}
+    if(event.preview&&!item.view&&!event.call&&item.previewId!==event.preview.id){item.previewId=event.preview.id;item.view=await apps.render(event.preview,item.app);}
+    if(event.previewError&&!event.call&&!item.previewError){item.previewError=node('p',event.previewError,'turn-notice');item.app.append(item.previewError);}
     if(event.call){
       item.outputTitle.hidden=false;item.output.hidden=false;item.output.textContent=fallback(event.call.result)||'Tool-Aktion abgeschlossen.';
-      if(!item.rendered){item.rendered=true;await apps.render(event.call,item.app);}
+      if(!item.rendered){item.rendered=true;item.previewError?.remove();item.view=item.view?await item.view.promote(event.call):await apps.render(event.call,item.app);}
     }
+    if(event.state==='running'&&!event.call)await item.view?.execution('Aktion wird ausgeführt. Der gespeicherte Stand wird anschließend bestätigt.');
+    if(event.state==='outcome_unknown'&&!event.call)await item.view?.execution('Ausgang unklar. Diese Vorschau bestätigt keinen gespeicherten Stand; die Aktion wird nicht wiederholt.');
+    if(['completed','failed'].includes(event.state)&&!event.call)await item.view?.execution(event.error?.message||'Die Aktion ist beendet, aber ein bestätigter gespeicherter Stand ist nicht verfügbar. Die Vorschau wird ausgeblendet.');
+    if(event.state==='denied')await item.view?.cancel('Aktion nicht ausgeführt.');
     if(event.state==='approval_required'&&event.approval&&(item.approvalId!==event.approval.id||event.confirmedWaiting)){
-      item.approvalId=event.approval.id;const box=node('div',undefined,'approval-inline');box.append(node('p','Diese Aktion braucht deine Freigabe.'));
-      const actions=node('div',undefined,'dialog-actions'),yes=node('button','Ausführen','primary-button'),no=node('button','Ablehnen','quiet-button');yes.type=no.type='button';actions.append(yes,no);box.append(actions);item.decision.replaceChildren(box);item.details.open=true;
+      item.approvalId=event.approval.id;const box=node('div',undefined,'approval-inline');box.append(node('p','Diesen Vorschlag ausführen?'));
+      const actions=node('div',undefined,'dialog-actions'),yes=node('button','Ausführen','primary-button'),no=node('button','Ablehnen','quiet-button');yes.type=no.type='button';actions.append(yes,no);box.append(actions);item.decision.replaceChildren(box);
       const decide=async accepted=>{yes.disabled=no.disabled=true;try{await approve(state,event.approval,accepted);}catch(error){yes.disabled=no.disabled=false;note(state,error.message);}};
       yes.onclick=()=>decide(true);no.onclick=()=>decide(false);
     }else if(event.state!=='approval_required')item.decision.replaceChildren();

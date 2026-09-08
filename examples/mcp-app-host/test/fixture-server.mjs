@@ -3,11 +3,15 @@ import {Server} from '@modelcontextprotocol/sdk/server/index.js';
 import {StdioServerTransport} from '@modelcontextprotocol/sdk/server/stdio.js';
 import {ListToolsRequestSchema,CallToolRequestSchema,ListResourcesRequestSchema,ReadResourceRequestSchema} from '@modelcontextprotocol/sdk/types.js';
 import {build} from 'esbuild';
+import {appendFileSync} from 'node:fs';
 const uri='ui://fixture/card';
 const source=`import {App} from '@modelcontextprotocol/ext-apps';
  const app=new App({name:'Protocol fixture',version:'1.0.0'},{},{autoResize:true});
+ let canonical=false;window.fixtureLifecycle={inputs:0,results:0,cancelled:0};
+ app.ontoolinput=async input=>{window.fixtureLifecycle.inputs++;if(canonical||app.getHostContext()?.toolInfo?.tool?.name!=='fixture_action')return;document.querySelector('p').textContent='Vorschau · '+input.arguments.value;document.querySelector('button').disabled=true;document.querySelector('input').disabled=true;await app.sendLog({level:'info',data:{event:'view-rendered',mode:'preview'}});};
+ app.ontoolcancelled=()=>{window.fixtureLifecycle.cancelled++;if(!canonical)document.querySelector('p').textContent='Nicht ausgeführt';};
  const show=r=>{document.querySelector('p').textContent=r.structuredContent.value;};
- app.ontoolresult=async r=>{show(r);await app.sendLog({level:'info',data:{event:'view-rendered'}});};
+ app.ontoolresult=async r=>{window.fixtureLifecycle.results++;if(r.isError){document.querySelector('p').textContent='Vorschau fehlgeschlagen';return;}canonical=true;document.querySelector('button').disabled=false;document.querySelector('input').disabled=false;show(r);await app.sendLog({level:'info',data:{event:'view-rendered'}});};
  document.querySelector('input').oninput=event=>app.sendLog({level:'info',data:{event:'view-dirty',dirty:!!event.target.value}});
  document.querySelector('button').onclick=async()=>show(await app.callServerTool({name:'fixture_save',arguments:{value:'Changed through MCP'}}));
  await app.connect();`;
@@ -17,6 +21,8 @@ const server=new Server({name:'protocol-fixture',version:'1.0.0'},{capabilities:
 const tools=['fixture_read','fixture_save','fixture_action'].map(name=>({name,description:'Synthetic protocol fixture',inputSchema:{type:'object',properties:{value:{type:'string'}},required:['value'],additionalProperties:false},annotations:{readOnlyHint:name==='fixture_read'},_meta:{ui:{resourceUri:uri,visibility:name==='fixture_save'?['app']:['model','app']}}}));
 server.setRequestHandler(ListToolsRequestSchema,async()=>({tools}));
 server.setRequestHandler(CallToolRequestSchema,async request=>{
+  if(process.env.FIXTURE_TRACE_FILE)appendFileSync(process.env.FIXTURE_TRACE_FILE,JSON.stringify({name:request.params.name,arguments:request.params.arguments})+'\n');
+  if(request.params.arguments.value==='fixture-failed-preview')return{isError:true,content:[{type:'text',text:'Fixture validation failed'}]};
   if(request.params.arguments.value==='fixture-disconnect')process.exit(0);
   return {content:[{type:'text',text:request.params.arguments.value}],structuredContent:{value:request.params.arguments.value},_meta:{private:'fixture-secret'}};
 });

@@ -13,7 +13,7 @@ globalThis.fetch=async(url,options)=>{
   let output;
   if(command==='fixture-hold')output=[textItem('msg_hold','Das ist eine langsam eintreffende Antwort. '.repeat(12))];
   else if(!hasTool){
-    output=[textItem('msg_before','Ich schaue im verbundenen Produkt nach.\n\n'),{id:'fc_fixture',type:'function_call',call_id:`call_${lastUser}`,name:command==='fixture-approval'?'fixture_action':'fixture_read',arguments:JSON.stringify({value:'Reale MCP-Testkarte'})}];
+    output=[textItem('msg_before','Ich schaue im verbundenen Produkt nach.\n\n'),{id:'fc_fixture',type:'function_call',call_id:`call_${lastUser}`,name:command==='fixture-approval'||command==='fixture-preview-error'||command==='fixture-preview-unknown'?'fixture_action':'fixture_read',arguments:JSON.stringify({value:command==='fixture-preview-error'?'fixture-failed-preview':command==='fixture-preview-unknown'?'fixture-disconnect':'Reale MCP-Testkarte'})}];
   }else output=[textItem('msg_after','**Bereit.** Die Ansicht ist jetzt geöffnet.\n\n- Direkt in der Karte arbeiten\n- Den Entwurf im Eingabefeld behalten\n\n<script>window.fixtureInjection=true</script> [Ungültiger Link](javascript:alert(1))')];
   const events=[{type:'response.created',response:{id:'resp_fixture',status:'in_progress',output:[]}}];
   for(const [index,item] of output.entries()){

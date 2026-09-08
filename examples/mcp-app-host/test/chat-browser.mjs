@@ -53,7 +53,7 @@ try{
   check('approval resumes the same assistant turn',await page.locator('.message.assistant').count()===1&&await page.locator('.app-frame').count()===1);
   check('approval continuation preserves next draft',await page.locator('#prompt').inputValue()==='Entwurf während Freigabe');
   await fresh();await submit('fixture-approval');await page.locator('.approval-inline').getByRole('button',{name:'Ablehnen',exact:true}).click();await done();
-  check('declined approval never mounts an executed card',await page.locator('.tool-state').innerText()==='Abgelehnt'&&await page.locator('.app-frame').count()===0);
+  check('declined approval retains a cancelled preview without execution',await page.locator('.tool-state').innerText()==='Abgelehnt'&&await page.frameLocator('.app-frame').locator('p').innerText()==='Nicht ausgeführt');
   await fresh();
   await page.route('**/api/host/chat',route=>route.fulfill({status:403,contentType:'application/json',body:JSON.stringify({error:{code:'fixture_rejected',message:'Nicht angenommen.'}})}),{times:1});
   await submit('Mein nicht angenommener Text');await done();

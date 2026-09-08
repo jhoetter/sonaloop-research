@@ -129,3 +129,30 @@ an installed browser. The optional `HOST_UX_SCREENSHOTS` directory receives evid
 Transport-failure regressions run with `npm run test:chat-recovery-browser`: stale
 snapshots, recoverable approval, manual status recovery, early Stop and stable App
 identity. These use injected local failures and make no real provider calls.
+
+## Input previews before confirmation
+
+For a tool that declares an MCP App resource, the host can load that same customer
+resource while the action is waiting for approval. It sends the exact proposed
+arguments through standard `tool-input`, with the discovered tool in standard
+`hostContext.toolInfo`. It does not manufacture a successful tool result. A
+compatible customer App can show an explicit unsaved preview; older Apps retain
+technical input details as fallback. Resource initialization alone is not proof
+that a customer preview rendered.
+
+The preview is passive. Its owner/resource/hash-bound token permanently denies all
+App tool calls, including reads, before approval-token creation or dispatch. The
+native action uses the original frozen arguments only after the user's decision.
+Decline/Stop before dispatch sends `tool-cancelled` and does not create data.
+A generated portrait cannot appear in a proposal that contains no image.
+
+After actual execution, the same resource/hash keeps its iframe and receives the
+real tool result. The host switches to the new actual-result action grant and does
+not send `tool-input` again. A changed resource requires a newly verified frame;
+a native failure keeps the preview passive. An uncertain admitted write is never
+reported as cancelled or automatically repeated.
+
+Run `npm run test:input-preview-browser` for the generic fixture: zero tool dispatch
+before approval, passive card before controls, frozen arguments, cancellation,
+source/frame identity, real result promotion, restored App actions and error state.
+The customer component remains responsible for preview projection and rendering.
