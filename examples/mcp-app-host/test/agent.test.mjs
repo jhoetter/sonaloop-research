@@ -8,7 +8,7 @@ function fixture({name='read',readonly=true,visibility,unknown=false}={}){
   const policy=createPolicy([tool(name,readonly,visibility)],{allowedTools:[name]});
   const agent=createAgent({policy,model:'fixture',apiKey:'fixture-key',grant:async(name,args,result)=>({name,arguments:args,result}),
     client:{callTool:async()=>{invoked++;if(unknown)throw new Error('PRIVATE transport diagnostics');return{content:[{type:'text',text:'safe'}],structuredContent:{value:'native'},_meta:{secret:'PRIVATE'}};}},
-    fetcher:async(_url,options)=>{payloads.push(JSON.parse(options.body));return{ok:true,json:async()=>({status:'completed',id:'fixture-response',output:round++===0?[{type:'function_call',name,call_id:'one',arguments:'{"operation_id":"stable"}'}]:[{type:'message',content:[{type:'output_text',text:'Completed'}]}]})};}});
+    fetcher:async(_url,options)=>{payloads.push(JSON.parse(options.body));return new Response(`data: ${JSON.stringify({type:'response.completed',response:{status:'completed',id:'fixture-response',output:round++===0?[{id:'fc_one',type:'function_call',name,call_id:'one',arguments:'{"operation_id":"stable"}'}]:[{id:'msg_one',type:'message',content:[{type:'output_text',text:'Completed'}]}]}})}\n\n`,{headers:{'Content-Type':'text/event-stream'}});}});
   return {agent,payloads,invoked:()=>invoked};
 }
 test('model chooses discovered tool and private metadata stays outside next model call',async()=>{

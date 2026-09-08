@@ -7,6 +7,7 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { ContractError, createPolicy, checkedResource, sha } from './policy.mjs';
 import { json, fail, body, originGuard, createSessions } from './http.mjs';
 import { createAgent } from './agent.mjs';
+import { serveChatStream } from './chat-http.mjs';
 
 const config = JSON.parse(readFileSync(resolve(process.env.MCP_APP_HOST_CONFIG || 'config.json'), 'utf8'));
 const origin = new URL(config.hostOrigin);
@@ -29,7 +30,7 @@ try {
   const sessions = createSessions();
   const views = new Map();
   const approvals = new Map();
-  const model = process.env.OPENAI_MODEL || config.model || 'gpt-4.1-mini';
+  const model = process.env.OPENAI_MODEL || config.model || 'gpt-5.6-terra';
   function sweep() {
     for (const map of [views,approvals]) for(const [key,value] of map) if(Date.now()-value.created>1800000) map.delete(key);
   }
@@ -97,6 +98,7 @@ try {
       }
       if(url.pathname.startsWith('/api/host/') || url.pathname.startsWith('/app-frame/')) {
         const session=sessions.session(req,res);
+        if(req.method==='GET' && /^\/api\/host\/chat\/turns\/[a-zA-Z0-9_-]+$/.test(url.pathname)) return json(res,200,agent.snapshot(url.pathname.split('/').at(-1),session.id));
         if(req.method==='GET' && url.pathname.startsWith('/app-frame/')) {
           const token=url.pathname.slice('/app-frame/'.length);const view=getView(token,session.id);
           const resource=checkedResource(await client.readResource({uri:view.uri}),view.uri);
@@ -108,7 +110,14 @@ try {
         }
         if(req.method==='POST') {
           sessions.csrf(req,session);const input=await body(req,65536);
-          if(url.pathname==='/api/host/chat') return json(res,200,await agent.chat(input.message,input.sessionId,session.id,input.approved));
+          if(url.pathname==='/api/host/chat') {
+            if(req.headers.accept?.split(',').some(value=>value.trim().split(';')[0]==='text/event-stream')) {
+              const request=agent.open(input,session.id);
+              return await serveChatStream(res,request,agent,session.id);
+            }
+            return json(res,200,await agent.chat(input.message,input.sessionId,session.id,input.approved));
+          }
+          if(url.pathname==='/api/host/chat/stop') return json(res,200,agent.stop(input,session.id));
           if(url.pathname==='/api/host/call') return json(res,200,await invoke(input,session.id));
         }
         throw new ContractError('not_found','Unbekannter Host-Endpunkt.',404);
