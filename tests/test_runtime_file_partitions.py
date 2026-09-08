@@ -4,6 +4,7 @@ from __future__ import annotations
 import base64
 import copy
 import json
+import os
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -90,6 +91,12 @@ class _PersonaStore:
 
     def upsert_persona(self, persona, reason=""):
         self.persona = copy.deepcopy(persona)
+        # Match the native Store contract: SOUL references are prepared by services
+        # and published only after the winning record has been persisted.
+        from sonaloop.storage._personas import _prepare_soul
+        prepared = _prepare_soul(self.persona, self)
+        if prepared:
+            os.replace(*prepared)
 
 
 def _minimal_persona() -> dict:
@@ -135,11 +142,13 @@ def test_stale_soul_ref_cannot_read_another_workspace(monkeypatch):
     assert "workspaces/ws_alpha/" in result["path"]
 
 
-def test_identical_avatar_ref_resolves_to_each_workspace(monkeypatch):
+def test_generated_avatar_files_remain_partitioned_and_virtual(monkeypatch):
     _enable_row_tenancy(monkeypatch)
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     monkeypatch.delenv("AVATAR_OUTPUT_DIR", raising=False)
-    payloads = [b"alpha avatar", b"beta avatar"]
+    from test_persona_surface import png
+    alpha_bytes, beta_bytes = png("navy"), png("green")
+    payloads = [alpha_bytes, beta_bytes]
 
     def _image(*_args, **_kwargs):
         return {"data": [{"b64_json": base64.b64encode(payloads.pop(0)).decode("ascii")}]}
@@ -155,10 +164,10 @@ def test_identical_avatar_ref_resolves_to_each_workspace(monkeypatch):
         beta = avatar.generate_persona_avatar("persona_shared", store=beta_store)
         beta_path = _snapshots._avatar_disk_path(beta["path"])
 
-    assert alpha["path"] == beta["path"]  # virtual record is portable and tenant-neutral
+    assert alpha["path"].startswith("data/avatars/") and beta["path"].startswith("data/avatars/")
     assert alpha_path != beta_path
-    assert alpha_path.read_bytes() == b"alpha avatar"
-    assert beta_path.read_bytes() == b"beta avatar"
+    assert alpha_path.read_bytes() == alpha_bytes
+    assert beta_path.read_bytes() == beta_bytes
 
 
 def test_avatar_content_reads_only_the_active_workspace(monkeypatch):

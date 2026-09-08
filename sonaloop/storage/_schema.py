@@ -112,6 +112,16 @@ CREATE TABLE IF NOT EXISTS persona_builds (
 );
 CREATE INDEX IF NOT EXISTS idx_persona_builds_persona ON persona_builds(persona_id, updated_at);
 
+CREATE TABLE IF NOT EXISTS persona_operations (
+  operation_id TEXT PRIMARY KEY,
+  persona_id TEXT,
+  status TEXT NOT NULL,
+  data TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_persona_operations_persona ON persona_operations(persona_id, status);
+
 CREATE TABLE IF NOT EXISTS persona_context_snapshots (
   id TEXT PRIMARY KEY,
   persona_id TEXT NOT NULL,

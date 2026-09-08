@@ -229,3 +229,10 @@ del _REGISTRY, _collect_public_symbols
 #     (`sonaloop.services._synthesis_pptx.<fn>`), the same namespace the call
 #     resolves its globals from.
 # _SUBMODULES stays as a module attribute for the presence gate and other callers.
+
+# Shared Persona surface: explicit exports keep its transport helpers out of the
+# legacy cross-module global binding registry.
+from ._persona_surface import (  # noqa: E402,F401
+    get_persona_surface, update_persona_surface, record_persona_surface,
+    generate_persona_surface_avatar, get_persona_surface_operation,
+)

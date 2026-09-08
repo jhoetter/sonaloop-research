@@ -6,6 +6,7 @@ Cross-module function references are bound at import time by services/__init__.p
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import random
 import re
@@ -169,11 +170,22 @@ Speak as a practical customer under real delivery pressure. Refer to concrete ca
 
 
 def write_soul(persona: dict[str, Any], store: Store | None = None) -> dict[str, Any]:
+    """Prepare the native SOUL reference; Store publishes after its winning write.
+
+    All callers persist the returned reference via upsert_persona. Delaying the
+    filesystem replacement prevents a stale candidate from corrupting SOUL.
+    """
     path = soul_path(persona)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    content = render_soul(persona, store)
-    path.write_text(content, encoding="utf-8")
     return {"path": runtime_path_ref(path), "updated_at": utc_now_iso()}
+
+
+def _soul_matches(persona: dict) -> bool:
+    """A failed post-commit file publication must never serve an older SOUL."""
+    path = soul_path(persona)
+    if not path.is_file():
+        return False
+    expected = (persona.get("soul") or {}).get("sha256")
+    return not expected or hashlib.sha256(path.read_bytes()).hexdigest() == expected
 
 
 
@@ -219,7 +231,7 @@ def ensure_persona_runtime_fields(persona: dict[str, Any], store: Store | None =
     canonical_soul = soul_path(persona)
     expected_ref = runtime_path_ref(canonical_soul)
     soul = persona.get("soul") if isinstance(persona.get("soul"), dict) else {}
-    soul_needs_write = soul.get("path") != expected_ref or not canonical_soul.is_file()
+    soul_needs_write = soul.get("path") != expected_ref or not _soul_matches(persona)
     if changed or soul_needs_write:
         persona["soul"] = write_soul(persona, store)
         persona["updated_at"] = utc_now_iso()
@@ -328,14 +340,19 @@ def record_persona(
     brief_persona). This is the create path; nothing is generated server-side."""
     store = store or Store()
     now = utc_now_iso()
-    validated = validate_profile_payload(profile)
+    validated = validate_profile_payload(json.loads(json.dumps(profile)))
     persona = _profile_to_persona_dict(description, validated, segment_hint, evidence, now)
     if profile.get("capabilities") is not None:
         # Declared capabilities are validated + normalized over the safe defaults; absent stays
         # None so reads return the derived heuristic profile without rewriting the persona.
         persona["capabilities"] = merge_capabilities(None, profile["capabilities"])  # noqa: F821 (bound)
     persona["soul"] = write_soul(persona, store)
-    store.upsert_persona(persona, reason="record_persona (host-authored)")
+    if not store.insert_persona_if_absent(persona, reason="record_persona (host-authored)"):
+        existing = store.get_persona_for_active_workspace(persona["id"])
+        keys = tuple(validated)
+        if all(existing.get(k) == persona.get(k) for k in keys):
+            return existing
+        raise ValueError("persona creation intent already exists; use update_persona to change it")
     if evidence:
         attach_evidence(persona["id"], "user_note", evidence, "Initial persona evidence", store)
     if generate_avatar:
@@ -347,9 +364,7 @@ def record_persona(
             persona["avatar_note"] = AVATAR_DISABLED_NOTE
         else:
             avatar = generate_persona_avatar(persona["id"], store=store)
-            persona["avatar"] = avatar
-            persona["updated_at"] = utc_now_iso()
-            store.upsert_persona(persona, reason="generated avatar")
+            persona = store.get_persona_for_active_workspace(persona["id"])
     emit_lifecycle_event("persona.created", {"persona_id": persona["id"], "slug": persona["slug"],  # noqa: F821 (bound)
                                              "display_name": persona.get("display_name", "")}, store)
     from ..telemetry import capture_product_event

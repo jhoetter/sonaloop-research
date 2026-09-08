@@ -161,6 +161,7 @@ class StoreBase:
             "persona_builds",
             "persona_context_snapshots",
             "persona_memory_proposals",
+            "persona_operations",
             "entities",
             "entity_facts",
             "event_entities",

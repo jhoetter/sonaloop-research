@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import base64
+import copy
+import hashlib
+from io import BytesIO
 import json
 import os
 import re
@@ -12,6 +15,8 @@ from . import config
 from .config import load_env, utc_now_iso
 from .services import stable_id
 from .storage import Store
+from ._persona_native import persona_profile_version, persona_version
+from .persona_surface_contract import MAX_AVATAR_BYTES, MAX_AVATAR_DIMENSION
 
 
 # The single, helpful degradation message (cold start without an OPENAI_API_KEY is normal):
@@ -35,7 +40,32 @@ def _post_json(url: str, payload: dict[str, Any], api_key: str) -> dict[str, Any
         method="POST",
     )
     with urllib.request.urlopen(req, timeout=180) as resp:
-        return json.loads(resp.read())
+        payload = resp.read(MAX_AVATAR_BYTES * 2 + 1)
+        if len(payload) > MAX_AVATAR_BYTES * 2:
+            raise ValueError("image provider response exceeds the delivery limit")
+        result = json.loads(payload)
+        request_id = resp.headers.get("x-request-id", "")
+        if re.fullmatch(r"[A-Za-z0-9_-]{1,200}", request_id):
+            result["_request_id"] = request_id
+        return result
+
+
+def validate_avatar_png(data: bytes) -> tuple[int, int]:
+    """Decode the complete native image before publishing or embedding it."""
+    from PIL import Image
+    if not isinstance(data, bytes) or len(data) > MAX_AVATAR_BYTES or not data.startswith(b"\x89PNG\r\n\x1a\n"):
+        raise ValueError("avatar must be a PNG within the delivery limit")
+    try:
+        with Image.open(BytesIO(data)) as image:
+            if image.format != "PNG" or not all(0 < n <= MAX_AVATAR_DIMENSION for n in image.size):
+                raise ValueError("avatar dimensions exceed the delivery limit")
+            size = image.size
+            image.verify()
+        with Image.open(BytesIO(data)) as image:
+            image.load()
+        return size
+    except Exception as exc:
+        raise ValueError("avatar PNG is invalid or exceeds its dimensions limit") from exc
 
 
 def build_avatar_prompt(persona: dict[str, Any], style: str | None = None) -> str:
@@ -88,7 +118,8 @@ def get_persona_avatar_content(
     cross-workspace file capability.
     """
     store = store or Store()
-    persona = store.get_persona(persona_id)
+    lookup = getattr(store, "get_persona_for_active_workspace", store.get_persona)
+    persona = lookup(persona_id)
     if not persona:
         raise KeyError(f"Unknown persona: {persona_id}")
     stored_path = str((persona.get("avatar") or {}).get("path") or "").strip()
@@ -125,12 +156,18 @@ def get_persona_avatar_content(
     return data, persona
 
 
-def generate_persona_avatar(persona_id: str, style: str | None = None, store: Store | None = None) -> dict[str, Any]:
+def generate_persona_avatar(persona_id: str, style: str | None = None, store: Store | None = None,
+                            *, prompt: str | None = None, expected_version: str | None = None,
+                            before_provider=None, before_persist=None) -> dict[str, Any]:
     load_env()
     store = store or Store()
-    persona = store.get_persona(persona_id)
+    lookup = getattr(store, "get_persona_for_active_workspace", store.get_persona)
+    persona = lookup(persona_id)
     if not persona:
         raise KeyError(f"Unknown persona: {persona_id}")
+    if expected_version and persona_version(persona) != expected_version:
+        from .storage._personas import PersonaWriteConflict
+        raise PersonaWriteConflict("persona changed since it was read; refresh before writing")
     api_key = os.getenv("OPENAI_API_KEY", "")
     if not api_key:
         raise RuntimeError(AVATAR_DISABLED_NOTE)
@@ -161,7 +198,12 @@ def generate_persona_avatar(persona_id: str, style: str | None = None, store: St
     else:
         out_dir = partition / "avatars"
     out_dir.mkdir(parents=True, exist_ok=True)
-    prompt = build_avatar_prompt(persona, style)
+    prompt_persona = copy.deepcopy(persona)
+    if prompt is not None:
+        prompt_persona.setdefault("identity_traits", {})["avatar_profile"] = prompt
+    prompt = build_avatar_prompt(prompt_persona, style)
+    if before_provider:
+        before_provider()
     result = _post_json(
         "https://api.openai.com/v1/images/generations",
         {"model": model, "prompt": prompt, "n": 1, "size": "1024x1024", "quality": "medium"},
@@ -169,18 +211,28 @@ def generate_persona_avatar(persona_id: str, style: str | None = None, store: St
     )
     data = result["data"][0]
     if data.get("b64_json"):
-        img_bytes = base64.b64decode(data["b64_json"])
+        img_bytes = base64.b64decode(data["b64_json"], validate=True)
     elif data.get("url"):
-        with urllib.request.urlopen(data["url"], timeout=180) as resp:
-            img_bytes = resp.read()
+        # GPT Image returns inline bytes. A provider-returned URL must never
+        # become a capability to read files, private hosts, or redirects.
+        raise ValueError("image provider must return inline PNG bytes")
     else:
         raise RuntimeError("No image payload returned by OpenAI image generation.")
     slug = str(persona.get("slug") or "")
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,127}", slug):
         raise ValueError(f"unsafe persona slug for avatar filename: {slug!r}")
-    filename = f"{slug}-{stable_id('avatar', persona['id'], prompt).split('_')[1]}.png"
+    validate_avatar_png(img_bytes)
+    image_sha = hashlib.sha256(img_bytes).hexdigest()
+    filename = f"{slug}-{image_sha[:24]}.png"
     out_path = out_dir / filename
-    out_path.write_bytes(img_bytes)
+    try:
+        with out_path.open("xb") as stream:
+            stream.write(img_bytes)
+            stream.flush()
+            os.fsync(stream.fileno())
+    except FileExistsError:
+        if out_path.read_bytes() != img_bytes:
+            raise ValueError("avatar content-address collision")
     # Persist a partition-VIRTUAL ref.  Each tenant's DB can keep the same
     # ``data/avatars/<file>`` value while readers resolve it inside that tenant.
     if out_path.resolve().is_relative_to(partition.resolve()):
@@ -196,8 +248,19 @@ def generate_persona_avatar(persona_id: str, style: str | None = None, store: St
         "validated_against": ["display_name", "role", "identity_traits"],
         "known_risks": [],
         "generated_at": utc_now_iso(),
+        "sha256": image_sha,
+        "profile_version": persona_profile_version(persona),
     }
+    if re.fullmatch(r"[A-Za-z0-9_-]{1,200}", str(result.get("_request_id") or "")):
+        avatar["request_id"] = result["_request_id"]
+    usage = result.get("usage")
+    if isinstance(usage, dict):
+        avatar["usage"] = {k: v for k, v in usage.items()
+                           if k in {"input_tokens", "output_tokens", "total_tokens"}
+                           and type(v) is int and 0 <= v <= 10000000}
     persona["avatar"] = avatar
     persona["updated_at"] = utc_now_iso()
+    if before_persist:
+        before_persist()
     store.upsert_persona(persona, reason="generate_persona_avatar")
     return avatar
