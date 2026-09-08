@@ -52,11 +52,11 @@ def decision_reads(decision: dict, *, based: list, rejected: list, by_id: dict |
           f' — {alternative["note"]}' if alternative.get("note") else "")
         for alternative, reference in zip(alternatives, rejected, strict=True)])
     links = []
-    for field, label in (("superseded_by", "dec_superseded_by"), ("supersedes", "dec_supersedes")):
+    for field, label in (("superseded_by", t("dec_superseded_by")), ("supersedes", t("dec_supersedes"))):
         if decision.get(field):
             identifier = decision[field]
             title = ((by_id or {}).get(identifier) or {}).get("title", identifier)
-            links.append(h("p", {"class_": "muted small"}, t(label), ": ",
+            links.append(h("p", {"class_": "muted small"}, label, ": ",
                            h("a", {"href": dec_href(identifier)}, title)))
     return body, evidence, why_not, fragment(links)
 

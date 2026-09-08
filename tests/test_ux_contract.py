@@ -66,7 +66,7 @@ ALLOWED_CLASS_TOKENS = {
     # hypothesis/decision cards (.hyp co-located in pages/hypotheses.py)
     "hyp", "hyprate", "hypseg", "hypstrip",
     # councils: turns/head-to-head tables (the votebar retired with the P3 Library rows)
-    "turn-refs", "turn-who", "h2h-pref", "h2h-table", "qhead", "qnum",
+    "turn-refs", "turn-who",
     # persona memory page
     "mem-bar", "mem-date", "mem-ent", "mem-ent-h", "mem-ents", "mem-fact", "mem-fx",
     "mem-group", "mem-group-h", "mem-hit", "mem-loop", "mem-loop-dot", "mem-loops",
@@ -79,7 +79,7 @@ ALLOWED_CLASS_TOKENS = {
     "sess-rail-h", "sess-rail-note", "sess-screen", "sess-shot",
     "sess-step", "sess-steps", "sess-target", "sfl", "sfn",
     # surveys + syntheses
-    "svbar", "svopts", "svq", "svrow", "syn-meta", "pvbar", "pvlbl", "pvline", "pvseg",
+    "svq", "syn-meta", "pvbar", "pvseg",
 }
 
 

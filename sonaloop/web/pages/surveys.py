@@ -3,7 +3,7 @@
 READ-ONLY like every page: authoring/export/import happen through MCP/CLI. The detail page opens
 with structure (ux-contract §3.6): the questions as rows — kind icon + text + the answer-distribution
 strip where responses exist — each expanding to the full per-question charts (option bars, collected
-texts, the predicted-vs-actual strip for stance_mapped questions in the canonical stance colors —
+texts, the predicted-vs-actual table for stance_mapped questions in canonical stance order —
 artifacts.stance_meta, nothing stance-y hardcoded); then the responses as rows with persona chips,
 each expanding to that respondent's per-question answers."""
 from __future__ import annotations
@@ -12,6 +12,7 @@ from ._ctx import *  # noqa: F401,F403  (shared render toolkit)
 from .._html import register_css
 from .._presence import survey_status_pill as _status_pill
 from ... import artifacts as _A
+from ...ui_components.surveys import question_content, question_kind_label, predicted_actual, response_summary
 
 
 register_css(r"""
@@ -21,19 +22,10 @@ register_css(r"""
 .svq[open]>summary{border-bottom:1px solid var(--line-2);padding-bottom:10px;margin-bottom:10px}
 .svq>summary:hover .sl-entity__title{color:var(--accent)}
 .svq .sl-entity__trailing .pvbar{width:120px;flex:none}
-.svq .qhead{display:flex;gap:8px;align-items:baseline}
-.svq .qnum{color:var(--muted);font-size:var(--t-sm)}
 .svq p.small{margin:4px 0;line-height:1.5}
 .svq p.small>.muted{display:block}
-.svopts{margin:6px 0 0;display:flex;flex-wrap:wrap;gap:6px}
-.svbar{position:relative;height:18px;border-radius:5px;background:var(--line-2);overflow:hidden;flex:1}
-.svbar i{position:absolute;inset:0 auto 0 0;background:var(--accent);opacity:.35}
-.svrow{display:grid;grid-template-columns:minmax(120px,1fr) 3fr 44px;gap:10px;align-items:center;margin:4px 0;font-size:var(--t-sm)}
-.svrow>span:last-child{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
-.pvlbl{color:var(--muted);font-size:var(--t-sm);min-width:130px}
 .pvbar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line-2);flex:1}
 .pvseg{height:100%}
-.pvline{display:flex;gap:10px;align-items:center;margin:5px 0}
 """)
 
 
@@ -72,14 +64,7 @@ def _option_strip(options: list, counts: dict, total: int) -> str:
 
 
 def _predicted_vs_actual(comparison: dict, _store) -> str:
-    pred, act = comparison.get("predicted") or {}, comparison.get("actual") or {}
-    rows = []
-    for label, dist in ((t("survey_predicted"), pred), (t("survey_actual"), act)):
-        n = dist.get("n", 0)
-        bar = _stance_strip(dist.get("counts") or {}, n) if n else h("div", {"class_": "pvbar"})
-        rows.append(h("div", {"class_": "pvline"},
-                      h("span", {"class_": "pvlbl"}, f"{label} ({n})"), raw(bar)))
-    return h("div", {}, fragment(*rows))
+    return predicted_actual(comparison)
 
 
 def _question_row(q: dict, result: dict | None, store, show_count: bool = True) -> str:
@@ -103,30 +88,12 @@ def _question_row(q: dict, result: dict | None, store, show_count: bool = True) 
                h("div", {"class_": "sl-entity__title", "title": q.get("text", "")}, q.get("text", ""))),
              h("span", {"class_": "sl-entity__trailing"},
                raw(strip) if strip else None,
-               h("span", {"class_": "pill"}, q.get("kind", "")),
+               h("span", {"class_": "pill"}, question_kind_label(q)),
                (h("span", {"class_": "pill"}, t("survey_stance_mapped"))
                 if q.get("stance_mapped") else None),
                (h("span", {"class_": "muted small"}, t("n_responses", n=answered))
                 if answered and show_count else None)))
-    body = [h("div", {"class_": "qhead"}, h("span", {"class_": "qnum"}, q.get("id", "")),
-            h("b", {}, q.get("text", "")))]
-    if answered and q.get("kind") == "text":
-        body += [h("p", {"class_": "muted small"}, f"„{a}“")
-                 for a in (res.get("answers") or [])[:8]]
-    elif answered:
-        counts = res.get("counts") or {}
-        for opt in q.get("options") or []:
-            n = counts.get(opt, 0)
-            pct = (n / answered * 100) if answered else 0
-            body.append(h("div", {"class_": "svrow"}, h("span", {}, opt),
-                          h("div", {"class_": "svbar"}, h("i", {"style": f"width:{pct:.1f}%"})),
-                          h("span", {}, str(n))))
-    elif q.get("options"):
-        body.append(h("div", {"class_": "svopts"},
-                      fragment(*(h("span", {"class_": "pill"}, o) for o in q["options"]))))
-    if answered and q.get("stance_mapped") and res.get("comparison"):
-        body.append(raw(_predicted_vs_actual(res["comparison"], store)))
-    return h("details", {"class_": "svq"}, head, fragment(*body))
+    return h("details", {"class_": "svq"}, head, question_content(q, result))
 
 
 def _response_row(resp: dict, qmap: dict, store) -> str:
@@ -199,7 +166,7 @@ def register_surveys(app) -> None:
         n_resp = results["responses"]
         responses = store.list_survey_responses(s["id"]) if n_resp else []
         responses_html = h("div", {"class_": "sec", "id": "sec-responses"},
-                           h("h2", {}, t("n_responses", n=n_resp)),
+                           response_summary(n_resp),
                            (h("p", {"class_": "muted small"}, t("no_survey_responses"))
                             if not n_resp else
                             fragment(*(_response_row(r, qmap, store) for r in responses))))

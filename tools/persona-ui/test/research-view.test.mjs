@@ -38,7 +38,7 @@ test('logging notification failure cannot erase a successfully rendered native r
 });
 
 test('all built resources bind the passive manifest, source and declared tools', async () => {
-  for (const family of ['notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions']) {
+  for (const family of ['notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions', 'surveys', 'councils']) {
     const { manifest } = await loadAsset(family, { verifySources: true });
     const tools = declarations.filter(item => item.componentId === manifest.component_id);
     assert.ok(tools.length > 0);
@@ -134,10 +134,34 @@ test('passive native reference keeps the final qualifier and source anchor after
   } finally { await session.page.close(); }
 });
 
+test('native count meters admit only a passive unit quantity and accessible label', async () => {
+  const session = await openApp(browser);
+  try {
+    await session.send(toolResult('<p>2 of 3 responses</p><meter class="sl-research-meter" min="0" max="1" value="0.666666666667" aria-label="Named owner" onclick="window.compromised=true" style="background:url(https://forbidden.invalid)">2 / 3</meter>'));
+    await session.rendered();
+    const meter = session.root.locator('meter');
+    assert.equal(await meter.getAttribute('aria-label'), 'Named owner');
+    assert.equal(await meter.evaluate(node => node.value), 0.666666666667);
+    assert.equal(await meter.getAttribute('min'), '0');
+    assert.equal(await meter.getAttribute('max'), '1');
+    assert.equal(await session.root.locator('[style],[onclick]').count(), 0);
+    await session.assertPassive();
+    for (const attributes of ['min="0" max="1" value="NaN"', 'min="0" max="1" value="1.1"',
+      'min="0" max="1" value="-0.1"', 'min="0" max="20" value="0.5"', 'min="0" max="1" value="1e-7"']) {
+      await session.send(toolResult(`<p>Invalid native quantity</p><meter ${attributes}>Raw count remains in tool text</meter>`));
+      await session.root.getByText('This view is unavailable.', { exact: false }).waitFor();
+      assert.equal(await session.root.locator('meter').count(), 0);
+    }
+    await session.assertPassive();
+  } finally { await session.page.close(); }
+});
+
 for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'sections-empty', 'sections-detail',
   'projects-ready', 'projects-empty', 'projects-detail', 'search-ready', 'search-empty', 'search-detail',
   'hypotheses-open', 'hypotheses-observed', 'hypotheses-dropped', 'hypotheses-empty',
-  'decisions-proposed', 'decisions-adopted', 'decisions-superseded', 'decisions-empty'])
+  'decisions-proposed', 'decisions-adopted', 'decisions-superseded', 'decisions-empty',
+  'surveys-instrument', 'surveys-ready', 'surveys-comparison', 'surveys-repeated-choice', 'surveys-text', 'surveys-empty', 'surveys-imported',
+  'councils-voices', 'councils-input', 'councils-list', 'councils-empty'])
   test(`actual packaged MCP Apps bridge renders shared native ${scenario} HTML`, async () => {
     const fixture = fixtures.find(item => item.scenario === scenario);
     const session = await openApp(browser, { family: fixture.family, viewport: { width: 390, height: 844 } });
@@ -188,6 +212,43 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
         if (scenario === 'decisions-superseded') {
           assert.equal(await session.root.locator('.sl-research-card').count(), 2);
           assert.equal(await session.root.getByRole('heading', { name: 'Make the current owner visible' }).count(), 1);
+        }
+      } else if (scenario.startsWith('surveys-') && scenario !== 'surveys-empty') {
+        const text = await session.root.innerText();
+        if (scenario === 'surveys-instrument') {
+          assert.ok(text.includes('Named owner') && text.includes('Longer email'));
+          assert.ok(!text.includes('0 responses'));
+          assert.equal(await session.root.locator('meter').count(), 0);
+        } else if (scenario === 'surveys-ready') {
+          assert.deepEqual(await session.root.locator('meter').evaluateAll(nodes => nodes.map(node => node.value)), [0.666666666667, 0.333333333333]);
+          assert.ok(text.includes('3 responses'));
+        } else if (scenario === 'surveys-comparison') {
+          assert.ok(text.includes('Council prediction (2)') && text.includes('Real answers (3)'));
+          assert.ok(text.includes('council:council_fixture'));
+          const rows = await session.root.locator('tbody tr').allTextContents();
+          assert.ok(rows.some(row => row.includes('Support') && row.endsWith('21')));
+          assert.ok(rows.some(row => row.includes('Oppose') && row.endsWith('02')));
+        } else if (scenario === 'surveys-repeated-choice') {
+          assert.ok(text.includes('Named owner: 2') && text.includes('answered count (2 / 1)'));
+          assert.equal(await session.root.locator('.sl-research-count-overflow meter').count(), 0);
+        } else if (scenario === 'surveys-text') {
+          assert.equal(await session.root.locator('blockquote').count(), 2);
+          assert.ok(text.includes('Only applies during the pilot.') && text.includes('2 / 3'));
+        } else assert.ok(text.includes('1 responses processed') && text.includes('3 responses'));
+      } else if (scenario.startsWith('councils-') && scenario !== 'councils-empty') {
+        const text = await session.root.innerText();
+        assert.ok(text.includes('What interrupts the handover?'));
+        if (scenario === 'councils-voices') {
+          assert.equal(await session.root.locator('.sl-research-statement').count(), 1);
+          for (const value of ['persona_fixture', 'Where is ownership unclear?', 'cannot identify the owner', '-1 · skeptical', 'Synthetic fixture, not observed research']) assert.ok(text.includes(value), value);
+        } else if (scenario === 'councils-input') {
+          assert.ok(text.includes('Show the current owner before the next shift begins.'));
+          assert.ok(text.includes('Who changes the owner?') && text.includes('uncertain → support'));
+          assert.equal(await session.root.locator('details,summary').count(), 0, 'Passive input snapshots remain visible');
+        } else {
+          assert.ok(text.includes('Participants: 2') && text.includes('Voices: 3'));
+          assert.ok(text.includes('support: 1') && text.includes('oppose: 1'));
+          assert.ok(!text.includes('persona_fixture'), 'Summary counts never invent participant identities');
         }
       } else assert.equal(await session.root.locator('.sl-research-empty').count(), 1);
       assert.ok(await session.frame.locator('html').evaluate(node => node.scrollWidth <= innerWidth));

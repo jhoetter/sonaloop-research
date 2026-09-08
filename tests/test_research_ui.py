@@ -22,6 +22,9 @@ NOTE = {"id": "note_one", "title": "A <script>title</script>", "text": "**Actual
 SECTION = {"id": "section_one", "title": "Research stage", "member_ids": ["note:note_one"], "note": "What we learned"}
 HYPOTHESIS = {"id": "hyp_one", "text": "Handover gets faster", "prediction": {"metric": "minutes", "expected_value": 4}, "status": "open"}
 DECISION = {"id": "dec_one", "title": "Name the handover owner", "decision": "Make responsibility explicit.", "status": "proposed", "based_on": [{"kind": "hypothesis", "id": "hyp_one"}]}
+SURVEY = {"id": "survey_one", "title": "Handover feedback", "status": "draft", "questions": [{"id": "q1", "text": "What helps?", "kind": "text"}]}
+COUNCIL = {"id": "council_one", "prompt": "What helps the handover?", "persona_ids": ["persona_one"],
+           "statements": [{"persona_id": "persona_one", "text": "Knowing who owns the open issue."}], "summary": "Make ownership explicit."}
 
 
 def test_cold_product_bootstrap_registers_shared_css_before_shell_digest():
@@ -76,7 +79,22 @@ def test_native_schema_text_and_structured_output_are_unchanged():
 def test_every_registered_surface_has_a_real_projection_and_resource(name):
     server = build_server()
     tool = server._tool_manager._tools[name]
-    if name in {"record_hypothesis", "record_hypothesis_result", "drop_hypothesis"}:
+    if name in {"record_council", "get_council"}:
+        data = COUNCIL
+    elif name == "list_councils":
+        data = {"items": [{"id": "council_one", "prompt": COUNCIL["prompt"], "created_at": "2026-09-08", "personas": 1, "turns": 1, "votes": {}}], "total": 1, "has_more": False}
+    elif name == "record_survey":
+        data = {"survey": SURVEY}
+    elif name == "get_survey":
+        data = {**SURVEY, "response_count": 0}
+    elif name == "list_surveys":
+        data = {"surveys": [SURVEY]}
+    elif name == "survey_results":
+        data = {"survey_id": "survey_one", "title": SURVEY["title"], "status": "draft", "responses": 0,
+                "questions": [{"question_id": "q1", "text": "What helps?", "kind": "text", "answered": 0, "answers": []}]}
+    elif name == "import_survey_responses":
+        data = {"survey_id": "survey_one", "imported": 2, "total_responses": 2}
+    elif name in {"record_hypothesis", "record_hypothesis_result", "drop_hypothesis"}:
         data = {"hypothesis": HYPOTHESIS}
     elif name == "get_hypothesis":
         data = HYPOTHESIS

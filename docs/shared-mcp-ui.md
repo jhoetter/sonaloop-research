@@ -89,7 +89,8 @@ accepted human review remain separate from the ledger's classifications.
 
 ## Passive shared views
 
-Notes, Sections, Projects, Search, Hypotheses and Decisions have passive MCP resources registered on
+Notes, Sections, Projects, Search, Hypotheses, Decisions, Councils and Surveys
+have passive MCP resources registered on
 existing native tools. `registry.py` names each exact tool/result projection;
 only those names receive `supported` rows. The Note and Section detail pages,
 Project heading and server-rendered command-palette hit content call the same
@@ -110,6 +111,28 @@ When a native supersession result supplies both predecessor and successor, both
 records are shown. Writer results are projected from their actual nested
 `hypothesis` or `decision` object; read and list envelopes retain their native shapes.
 
+Council detail views share the product's authored summary and statement grouping.
+Product adapters prepare resolved persona/avatar/reference fragments before the
+pure statement renderer; the passive App uses only supplied participant IDs,
+statement text, input snapshots, stance labels and source addresses. Each
+statement keeps its own trust/context information even when grouped with other
+statements by the same persona. List summaries show the native participant,
+voice and vote counts without inventing a transcript. Full records must contain
+native `statements`; legacy or unknown shapes retain ordinary tool output.
+Embedded head-to-head/red-team verdicts display their stored aggregates.
+
+Survey instruments share the product question body and distinguish an unknown
+response count from an actual zero. Result views show native per-option counts
+and the canonical prediction-versus-real-answer table, including its source
+references. Every supplied free-text answer remains visible; when the native
+result retains fewer answers than the answered count, the view shows both
+numbers. A native multi-choice import can contain repeated selections; if a
+recorded option count exceeds the answered count, both numbers remain visible
+with a notice and no proportion bar. Import receipts say how many responses were **processed**, because a
+replayed import need not add that many new rows. Exported survey forms and
+evidence attachment keep their existing native workflows; these passive cards
+do not submit responses, export forms or attach evidence.
+
 The MCP adapter calls each original native function once. FastMCP's original
 input/output metadata remains in place, including the bare `search` and `fetch`
 connector contracts. Text and structured output are preserved byte-for-byte
@@ -121,7 +144,9 @@ projection preserves the successful native output without a card or retry.
 
 The App verifies component, schema, state, size and native-text digest. It then
 copies a narrow semantic element/class allowlist into a new document fragment;
-it strips scripts, event handlers, styles, images, forms and navigation. The
+it strips scripts, event handlers, styles, images, forms and navigation.
+Count bars use an HTML `meter` with a strictly validated 0–1 value and accessible
+label. No arbitrary style, SVG or resource URL is admitted to represent a count. The
 passive resources make no network request, invoke no tool, and declare no actions.
 The original tool text remains available when a host cannot render MCP Apps.
 Static CSS and translation assets are customer package inputs; renderers resolve

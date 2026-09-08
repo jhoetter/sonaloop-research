@@ -130,7 +130,8 @@ export function toolResult(html, { family = 'notes', state = 'ready', text = 'Sy
 // Calls only the pure renderer using authored DTOs. No server build, Store, service,
 // provider, native tool invocation or runtime dataset is involved.
 const fixturePython = String.raw`
-import json, sys
+import ast, json, sys
+from pathlib import Path
 def audit(event, args):
     if event in {"sqlite3.connect", "socket.connect", "socket.getaddrinfo"}:
         raise RuntimeError("Fixture renderer attempted runtime access: " + event)
@@ -139,6 +140,7 @@ from sonaloop.ui_components.registry import render_tool, SURFACES
 from sonaloop.ui_components.library import note_content
 from sonaloop.ui_components.discovery import project_heading, search_hit_content
 from sonaloop.web._render import render_ref
+from sonaloop import artifacts
 from sonaloop.web._i18n import _UI_LANG
 _UI_LANG.set("en")
 note = {"id": "note_fixture", "kind": "observation", "title": "Handover needs a visible owner",
@@ -164,6 +166,34 @@ decision = {"id": "dec_fixture", "title": "Name a handover owner", "decision": "
             "rejected": [{"kind": "council", "id": "council_fixture", "note": "The alternative has no explicit owner."}]}
 adopted = {**decision, "status": "adopted"}
 successor = {**adopted, "id": "dec_next", "title": "Make the current owner visible", "supersedes": "dec_fixture"}
+question = {"id": "q1", "text": "What helps the next shift?", "kind": "single", "options": ["Named owner", "Longer email"]}
+survey = {"id": "survey_fixture", "title": "Handover feedback", "intro": "Synthetic survey instrument.",
+          "status": "draft", "questions": [question], "derived_from": []}
+survey_results = {"survey_id": "survey_fixture", "title": survey["title"], "status": "open", "responses": 3,
+                  "questions": [{"question_id": "q1", "text": question["text"], "kind": "single", "answered": 3,
+                                 "counts": {"Named owner": 2, "Longer email": 1}}]}
+stance_counts = {term["term"]: 0 for term in artifacts.stance_terms()}
+comparison = {"predicted": {"n": 2, "counts": {**stance_counts, "support": 2}, "refs": [{"kind": "council", "id": "council_fixture"}]},
+              "actual": {"n": 3, "counts": {**stance_counts, "support": 1, "oppose": 2}}}
+survey_comparison = {**survey_results, "questions": [{"question_id": "q1", "text": "Does a named owner help?", "kind": "scale",
+    "answered": 3, "stance_mapped": True, "counts": {"Support": 1, "Oppose": 2}, "comparison": comparison}]}
+survey_text = {**survey_results, "questions": [{"question_id": "q2", "text": "Why?", "kind": "text", "answered": 3,
+    "answers": ["The next shift can find the owner.", "Only applies during the pilot."]}]}
+council = {"id": "council_fixture", "prompt": "What interrupts the handover?", "persona_ids": ["persona_fixture"],
+           "statements": [{"id": "s1", "persona_id": "persona_fixture", "text": "The next shift cannot identify the owner.",
+                           "about": {"kind": "prompt", "id": "q0"}, "stance": {"value": -1, "label": "skeptical"},
+                           "meta": {"claim_posture": "simulated"},
+                           "refs": [{"kind": "external", "text": "Synthetic fixture, not observed research"}]}],
+           "prompts": [{"id": "q0", "kind": "question", "text": "Where is ownership unclear?"}],
+           "exec_summary": "Keep the current owner visible.", "votes": [], "findings": []}
+council_input = {**council, "prompts": [], "exec_summary": "",
+                 "statements": [{"persona_id": "persona_fixture", "text": "This change helps during onboarding.",
+                     "meta": {"input": "Show the current owner before the next shift begins.", "grounded": False,
+                              "claim_posture": "simulated", "pushback": ["Who changes the owner?"]},
+                     "shift": {"from": "uncertain", "to": "support", "trigger": "Explicit owner"}}]}
+council_list = {"items": [{"id": "council_fixture", "prompt": council["prompt"], "personas": 2, "turns": 3,
+                           "votes": {"support": 1, "oppose": 1}, "created_at": "2026-09-08T12:00:00Z"}],
+                "total": 1, "has_more": False, "next_cursor": None}
 specs = [
     ("notes-ready", "notes", "list_notes", {"project_id": "project_fixture"}, {"items": [note], "total": 1, "has_more": False}),
     ("notes-empty", "notes", "list_notes", {"project_id": "project_fixture"}, {"items": [], "total": 0, "has_more": False}),
@@ -184,9 +214,36 @@ specs = [
     ("decisions-adopted", "decisions", "get_decision", {"decision_id": "dec_fixture"}, adopted),
     ("decisions-superseded", "decisions", "update_decision", {"decision_id": "dec_fixture", "superseded_by": "dec_next"}, {"decision": {**decision, "status": "superseded", "superseded_by": "dec_next"}, "successor": successor}),
     ("decisions-empty", "decisions", "list_decisions", {"project_id": "project_fixture"}, {"decisions": []}),
+    ("surveys-instrument", "surveys", "record_survey", {"project_id": "project_fixture", "title": survey["title"], "questions": [question]}, {"survey": survey}),
+    ("surveys-ready", "surveys", "survey_results", {"survey_id": "survey_fixture"}, survey_results),
+    ("surveys-comparison", "surveys", "survey_results", {"survey_id": "survey_fixture"}, survey_comparison),
+    ("surveys-repeated-choice", "surveys", "survey_results", {"survey_id": "survey_fixture"}, {**survey_results, "responses": 1,
+        "questions": [{"question_id": "q1", "text": question["text"], "kind": "multi", "answered": 1,
+                       "counts": {"Named owner": 2, "Longer email": 0}}]}),
+    ("surveys-text", "surveys", "survey_results", {"survey_id": "survey_fixture"}, survey_text),
+    ("surveys-empty", "surveys", "list_surveys", {"project_id": "project_fixture"}, {"surveys": []}),
+    ("surveys-imported", "surveys", "import_survey_responses", {"survey_id": "survey_fixture", "responses": [{"respondent_key": "fixture-response", "answers": [{"question_id": "q1", "value": "Named owner"}]}]}, {"survey_id": "survey_fixture", "imported": 1, "total_responses": 3}),
+    ("councils-voices", "councils", "get_council", {"session_id": "council_fixture"}, council),
+    ("councils-input", "councils", "get_council", {"session_id": "council_fixture"}, council_input),
+    ("councils-list", "councils", "list_councils", {"limit": 25}, council_list),
+    ("councils-empty", "councils", "list_councils", {"limit": 25}, {"items": [], "total": 0, "has_more": False, "next_cursor": None}),
 ]
+# Check authored inputs against actual native Python signatures without building
+# a server or invoking tools. These receipts must identify a possible tool call.
+signatures = {}
+for path in Path("sonaloop/mcp_server").glob("_tools*.py"):
+    for node in ast.walk(ast.parse(path.read_text())):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and any(
+            isinstance(d, ast.Call) and isinstance(d.func, ast.Attribute) and d.func.attr == "tool" for d in node.decorator_list):
+            positional = node.args.posonlyargs + node.args.args
+            names = {arg.arg for arg in positional + node.args.kwonlyargs}
+            required = {arg.arg for arg in positional[:len(positional) - len(node.args.defaults)]}
+            required |= {arg.arg for arg, default in zip(node.args.kwonlyargs, node.args.kw_defaults) if default is None}
+            signatures[node.name] = names, required
 output = []
 for scenario, family, tool, arguments, data in specs:
+    names, required = signatures[tool]
+    assert set(arguments) <= names and required <= set(arguments), (scenario, "Invalid native fixture arguments")
     envelope = data if tool in {"search", "fetch"} else {"tool": tool, "data": data}
     html, state = render_tool(tool, envelope)
     output.append(dict(scenario=scenario, family=family, tool=tool, input=arguments, native=envelope,
