@@ -240,6 +240,11 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
         assert.ok(text.includes('What interrupts the handover?'));
         if (scenario === 'councils-voices') {
           assert.equal(await session.root.locator('.sl-research-statement').count(), 1);
+          const labels = session.root.locator('.sl-research-statement-body > .sl-research-statement-head > span');
+          assert.equal(await labels.count(), 2);
+          const stanceBox = await labels.nth(0).boundingBox(), postureBox = await labels.nth(1).boundingBox();
+          assert.ok(postureBox.x >= stanceBox.x + stanceBox.width + 4 || postureBox.y >= stanceBox.y + stanceBox.height,
+            'Each recorded stance and claim label remains visually separated');
           for (const value of ['persona_fixture', 'Where is ownership unclear?', 'cannot identify the owner', '-1 · skeptical', 'Synthetic fixture, not observed research']) assert.ok(text.includes(value), value);
         } else if (scenario === 'councils-input') {
           assert.ok(text.includes('Show the current owner before the next shift begins.'));
