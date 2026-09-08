@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createAgent} from '../agent.mjs';
 import {createPolicy} from '../policy.mjs';
+import {MAX_RETAINED_CALL_BYTES,MAX_RETAINED_CALL_TOTAL_BYTES} from '../host-limits.mjs';
 
 const tool=(name,readOnlyHint=true)=>({name,description:'Fixture only',inputSchema:{type:'object',properties:{operation_id:{type:'string'}},required:['operation_id'],additionalProperties:false},annotations:{readOnlyHint}});
 const call=(name='read',id='one')=>({id:`fc_${id}`,type:'function_call',name,call_id:id,arguments:'{"operation_id":"stable"}'});
@@ -97,7 +98,7 @@ test('invalid model arguments never execute and do not poison the next input his
 test('UI grant failure preserves actual tool success and bounded oversized result cannot invite retry',async()=>{
   const f=fixture({grant:async()=>{throw new Error('PRIVATE resource');}});const result=await f.open().start();
   assert.equal(result.parts[0].state,'completed');assert.equal(result.parts[0].call.result.content[0].text,'Native completed');assert.equal(JSON.stringify(result).includes('PRIVATE'),false);
-  const large=fixture({invoke:async()=>({content:[{type:'text',text:'x'.repeat(1100000)}]})});const bounded=await large.open().start();
+  const large=fixture({invoke:async()=>({content:[{type:'text',text:'x'.repeat(MAX_RETAINED_CALL_BYTES)}]})});const bounded=await large.open().start();
   assert.equal(bounded.parts[0].state,'completed');assert.equal(Buffer.byteLength(JSON.stringify(bounded))<10000,true);assert.equal(large.invocations.length,1);
 });
 test('streamed text or tool identity missing from final output cannot be presented as completed',async()=>{
@@ -126,4 +127,41 @@ test('client request lookup is read-only, owner-bound and available before provi
   assert.throws(()=>f.agent.requestSnapshot('missing_turn','owner'),e=>e.code==='turn_missing'&&e.status===404);
   await request.start();const done=f.agent.requestSnapshot('client_turn_1','owner');assert.equal(done.status,'completed');
   f.agent.requestSnapshot('client_turn_1','owner');assert.equal(f.invocations.length,1);assert.equal(f.payloads.length,2);
+});
+test('multi-MiB private app metadata and a maximum-size base64 attachment survive with following text',async()=>{
+  for(const bytes of [3*1024*1024,Math.ceil(8*1024*1024/3)*4]){
+    const media='OWNER_ONLY_ATTACHMENT:'+ 'A'.repeat(bytes);
+    const f=fixture({invoke:async()=>({content:[{type:'text',text:'Native result'}],_meta:{opaqueAttachment:media}}),
+      fetcher:async round=>round===0?response([call()]):response([message('Card available')],[{type:'response.output_text.delta',item_id:'msg_final',content_index:0,delta:'Card available'}])});
+    const request=f.open(),events=[];request.subscribe(e=>events.push(e));const done=await request.start();
+    assert.equal(done.status,'completed');assert.equal(done.parts[0].call.result._meta.opaqueAttachment,media);assert.equal(done.parts[0].call.viewToken,'opaque-owner-grant');
+    assert.equal(done.parts[1].text,'Card available');assert.equal(JSON.stringify(f.payloads).includes('OWNER_ONLY_ATTACHMENT'),false);
+    assert.equal(events.find(e=>e.call)?.call.result._meta.opaqueAttachment,media);
+    await f.open().start();assert.equal(f.invocations.length,1);assert.equal(f.payloads.length,2);
+  }
+});
+test('aggregate card JSON is bounded across turns; overflow preserves effect and never reruns it',async()=>{
+  const media='PRIVATE_AGGREGATE:'+ 'A'.repeat(9*1024*1024);
+  const f=fixture({invoke:async()=>({content:[{type:'text',text:'Native result'}],_meta:{opaqueAttachment:media}}),
+    fetcher:async round=>round%2===0?response([call('read',`call_${round}`)]):response([message()])});
+  let retained=0,firstId;
+  for(let index=0;index<6;index++){
+    const request=f.open(`client_budget_${index}`),done=await request.start();firstId??=done.turnId;
+    const part=done.parts[0];assert.equal(done.status,'completed');assert.equal(part.state,'completed');
+    retained+=Buffer.byteLength(JSON.stringify(part.call));assert.equal(retained<=MAX_RETAINED_CALL_TOTAL_BYTES,true);
+    if(index<5)assert.equal(part.call.result._meta.opaqueAttachment,media);
+    else{assert.equal(part.call.result._meta,undefined);assert.match(part.call.uiError,/Speicher.*ausgeschöpft/);assert.match(part.call.result.content[0].text,/nicht wiederholen/);}
+  }
+  assert.equal(f.agent.snapshot(firstId,'owner').parts[0].call.result._meta.opaqueAttachment,media);
+  await f.open('client_budget_0').start();assert.equal(f.invocations.length,6);assert.equal(f.payloads.length,12);
+  assert.equal(JSON.stringify(f.payloads).includes('PRIVATE_AGGREGATE'),false);
+});
+test('resolved model comes only from bounded completed provider metadata, not the requested model',async()=>{
+  for(const model of ['gpt-5.6-terra-2026-09-08','not a safe model identifier','x'.repeat(129),null]){
+    const finished=complete([message()]);finished.response.model=model;
+    const f=fixture({fetcher:async()=>new Response(event(finished),{headers:{'Content-Type':'text/event-stream'}})});
+    const request=f.open(),events=[];request.subscribe(e=>events.push(e));const result=await request.start();
+    const expected=model==='gpt-5.6-terra-2026-09-08'?model:undefined;
+    assert.equal(result.resolvedModel,expected);assert.equal(events.at(-1).resolvedModel,expected);
+  }
 });

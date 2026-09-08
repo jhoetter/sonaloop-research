@@ -44,7 +44,8 @@ function completedBody(body) {
     usage={};
     for(const name of ['input_tokens','output_tokens','total_tokens']) if(Number.isSafeInteger(body.usage[name]) && body.usage[name]>=0) usage[name]=body.usage[name];
   }
-  return { id: body.id, status: 'completed', output: body.output, usage };
+  const model=typeof body.model==='string'&&/^[A-Za-z0-9_.:-]{1,128}$/.test(body.model) ? body.model : undefined;
+  return { id: body.id, status: 'completed', output: body.output, usage, ...(model ? {model} : {}) };
 }
 
 /** Read Responses SSE; only text and function names cross the progress callback boundary.

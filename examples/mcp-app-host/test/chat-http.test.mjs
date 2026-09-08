@@ -13,11 +13,13 @@ const completed=output=>({type:'response.completed',response:{id:'response_fixtu
 const text={id:'message_fixture',type:'message',content:[{type:'output_text',text:'Fixture'}]};
 async function until(fn){for(let n=0;n<100;n++){if(fn())return;await new Promise(resolve=>setTimeout(resolve,5));}throw new Error('Fixture timeout');}
 async function fixture(t,{fetcher,invoke=async()=>({content:[{type:'text',text:'Done'}]})}){
-  let providerCalls=0,nativeCalls=0;
+  let providerCalls=0,nativeCalls=0,drainCount=0,largestBuffered=0;
   const agent=createAgent({apiKey:'fixture-key',policy:createPolicy([tool],{allowedTools:[tool.name]}),grant:async(name,args,result)=>({id:'result_fixture',name,arguments:args,result}),
     client:{callTool:async()=>{nativeCalls++;return await invoke();}},fetcher:async(...args)=>{providerCalls++;return await fetcher(...args);}});
   const auth=createSessions();let origin;
   const server=createServer(async(req,res)=>{
+    res.on('drain',()=>{drainCount++;});const write=res.write;
+    res.write=function(...args){const result=write.apply(this,args);largestBuffered=Math.max(largestBuffered,res.writableLength);return result;};
     try{
       originGuard(req,origin,req.method==='POST');
       if(req.url==='/status'){const owner=auth.session(req,res,true);return json(res,200,{csrf:owner.csrf});}
@@ -33,7 +35,7 @@ async function fixture(t,{fetcher,invoke=async()=>({content:[{type:'text',text:'
   t.after(async()=>{server.closeAllConnections();await new Promise(resolve=>server.close(resolve));});
   const status=await fetch(`${origin}/status`);const cookie=status.headers.get('set-cookie').split(';')[0],{csrf}=await status.json();
   const headers={Origin:origin,Cookie:cookie,'X-Host-CSRF':csrf,'Content-Type':'application/json',Accept:'text/event-stream'};
-  return {origin,headers,agent,nativeCalls:()=>nativeCalls,providerCalls:()=>providerCalls,
+  return {origin,headers,agent,nativeCalls:()=>nativeCalls,providerCalls:()=>providerCalls,drainCount:()=>drainCount,largestBuffered:()=>largestBuffered,
     send:(options={})=>fetch(`${origin}/chat`,{method:'POST',headers,body:JSON.stringify({message:'Fixture only',clientTurnId:'fixture_client_turn'}),...options}),
     read:id=>fetch(`${origin}/${id}`,{headers:{Cookie:cookie}}).then(r=>r.json())};
 }
@@ -71,4 +73,16 @@ test('HTTP disconnect during native work retains actual result and does not star
 test('already closed HTTP response sets stop fence before starting admitted turn',async()=>{
   const order=[];await serveChatStream({destroyed:true},{sessionId:'session',turnId:'turn',start:async()=>{order.push('start');}},{stop(){order.push('stop');}},'owner');
   assert.deepEqual(order,['stop','start']);
+});
+test('large private app event drains through real HTTP and later text plus replay remain complete',async t=>{
+  let round=0;const media='OPAQUE_HTTP_ATTACHMENT:'+ 'A'.repeat(3*1024*1024);
+  const f=await fixture(t,{invoke:async()=>({content:[{type:'text',text:'Native result'}],_meta:{opaqueAttachment:media}}),
+    fetcher:async()=>new Response(encoded(completed(round++===0?[{id:'fc_fixture',type:'function_call',name:tool.name,call_id:'call_fixture',arguments:'{}'}]:[text])),{headers:{'Content-Type':'text/event-stream'}})});
+  const response=await f.send();await new Promise(resolve=>setTimeout(resolve,25));
+  const wire=await response.text();const events=wire.split('\n').filter(line=>line.startsWith('data: ')).map(line=>JSON.parse(line.slice(6)));
+  assert.equal(events.find(e=>e.call)?.call.result._meta.opaqueAttachment,media);assert.equal(events.at(-1).type,'turn.finished');assert.equal(events.at(-1).status,'completed');
+  assert.equal(events.some(e=>e.type==='text.delta'&&e.delta==='Fixture'),true);assert.equal(f.drainCount()>0,true);
+  assert.equal(f.largestBuffered()<4*1024*1024,true);assert.equal(f.nativeCalls(),1);assert.equal(f.providerCalls(),2);
+  const replay=await f.send();const replayWire=await replay.text();const replayEvents=replayWire.split('\n').filter(line=>line.startsWith('data: ')).map(line=>JSON.parse(line.slice(6)));
+  assert.equal(replayEvents.find(e=>e.call)?.call.result._meta.opaqueAttachment,media);assert.equal(replayEvents.at(-1).status,'completed');assert.equal(f.nativeCalls(),1);assert.equal(f.providerCalls(),2);
 });

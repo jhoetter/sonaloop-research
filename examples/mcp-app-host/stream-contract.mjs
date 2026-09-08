@@ -6,7 +6,9 @@
  * - text.delta: {partId,delta}
  * - tool.state: {partId,name,state,arguments?,approval?,call?,error?}
  * - turn.paused: {approval:{id,name,arguments,partId}}
- * - turn.finished: {status:'completed'|'stopped'|'failed',error?,responseId?,usage?}
+ * - turn.finished: {status:'completed'|'stopped'|'failed',error?,responseId?,resolvedModel?,usage?}
+ * resolvedModel is the bounded model identifier from a completed provider response,
+ * when present; the requested/configured model alone does not establish that fact.
  * A paused stream ends; approval continuation uses the same turn and part identities.
  * call is the existing owner-bound MCP call/resource grant, including app-only result
  * metadata. It is never provider input. SSE comments are transport heartbeats only.
