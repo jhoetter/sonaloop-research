@@ -3,6 +3,8 @@ import asyncio
 import copy
 import hashlib
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -18,6 +20,26 @@ from sonaloop.ui_components.registry import SURFACES
 
 NOTE = {"id": "note_one", "title": "A <script>title</script>", "text": "**Actual** native note", "kind": "note"}
 SECTION = {"id": "section_one", "title": "Research stage", "member_ids": ["note:note_one"], "note": "What we learned"}
+
+
+def test_cold_product_bootstrap_registers_shared_css_before_shell_digest():
+    # A fresh process is essential: another test's first rendered card must not
+    # accidentally prime the registry and hide a release-token change on navigation.
+    result = subprocess.run([sys.executable, "-c", """
+from sonaloop import web
+from sonaloop.web._html import collect_css
+from sonaloop.web._shell_version import shell_digest
+from sonaloop.ui_components.library import note_content, section_content
+from sonaloop.ui_components.discovery import project_heading, search_hit_content
+assert '.sl-research-card' in collect_css()
+before = shell_digest()
+note_content({'text': 'Cold note'})
+section_content({'title': 'Cold section', 'member_ids': []})
+project_heading({'title': 'Cold project'})
+search_hit_content('Cold hit')
+assert shell_digest() == before
+"""], cwd=Path(__file__).parents[1], capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
 
 
 def call(server, name, args):

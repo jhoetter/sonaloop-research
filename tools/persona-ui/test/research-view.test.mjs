@@ -8,6 +8,35 @@ let browser, fixtures, declarations;
 before(async () => { browser = await launchBrowser(); ({ fixtures, declarations } = await nativeFixtureSet()); });
 after(async () => { await browser?.close(); });
 
+for (const [locale, label] of [['en', 'Loading view…'], ['de', 'Ansicht wird geladen…']])
+  test(`localized loading is visible before any tool result (${locale})`, async () => {
+    const session = await openApp(browser, { locale });
+    try {
+      await session.root.getByText(label, { exact: true }).waitFor();
+      assert.equal(await session.root.locator('.sl-research-card').count(), 0);
+      assert.equal(await session.page.evaluate(() => window.logs.length), 0);
+      await session.assertPassive();
+    } finally { await session.page.close(); }
+  });
+
+test('logging notification failure cannot erase a successfully rendered native result', async () => {
+  const session = await openApp(browser, { rejectLogging: true });
+  try {
+    await session.send(fixtures[0].result, fixtures[0].input);
+    await session.root.evaluate(async () => {
+      for (let attempt = 0; attempt < 120 && !globalThis.__loggingTransportFailures; attempt++)
+        await new Promise(resolve => requestAnimationFrame(resolve));
+      if (!globalThis.__loggingTransportFailures) throw new Error('Logging failure was not injected');
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    });
+    assert.equal(await session.root.evaluate(() => globalThis.__loggingTransportFailures), 1);
+    assert.equal(await session.root.getByRole('heading', { name: 'Handover needs a visible owner' }).count(), 1);
+    assert.equal(await session.root.getByText('This view is unavailable.', { exact: false }).count(), 0);
+    assert.deepEqual(await session.page.evaluate(() => window.logs), [], 'Only the rejected log is missing');
+    await session.assertPassive();
+  } finally { await session.page.close(); }
+});
+
 test('all four built resources bind the passive manifest, source and declared tools', async () => {
   for (const family of ['notes', 'sections', 'projects', 'search']) {
     const { manifest } = await loadAsset(family, { verifySources: true });

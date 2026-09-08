@@ -114,6 +114,9 @@ The original tool text remains available when a host cannot render MCP Apps.
 Static CSS and translation assets are customer package inputs; renderers resolve
 no additional research records, media or providers. Large results retain their
 native output when the 192 KiB presentation budget is exceeded.
+The App shows a localized loading state until a result arrives. Optional host
+logging failures do not replace a successful view. Product CSS is registered at
+bootstrap so opening the first shared card cannot change the release shell token.
 
 Build with `node tools/persona-ui/build-research.mjs` using the pinned
 `tools/persona-ui` dependencies. Each generated manifest binds Python/product

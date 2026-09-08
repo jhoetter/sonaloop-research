@@ -20,7 +20,7 @@ from ._ctx import *  # noqa: F401,F403  (shared render toolkit)
 from .sessions import _sessions_section
 from .. import ui
 from .._html import register_css
-from ...ui_components.library import note_content, section_content
+from ...ui_components.library import note_content, section_content, register_product_styles
 from .._filterbar import filter_bar, filter_url, parse_multi
 from .._forms import overflow_delete
 from .edit import note_actions, section_actions
@@ -34,6 +34,8 @@ from .._primitive_taxonomy import (
     FAMILIES, family_icon, family_label, primitive_family, primitive_purpose, primitive_subtypes,
     form_label, prototype_fidelity_value, subtype_label, subtype_value,
 )
+
+register_product_styles()
 
 # (key, canonical route, icon, label, empty-state msg, lead, teach) — labels are lambdas so
 # they resolve per request (i18n, the _nav_seed idiom). Tab order is the methodology arc:

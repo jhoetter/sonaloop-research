@@ -7,9 +7,14 @@ from pathlib import Path
 def _kit():
     # Lazy imports avoid a cycle with web's route registration. No Store/service
     # is consulted by any renderer in this module.
-    from ..web._html import h, fragment, raw, register_css
-    register_css((Path(__file__).parents[1] / "web/assets/research-view/research.css").read_text())
+    from ..web._html import h, fragment, raw
     return h, fragment, raw
+
+
+def register_product_styles():
+    """Register during product bootstrap, before the release shell is hashed."""
+    from ..web._html import register_css
+    register_css((Path(__file__).parents[1] / "web/assets/research-view/research.css").read_text())
 
 
 def note_content(note: dict):

@@ -56,9 +56,36 @@ export async function launchBrowser() {
   return chromium.launch({ executablePath: browserExecutable, headless: true });
 }
 
+async function resourceWithLoggingFailure(resource) {
+  // Opaque WindowProxy access bypasses a parent's postMessage monkey-patch.
+  // Inject a single notification failure at the real SDK boundary instead. The
+  // actual adapter, initialization, result notifications and bridge stay intact.
+  // This fixture resource is never used by exportScenarios or bound to receipts.
+  const sdk = fileURLToPath(import.meta.resolve('@modelcontextprotocol/ext-apps'));
+  const injected = await build({ entryPoints: [resolve(repo, 'sonaloop/web/assets/research-view/research-mcp.js')],
+    bundle: true, format: 'iife', write: false, target: 'es2022', plugins: [{ name: 'reject-log-notification',
+      setup(plugin) {
+        plugin.onResolve({ filter: /^@modelcontextprotocol\/ext-apps$/ }, () => ({ path: 'logging-failure', namespace: 'fixture' }));
+        plugin.onLoad({ filter: /.*/, namespace: 'fixture' }, () => ({ loader: 'js', resolveDir: dirname(sdk), contents:
+          `import {App as NativeApp} from ${JSON.stringify(sdk)};
+           export class App extends NativeApp {
+             async notification(message, ...options) {
+               if (message.method === 'notifications/message') {
+                 globalThis.__loggingTransportFailures = (globalThis.__loggingTransportFailures || 0) + 1;
+                 throw new Error('Synthetic logging transport failure');
+               }
+               return super.notification(message, ...options);
+             }
+           }` }));
+      } }] });
+  const script = injected.outputFiles[0].text.replace(/<\/script/gi, '<\\/script');
+  return Buffer.from(resource.toString().replace(/<script>[\s\S]*<\/script>/, () => `<script>${script}</script>`));
+}
+
 export async function openApp(browser, { family = 'notes', locale = 'en',
-  viewport = { width: 960, height: 900 }, deviceScaleFactor = 1 } = {}) {
+  viewport = { width: 960, height: 900 }, deviceScaleFactor = 1, rejectLogging = false } = {}) {
   const asset = await loadAsset(family), bundle = await hostBundle();
+  const resource = rejectLogging ? await resourceWithLoggingFailure(asset.resource) : asset.resource;
   const page = await browser.newPage({ viewport, deviceScaleFactor });
   page.setDefaultTimeout(7000);
   const errors = [], blockedRequests = [];
@@ -69,7 +96,7 @@ export async function openApp(browser, { family = 'notes', locale = 'en',
     if (url.pathname === '/') return route.fulfill({ contentType: 'text/html', body:
       `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0"><iframe title="Research ${family}" sandbox="allow-scripts" style="display:block;width:100%;border:0"></iframe><script type="module">${bundle}</script></body></html>` });
     if (url.pathname === '/fixture/seed') return route.fulfill({ contentType: 'application/json', body: JSON.stringify({ locale }) });
-    if (url.pathname === '/fixture/app') return route.fulfill({ contentType: 'text/html', body: asset.resource,
+    if (url.pathname === '/fixture/app') return route.fulfill({ contentType: 'text/html', body: resource,
       headers: { 'Content-Security-Policy': "sandbox allow-scripts; default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; form-action 'none'" } });
     blockedRequests.push(url.href);
     return route.abort();
@@ -77,7 +104,7 @@ export async function openApp(browser, { family = 'notes', locale = 'en',
   await page.goto(origin);
   await page.waitForFunction(() => window.initialized);
   const frame = page.frameLocator('iframe'), root = frame.locator('[data-research-app]');
-  return { page, frame, root, asset, errors, blockedRequests,
+  return { page, frame, root, asset, errors, blockedRequests, injectedLoggingFailure: rejectLogging,
     async send(result, input = {}) {
       await page.evaluate(async ({ result, input }) => {
         await window.bridge.sendToolInput({ arguments: input });
