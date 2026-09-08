@@ -673,7 +673,7 @@ INSPECTOR_SECTIONS = [
       "anlegen. Der Flow fragt Alltag, Ziele, Grenzen, Werkzeuge, Sprache, Beziehungen und Evidenz ab und zeigt danach ehrlich, wie viel Memory noch fehlt. Bearbeiten und Löschen "
       "wohnen im **„…“-Menü**, das jeder Seitenkopf trägt (auch im Panel): **Bearbeiten** öffnet "
       "einen Dialog direkt über der Seite — Projekt-Titel, Goal und Icon; Notiz- und Section-Metadaten sowie "
-      "Persona-Metadaten (Name, Rolle, Segment, Branche). Projekt-Icons kannst du dort aus "
+      "Persona-Metadaten (Segment, Branche). Name, Rolle und die kompakten Profilfelder lassen sich zusätzlich direkt im Persona-Profil bearbeiten; das Gesicht öffnet die native Bildgenerierung. Projekt-Icons kannst du dort aus "
       "dem bestehenden Katalog wählen; ein Klick auf das Header-Icon öffnet denselben Dialog "
       "direkt am Icon-Picker. Custom-SVGs erzeugt/setzt dein Agent per MCP/CLI. "
       "**Löschen** öffnet einen Bestätigungs-Dialog. Bei Personas zeigt er zuerst, wie viele Projekte gelöst und welche persönliche Memory entfernt wird; historische Sessions bleiben erhalten, aktive Research-Runs blockieren die Löschung. "
@@ -682,12 +682,16 @@ INSPECTOR_SECTIONS = [
       "The inspector is a reading surface with one clear boundary: research artifacts come from your agent; as one deliberately detailed exception, you can create a **custom persona** yourself. "
       "The flow asks for everyday context, goals, constraints, tools, language, relationships and evidence, then shows honestly how much memory is still missing. Edit and delete live in the **“…” menu** every "
       "page header carries (in the side panel too): **Edit** opens a dialog right over the page — "
-      "project title, goal and icon; note and section metadata plus persona metadata (name, role, segment, industry). "
+      "project title, goal and icon; note and section metadata plus persona metadata (segment, industry). The name, role and compact profile fields can also be edited directly in the persona profile; the face opens native image generation. "
       "Project icons can be chosen there from the existing catalogue; clicking the header icon "
       "opens the same dialog directly at the icon picker. Custom SVGs are generated/set by your "
       "agent through MCP/CLI. **Delete** opens a confirm dialog. For personas it first explains which projects are detached and which personal memory is removed; historical sessions remain and active research runs block deletion. "
       "The Jobs list repeats the same quiet “…” menu immediately after the star: **Rename** changes only the title; **Delete job** permanently removes never-started containers and evidence-preservingly archives jobs with terminal run history. Active runs stay protected. Generated text — councils, reports, prototypes — stays untouchable; memories, SOULs and "
       "evidence entirely so.")),
+    ("persona-view", "personas",
+     ("Persona direkt bearbeiten", "Edit a persona directly"),
+     ("Klicke im Persona-Profil auf **Name, Rolle, Alter, Ort, Ziele oder Hürden**, um genau dieses Feld zu ändern. Enter oder ✓ speichert, Esc verwirft die Eingabe. Ein Klick auf das Gesicht öffnet eine kurze Beschreibung und **Generieren**; das neue Bild wird am selben Research-Profil gespeichert. Der Bild-Prompt ändert die Profilbeschreibung nicht. Bei einem Konflikt bleibt deine Eingabe erhalten; **Neu laden** verwirft sie zugunsten des aktuellen Profils. **Status prüfen** liest den gespeicherten Ausgang einer unklaren Aktion und startet keine zweite Generierung. Importierte Profile bleiben lesbar, auch wenn einzelne Feldformen nicht bearbeitbar sind. Ein MCP-Apps-fähiger Host kann dieselbe Persona-Oberfläche anzeigen; andere Hosts erhalten weiterhin die Profilfelder als Text.",
+      "Click **name, role, age, location, goals or everyday challenges** in the persona profile to change that field. Enter or ✓ saves; Esc cancels. Clicking the face opens a short description and **Generate**; the new image is saved on the same Research profile. The image prompt does not change the profile description. A conflict keeps your input; **Reload** discards it in favour of the current profile. **Check status** reads the saved outcome of an uncertain action without generating a second image. Imported profiles stay readable even when an individual field format cannot be edited. An MCP Apps host can show the same persona interface; other hosts still receive the profile fields as text.")),
     ("filtering", "filter",
      ("Filtern wie in Linear", "Filtering, Linear-style"),
      ("Job-Outline und Formate tragen eine **Filterleiste**: „Filter“ öffnet das Facetten-Menü "

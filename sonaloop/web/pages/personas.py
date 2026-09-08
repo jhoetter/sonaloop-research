@@ -13,6 +13,7 @@ from .sessions import _sessions_section
 from .._render import render_findings
 from .._html import register_css
 from .._keymap import sibling_attrs, sibling_urls
+from .._persona_view import persona_view_mount
 from ... import artifacts as _artifacts
 
 
@@ -676,10 +677,12 @@ def register_personas(app) -> None:
             tip = " · ".join(x for x in [cat_prov.get("ref"), cat_prov.get("pulled_at")] if x)
             eyebrow_pills = (raw(_label(t("persona_from_catalog"), "var(--accent)", "soft",
                                         True, tip or None)),)
-        main = fragment(
-            _hero(p["display_name"], sub=f'{p["role"]["title"]} · {p["company_context"]["industry"]}',
-                  top=detail_eyebrow(t("persona"), eyebrow_pills)),
-            h("div", {"class_": "identity"}, h("div", {}, avatar), h("div", {},
+        main = h("div", {"data-persona-surface-section": True},
+            detail_eyebrow(t("persona"), eyebrow_pills) if eyebrow_pills else "",
+            persona_view_mount(p["id"]),
+            h("div", {"data-persona-surface-fallback": True}, _hero(p["display_name"], sub=f'{p["role"]["title"]} · {p["company_context"]["industry"]}',
+                  top=detail_eyebrow(t("persona"), eyebrow_pills))),
+            h("div", {"class_": "identity"}, h("div", {"data-persona-surface-fallback": True}, avatar), h("div", {},
               h("div", {"class_": "sl-card"}, h("h3", {}, t("current_state")),
                 h("p", {}, h("strong", {}, state["current_activity"])),
                 h("p", {"class_": "muted small"}, " · ".join(x for x in [
@@ -694,8 +697,8 @@ def register_personas(app) -> None:
             raw(voices),
             raw(sessions_html),
             _capabilities_html(p.get("capabilities") or {}),
-            h("div", {"class_": "sec", "id": "ziele"}, h("h2", {}, t("goals")), raw(_pills(p["goals"]))),
-            h("div", {"class_": "sec", "id": "pains"}, h("h2", {}, t("pain_points")),
+            h("div", {"class_": "sec", "id": "ziele", "data-persona-surface-fallback": True}, h("h2", {}, t("goals")), raw(_pills(p["goals"]))),
+            h("div", {"class_": "sec", "id": "pains", **({"data-persona-surface-fallback": True} if not data["pain_points"] else {})}, h("h2", {}, t("pain_points")),
               # structured observations (issue + opportunity + severity/evidence) → the SAME finding row
               # as the synthesis; the plain profile list stays compact pills.
               (raw(render_findings([_artifacts.pain_point_finding(x) for x in data["pain_points"]]))
@@ -712,10 +715,10 @@ def register_personas(app) -> None:
             ("dot", t("size"), p["company_context"].get("size", "")),
             ("memory", t("memory"), h("a", {"class_": "sl-breadcrumb__link", "href": f'/personas/{p["id"]}/memory'}, raw(_icon("memory")), " ", t("open"))),
         ], aside=True)
-        prail = ([("readiness", t("persona_readiness")), ("cal", t("calendar"))]
+        prail = ([("persona-profile", t("persona")), ("readiness", t("persona_readiness")), ("cal", t("calendar"))]
                  + ([("sec-sessions", t("sessions"))] if sessions_html else [])
                  + [("caps", t("capabilities_h")),
-                    ("ziele", t("goals")), ("pains", t("pain_points")), ("tools", t("tools")),
+                    ("tools", t("tools")),
                     ("bez", t("relationships")), ("sec-properties", t("properties"))])
         # V10: the "…" overflow — metadata edit as a dialog + the typed-confirm delete;
         # persona CREATE stays MCP-only.

@@ -101,7 +101,8 @@ SPA_JS = """
     window.scrollTo(0,0);
     document.dispatchEvent(new CustomEvent('spa:load'));   // let app_js re-apply star states etc.
   }
-  function navigate(url, push){
+  function navigate(url, push, checked){
+    if(!checked && !document.dispatchEvent(new CustomEvent('sonaloop:before-navigation',{cancelable:true}))) return;
     document.body.classList.add('spa-loading');
     fetch(url, {headers:{'X-Requested-With':'spa','X-Sonaloop-Shell':shellVersion}, credentials:'same-origin'}).then(function(r){
       var ct=r.headers.get('content-type')||'';
@@ -125,9 +126,12 @@ SPA_JS = """
     if(href===location.pathname+location.search){ return; }
     navigate(href, true);
   });
+  var lastUiUrl=location.href,lastUiState=history.state;
+  document.addEventListener('spa:load',function(){lastUiUrl=location.href;lastUiState=history.state;});
   window.addEventListener('popstate', function(e){
+    if(!document.dispatchEvent(new CustomEvent('sonaloop:before-navigation',{cancelable:true}))){history.pushState(lastUiState,'',lastUiUrl);return;}
     if(window.SLDrawer && window.SLDrawer.onpop(e)) return;   // a drawer-entry transition — consumed
-    navigate(location.pathname+location.search, false);
+    navigate(location.pathname+location.search, false, true);
   });
 })();
 </script>
@@ -216,11 +220,15 @@ DRAWER_JS = """
     var a=body.querySelector('[data-slide-actions]');
     if(a){ a.removeAttribute('hidden'); head.insertBefore(a, head.querySelector('[data-drawer-expand]')); }
   }
-  function hide(){ wrap.classList.remove('is-open'); pushed=false; curUrl='';
+  function hide(){
+    document.dispatchEvent(new CustomEvent('sonaloop:drawer-closed',{detail:{root:body}}));
+    wrap.classList.remove('is-open'); pushed=false; curUrl='';
     if(lastFocus&&lastFocus.focus) lastFocus.focus(); lastFocus=null; }
-  function close(){                            // drop ?d=: pop our entry when we pushed one,
+  function close(){
+    // drop ?d=: pop our entry when we pushed one,
     if(pushed && history.state && history.state.slDrawer) history.back();   // -> onpop -> hide()
     else{                                      // SSR-opened (no entry of ours) -> rewrite in place
+      if(!document.dispatchEvent(new CustomEvent('sonaloop:before-navigation',{cancelable:true}))) return;
       if(history.replaceState && new URLSearchParams(location.search).has('d'))
         history.replaceState({spa:1}, '', bgUrl());
       hide(); }
@@ -256,6 +264,7 @@ DRAWER_JS = """
     }).catch(function(){ location.href=url; });               // any failure -> just open the real page
   }
   function open(url, title, trigger){
+    if(!document.dispatchEvent(new CustomEvent('sonaloop:before-navigation',{cancelable:true}))) return;
     lastFocus=trigger||document.activeElement;
     // Notion semantics v2 (§8.6): the address stays the BACKGROUND URL and gains ?d=<detail>
     // (composed with the background's own params — tabs, filters, views); reload/share of that
@@ -299,7 +308,7 @@ DRAWER_JS = """
   });
   document.addEventListener('keydown', function(e){
     // a modal <dialog> (V10 edit / confirm) owns Esc while open — don't also drop the panel
-    if(e.key==='Escape' && wrap.classList.contains('is-open') && !document.querySelector('dialog[open]')) close(); });
+    if(!e.defaultPrevented && e.key==='Escape' && wrap.classList.contains('is-open') && !document.querySelector('dialog[open]')) close(); });
   // SSR-opened context URL (§8.6): adopt the server-rendered panel — no entry of ours exists
   // (close rewrites the URL in place), but the CURRENT entry must self-describe so leaving and
   // re-entering it via back/forward re-opens the panel instead of stranding a ?d= URL closed.
