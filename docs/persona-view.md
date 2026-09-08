@@ -30,6 +30,52 @@ challenge sections stack; the avatar remains reachable at its display location.
 The native page retains its server-rendered profile fallback, current state,
 readiness, calendar, research findings, tools, relationships and memory links.
 
+## Optional customer agent chat
+
+The generic reference host in [examples/mcp-app-host](../examples/mcp-app-host/README.md)
+can display this same MCP App inside its chat. The customer configures the MCP
+server and permitted tools; the host contains no Persona-specific execution.
+Host 0.2 defaults to `gpt-5.6-terra` and sends `reasoning: {effort: "none"}`.
+`OPENAI_MODEL` takes precedence over the configured model. The API key stays on
+the server, and the UI displays the model actually configured at the host.
+
+Sending a message clears the composer immediately. You can type the next draft
+while the current turn runs; finishing that turn does not erase the new draft.
+When a request is explicitly rejected before acceptance, its text can be restored
+only if the composer has not changed. Text streams as it is generated. Tool
+preparation, approval, execution and results appear in their actual order, with
+expandable arguments and results. A tool's MCP App stays attached to that tool
+result when later text arrives. Required model-tool approvals appear beside the
+proposed action; approval continues the same turn and is consumed once.
+
+**Stop** fences further model work and tool dispatches in that turn. It does not
+undo a completed action or promise cancellation of an already admitted native
+write. A running action retains its eventual result; an ambiguous transport
+outcome stays explicitly uncertain. Check the native operation's saved status
+before deciding what to do next. A later model failure also preserves earlier
+tool results. Actions initiated directly inside an MCP App retain their own
+confirmation and operation status.
+
+Connection recovery reads the existing, cookie-owner-bound turn snapshot using
+`GET /api/host/chat/turns/:turnId`. If the first stream event was lost, the client
+can look up the same snapshot through
+`GET /api/host/chat/requests/:clientTurnId`. Neither route runs a model or tool.
+Recovery does not automatically resend a POST. A missing snapshot alone does not
+prove that a previously sent request could never have been accepted. Unknown
+native write outcomes must not be treated as permission to repeat the write.
+
+This reference host keeps chat state in process memory: at most 20 sessions,
+40 turns, six model rounds per turn and four concurrent stream observers per
+turn. Request identities remain available within that process so a repeated
+`clientTurnId` replays its result instead of repeating its effects. Restarting
+the host clears chat/replay state; native Research data remains in its own store.
+Provider streams and retained results have explicit size limits; an oversized
+tool result gets a text notice without changing the native action's outcome.
+The [stream contract](../examples/mcp-app-host/stream-contract.mjs) defines the
+versioned transport. Legacy JSON chat and direct MCP App tool calls remain
+supported. Model inputs exclude private MCP `_meta`; owner-bound App results
+still carry the metadata required by the component.
+
 ## Shared source and adapters
 
 `sonaloop/web/assets/persona-view/persona-view.js` exports:
