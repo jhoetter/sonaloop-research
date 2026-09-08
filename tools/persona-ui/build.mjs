@@ -21,8 +21,9 @@ const manifest = { schema_version:'sonaloop.customer-ui-build.v1', component_id:
  resource:{uri:'ui://sonaloop/persona/v1',mime:'text/html;profile=mcp-app',file:'persona.html',sha256:sha(html),bytes:html.byteLength}, sources,
  product:{script:{file:`persona-view/built/${scriptFile}`,sha256:sha(product)},style:{file:`persona-view/built/${styleFile}`,sha256:sha(style)}},
  fields:['display_name','age','location','role_title','goals','pain_points','portrait_description'],
+ input_preview:{schema_version:'sonaloop.persona-preview.v1',tool:'record_persona_surface',notification:'ui/notifications/tool-input',passive:true},
  actions:['update_persona_surface','generate_persona_surface_avatar','get_persona_surface','get_persona_surface_operation'],
- states:['ready','editing','generating','error','conflict','outcome_unknown','readonly','missing_avatar','stale_avatar'],
+ states:['preview','preview_cancelled','preview_failed','ready','editing','generating','error','conflict','outcome_unknown','readonly','missing_avatar','stale_avatar'],
  fallback:{kind:'text',description:'Canonical Research persona fields remain available as tool text for hosts without MCP Apps.'} };
 manifest.build_id = sha(canonical(manifest));
 await writeFile(resolve(resource,'persona.manifest.json'),`${canonical(manifest)}\n`);

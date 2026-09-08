@@ -1,4 +1,5 @@
 export const SCHEMA = 'sonaloop.persona-surface.v1';
+export const PREVIEW_SCHEMA = 'sonaloop.persona-preview.v1';
 export const COMPONENT = 'sonaloop.research.persona-view';
 export const FIELDS = ['display_name', 'age', 'location', 'role_title', 'goals', 'pain_points', 'portrait_description'];
 export const stableJSON = value => JSON.stringify(value, (_, item) => item && typeof item === 'object' && !Array.isArray(item)
@@ -9,6 +10,39 @@ const optional = value => value === null || text(value);
 const list = value => Array.isArray(value) && value.length <= 100 && value.every(item => text(item));
 const hash = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
 const exact = (value, keys) => object(value) && Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key));
+export function validatePreview(value) {
+  const fields = value?.fields;
+  if (!exact(value, ['schema_version', 'fields']) || value.schema_version !== PREVIEW_SCHEMA || !exact(fields, FIELDS)
+    || !text(fields.display_name, 120) || !fields.display_name.trim()
+    || !['location', 'role_title'].every(key => fields[key] === null || text(fields[key], 200))
+    || !(fields.portrait_description === null || text(fields.portrait_description, 500))
+    || !(fields.age === null || text(fields.age, 120) || typeof fields.age === 'number' && Number.isFinite(fields.age))
+    || !['goals', 'pain_points'].every(key => Array.isArray(fields[key]) && fields[key].length > 0 && fields[key].length <= 8
+      && fields[key].every(item => text(item, 180) && item.trim()))) {
+    throw surfaceError({ code: 'invalid_preview', message: 'The proposed Persona cannot be previewed safely.' });
+  }
+  return value;
+}
+// Presentation only: native creation still validates and normalizes the complete
+// authored profile. This projection never returns an identity or permissions.
+export function projectRecordPreview(args, toolName) {
+  if (toolName !== undefined && toolName !== 'record_persona_surface') return null;
+  if (toolName === undefined && (!object(args) || !Object.hasOwn(args, 'profile'))) return null;
+  const keys = ['description', 'profile', 'operation_id', ...(Object.hasOwn(args || {}, 'segment_hint') ? ['segment_hint'] : [])];
+  if (!exact(args, keys) || !text(args.description, 8000) || !args.description.trim()
+    || !text(args.operation_id, 200) || !args.operation_id.trim() || !object(args.profile)
+    || !(args.segment_hint === undefined || args.segment_hint === null || text(args.segment_hint, 300))
+    || JSON.stringify(args).length > 65536) throw surfaceError({ code: 'invalid_preview', message: 'Invalid Persona preview arguments.' });
+  const profile = args.profile;
+  if (!object(profile.demographics) || !object(profile.role) || !object(profile.identity_traits)) {
+    throw surfaceError({ code: 'invalid_preview', message: 'The proposed Persona fields are incomplete.' });
+  }
+  return structuredClone(validatePreview({ schema_version: PREVIEW_SCHEMA, fields: {
+    display_name: profile.display_name, age: profile.demographics.age ?? null, location: profile.demographics.location ?? null,
+    role_title: profile.role.title ?? null, goals: profile.goals, pain_points: profile.pain_points,
+    portrait_description: profile.identity_traits.avatar_profile ?? null,
+  } }));
+}
 export function validateSurface(value, previous) {
   if (!exact(value, ['schema_version', 'persona_id', 'slug', 'version', 'fields', 'avatar', 'capabilities', 'warnings'])
     || value.schema_version !== SCHEMA || !text(value.persona_id, 256) || !value.persona_id

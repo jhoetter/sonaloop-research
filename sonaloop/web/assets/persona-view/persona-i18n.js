@@ -1,5 +1,9 @@
 export const messages = {
   de: {
+    previewTitle: 'Persona-Vorschau', preview_pending: 'Ungespeicherter Entwurf', preview_cancelled: 'Vorschau abgebrochen', preview_failed: 'Speicherung nicht bestätigt',
+    previewHint: 'Die Vorschau speichert nichts. Erst deine Freigabe startet das Anlegen.',
+    previewPortrait: 'Gesicht nach dem Anlegen erstellen', previewValidation: 'Vorgeschlagene Profilfelder. Research prüft das vollständige Profil beim Speichern.',
+    previewUnavailable: 'Für diese Argumente ist keine Persona-Vorschau verfügbar. Prüfe die vorgeschlagene Aktion im Chat.',
     persona: 'Persona', display_name: 'Name', age: 'Alter', location: 'Ort', role_title: 'Rolle', goals: 'Ziele', pain_points: 'Hürden im Alltag', portrait_description: 'Profilbeschreibung des Gesichts',
     edit: 'Bearbeiten', save: 'Speichern', cancel: 'Abbrechen', refresh: 'Neu laden', details: 'Details', create: 'Gesicht erstellen', change: 'Gesicht ändern', generate: 'Generieren',
     prompt: 'Wie soll das Gesicht aussehen?', promptHint: 'Beschreibe das gewünschte Gesicht. Die Generierung kann Kosten verursachen; sie ändert nicht die Profilbeschreibung.',
@@ -14,6 +18,10 @@ export const messages = {
     native: 'Profil und Gesicht werden in Research gespeichert.',
   },
   en: {
+    previewTitle: 'Persona preview', preview_pending: 'Unsaved draft', preview_cancelled: 'Preview cancelled', preview_failed: 'Save not confirmed',
+    previewHint: 'This preview saves nothing. Your approval starts creation.',
+    previewPortrait: 'Create a face after creation', previewValidation: 'Proposed profile fields. Research validates the complete profile when saving.',
+    previewUnavailable: 'A Persona preview is unavailable for these arguments. Review the proposed action in the chat.',
     persona: 'Persona', display_name: 'Name', age: 'Age', location: 'Location', role_title: 'Role', goals: 'Goals', pain_points: 'Everyday challenges', portrait_description: 'Profile face description',
     edit: 'Edit', save: 'Save', cancel: 'Cancel', refresh: 'Reload', details: 'Details', create: 'Create face', change: 'Change face', generate: 'Generate',
     prompt: 'What should the face look like?', promptHint: 'Describe the face you want. Generation may incur a charge; it does not change the profile description.',

@@ -84,15 +84,63 @@ view source and styles. Resource loading does not execute a tool. Text-only host
 can use model-visible tools without any UI claim. Hosts retain sandbox and tool
 authorization policy; metadata is not a grant.
 
+## Unsaved input preview
+
+The same resource can render complete standard MCP Apps `toolinput` arguments
+before `record_persona_surface` executes. The customer adapter projects the record
+request into a separate, closed view model:
+
+```js
+createPersonaView(root, {
+  preview: { schema_version: 'sonaloop.persona-preview.v1', fields },
+  locale,
+  previewStatus: 'pending', // optional; also 'cancelled' or 'failed'
+});
+```
+
+`fields` contains exactly the seven `PersonaFields`: `display_name`, `age`,
+`location`, `role_title`, `goals`, `pain_points` and `portrait_description`.
+They project the proposed profile's display_name, demographics.age/location,
+role.title, goals, pain_points and identity_traits.avatar_profile. The preview
+has no persisted ID, slug, version, avatar, capabilities or actions. Its passive
+portrait placeholder and explicit unsaved badge distinguish it from a saved
+surface; fields and portrait remain non-interactive.
+
+Projection is pure and checks a bounded record-request shape. Optional host
+`toolInfo`, when supplied, must identify `record_persona_surface`; without it,
+the adapter requires the strict record-argument shape. Unsupported or malformed
+input falls back safely without treating strings as markup. The first accepted
+complete arguments are frozen for approval. The preview performs no tool calls,
+native reads, writes, avatar generation or refresh. This presentation check is
+not native profile validation: the native service may normalize or reject the
+proposal when the approved operation actually saves it.
+
+The host owns resource preload, approval and grants for each execution phase.
+It delivers standard tool input, cancellation and actual tool results; it never
+manufactures a successful result to render a card. `toolcancelled` retains the
+passive preview with a cancellation label. A failed actual result retains it
+with an error label. `pending`, `cancelled` and `failed` describe presentation
+lifecycle, not persistence truth or a durable operation inspection.
+
+Only an actual result validated as `sonaloop.persona-surface.v1` promotes the
+existing component through `update({value, actions, ...})`, enabling the existing
+native actions and normal refresh. Later tool input cannot revert that canonical
+view to a proposal. Native services, authorization, persistence and the product
+adapter retain their existing contracts; there is no draft store or additional
+wire protocol.
+
 ## Shared browser view and package
 
 `sonaloop/web/assets/persona-view/persona-view.js` exports
 `createPersonaView(root, {value, locale, avatarSource, actions, onDirtyChange})`.
-It returns `{update, dispose, hasUnsavedChanges}`. `update` accepts the next options
+It returns `{update, refresh, dispose, hasUnsavedChanges}`. `update` accepts the next options
 object. `actions.update(changes)` and `actions.generateAvatar(prompt)` return
 `{value, avatarSource}`; `actions.refresh()` returns the same. Adapters own version,
 operation IDs, transport, errors and uncertain-operation recovery. Rejected actions
 retain input and the last confirmed image. Errors have `code` and optional `current`.
+`refresh()` uses the view's existing reload/error state. After preview promotion,
+the confirmed saved result remains visible even if the following canonical read
+fails; the user can check status without recreating the Persona.
 
 The view owns presentation, edits, dirty/busy/error states and accessible controls.
 It knows no fetch/MCP routes, credentials, provider calls or Lab draft schema.
@@ -103,8 +151,10 @@ The product adapter and MCP adapter import that same source. Product assets use
 content-hashed URLs because the existing static mount caches immutably. The built
 self-contained HTML and a deterministic build manifest are shipped as package
 data under `sonaloop/mcp_server/ui/` as `persona.html` and `persona.manifest.json`. The manifest binds source-file SHA-256s,
-component ID, DTO version, resource URI, MIME, HTML bytes hash, fields, actions,
-states and text fallback. Customer CI publishes both assets in the same wheel.
+component ID, DTO and preview schema versions, resource URI, MIME, HTML bytes hash,
+fields, actions, persisted and preview states, and text fallback. Its schema remains
+`sonaloop.customer-ui-build.v1`; the resource remains `ui://sonaloop/persona/v1`.
+Customer CI publishes both assets in the same wheel.
 No build timestamp, absolute checkout path, private runtime data or secret is an
 input to the reproducible bundle. Source commit/repository are release-envelope
 facts, so the bundle does not contain its own circular commit identity.

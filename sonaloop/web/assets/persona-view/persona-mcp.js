@@ -1,11 +1,12 @@
 import { App } from '@modelcontextprotocol/ext-apps';
 import { createPersonaView } from './persona-view.js';
 import { createPersonaActions } from './persona-actions.js';
-import { COMPONENT, SCHEMA, surfaceError, validateSurface, validatedAvatar } from './persona-contract.js';
+import { COMPONENT, SCHEMA, PREVIEW_SCHEMA, projectRecordPreview, surfaceError, validateSurface, validatedAvatar } from './persona-contract.js';
+import { language, messages } from './persona-i18n.js';
 
 const app = new App({ name: COMPONENT, version: '1.0.0' }, {}, { autoResize: true });
 const root = document.querySelector('[data-persona-app]');
-let view, locale = 'en', actions, sequence = 0;
+let view, locale = 'en', actions, sequence = 0, previewStarted = false, previewPromoted = false, previewCancelled = false, resultReceived = false;
 const log = (event, extra = {}) => app.sendLog({ level: event === 'view-error' ? 'error' : 'info', logger: COMPONENT,
   data: { event, component_id: COMPONENT, schema_version: SCHEMA, persona_id: actions?.value?.persona_id, version: actions?.value?.version, ...extra } }).catch(() => {});
 function toolError(result) { if (result.isError || result.structuredContent?.error) throw surfaceError(result.structuredContent?.error || { code: 'invalid_response' }); return result; }
@@ -33,18 +34,47 @@ function hostContext(context = {}) {
   view?.update({ locale });
 }
 app.onhostcontextchanged = hostContext;
+app.addEventListener('toolinput', ({ arguments: args }) => {
+  if (previewStarted || resultReceived) return;
+  try {
+    const preview = projectRecordPreview(args, app.getHostContext()?.toolInfo?.tool?.name);
+    if (!preview) return;
+    previewStarted = true;
+    view = createPersonaView(root, { preview, locale, previewStatus: previewCancelled ? 'cancelled' : 'pending' });
+    void log('view-rendered', { mode: 'preview', schema_version: PREVIEW_SCHEMA });
+  } catch {
+    root.textContent = messages[language(locale)].previewUnavailable;
+    void log('view-error', { code: 'invalid_preview', mode: 'preview', schema_version: PREVIEW_SCHEMA });
+  }
+});
+app.addEventListener('toolcancelled', () => {
+  if (resultReceived) return;
+  previewCancelled = true; sequence++;
+  view?.update({ previewStatus: 'cancelled' });
+});
 app.ontoolresult = async result => {
+  resultReceived = true;
   const turn = ++sequence;
   try {
+    toolError(result); validateSurface(result.structuredContent);
     if (!actions) actions = createActions();
-    await actions.accept(result);
+    const received = await actions.accept(result); if (turn !== sequence) return;
+    if (previewStarted && !previewPromoted) {
+      // A confirmed write is already native truth. A later read failure must
+      // retain that saved card and expose its normal recovery controls.
+      view.update({ ...received, actions, onDirtyChange: dirty => log('view-dirty', { dirty }) });
+      previewPromoted = true;
+      await view.refresh(); if (turn !== sequence) return;
+      await log('view-rendered'); return;
+    }
     const accepted = await actions.refresh(); if (turn !== sequence) return;
-    if (view) view.update(accepted);
+    if (view) view.update({ ...accepted, actions, onDirtyChange: dirty => log('view-dirty', { dirty }) });
     else view = createPersonaView(root, { ...accepted, locale, actions, onDirtyChange: dirty => log('view-dirty', { dirty }) });
     await log('view-rendered');
   } catch (error) {
     if (turn !== sequence) return;
-    if (!view) root.textContent = error.message;
+    if (previewStarted && !previewPromoted) view.update({ previewStatus: 'failed' });
+    else if (!view) root.textContent = error.message;
     await log('view-error', { code: error.code || 'invalid_response' });
   }
 };
