@@ -16,12 +16,12 @@ export function createPersonaView(root, options) {
   const status = node('div', 'sl-persona-view__status'); status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite');
   const body = node('div', 'sl-persona-view__body');
   root.replaceChildren(card); card.append(body, status);
-  function dirty() { return !!editor || !!dialog; }
+  function dirty() { return !!editor || !!dialog || uncertain || ['update', 'generate'].includes(busy); }
   function notifyDirty() { opts.onDirtyChange?.(dirty()); }
   function writable(field) { return !busy && !uncertain && !conflict && !!opts.actions && (field ? value.capabilities.edit.includes(field) : value.capabilities.generate_avatar); }
   function report(cause) {
-    error = cause; uncertain = unknown(cause); conflict = cause?.code === 'conflict';
-    renderStatus(); updateDisabled();
+    error = cause; uncertain = uncertain || unknown(cause); conflict = cause?.code === 'conflict';
+    notifyDirty(); renderStatus(); updateDisabled();
   }
   function updateDisabled() {
     for (const control of body.querySelectorAll('[data-field]')) control.disabled = !writable(control.dataset.field) || !!editor;
@@ -102,7 +102,7 @@ export function createPersonaView(root, options) {
     else if (field === 'age') { if (!change) change = null; else if (typeof original === 'number') { change = Number(change); if (!Number.isFinite(change)) { report({ message: copy.required }); return; } } }
     else if (!change) change = null;
     if (JSON.stringify(change) === JSON.stringify(original)) { cancelEdit(); return; }
-    busy = 'update'; error = undefined; renderStatus(); updateDisabled();
+    busy = 'update'; error = undefined; notifyDirty(); renderStatus(); updateDisabled();
     try {
       const result = await opts.actions.update({ [field]: change }); if (disposed) return;
       validateSurface(result.value, value); editor = undefined; busy = ''; conflict = false; uncertain = false; notifyDirty(); await apply(result); body.querySelector(`[data-field="${field}"]`)?.focus();
@@ -131,10 +131,10 @@ export function createPersonaView(root, options) {
     if (!dialog || busy || uncertain || conflict) return;
     if (dialog.version !== value.version) { report({ code: 'conflict' }); return; }
     const prompt = dialog.input.value.trim(); if (!prompt || prompt.length > 500) { dialog.feedback.textContent = copy.promptLimit; return; }
-    busy = 'generate'; error = undefined; dialog.feedback.textContent = copy.generating; renderStatus(); updateDisabled();
+    busy = 'generate'; error = undefined; notifyDirty(); dialog.feedback.textContent = copy.generating; renderStatus(); updateDisabled();
     try {
       const result = await opts.actions.generateAvatar(prompt); if (disposed) return;
-      validateSurface(result.value, value); busy = ''; closePrompt(); uncertain = false; conflict = false; await apply(result); body.querySelector('[data-action=avatar]')?.focus();
+      validateSurface(result.value, value); busy = ''; uncertain = false; conflict = false; closePrompt(); await apply(result); body.querySelector('[data-action=avatar]')?.focus();
     } catch (cause) { if (!disposed) { busy = ''; report(cause); dialog.feedback.replaceChildren(node('span', '', uncertain ? copy.pending : cause.message || copy.unavailable), button(uncertain ? copy.unknown : copy.refreshDirty, null, refresh, 'sl-persona-view__secondary'));  } }
   }
   async function refresh() {

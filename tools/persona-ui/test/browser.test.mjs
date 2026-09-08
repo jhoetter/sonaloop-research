@@ -105,3 +105,20 @@ test('authoritative avatar removal clears prior pixels; unknown image status is 
   const writes=s.calls.length;s.terminal();await dialog.getByRole('button',{name:'Status prüfen',exact:true}).click();await dialog.waitFor({state:'detached'});assert.equal(s.calls.length,writes);assert.equal(await f.locator('img').count(),0);assert.deepEqual(s.errors,[]);
  }finally{await s.browser.close();}
 });
+for(const mode of ['product','mcp'])test(`${mode} keeps unresolved operations dirty after the editor or image prompt closes`,{timeout:30000},async()=>{
+ const s=await setup(mode),f=s.frame;try{
+  let questions=0;
+  if(mode==='product')s.page.on('dialog',async dialog=>{questions++;await dialog.dismiss();});
+  async function assertDirty(expected){
+    if(mode==='mcp'){
+      await s.page.waitForFunction(expected=>logs.filter(log=>log.data.event==='view-dirty').at(-1)?.data.dirty===expected,expected);
+      assert.equal(await s.page.evaluate(()=>logs.filter(log=>log.data.event==='view-dirty').at(-1).data.dirty),expected);
+    }else assert.equal(await s.page.evaluate(()=>document.dispatchEvent(new CustomEvent('sonaloop:before-navigation',{cancelable:true}))),!expected);
+  }
+  s.fail('outcome_unknown');await f.locator('[data-field=display_name]').click();await f.getByRole('textbox',{name:'Name',exact:true}).fill('Uncertain name');await f.getByRole('textbox',{name:'Name',exact:true}).press('Enter');await f.getByRole('button',{name:'Status prüfen',exact:true}).waitFor();
+  await f.getByRole('textbox',{name:'Name',exact:true}).press('Escape');assert.equal(await f.getByRole('textbox',{name:'Name',exact:true}).count(),0);await assertDirty(true);
+  const writes=s.calls.length;s.terminal();await f.getByRole('button',{name:'Status prüfen',exact:true}).click();await f.locator('[data-field=display_name]:enabled').waitFor();await assertDirty(false);assert.equal(s.calls.length,writes);
+  s.fail('outcome_unknown');await f.locator('[data-action=avatar]').click();await f.getByRole('button',{name:'Generieren',exact:true}).click();const dialog=f.getByRole('dialog');await dialog.getByRole('button',{name:'Status prüfen',exact:true}).waitFor();await dialog.getByRole('button',{name:'Abbrechen',exact:true}).click();await dialog.waitFor({state:'detached'});await assertDirty(true);
+  const imageWrites=s.calls.length;await f.getByRole('button',{name:'Status prüfen',exact:true}).click();await f.locator('[data-action=avatar]:enabled').waitFor();await assertDirty(false);assert.equal(s.calls.length,imageWrites);if(mode==='product')assert.equal(questions,2);assert.deepEqual(s.errors,[]);
+ }finally{await s.browser.close();}
+});
