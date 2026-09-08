@@ -89,7 +89,7 @@ def render_claim_posture_chip(posture: str) -> str:
                   _CLAIM_COLORS.get(value, "var(--muted)"))
 
 
-def render_claim_posture_notice(record: dict, store=None) -> str:
+def render_claim_posture_notice(record: dict, store=None, *, passive: bool = False) -> str:
     """Canonical posture/source counts plus exact repair/evidence links.
 
     The envelope is server-stamped.  This renderer never upgrades trust from
@@ -133,13 +133,13 @@ def render_claim_posture_notice(record: dict, store=None) -> str:
         issue_links.append(h("li", {},
             h("a", {"href": f"#{cid}"}, t("claim_issue_link")) if cid in known_targets
             else h("span", {}, t("claim_contract_unverified"))))
-    exact_refs = (h("details", {"class_": "claim-exact-refs"},
-                    h("summary", {}, f'{t("claim_source_counts")} · {len(refs)}'),
+    exact_refs = (h("div" if passive else "details", {"class_": "sl-research-sources" if passive else "claim-exact-refs"},
+                    h("p" if passive else "summary", {}, f'{t("claim_source_counts")} · {len(refs)}'),
                     h("div", {"class_": "sl-claim-sources"},
-                      fragment(*(raw(render_ref(ref, store)) for ref in refs)))) if refs else None)
+                      fragment(*(raw(render_ref(ref, store, passive=passive)) for ref in refs)))) if refs else None)
     aria = f"{heading}. {detail}"
     return h("div", {"class_": "claim-notice claim-notice--" +
-                     ("verified" if complete else "unverified"),
+                     ("verified" if complete else "unverified") + (" sl-research-claim-notice" if passive else ""),
                      "id": "claim-health", "role": "status", "aria-label": aria},
              raw(_icon("check" if complete else "warning")),
              h("div", {"class_": "claim-health-body"}, h("strong", {}, heading),
@@ -152,12 +152,18 @@ def render_claim_posture_notice(record: dict, store=None) -> str:
                exact_refs))
 
 
-def render_stance(st: dict | None) -> str:
+def render_stance(st: dict | None, *, passive: bool = False) -> str:
     """The one stance chip — label + color resolved from the canonical VALUE via the data-driven scale
     (artifacts.stance_meta → i18n label_key). Stored label strings never pick the key: a compatibility free
-    label ('mixed') is ignored, an unresolvable host token (`label_raw`) only surfaces as the tooltip."""
+    label ('mixed') is ignored, an unresolvable host token (`label_raw`) only surfaces as the tooltip.
+    Passive output shows the supplied numeric value and recorded labels directly;
+    it neither loads a vocabulary nor hides a compatibility label in a tooltip."""
     if not st:
         return ""
+    if passive:
+        return h("span", {"class_": "sl-research-badge"}, str(st.get("value", "")),
+                 f' · {st["label"]}' if st.get("label") else None,
+                 f' · {st["label_raw"]}' if st.get("label_raw") else None)
     meta = _A.stance_meta(st.get("value", 0))
     return _label(t(meta["label_key"]), meta["color"], title=st.get("label_raw"))
 
@@ -245,13 +251,13 @@ def _refs_line(refs: list, label: str, store=None, *, passive: bool = False) -> 
              fragment(*(raw(render_ref(r, store, passive=passive)) for r in refs)))
 
 
-def render_prompt(p: dict, *, n: int | None = None) -> str:
+def render_prompt(p: dict, *, n: int | None = None, passive: bool = False) -> str:
     """A posed prompt. As a transcript header (question/proposal) with an optional ordinal."""
     ey = {"question": t("question"), "proposal": t("council_motion"),
           "goal": t("question"), "focus": t("question"), "hypothesis": t("council_motion")}.get(p.get("kind"), t("question"))
     label = f'{ey} {n}' if (n is not None and p.get("kind") == "question") else ey
     ico = "compass" if p.get("kind") in ("question", "goal", "focus") else "bulb"
-    return h("div", {"class_": "qround-q"}, raw(_icon(ico)),
+    return h("div", {"class_": "qround-q sl-research-prompt" if passive else "qround-q"}, None if passive else raw(_icon(ico)),
              h("div", {}, h("div", {"class_": "qround-n"}, label),
                h("p", {}, raw(_prose(p.get("text", ""))))))
 
@@ -280,140 +286,81 @@ def _quotes_details(refs: list, store=None) -> str:
                         for r in refs)))
 
 
+def _prepare_statement_rows(items, store=None, backlinks=None, *, show_persona=True,
+                            expand_quotes=False, passive=False):
+    """Resolve product-only identity/media and refs before the pure rendering core."""
+    from ..ui_components.statements import StatementPresentation
+    people, rows = {}, []
+    for st in items:
+        if not st:
+            continue
+        pid = st.get("persona_id", "")
+        if pid not in people:
+            person = store.get_persona(pid) if pid and show_persona and store is not None and not passive else None
+            people[pid] = (person, raw(_avatar(person, 26)) if person else None)
+        person, avatar = people[pid]
+        refs = st.get("refs") or []
+        quoted = [ref for ref in refs if ref.get("quote")] if expand_quotes and not passive else []
+        plain = [ref for ref in refs if ref not in quoted]
+        meta = st.get("meta") or {}
+        grounded = (raw(_label(t("grounded_yes") if bool(meta["grounded"]) else t("grounded_no"),
+                              "var(--green)" if bool(meta["grounded"]) else "var(--muted)"))
+                    if "grounded" in meta else None)
+        posture = raw(render_claim_posture_chip(meta["claim_posture"])) if meta.get("claim_posture") else None
+        rows.append(StatementPresentation(st, persona=person, avatar=avatar,
+            references=raw(_refs_line(plain, t("council_drew_on"), store, passive=passive)),
+            quotes=raw(_quotes_details(quoted, store)) if quoted else None,
+            backlinks=raw(_backlinks_line(st, backlinks)) if not passive else None,
+            stance=raw(render_stance(st["stance"], passive=passive)) if st.get("stance") else None,
+            grounded=grounded, posture=posture))
+    return rows
+
+
 def _statement_body(st: dict, store=None, backlinks=None, *, clamp_at: int | None = None,
-                    expand_quotes: bool = False) -> str:
-    """One utterance's body: optional focus line, input snapshot, the prose, pushback, shift, refs, and
-    the reverse cross-refs ('cited by'). The wrapper carries id=<part-id> so other artifacts can
-    deep-link to this exact statement. `clamp_at` doses a long turn through ui.clamp (§3.6);
-    `expand_quotes` renders quote-bearing refs as an expandable quote list instead of bare chips."""
-    from . import ui
-    meta = st.get("meta") or {}
-    focus = h("p", {"class_": "muted small", "style": "font-style:italic;margin:0 0 4px"}, meta["focus"]) if meta.get("focus") else None
-    given = h("details", {"class_": "turn-input"},
-              h("summary", {"class_": "muted small"}, t("council_input_given")),
-              h("p", {"class_": "muted small", "style": "white-space:pre-wrap"}, meta["input"])) if meta.get("input") else None
-    pushback = fragment(*(h("p", {"class_": "muted small"}, f"• {q}") for q in (meta.get("pushback") or [])[:4]))
-    shift = st.get("shift") or {}
-    shift_html = h("p", {"class_": "muted small"}, raw(_icon("exchange")), " ",
-                   f'{shift.get("from","")} → {shift.get("to","")}',
-                   (f' · {shift["trigger"]}' if shift.get("trigger") else "")) if shift else None
-    attrs = {"class_": "turn-ans"}
-    if st.get("id"):
-        attrs["id"] = st["id"]
-    prose_html = raw(_prose(st.get("text", "")))
-    # the utterance itself rides the .turn-text reading layer (§11 T2/T4: t-md/1.6 at the
-    # prose measure) — meta/refs/pushback stay in the quiet layer beside it
-    text_html = h("div", {"class_": "turn-text"},
-                  ui.clamp(prose_html, threshold=clamp_at) if clamp_at
-                  else h("p", {}, prose_html))
-    refs = st.get("refs") or []
-    quoted = [r for r in refs if r.get("quote")] if expand_quotes else []
-    plain = [r for r in refs if r not in quoted]
-    return h("div", attrs, focus, given, text_html,
-             pushback, shift_html,
-             raw(_quotes_details(quoted, store)) if quoted else None,
-             raw(_refs_line(plain, t("council_drew_on"), store)),
-             raw(_backlinks_line(st, backlinks)))
+                    expand_quotes: bool = False, passive: bool = False) -> str:
+    from ..ui_components.statements import statement_body
+    row = _prepare_statement_rows([st], store, backlinks, show_persona=False,
+                                  expand_quotes=expand_quotes, passive=passive)[0]
+    return statement_body(row, clamp_at=clamp_at, passive=passive)
 
 
-def _persona_card(sts: list, store, *, head_extra=None, backlinks=None, show_persona=True,
-                  clamp_at: int | None = None, expand_quotes: bool = False) -> str:
-    """The ONE .turn statement card — a persona's avatar + name + stance + life-context, then one or more
-    utterance bodies (a persona answering several questions merges into a single card, not repeated heads).
-    `show_persona=False` drops the avatar/name/life-context — used on the persona's OWN page where the
-    identity is implied and repeating it on every card is pure noise."""
-    head_st = sts[0]
-    pid = head_st.get("persona_id", "")
-    p = store.get_persona(pid) if (pid and show_persona) else None
-    who = ctx_html = None
-    if show_persona:
-        name = (p or {}).get("display_name") or pid or "—"
-        seg = (p or {}).get("segment") or {}
-        ctx = (head_st.get("meta") or {}).get("context") \
-            or " · ".join(x for x in [seg.get("lebensphase"), seg.get("einstellung")] if x)[:130] \
-            or ((p or {}).get("source_description") or "")[:130]
-        who = (h("a", {"href": f'/personas/{p["id"]}', "class_": "turn-who"}, _avatar(p, 26), h("b", {}, name))
-               if p else h("span", {"class_": "turn-who"}, h("b", {}, name)))
-        ctx_html = h("div", {"class_": "muted small turn-ctx"}, ctx) if ctx else None
-    st_with_stance = next((s for s in sts if s.get("stance")), None)
-    stance_chip = raw(render_stance(st_with_stance["stance"])) if st_with_stance else None
-    gmeta = head_st.get("meta") or {}
-    grounded_chip = None
-    if "grounded" in gmeta:                            # prototype sessions: a grounded badge in the stance slot
-        g = bool(gmeta["grounded"])
-        grounded_chip = raw(_label(t("grounded_yes") if g else t("grounded_no"), "var(--green)" if g else "var(--muted)"))
-    rel = head_st.get("relevance")
-    rel_html = h("span", {"class_": "muted small"}, f" · {rel}") if rel else None
-    posture_chip = (raw(render_claim_posture_chip(gmeta.get("claim_posture")))
-                    if gmeta.get("claim_posture") else None)
-    head = h("div", {"class_": "hd"}, who, (" " if who else ""), stance_chip,
-             grounded_chip, posture_chip, head_extra, rel_html, ctx_html)
-    return h("div", {"class_": "turn" + ("" if show_persona else " turn-bare")},
-             head, fragment(*(_statement_body(s, store, backlinks, clamp_at=clamp_at,
-                                              expand_quotes=expand_quotes) for s in sts)))
+def _persona_card(sts: list, store=None, *, head_extra=None, backlinks=None, show_persona=True,
+                  clamp_at: int | None = None, expand_quotes: bool = False, passive: bool = False) -> str:
+    from ..ui_components.statements import persona_card
+    rows = _prepare_statement_rows(sts, store, backlinks, show_persona=show_persona,
+                                   expand_quotes=expand_quotes, passive=passive)
+    return persona_card(rows, head_extra=head_extra, show_persona=show_persona,
+                        clamp_at=clamp_at, passive=passive)
 
 
-def render_statement(st: dict, store, *, head_extra=None, show_persona=True,
-                     clamp_at: int | None = None, expand_quotes: bool = False) -> str:
-    """A single persona statement → the .turn card (used by prototype sessions). `head_extra` is an extra
-    header chip (e.g. a session's grounded badge); `show_persona=False` drops the persona header."""
+def render_statement(st: dict, store=None, *, head_extra=None, show_persona=True,
+                     clamp_at: int | None = None, expand_quotes: bool = False, passive: bool = False) -> str:
+    """The existing product adapter; passive mode uses supplied values without resolution."""
     return _persona_card([st], store, head_extra=head_extra, show_persona=show_persona,
-                         clamp_at=clamp_at, expand_quotes=expand_quotes)
+                         clamp_at=clamp_at, expand_quotes=expand_quotes, passive=passive)
 
 
-def _by_persona(items: list) -> list:
-    order, by = [], {}
-    for s in items:
-        pid = s.get("persona_id")
-        if pid not in by:
-            by[pid] = []; order.append(pid)
-        by[pid].append(s)
-    return [by[pid] for pid in order]
-
-
-def render_statements(items: list, store, *, group_by: str = "persona", prompts: list | None = None,
+def render_statements(items: list, store=None, *, group_by: str = "persona", prompts: list | None = None,
                       backlinks=None, clamp_at: int | None = None, expand_quotes: bool = False,
-                      collapsible: bool = False) -> str:
-    """Render statements as the SAME .turn cards. group_by='prompt' → a moderated transcript (a question
-    header from `prompts` + the statements answering it via Statement.about.id, grouped per persona);
-    group_by='persona' → a flat list of per-persona cards. `backlinks` ({part_id: [referrers]}) adds the
-    reverse 'cited by' cross-references under each statement. `clamp_at`/`expand_quotes` dose long turn
-    prose / quote-bearing refs (§3.6); `collapsible` renders each prompt round as a <details> group
-    (open, like the outline's ol-phase idiom) so a long transcript collapses per round."""
-    items = [s for s in items if s]
+                      collapsible: bool = False, passive: bool = False) -> str:
+    """Product-compatible adapter over one pure prompt/persona grouping renderer.
 
-    def cards(group):
-        return fragment(*(_persona_card(g, store, backlinks=backlinks, clamp_at=clamp_at,
-                                        expand_quotes=expand_quotes) for g in _by_persona(group)))
-
-    def round_group(header, group):
-        answers = h("div", {"class_": "qround-a"}, cards(group))
-        if collapsible:
-            return h("details", {"class_": "qround", "open": True},
-                     h("summary", {}, raw(header),
-                       h("span", {"class_": "qround-cnt"}, str(len({s.get("persona_id") for s in group})))),
-                     answers)
-        return h("div", {"class_": "qround"}, raw(header), answers)
-
-    if group_by == "prompt" and prompts:
-        ids = {p.get("id") for p in prompts}
-        single = len(prompts) == 1                     # one prompt (synthesis study-question / session focus)
-        rounds = []                                    #   → every statement is its response (no "rest" bucket)
-        for n, p in enumerate(prompts, 1):
-            qs = items if single else [s for s in items if (s.get("about") or {}).get("id") == p.get("id")]
-            if not qs:
-                continue
-            rounds.append(round_group(render_prompt(p, n=(None if single else n)), qs))
-        rest = [] if single else [s for s in items if (s.get("about") or {}).get("id") not in ids]
-        if rest:
-            rounds.append(round_group(h("div", {"class_": "qround-q"}, raw(_icon("bulb")),
-                                        h("div", {}, h("div", {"class_": "qround-n"}, t("further_answers")))),
-                                      rest))
-        return h("div", {"class_": "qrounds"}, fragment(*rounds))
-    return h("div", {"style": "display:flex;flex-direction:column;gap:12px"}, cards(items))
+    Passive mode performs no Store/media resolution and retains complete supplied
+    prose, input snapshots and reference addresses without interactive controls.
+    """
+    from ..ui_components.statements import render_statements as render_prepared
+    rows = _prepare_statement_rows(items, store, backlinks, expand_quotes=expand_quotes, passive=passive)
+    prompt_rows = prompts or []
+    headers = [render_prompt(prompt, n=None if len(prompt_rows) == 1 else n, passive=passive)
+               for n, prompt in enumerate(prompt_rows, 1)]
+    further = h("div", {"class_": "qround-q sl-research-prompt" if passive else "qround-q"},
+                None if passive else raw(_icon("bulb")),
+                h("div", {}, h("div", {"class_": "qround-n"}, t("further_answers"))))
+    return render_prepared(rows, group_by=group_by, prompts=prompt_rows, prompt_headers=headers,
+                           further_header=further, clamp_at=clamp_at, collapsible=collapsible, passive=passive)
 
 
-def render_finding(f: dict, *, n: int | None = None, store=None) -> str:
+def render_finding(f: dict, *, n: int | None = None, store=None, passive: bool = False) -> str:
     """One authored finding — the ONE row every finding section uses (key_problem, pain_solver, cluster,
     segment, ranking, recommendation, …): a left block (prose title, optional muted detail, members,
     grounding refs) and right-aligned chips (effort·impact score + stance). Numbered → the .rec form.
@@ -426,27 +373,27 @@ def render_finding(f: dict, *, n: int | None = None, store=None) -> str:
         left.append(h("div", {"class_": "muted small", "style": "margin-top:2px"}, raw(_prose(detail))))
     if meta.get("members"):
         left.append(h("div", {"class_": "muted small", "style": "margin-top:2px"}, "· " + ", ".join(str(m) for m in meta["members"])))
-    rl = _refs_line(f.get("refs") or [], t("rel_based_on"), store)
+    rl = _refs_line(f.get("refs") or [], t("rel_based_on"), store, passive=passive)
     if rl:
         left.append(raw(rl))
     chips = []
     if isinstance(score, dict) and score.get("effort") and score.get("value"):
         chips.append(h("span", {"class_": "axchip"}, t("effort_value", a=score["effort"], n=score["value"])))
     if meta.get("stance"):
-        chips.append(raw(render_stance(meta["stance"])))
+        chips.append(raw(render_stance(meta["stance"], passive=passive)))
     if meta.get("claim_posture"):
         chips.append(raw(render_claim_posture_chip(meta["claim_posture"])))
     num = h("span", {"class_": "recnum"}, str(n)) if n is not None else None
     body = h("div", {"class_": "fbody"}, fragment(*left))
     right = h("div", {"class_": "fchips"}, fragment(*chips)) if chips else None
-    attrs = {"class_": "rec" if n is not None else "fitem"}
+    attrs = {"class_": ("rec" if n is not None else "fitem") + (" sl-research-finding" if passive else "")}
     if f.get("id"):
         attrs["id"] = f["id"]
     return h("div", attrs, num, body, right)
 
 
-def render_findings(items: list, *, numbered: bool = False, store=None) -> str:
+def render_findings(items: list, *, numbered: bool = False, store=None, passive: bool = False) -> str:
     """The rows of a finding list section (one render_finding per item). The caller wraps them in a
     section with the data-driven id (artifacts.finding_kind(kind)['id']) and an i18n label."""
-    rows = [render_finding(f, n=(i if numbered else None), store=store) for i, f in enumerate(items, 1)]
+    rows = [render_finding(f, n=(i if numbered else None), store=store, passive=passive) for i, f in enumerate(items, 1)]
     return fragment(*rows)
