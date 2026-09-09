@@ -8,7 +8,11 @@ from __future__ import annotations
 import json
 
 from .registry import SURFACES
-from . import run_journal, research_plan
+from . import run_journal, research_plan, product_understanding
+
+_UNDERSTANDING_PROJECTIONS = {"record_product_understanding": product_understanding.recorded_view,
+    "record_manifest_product_understanding": product_understanding.recorded_view,
+    "get_product_understanding": product_understanding.stored_view}
 
 _RUN_PROJECTIONS = {"start_run": run_journal.journal_view, "run_journal": run_journal.journal_view,
                     "resume_project_run": run_journal.resumed_view, "finish_run": run_journal.finished_view}
@@ -16,7 +20,8 @@ _RUN_PROJECTIONS = {"start_run": run_journal.journal_view, "run_journal": run_jo
 _PLAN_PROJECTIONS = {"get_plan": research_plan.plan_view, "add_task": research_plan.task_view,
     "record_frame": research_plan.task_view, "link_evidence": research_plan.task_view,
     "record_judgment": research_plan.judgment_view, "assess_progress": research_plan.progress_view,
-    "park_evidence": research_plan.parked_view, "unpark_evidence": research_plan.unparked_view}
+    "park_evidence": research_plan.parked_view, "unpark_evidence": research_plan.unparked_view,
+    "iterate_task": research_plan.iteration_view}
 
 
 def public_component_value(name: str, value):
@@ -28,6 +33,8 @@ def public_component_value(name: str, value):
     authored research-plan-view.v1 projection. Dispatch/private context is not a
     visual prop. Other projections preserve their existing authored DTO.
     """
+    if name in _UNDERSTANDING_PROJECTIONS:
+        return _UNDERSTANDING_PROJECTIONS[name](value)
     if name in _PLAN_PROJECTIONS:
         return _PLAN_PROJECTIONS[name](value)
     if name in _RUN_PROJECTIONS:
@@ -73,6 +80,11 @@ def render_component_props(component_id: str, props: dict):
         if not isinstance(value, dict) or "artifact" not in value or set(value) - {"artifact", "note"}:
             raise ValueError("Expected public remote-registration artifact and optional note")
         value = {"prototype": value["artifact"], **({"note": value["note"]} if "note" in value else {})}
+    if props["name"] in _UNDERSTANDING_PROJECTIONS:
+        expected = "stored" if props["name"] == "get_product_understanding" else "record"
+        if not isinstance(value, dict) or value.get("view") != expected:
+            raise ValueError("Product Understanding presentation does not belong to this projection")
+        return product_understanding.render_view(value)
     if props["name"] in _RUN_PROJECTIONS:
         expected = {"start_run": "journal", "run_journal": "journal",
                     "resume_project_run": "resumed", "finish_run": "finished"}[props["name"]]
@@ -83,7 +95,7 @@ def render_component_props(component_id: str, props: dict):
         expected = {"get_plan": "plan", "add_task": "task", "record_frame": "task",
                     "link_evidence": "task", "record_judgment": "judgment",
                     "assess_progress": "progress", "park_evidence": "parked",
-                    "unpark_evidence": "unparked"}[props["name"]]
+                    "unpark_evidence": "unparked", "iterate_task": "iteration"}[props["name"]]
         if not isinstance(value, dict) or value.get("view") != expected:
             raise ValueError("Plan presentation does not belong to this projection")
         return research_plan.render_view(value)

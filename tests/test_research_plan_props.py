@@ -20,7 +20,7 @@ def test_public_plan_is_explicit_projection_without_native_reconstruction(case, 
         pytest.fail("Public Plan rendering attempted native I/O")
     monkeypatch.setattr(Store, "__init__", forbidden)
     for name in ("get_plan", "add_task", "record_frame", "link_evidence", "record_judgment",
-                 "assess_progress", "park_evidence", "unpark_evidence", "run_step"):
+                 "assess_progress", "park_evidence", "unpark_evidence", "iterate_task", "run_step"):
         monkeypatch.setattr(services, name, forbidden)
     name, native = case["tool"], deepcopy(case["value"])
     public = public_component_value(name, native)
@@ -38,7 +38,7 @@ def test_each_plan_tool_requires_its_selected_public_view():
     examples = {case["public_value"]["view"]: case["public_value"] for case in CASES}
     expected = {"get_plan": "plan", "add_task": "task", "record_frame": "task",
                 "link_evidence": "task", "record_judgment": "judgment", "assess_progress": "progress",
-                "park_evidence": "parked", "unpark_evidence": "unparked"}
+                "park_evidence": "parked", "unpark_evidence": "unparked", "iterate_task": "iteration"}
     for name, wanted in expected.items():
         for view, value in examples.items():
             if view != wanted:

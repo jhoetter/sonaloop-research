@@ -1229,5 +1229,137 @@
         "certain"
       ]
     }
+  },
+  {
+    "scenario": "methodology-reaction-test",
+    "tool": "set_project_methodology",
+    "input": {
+      "project_id": "rproject_5eda158cfabef375",
+      "methodology_key": "reaction_test"
+    },
+    "value": {
+      "id": "rproject_5eda158cfabef375",
+      "slug": "method-and-iteration",
+      "title": "Method and iteration",
+      "goal": "Examine an unresolved handover",
+      "description": "",
+      "persona_ids": [],
+      "study_ids": [],
+      "study_tags": {},
+      "themes": [],
+      "status": "active",
+      "created_at": "2026-09-09T08:04:48.722595+00:00",
+      "updated_at": "2026-09-09T08:04:48.739358+00:00",
+      "methodology": "reaction_test",
+      "phase": "",
+      "phase_log": {},
+      "sections": [],
+      "notes": [],
+      "council_ids": [],
+      "workflow_trace_id": "sltrace_864b83605a86323a8f3ac1c1",
+      "icon": {
+        "kind": "regular",
+        "name": "projects"
+      },
+      "integrity": {
+        "product_understanding_required": true,
+        "cohort_preflight_required": true,
+        "stimulus_required": true,
+        "claim_posture_required": true,
+        "schema": "sonaloop.research_integrity.v1"
+      }
+    },
+    "public_value": {
+      "id": "rproject_5eda158cfabef375",
+      "slug": "method-and-iteration",
+      "title": "Method and iteration",
+      "goal": "Examine an unresolved handover",
+      "description": "",
+      "persona_ids": [],
+      "study_ids": [],
+      "study_tags": {},
+      "themes": [],
+      "status": "active",
+      "created_at": "2026-09-09T08:04:48.722595+00:00",
+      "updated_at": "2026-09-09T08:04:48.739358+00:00",
+      "methodology": "reaction_test",
+      "phase": "",
+      "phase_log": {},
+      "sections": [],
+      "notes": [],
+      "council_ids": [],
+      "workflow_trace_id": "sltrace_864b83605a86323a8f3ac1c1",
+      "icon": {
+        "kind": "regular",
+        "name": "projects"
+      },
+      "integrity": {
+        "product_understanding_required": true,
+        "cohort_preflight_required": true,
+        "stimulus_required": true,
+        "claim_posture_required": true,
+        "schema": "sonaloop.research_integrity.v1"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "methodology-dschool-micro",
+    "tool": "set_project_methodology",
+    "input": {
+      "project_id": "rproject_5eda158cfabef375",
+      "methodology_key": "dschool_micro"
+    },
+    "value": {
+      "id": "rproject_5eda158cfabef375",
+      "slug": "method-and-iteration",
+      "title": "Method and iteration",
+      "goal": "Examine an unresolved handover",
+      "description": "",
+      "persona_ids": [],
+      "study_ids": [],
+      "study_tags": {},
+      "themes": [],
+      "status": "active",
+      "created_at": "2026-09-09T08:04:48.722595+00:00",
+      "updated_at": "2026-09-09T08:04:48.754335+00:00",
+      "methodology": "dschool_micro",
+      "phase": "",
+      "phase_log": {},
+      "sections": [],
+      "notes": [],
+      "council_ids": [],
+      "workflow_trace_id": "sltrace_864b83605a86323a8f3ac1c1",
+      "icon": {
+        "kind": "regular",
+        "name": "projects"
+      }
+    },
+    "public_value": {
+      "id": "rproject_5eda158cfabef375",
+      "slug": "method-and-iteration",
+      "title": "Method and iteration",
+      "goal": "Examine an unresolved handover",
+      "description": "",
+      "persona_ids": [],
+      "study_ids": [],
+      "study_tags": {},
+      "themes": [],
+      "status": "active",
+      "created_at": "2026-09-09T08:04:48.722595+00:00",
+      "updated_at": "2026-09-09T08:04:48.754335+00:00",
+      "methodology": "dschool_micro",
+      "phase": "",
+      "phase_log": {},
+      "sections": [],
+      "notes": [],
+      "council_ids": [],
+      "workflow_trace_id": "sltrace_864b83605a86323a8f3ac1c1",
+      "icon": {
+        "kind": "regular",
+        "name": "projects"
+      }
+    },
+    "state": "ready"
   }
 ]

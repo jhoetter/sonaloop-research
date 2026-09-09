@@ -8,7 +8,7 @@ from .library import collection, note_card, section_card
 from . import references, assets, prototypes, calendar, plans, bets, councils, council_formats, discovery, surveys, syntheses, sessions, session_funnels
 from . import persona_preparation
 from . import cohort, cohort_preflight, persona_profiles
-from . import persona_records, chats, chat_proposals, run_journal, persona_catalog, research_plan
+from . import persona_records, chats, chat_proposals, run_journal, persona_catalog, research_plan, product_understanding
 from . import memory, memory_outcomes, projects, project_graph, project_results, predictions, project_health
 
 SCHEMA = "sonaloop.research-presentation.v1"
@@ -71,6 +71,11 @@ def _members(value):
 
 
 SURFACES = {
+    "record_product_understanding": Surface("understanding", product_understanding.recorded),
+    "record_manifest_product_understanding": Surface("understanding", product_understanding.recorded),
+    "get_product_understanding": Surface("understanding", product_understanding.stored),
+    "set_project_methodology": Surface("projects", projects.methodology),
+    "iterate_task": Surface("researchplan", research_plan.iteration),
     "get_plan": Surface("researchplan", research_plan.plan),
     "add_task": Surface("researchplan", research_plan.task),
     "record_frame": Surface("researchplan", research_plan.task),

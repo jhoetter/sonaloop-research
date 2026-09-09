@@ -45,7 +45,7 @@ function boundSchema(value, depth = 0, detailDepth = 10) {
 function jsonDepth(value) {
   return value && typeof value === 'object' ? Math.max(0, ...Object.values(value).map(child => 1 + jsonDepth(child))) : 0;
 }
-const labels = { researchplan: "Research plans and recorded tasks", catalog: "Persona catalog and import provenance", chats: "Persona conversations and continuity proposals", records: "Persona records and sources", profiles: "Persona profiles and history", cohorts: "Cohort diagnostics", preparation: "Persona preparation", runs: 'Project Health and Run Diagnostics', memory: 'Memory and Recorded Experience', calendar: 'Recorded Calendar and Activities', plans: 'Recorded Plans', prototypes: 'Prototypes', references: 'Captured References', assets: 'Files and Evidence', notes: 'Notes', sections: 'Sections', projects: 'Projects', search: 'Search',
+const labels = { understanding: "Recorded Product Understanding", researchplan: "Research plans and recorded tasks", catalog: "Persona catalog and import provenance", chats: "Persona conversations and continuity proposals", records: "Persona records and sources", profiles: "Persona profiles and history", cohorts: "Cohort diagnostics", preparation: "Persona preparation", runs: 'Project Health and Run Diagnostics', memory: 'Memory and Recorded Experience', calendar: 'Recorded Calendar and Activities', plans: 'Recorded Plans', prototypes: 'Prototypes', references: 'Captured References', assets: 'Files and Evidence', notes: 'Notes', sections: 'Sections', projects: 'Projects', search: 'Search',
   hypotheses: 'Hypotheses', decisions: 'Decisions', councils: 'Councils', surveys: 'Surveys',
   syntheses: 'Syntheses and Reports', sessions: 'Sessions and Funnels' };
 const { fixtures } = await nativeFixtureSet();
@@ -76,7 +76,7 @@ for (const [family, name] of Object.entries(labels)) {
   // need room for the union array, its branch and the branch's type value.
   if (jsonDepth(propsSchema) > 12) propsSchema = boundSchema(authoredSchema, 0, 8);
   assert.ok(jsonDepth(propsSchema) <= 12, 'Public schema still exceeds its traversal budget');
-  const disclosures = ['projects', 'runs', 'preparation', 'profiles', 'cohorts', 'records', 'chats', 'catalog', 'researchplan'].includes(family);
+  const disclosures = ['projects', 'runs', 'preparation', 'profiles', 'cohorts', 'records', 'chats', 'catalog', 'researchplan', 'understanding'].includes(family);
   const requiredStates = ['focus', 'loading', 'disabled', 'empty', 'error', 'success'].map(state => ({ state,
     disposition: state === 'disabled' || state === 'focus' && !disclosures ? 'not_applicable' : 'applicable',
     scenarioIds: scenarios.filter(item => item.state === ({ empty: 'empty', success: 'ready' }[state] || '')).map(item => item.id),

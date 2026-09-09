@@ -149,7 +149,7 @@ zero counts, false verdicts and negative minimum-input requirements are not
 normalized. Plan task completion does not declare the research Run finished.
 No gate evaluation, evidence lookup or dispatch occurs while rendering.
 
-The eight native outputs map explicitly to the closed authored
+These native Plan outputs map explicitly to the closed authored
 `sonaloop.research-plan-view.v1` public DTO. Dynamic evidence-kind counts become
 ordered `{kind,count}` rows; native output stays untouched. Native dispatch
 operation aliases and receipt keys are omitted execution context, not alleged
@@ -160,6 +160,35 @@ returned. The Product prepares its existing evidence links, marks and framework
 outside the pure body. Native-valid older extension fields keep the Product's
 base header/tasks and a details-unavailable notice; unsupported public details
 fail closed instead of changing the business validator.
+
+`iterate_task` uses the same stored iteration-record body as the Product Plan
+history and adds only the actual `cloned` tasks returned by that invocation.
+Rounds, rewired dependencies, cleared frames and preserved requirements stay
+visible. Calling the existing writer again can create another round: its result
+is not labelled a deduplicated retry. The native registered-form descriptions
+and both supported declaration spellings are retained in local details.
+`set_project_methodology` reuses the Project header with its returned methodology
+and integrity requirements. Its Project result supplies neither the reseeded
+tasks nor a Run completion verdict; rendering does not reseed or read a Plan.
+
+**Recorded Product Understanding** uses the actual Product capability grouping
+and observation body. Its closed `sonaloop.product-understanding-view.v1`
+presentation maps scalar target, inventory and verification attributes to
+explicit named rows. Complete native reference fields, supersession, revision
+rationale, zero attempts and false flags remain visible or in local details.
+The native outputs, validation and persistence are unchanged. Only known
+operation/correlation aliases are omitted from public presentation; this is
+not a generic recursive key filter or a claim that those aliases are bearers.
+
+The manifest recorder retains the exact stimulus binding, coverage checklist
+and bounded observation scope. `served_to_host` does not mean an image was
+inspected or a capability verified. Rendering fetches no target URL, asset or
+evidence. Native getter history contains identity and revision fields, so it
+does not receive the richer Product history's capability/conflict counts.
+The Product prepares full stored history summaries, scoped links and local
+timestamps outside the pure body. Unsupported compound extension fields retain
+the Product's original capability display and an explicit details-unavailable
+notice; they are not silently flattened into a purported valid public DTO.
 
 **Run journals and outcomes** reuse a read-only, project-owned Product inspector.
 `start_run` and `run_journal` retain supplied steps, references, dispatch lifecycle,

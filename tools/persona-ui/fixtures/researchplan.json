@@ -2020,5 +2020,517 @@
       }
     },
     "state": "ready"
+  },
+  {
+    "scenario": "researchplan-iteration-second",
+    "tool": "iterate_task",
+    "input": {
+      "project_id": "rproject_5eda158cfabef375",
+      "task_id": "verify__prototype_test",
+      "note": "Inspect the rejected flow; keep the original evidence in its earlier round."
+    },
+    "value": {
+      "task_id": "verify__prototype_test",
+      "loop_back": "frame__ideate",
+      "round": 2,
+      "note": "Inspect the rejected flow; keep the original evidence in its earlier round.",
+      "entry": "frame__ideate__r2",
+      "tasks": [
+        "frame__ideate__r2",
+        "verify__prototype_test__r2"
+      ],
+      "created_at": "2026-09-09T08:04:48.756468+00:00",
+      "cloned": [
+        {
+          "id": "frame__ideate__r2",
+          "title": "Frame · Ideate",
+          "intent": "Frame the questions/angles for 'Ideate' before acting — read persona memory + prior evidence, then record_frame(questions, hypotheses, memory_refs). Do not conclude early; the phase's build/ideation ambitions surface on the act lane once this frame is recorded.",
+          "phase_intent": "Generate many diverse solution concepts; build a prototype for the most promising.",
+          "plan_note": "Inspect the rejected flow; keep the original evidence in its earlier round.",
+          "bucket": "analyze",
+          "capability": "frame",
+          "expected_output_kind": "",
+          "step": "ideate",
+          "consumes": [
+            "verify__define_pov",
+            "verify__prototype_test"
+          ],
+          "status": "todo",
+          "produces": [],
+          "requires": {
+            "min_inputs": null,
+            "gate_tag": "",
+            "artifact_tags": [],
+            "session_of_tags": []
+          },
+          "loop_back": "",
+          "presentation": {
+            "forms": [
+              "council/idea_review",
+              "council/option_comparison"
+            ],
+            "formats": [
+              "Council: Ideation",
+              "Council: Head-to-Head"
+            ],
+            "library": [
+              "Councils",
+              "Prototypes",
+              "Notes"
+            ],
+            "registered_forms": [
+              {
+                "primitive": "council",
+                "form": "idea_review",
+                "primitive_label": "Council",
+                "form_label": "Idea review",
+                "label": "Council / Idea review",
+                "description": "Structured ideation against HMW questions and idea records."
+              },
+              {
+                "primitive": "council",
+                "form": "option_comparison",
+                "primitive_label": "Council",
+                "form_label": "Option comparison",
+                "label": "Council / Option comparison",
+                "description": "Personas compare labelled options and force a preference."
+              }
+            ]
+          },
+          "frame": null
+        },
+        {
+          "id": "verify__prototype_test__r2",
+          "title": "Decide · Prototype & Test",
+          "intent": "Personas use the prototype; gather feedback and converge to refined requirements.",
+          "phase_intent": "",
+          "plan_note": "",
+          "bucket": "verify",
+          "capability": "decide",
+          "expected_output_kind": "",
+          "step": "prototype_test",
+          "consumes": [
+            "frame__ideate__r2"
+          ],
+          "status": "todo",
+          "produces": [],
+          "requires": {
+            "min_inputs": 2,
+            "gate_tag": "divergence_complete",
+            "artifact_tags": [],
+            "session_of_tags": [
+              "prototype"
+            ]
+          },
+          "loop_back": "frame__ideate__r2",
+          "presentation": {
+            "forms": [
+              "session/prototype_use"
+            ],
+            "formats": [
+              "Session: Prototype test"
+            ],
+            "library": [
+              "Sessions",
+              "Reports",
+              "Decisions"
+            ],
+            "registered_forms": [
+              {
+                "primitive": "session",
+                "form": "prototype_use",
+                "primitive_label": "Session",
+                "form_label": "Prototype use session",
+                "label": "Session / Prototype use session",
+                "description": "A session against a stored prototype."
+              }
+            ]
+          },
+          "frame": null
+        }
+      ]
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "iteration",
+      "value": {
+        "task_id": "verify__prototype_test",
+        "loop_back": "frame__ideate",
+        "round": 2,
+        "note": "Inspect the rejected flow; keep the original evidence in its earlier round.",
+        "entry": "frame__ideate__r2",
+        "tasks": [
+          "frame__ideate__r2",
+          "verify__prototype_test__r2"
+        ],
+        "created_at": "2026-09-09T08:04:48.756468+00:00",
+        "cloned": [
+          {
+            "id": "frame__ideate__r2",
+            "title": "Frame · Ideate",
+            "intent": "Frame the questions/angles for 'Ideate' before acting — read persona memory + prior evidence, then record_frame(questions, hypotheses, memory_refs). Do not conclude early; the phase's build/ideation ambitions surface on the act lane once this frame is recorded.",
+            "phase_intent": "Generate many diverse solution concepts; build a prototype for the most promising.",
+            "plan_note": "Inspect the rejected flow; keep the original evidence in its earlier round.",
+            "bucket": "analyze",
+            "capability": "frame",
+            "expected_output_kind": "",
+            "step": "ideate",
+            "status": "todo",
+            "loop_back": "",
+            "consumes": [
+              "verify__define_pov",
+              "verify__prototype_test"
+            ],
+            "produces": [],
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "presentation": {
+              "forms": [
+                "council/idea_review",
+                "council/option_comparison"
+              ],
+              "formats": [
+                "Council: Ideation",
+                "Council: Head-to-Head"
+              ],
+              "library": [
+                "Councils",
+                "Prototypes",
+                "Notes"
+              ],
+              "registered_forms": [
+                {
+                  "primitive": "council",
+                  "form": "idea_review",
+                  "primitive_label": "Council",
+                  "form_label": "Idea review",
+                  "label": "Council / Idea review",
+                  "description": "Structured ideation against HMW questions and idea records."
+                },
+                {
+                  "primitive": "council",
+                  "form": "option_comparison",
+                  "primitive_label": "Council",
+                  "form_label": "Option comparison",
+                  "label": "Council / Option comparison",
+                  "description": "Personas compare labelled options and force a preference."
+                }
+              ]
+            },
+            "frame": null
+          },
+          {
+            "id": "verify__prototype_test__r2",
+            "title": "Decide · Prototype & Test",
+            "intent": "Personas use the prototype; gather feedback and converge to refined requirements.",
+            "phase_intent": "",
+            "plan_note": "",
+            "bucket": "verify",
+            "capability": "decide",
+            "expected_output_kind": "",
+            "step": "prototype_test",
+            "status": "todo",
+            "loop_back": "frame__ideate__r2",
+            "consumes": [
+              "frame__ideate__r2"
+            ],
+            "produces": [],
+            "requires": {
+              "min_inputs": 2,
+              "gate_tag": "divergence_complete",
+              "artifact_tags": [],
+              "session_of_tags": [
+                "prototype"
+              ]
+            },
+            "presentation": {
+              "forms": [
+                "session/prototype_use"
+              ],
+              "formats": [
+                "Session: Prototype test"
+              ],
+              "library": [
+                "Sessions",
+                "Reports",
+                "Decisions"
+              ],
+              "registered_forms": [
+                {
+                  "primitive": "session",
+                  "form": "prototype_use",
+                  "primitive_label": "Session",
+                  "form_label": "Prototype use session",
+                  "label": "Session / Prototype use session",
+                  "description": "A session against a stored prototype."
+                }
+              ]
+            },
+            "frame": null
+          }
+        ]
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-iteration-next",
+    "tool": "iterate_task",
+    "input": {
+      "project_id": "rproject_5eda158cfabef375",
+      "task_id": "verify__prototype_test",
+      "note": "Inspect the rejected flow; keep the original evidence in its earlier round."
+    },
+    "value": {
+      "task_id": "verify__prototype_test",
+      "loop_back": "frame__ideate",
+      "round": 3,
+      "note": "Inspect the rejected flow; keep the original evidence in its earlier round.",
+      "entry": "frame__ideate__r3",
+      "tasks": [
+        "frame__ideate__r3",
+        "verify__prototype_test__r3"
+      ],
+      "created_at": "2026-09-09T08:04:48.759184+00:00",
+      "cloned": [
+        {
+          "id": "frame__ideate__r3",
+          "title": "Frame · Ideate",
+          "intent": "Frame the questions/angles for 'Ideate' before acting — read persona memory + prior evidence, then record_frame(questions, hypotheses, memory_refs). Do not conclude early; the phase's build/ideation ambitions surface on the act lane once this frame is recorded.",
+          "phase_intent": "Generate many diverse solution concepts; build a prototype for the most promising.",
+          "plan_note": "Inspect the rejected flow; keep the original evidence in its earlier round.",
+          "bucket": "analyze",
+          "capability": "frame",
+          "expected_output_kind": "",
+          "step": "ideate",
+          "consumes": [
+            "verify__define_pov",
+            "verify__prototype_test"
+          ],
+          "status": "todo",
+          "produces": [],
+          "requires": {
+            "min_inputs": null,
+            "gate_tag": "",
+            "artifact_tags": [],
+            "session_of_tags": []
+          },
+          "loop_back": "",
+          "presentation": {
+            "forms": [
+              "council/idea_review",
+              "council/option_comparison"
+            ],
+            "formats": [
+              "Council: Ideation",
+              "Council: Head-to-Head"
+            ],
+            "library": [
+              "Councils",
+              "Prototypes",
+              "Notes"
+            ],
+            "registered_forms": [
+              {
+                "primitive": "council",
+                "form": "idea_review",
+                "primitive_label": "Council",
+                "form_label": "Idea review",
+                "label": "Council / Idea review",
+                "description": "Structured ideation against HMW questions and idea records."
+              },
+              {
+                "primitive": "council",
+                "form": "option_comparison",
+                "primitive_label": "Council",
+                "form_label": "Option comparison",
+                "label": "Council / Option comparison",
+                "description": "Personas compare labelled options and force a preference."
+              }
+            ]
+          },
+          "frame": null
+        },
+        {
+          "id": "verify__prototype_test__r3",
+          "title": "Decide · Prototype & Test",
+          "intent": "Personas use the prototype; gather feedback and converge to refined requirements.",
+          "phase_intent": "",
+          "plan_note": "",
+          "bucket": "verify",
+          "capability": "decide",
+          "expected_output_kind": "",
+          "step": "prototype_test",
+          "consumes": [
+            "frame__ideate__r3"
+          ],
+          "status": "todo",
+          "produces": [],
+          "requires": {
+            "min_inputs": 2,
+            "gate_tag": "divergence_complete",
+            "artifact_tags": [],
+            "session_of_tags": [
+              "prototype"
+            ]
+          },
+          "loop_back": "frame__ideate__r3",
+          "presentation": {
+            "forms": [
+              "session/prototype_use"
+            ],
+            "formats": [
+              "Session: Prototype test"
+            ],
+            "library": [
+              "Sessions",
+              "Reports",
+              "Decisions"
+            ],
+            "registered_forms": [
+              {
+                "primitive": "session",
+                "form": "prototype_use",
+                "primitive_label": "Session",
+                "form_label": "Prototype use session",
+                "label": "Session / Prototype use session",
+                "description": "A session against a stored prototype."
+              }
+            ]
+          },
+          "frame": null
+        }
+      ]
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "iteration",
+      "value": {
+        "task_id": "verify__prototype_test",
+        "loop_back": "frame__ideate",
+        "round": 3,
+        "note": "Inspect the rejected flow; keep the original evidence in its earlier round.",
+        "entry": "frame__ideate__r3",
+        "tasks": [
+          "frame__ideate__r3",
+          "verify__prototype_test__r3"
+        ],
+        "created_at": "2026-09-09T08:04:48.759184+00:00",
+        "cloned": [
+          {
+            "id": "frame__ideate__r3",
+            "title": "Frame · Ideate",
+            "intent": "Frame the questions/angles for 'Ideate' before acting — read persona memory + prior evidence, then record_frame(questions, hypotheses, memory_refs). Do not conclude early; the phase's build/ideation ambitions surface on the act lane once this frame is recorded.",
+            "phase_intent": "Generate many diverse solution concepts; build a prototype for the most promising.",
+            "plan_note": "Inspect the rejected flow; keep the original evidence in its earlier round.",
+            "bucket": "analyze",
+            "capability": "frame",
+            "expected_output_kind": "",
+            "step": "ideate",
+            "status": "todo",
+            "loop_back": "",
+            "consumes": [
+              "verify__define_pov",
+              "verify__prototype_test"
+            ],
+            "produces": [],
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "presentation": {
+              "forms": [
+                "council/idea_review",
+                "council/option_comparison"
+              ],
+              "formats": [
+                "Council: Ideation",
+                "Council: Head-to-Head"
+              ],
+              "library": [
+                "Councils",
+                "Prototypes",
+                "Notes"
+              ],
+              "registered_forms": [
+                {
+                  "primitive": "council",
+                  "form": "idea_review",
+                  "primitive_label": "Council",
+                  "form_label": "Idea review",
+                  "label": "Council / Idea review",
+                  "description": "Structured ideation against HMW questions and idea records."
+                },
+                {
+                  "primitive": "council",
+                  "form": "option_comparison",
+                  "primitive_label": "Council",
+                  "form_label": "Option comparison",
+                  "label": "Council / Option comparison",
+                  "description": "Personas compare labelled options and force a preference."
+                }
+              ]
+            },
+            "frame": null
+          },
+          {
+            "id": "verify__prototype_test__r3",
+            "title": "Decide · Prototype & Test",
+            "intent": "Personas use the prototype; gather feedback and converge to refined requirements.",
+            "phase_intent": "",
+            "plan_note": "",
+            "bucket": "verify",
+            "capability": "decide",
+            "expected_output_kind": "",
+            "step": "prototype_test",
+            "status": "todo",
+            "loop_back": "frame__ideate__r3",
+            "consumes": [
+              "frame__ideate__r3"
+            ],
+            "produces": [],
+            "requires": {
+              "min_inputs": 2,
+              "gate_tag": "divergence_complete",
+              "artifact_tags": [],
+              "session_of_tags": [
+                "prototype"
+              ]
+            },
+            "presentation": {
+              "forms": [
+                "session/prototype_use"
+              ],
+              "formats": [
+                "Session: Prototype test"
+              ],
+              "library": [
+                "Sessions",
+                "Reports",
+                "Decisions"
+              ],
+              "registered_forms": [
+                {
+                  "primitive": "session",
+                  "form": "prototype_use",
+                  "primitive_label": "Session",
+                  "form_label": "Prototype use session",
+                  "label": "Session / Prototype use session",
+                  "description": "A session against a stored prototype."
+                }
+              ]
+            },
+            "frame": null
+          }
+        ]
+      }
+    },
+    "state": "ready"
   }
 ]

@@ -1,0 +1,2596 @@
+[
+  {
+    "scenario": "understanding-recorded",
+    "tool": "record_product_understanding",
+    "input": {
+      "project_id": "rproject_6ba2ea1bc60daf78",
+      "target": {
+        "name": "Handover product",
+        "identity": "synthetic-product",
+        "url": "https://example.test/handover",
+        "role": "target_identity_only",
+        "identity_only": true,
+        "is_evidence": false,
+        "server_fetch_authorized": false
+      },
+      "revision": "release:1",
+      "routes": [
+        {
+          "path": "/",
+          "label": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "name": "Handover overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "idle",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "key": "handover",
+          "claim": "A handover control is visible.",
+          "status": "observed_present",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        },
+        {
+          "key": "save",
+          "claim": "Saving after handover is not shown.",
+          "status": "unknown"
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "asset",
+          "id": "asset_2d730b0be435c29a",
+          "anchor": "screen:0",
+          "quote": "Home overview",
+          "text": "An exact synthetic screen",
+          "role": "Visible state"
+        }
+      ],
+      "observed_at": "2026-09-09T08:00:00Z",
+      "key": "understanding:first"
+    },
+    "value": {
+      "schema": "sonaloop.product_understanding.v1",
+      "id": "product_understanding_c681eeba6d6cc274",
+      "version": 1,
+      "project_id": "rproject_6ba2ea1bc60daf78",
+      "target": {
+        "name": "Handover product",
+        "identity": "synthetic-product",
+        "url": "https://example.test/handover",
+        "role": "target_identity_only",
+        "identity_only": true,
+        "is_evidence": false,
+        "server_fetch_authorized": false
+      },
+      "revision": "release:1",
+      "observed_at": "2026-09-09T08:00:00Z",
+      "routes": [
+        {
+          "path": "/",
+          "label": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "name": "Handover overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "idle",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "puc_c638abfa89e65e3d",
+          "key": "handover",
+          "claim": "A handover control is visible.",
+          "status": "observed_present",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        },
+        {
+          "id": "puc_576b1bdc66b37231",
+          "key": "save",
+          "claim": "Saving after handover is not shown.",
+          "status": "unknown",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "asset",
+          "id": "asset_2d730b0be435c29a",
+          "anchor": "screen:0",
+          "quote": "Home overview",
+          "text": "An exact synthetic screen",
+          "role": "Visible state"
+        }
+      ],
+      "supersedes": "",
+      "created_at": "2026-09-09T08:03:28.499525+00:00",
+      "operation_id": "understanding:first",
+      "operation_fingerprint": "f0a47b1037884df59ef7d862df6eafe6d273cab8a69012e8f8406b5737ccbf96",
+      "idempotent_replay": false,
+      "dispatch": {
+        "state": "legacy",
+        "checkpointed": false,
+        "provenance": "not governed by an active dispatch"
+      },
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_6ba2ea1bc60daf78"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.product-understanding-view.v1",
+      "view": "record",
+      "value": {
+        "schema": "sonaloop.product_understanding.v1",
+        "id": "product_understanding_c681eeba6d6cc274",
+        "version": 1,
+        "project_id": "rproject_6ba2ea1bc60daf78",
+        "target": {
+          "title": "Handover product",
+          "attributes": [
+            {
+              "name": "name",
+              "value": "Handover product"
+            },
+            {
+              "name": "identity",
+              "value": "synthetic-product"
+            },
+            {
+              "name": "url",
+              "value": "https://example.test/handover"
+            },
+            {
+              "name": "role",
+              "value": "target_identity_only"
+            },
+            {
+              "name": "identity_only",
+              "value": true
+            },
+            {
+              "name": "is_evidence",
+              "value": false
+            },
+            {
+              "name": "server_fetch_authorized",
+              "value": false
+            }
+          ]
+        },
+        "revision": "release:1",
+        "observed_at": "2026-09-09T08:00:00Z",
+        "routes": [
+          {
+            "label": "/",
+            "attributes": [
+              {
+                "name": "path",
+                "value": "/"
+              },
+              {
+                "name": "label",
+                "value": "Overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "flows": [
+          {
+            "label": "Handover overview",
+            "attributes": [
+              {
+                "name": "name",
+                "value": "Handover overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "states": [
+          {
+            "label": "idle",
+            "attributes": [
+              {
+                "name": "state",
+                "value": "idle"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "puc_c638abfa89e65e3d",
+            "key": "handover",
+            "claim": "A handover control is visible.",
+            "status": "observed_present",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          },
+          {
+            "id": "puc_576b1bdc66b37231",
+            "key": "save",
+            "claim": "Saving after handover is not shown.",
+            "status": "unknown",
+            "evidence_refs": []
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "asset",
+            "id": "asset_2d730b0be435c29a",
+            "anchor": "screen:0",
+            "quote": "Home overview",
+            "text": "An exact synthetic screen",
+            "role": "Visible state"
+          }
+        ],
+        "supersedes": "",
+        "created_at": "2026-09-09T08:03:28.499525+00:00",
+        "idempotent_replay": false,
+        "dispatch": {
+          "state": "legacy",
+          "checkpointed": false,
+          "provenance": "not governed by an active dispatch"
+        },
+        "project_url": "http://127.0.0.1:8787/jobs/rproject_6ba2ea1bc60daf78"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "understanding-replayed",
+    "tool": "record_product_understanding",
+    "input": {
+      "project_id": "rproject_6ba2ea1bc60daf78",
+      "target": {
+        "name": "Handover product",
+        "identity": "synthetic-product",
+        "url": "https://example.test/handover",
+        "role": "target_identity_only",
+        "identity_only": true,
+        "is_evidence": false,
+        "server_fetch_authorized": false
+      },
+      "revision": "release:1",
+      "routes": [
+        {
+          "path": "/",
+          "label": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "name": "Handover overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "idle",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "key": "handover",
+          "claim": "A handover control is visible.",
+          "status": "observed_present",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        },
+        {
+          "key": "save",
+          "claim": "Saving after handover is not shown.",
+          "status": "unknown"
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "asset",
+          "id": "asset_2d730b0be435c29a",
+          "anchor": "screen:0",
+          "quote": "Home overview",
+          "text": "An exact synthetic screen",
+          "role": "Visible state"
+        }
+      ],
+      "observed_at": "2026-09-09T08:00:00Z",
+      "key": "understanding:first"
+    },
+    "value": {
+      "schema": "sonaloop.product_understanding.v1",
+      "id": "product_understanding_c681eeba6d6cc274",
+      "version": 1,
+      "project_id": "rproject_6ba2ea1bc60daf78",
+      "target": {
+        "name": "Handover product",
+        "identity": "synthetic-product",
+        "url": "https://example.test/handover",
+        "role": "target_identity_only",
+        "identity_only": true,
+        "is_evidence": false,
+        "server_fetch_authorized": false
+      },
+      "revision": "release:1",
+      "observed_at": "2026-09-09T08:00:00Z",
+      "routes": [
+        {
+          "path": "/",
+          "label": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "name": "Handover overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "idle",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "puc_c638abfa89e65e3d",
+          "key": "handover",
+          "claim": "A handover control is visible.",
+          "status": "observed_present",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        },
+        {
+          "id": "puc_576b1bdc66b37231",
+          "key": "save",
+          "claim": "Saving after handover is not shown.",
+          "status": "unknown",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "asset",
+          "id": "asset_2d730b0be435c29a",
+          "anchor": "screen:0",
+          "quote": "Home overview",
+          "text": "An exact synthetic screen",
+          "role": "Visible state"
+        }
+      ],
+      "supersedes": "",
+      "created_at": "2026-09-09T08:03:28.499525+00:00",
+      "operation_id": "understanding:first",
+      "operation_fingerprint": "f0a47b1037884df59ef7d862df6eafe6d273cab8a69012e8f8406b5737ccbf96",
+      "idempotent_replay": true,
+      "dispatch": {
+        "state": "legacy",
+        "checkpointed": false,
+        "provenance": "not governed by an active dispatch"
+      },
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_6ba2ea1bc60daf78"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.product-understanding-view.v1",
+      "view": "record",
+      "value": {
+        "schema": "sonaloop.product_understanding.v1",
+        "id": "product_understanding_c681eeba6d6cc274",
+        "version": 1,
+        "project_id": "rproject_6ba2ea1bc60daf78",
+        "target": {
+          "title": "Handover product",
+          "attributes": [
+            {
+              "name": "name",
+              "value": "Handover product"
+            },
+            {
+              "name": "identity",
+              "value": "synthetic-product"
+            },
+            {
+              "name": "url",
+              "value": "https://example.test/handover"
+            },
+            {
+              "name": "role",
+              "value": "target_identity_only"
+            },
+            {
+              "name": "identity_only",
+              "value": true
+            },
+            {
+              "name": "is_evidence",
+              "value": false
+            },
+            {
+              "name": "server_fetch_authorized",
+              "value": false
+            }
+          ]
+        },
+        "revision": "release:1",
+        "observed_at": "2026-09-09T08:00:00Z",
+        "routes": [
+          {
+            "label": "/",
+            "attributes": [
+              {
+                "name": "path",
+                "value": "/"
+              },
+              {
+                "name": "label",
+                "value": "Overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "flows": [
+          {
+            "label": "Handover overview",
+            "attributes": [
+              {
+                "name": "name",
+                "value": "Handover overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "states": [
+          {
+            "label": "idle",
+            "attributes": [
+              {
+                "name": "state",
+                "value": "idle"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "puc_c638abfa89e65e3d",
+            "key": "handover",
+            "claim": "A handover control is visible.",
+            "status": "observed_present",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          },
+          {
+            "id": "puc_576b1bdc66b37231",
+            "key": "save",
+            "claim": "Saving after handover is not shown.",
+            "status": "unknown",
+            "evidence_refs": []
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "asset",
+            "id": "asset_2d730b0be435c29a",
+            "anchor": "screen:0",
+            "quote": "Home overview",
+            "text": "An exact synthetic screen",
+            "role": "Visible state"
+          }
+        ],
+        "supersedes": "",
+        "created_at": "2026-09-09T08:03:28.499525+00:00",
+        "idempotent_replay": true,
+        "dispatch": {
+          "state": "legacy",
+          "checkpointed": false,
+          "provenance": "not governed by an active dispatch"
+        },
+        "project_url": "http://127.0.0.1:8787/jobs/rproject_6ba2ea1bc60daf78"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "understanding-revised",
+    "tool": "record_product_understanding",
+    "input": {
+      "project_id": "rproject_6ba2ea1bc60daf78",
+      "target": {
+        "name": "Handover product",
+        "identity": "synthetic-product",
+        "url": "https://example.test/handover",
+        "role": "target_identity_only",
+        "identity_only": true,
+        "is_evidence": false,
+        "server_fetch_authorized": false
+      },
+      "revision": "release:2",
+      "routes": [
+        {
+          "path": "/",
+          "label": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "name": "Handover overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "idle",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "key": "handover",
+          "claim": "The handover control is absent in the captured state.",
+          "status": "observed_absent",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ],
+          "verification_attempt": {
+            "procedure": "Inspected the complete captured home state",
+            "description": "The control was not visible.",
+            "attempts": 0,
+            "completed": false
+          },
+          "revision_reason": "A later captured revision has no handover control."
+        },
+        {
+          "key": "save",
+          "claim": "Saving after handover is not shown.",
+          "status": "unknown"
+        },
+        {
+          "claim": "A downstream handover may require another screen.",
+          "status": "inferred",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "asset",
+          "id": "asset_2d730b0be435c29a",
+          "anchor": "screen:0",
+          "quote": "Home overview",
+          "text": "An exact synthetic screen",
+          "role": "Visible state"
+        }
+      ],
+      "observed_at": "2026-09-09T08:10:00Z",
+      "key": "understanding:second"
+    },
+    "value": {
+      "schema": "sonaloop.product_understanding.v1",
+      "id": "product_understanding_5410e9b1ccb9a9d9",
+      "version": 2,
+      "project_id": "rproject_6ba2ea1bc60daf78",
+      "target": {
+        "name": "Handover product",
+        "identity": "synthetic-product",
+        "url": "https://example.test/handover",
+        "role": "target_identity_only",
+        "identity_only": true,
+        "is_evidence": false,
+        "server_fetch_authorized": false
+      },
+      "revision": "release:2",
+      "observed_at": "2026-09-09T08:10:00Z",
+      "routes": [
+        {
+          "path": "/",
+          "label": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "name": "Handover overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "idle",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "puc_3114b6c924b89377",
+          "key": "handover",
+          "claim": "The handover control is absent in the captured state.",
+          "status": "observed_absent",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ],
+          "verification_attempt": {
+            "procedure": "Inspected the complete captured home state",
+            "description": "The control was not visible.",
+            "attempts": 0,
+            "completed": false
+          },
+          "supersedes": "puc_c638abfa89e65e3d",
+          "revision_reason": "A later captured revision has no handover control."
+        },
+        {
+          "id": "puc_fffc54ca4cb535ca",
+          "key": "save",
+          "claim": "Saving after handover is not shown.",
+          "status": "unknown",
+          "evidence_refs": [],
+          "supersedes": "puc_576b1bdc66b37231"
+        },
+        {
+          "id": "puc_afdaea0ceff1972c",
+          "key": "capability_4b4c4a3feafc326a",
+          "claim": "A downstream handover may require another screen.",
+          "status": "inferred",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "asset",
+          "id": "asset_2d730b0be435c29a",
+          "anchor": "screen:0",
+          "quote": "Home overview",
+          "text": "An exact synthetic screen",
+          "role": "Visible state"
+        }
+      ],
+      "supersedes": "product_understanding_c681eeba6d6cc274",
+      "created_at": "2026-09-09T08:03:28.507218+00:00",
+      "operation_id": "understanding:second",
+      "operation_fingerprint": "f3b22a8c844c70bef89a3e2be24c847e7c61d04d77687488a3d528b5615fffb2",
+      "idempotent_replay": false,
+      "dispatch": {
+        "state": "legacy",
+        "checkpointed": false,
+        "provenance": "not governed by an active dispatch"
+      },
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_6ba2ea1bc60daf78"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.product-understanding-view.v1",
+      "view": "record",
+      "value": {
+        "schema": "sonaloop.product_understanding.v1",
+        "id": "product_understanding_5410e9b1ccb9a9d9",
+        "version": 2,
+        "project_id": "rproject_6ba2ea1bc60daf78",
+        "target": {
+          "title": "Handover product",
+          "attributes": [
+            {
+              "name": "name",
+              "value": "Handover product"
+            },
+            {
+              "name": "identity",
+              "value": "synthetic-product"
+            },
+            {
+              "name": "url",
+              "value": "https://example.test/handover"
+            },
+            {
+              "name": "role",
+              "value": "target_identity_only"
+            },
+            {
+              "name": "identity_only",
+              "value": true
+            },
+            {
+              "name": "is_evidence",
+              "value": false
+            },
+            {
+              "name": "server_fetch_authorized",
+              "value": false
+            }
+          ]
+        },
+        "revision": "release:2",
+        "observed_at": "2026-09-09T08:10:00Z",
+        "routes": [
+          {
+            "label": "/",
+            "attributes": [
+              {
+                "name": "path",
+                "value": "/"
+              },
+              {
+                "name": "label",
+                "value": "Overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "flows": [
+          {
+            "label": "Handover overview",
+            "attributes": [
+              {
+                "name": "name",
+                "value": "Handover overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "states": [
+          {
+            "label": "idle",
+            "attributes": [
+              {
+                "name": "state",
+                "value": "idle"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "puc_3114b6c924b89377",
+            "key": "handover",
+            "claim": "The handover control is absent in the captured state.",
+            "status": "observed_absent",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ],
+            "verification_attempt": [
+              {
+                "name": "procedure",
+                "value": "Inspected the complete captured home state"
+              },
+              {
+                "name": "description",
+                "value": "The control was not visible."
+              },
+              {
+                "name": "attempts",
+                "value": 0
+              },
+              {
+                "name": "completed",
+                "value": false
+              }
+            ],
+            "supersedes": "puc_c638abfa89e65e3d",
+            "revision_reason": "A later captured revision has no handover control."
+          },
+          {
+            "id": "puc_fffc54ca4cb535ca",
+            "key": "save",
+            "claim": "Saving after handover is not shown.",
+            "status": "unknown",
+            "evidence_refs": [],
+            "supersedes": "puc_576b1bdc66b37231"
+          },
+          {
+            "id": "puc_afdaea0ceff1972c",
+            "key": "capability_4b4c4a3feafc326a",
+            "claim": "A downstream handover may require another screen.",
+            "status": "inferred",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "asset",
+            "id": "asset_2d730b0be435c29a",
+            "anchor": "screen:0",
+            "quote": "Home overview",
+            "text": "An exact synthetic screen",
+            "role": "Visible state"
+          }
+        ],
+        "supersedes": "product_understanding_c681eeba6d6cc274",
+        "created_at": "2026-09-09T08:03:28.507218+00:00",
+        "idempotent_replay": false,
+        "dispatch": {
+          "state": "legacy",
+          "checkpointed": false,
+          "provenance": "not governed by an active dispatch"
+        },
+        "project_url": "http://127.0.0.1:8787/jobs/rproject_6ba2ea1bc60daf78"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "understanding-history",
+    "tool": "get_product_understanding",
+    "input": {
+      "project_id": "rproject_6ba2ea1bc60daf78"
+    },
+    "value": {
+      "schema": "sonaloop.product_understanding.v1",
+      "id": "product_understanding_5410e9b1ccb9a9d9",
+      "version": 2,
+      "project_id": "rproject_6ba2ea1bc60daf78",
+      "target": {
+        "name": "Handover product",
+        "identity": "synthetic-product",
+        "url": "https://example.test/handover",
+        "role": "target_identity_only",
+        "identity_only": true,
+        "is_evidence": false,
+        "server_fetch_authorized": false
+      },
+      "revision": "release:2",
+      "observed_at": "2026-09-09T08:10:00Z",
+      "routes": [
+        {
+          "path": "/",
+          "label": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "name": "Handover overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "idle",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "puc_3114b6c924b89377",
+          "key": "handover",
+          "claim": "The handover control is absent in the captured state.",
+          "status": "observed_absent",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ],
+          "verification_attempt": {
+            "procedure": "Inspected the complete captured home state",
+            "description": "The control was not visible.",
+            "attempts": 0,
+            "completed": false
+          },
+          "supersedes": "puc_c638abfa89e65e3d",
+          "revision_reason": "A later captured revision has no handover control."
+        },
+        {
+          "id": "puc_fffc54ca4cb535ca",
+          "key": "save",
+          "claim": "Saving after handover is not shown.",
+          "status": "unknown",
+          "evidence_refs": [],
+          "supersedes": "puc_576b1bdc66b37231"
+        },
+        {
+          "id": "puc_afdaea0ceff1972c",
+          "key": "capability_4b4c4a3feafc326a",
+          "claim": "A downstream handover may require another screen.",
+          "status": "inferred",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "asset",
+          "id": "asset_2d730b0be435c29a",
+          "anchor": "screen:0",
+          "quote": "Home overview",
+          "text": "An exact synthetic screen",
+          "role": "Visible state"
+        }
+      ],
+      "supersedes": "product_understanding_c681eeba6d6cc274",
+      "created_at": "2026-09-09T08:03:28.507218+00:00",
+      "operation_id": "understanding:second",
+      "operation_fingerprint": "f3b22a8c844c70bef89a3e2be24c847e7c61d04d77687488a3d528b5615fffb2",
+      "history": [
+        {
+          "id": "product_understanding_c681eeba6d6cc274",
+          "version": 1,
+          "revision": "release:1",
+          "observed_at": "2026-09-09T08:00:00Z",
+          "supersedes": ""
+        },
+        {
+          "id": "product_understanding_5410e9b1ccb9a9d9",
+          "version": 2,
+          "revision": "release:2",
+          "observed_at": "2026-09-09T08:10:00Z",
+          "supersedes": "product_understanding_c681eeba6d6cc274"
+        }
+      ],
+      "context": "PRODUCT UNDERSTANDING (external stimulus; do not treat as persona memory)\nArtifact: product_understanding_5410e9b1ccb9a9d9 · schema sonaloop.product_understanding.v1\nTarget: Handover product\nRevision: release:2 · observed at 2026-09-09T08:10:00Z\n- observed_absent: The handover control is absent in the captured state. [asset:asset_2d730b0be435c29a]\n- unknown: Saving after handover is not shown.\n- inferred: A downstream handover may require another screen. [asset:asset_2d730b0be435c29a]\nUnknowns: Saving after handover is not shown."
+    },
+    "public_value": {
+      "schema_version": "sonaloop.product-understanding-view.v1",
+      "view": "stored",
+      "value": {
+        "schema": "sonaloop.product_understanding.v1",
+        "id": "product_understanding_5410e9b1ccb9a9d9",
+        "version": 2,
+        "project_id": "rproject_6ba2ea1bc60daf78",
+        "target": {
+          "title": "Handover product",
+          "attributes": [
+            {
+              "name": "name",
+              "value": "Handover product"
+            },
+            {
+              "name": "identity",
+              "value": "synthetic-product"
+            },
+            {
+              "name": "url",
+              "value": "https://example.test/handover"
+            },
+            {
+              "name": "role",
+              "value": "target_identity_only"
+            },
+            {
+              "name": "identity_only",
+              "value": true
+            },
+            {
+              "name": "is_evidence",
+              "value": false
+            },
+            {
+              "name": "server_fetch_authorized",
+              "value": false
+            }
+          ]
+        },
+        "revision": "release:2",
+        "observed_at": "2026-09-09T08:10:00Z",
+        "routes": [
+          {
+            "label": "/",
+            "attributes": [
+              {
+                "name": "path",
+                "value": "/"
+              },
+              {
+                "name": "label",
+                "value": "Overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "flows": [
+          {
+            "label": "Handover overview",
+            "attributes": [
+              {
+                "name": "name",
+                "value": "Handover overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "states": [
+          {
+            "label": "idle",
+            "attributes": [
+              {
+                "name": "state",
+                "value": "idle"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "puc_3114b6c924b89377",
+            "key": "handover",
+            "claim": "The handover control is absent in the captured state.",
+            "status": "observed_absent",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ],
+            "verification_attempt": [
+              {
+                "name": "procedure",
+                "value": "Inspected the complete captured home state"
+              },
+              {
+                "name": "description",
+                "value": "The control was not visible."
+              },
+              {
+                "name": "attempts",
+                "value": 0
+              },
+              {
+                "name": "completed",
+                "value": false
+              }
+            ],
+            "supersedes": "puc_c638abfa89e65e3d",
+            "revision_reason": "A later captured revision has no handover control."
+          },
+          {
+            "id": "puc_fffc54ca4cb535ca",
+            "key": "save",
+            "claim": "Saving after handover is not shown.",
+            "status": "unknown",
+            "evidence_refs": [],
+            "supersedes": "puc_576b1bdc66b37231"
+          },
+          {
+            "id": "puc_afdaea0ceff1972c",
+            "key": "capability_4b4c4a3feafc326a",
+            "claim": "A downstream handover may require another screen.",
+            "status": "inferred",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "asset",
+            "id": "asset_2d730b0be435c29a",
+            "anchor": "screen:0",
+            "quote": "Home overview",
+            "text": "An exact synthetic screen",
+            "role": "Visible state"
+          }
+        ],
+        "supersedes": "product_understanding_c681eeba6d6cc274",
+        "created_at": "2026-09-09T08:03:28.507218+00:00",
+        "history": [
+          {
+            "id": "product_understanding_c681eeba6d6cc274",
+            "version": 1,
+            "revision": "release:1",
+            "observed_at": "2026-09-09T08:00:00Z",
+            "supersedes": ""
+          },
+          {
+            "id": "product_understanding_5410e9b1ccb9a9d9",
+            "version": 2,
+            "revision": "release:2",
+            "observed_at": "2026-09-09T08:10:00Z",
+            "supersedes": "product_understanding_c681eeba6d6cc274"
+          }
+        ],
+        "context": "PRODUCT UNDERSTANDING (external stimulus; do not treat as persona memory)\nArtifact: product_understanding_5410e9b1ccb9a9d9 · schema sonaloop.product_understanding.v1\nTarget: Handover product\nRevision: release:2 · observed at 2026-09-09T08:10:00Z\n- observed_absent: The handover control is absent in the captured state. [asset:asset_2d730b0be435c29a]\n- unknown: Saving after handover is not shown.\n- inferred: A downstream handover may require another screen. [asset:asset_2d730b0be435c29a]\nUnknowns: Saving after handover is not shown."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "understanding-historical",
+    "tool": "get_product_understanding",
+    "input": {
+      "project_id": "rproject_6ba2ea1bc60daf78",
+      "version_id": "product_understanding_c681eeba6d6cc274"
+    },
+    "value": {
+      "schema": "sonaloop.product_understanding.v1",
+      "id": "product_understanding_c681eeba6d6cc274",
+      "version": 1,
+      "project_id": "rproject_6ba2ea1bc60daf78",
+      "target": {
+        "name": "Handover product",
+        "identity": "synthetic-product",
+        "url": "https://example.test/handover",
+        "role": "target_identity_only",
+        "identity_only": true,
+        "is_evidence": false,
+        "server_fetch_authorized": false
+      },
+      "revision": "release:1",
+      "observed_at": "2026-09-09T08:00:00Z",
+      "routes": [
+        {
+          "path": "/",
+          "label": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "flows": [
+        {
+          "name": "Handover overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "idle",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "puc_c638abfa89e65e3d",
+          "key": "handover",
+          "claim": "A handover control is visible.",
+          "status": "observed_present",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_2d730b0be435c29a",
+              "anchor": "screen:0",
+              "quote": "Home overview",
+              "text": "An exact synthetic screen",
+              "role": "Visible state"
+            }
+          ]
+        },
+        {
+          "id": "puc_576b1bdc66b37231",
+          "key": "save",
+          "claim": "Saving after handover is not shown.",
+          "status": "unknown",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "asset",
+          "id": "asset_2d730b0be435c29a",
+          "anchor": "screen:0",
+          "quote": "Home overview",
+          "text": "An exact synthetic screen",
+          "role": "Visible state"
+        }
+      ],
+      "supersedes": "",
+      "created_at": "2026-09-09T08:03:28.499525+00:00",
+      "operation_id": "understanding:first",
+      "operation_fingerprint": "f0a47b1037884df59ef7d862df6eafe6d273cab8a69012e8f8406b5737ccbf96",
+      "history": [
+        {
+          "id": "product_understanding_c681eeba6d6cc274",
+          "version": 1,
+          "revision": "release:1",
+          "observed_at": "2026-09-09T08:00:00Z",
+          "supersedes": ""
+        },
+        {
+          "id": "product_understanding_5410e9b1ccb9a9d9",
+          "version": 2,
+          "revision": "release:2",
+          "observed_at": "2026-09-09T08:10:00Z",
+          "supersedes": "product_understanding_c681eeba6d6cc274"
+        }
+      ],
+      "context": "PRODUCT UNDERSTANDING (external stimulus; do not treat as persona memory)\nArtifact: product_understanding_c681eeba6d6cc274 · schema sonaloop.product_understanding.v1\nTarget: Handover product\nRevision: release:1 · observed at 2026-09-09T08:00:00Z\n- observed_present: A handover control is visible. [asset:asset_2d730b0be435c29a]\n- unknown: Saving after handover is not shown.\nUnknowns: Saving after handover is not shown."
+    },
+    "public_value": {
+      "schema_version": "sonaloop.product-understanding-view.v1",
+      "view": "stored",
+      "value": {
+        "schema": "sonaloop.product_understanding.v1",
+        "id": "product_understanding_c681eeba6d6cc274",
+        "version": 1,
+        "project_id": "rproject_6ba2ea1bc60daf78",
+        "target": {
+          "title": "Handover product",
+          "attributes": [
+            {
+              "name": "name",
+              "value": "Handover product"
+            },
+            {
+              "name": "identity",
+              "value": "synthetic-product"
+            },
+            {
+              "name": "url",
+              "value": "https://example.test/handover"
+            },
+            {
+              "name": "role",
+              "value": "target_identity_only"
+            },
+            {
+              "name": "identity_only",
+              "value": true
+            },
+            {
+              "name": "is_evidence",
+              "value": false
+            },
+            {
+              "name": "server_fetch_authorized",
+              "value": false
+            }
+          ]
+        },
+        "revision": "release:1",
+        "observed_at": "2026-09-09T08:00:00Z",
+        "routes": [
+          {
+            "label": "/",
+            "attributes": [
+              {
+                "name": "path",
+                "value": "/"
+              },
+              {
+                "name": "label",
+                "value": "Overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "flows": [
+          {
+            "label": "Handover overview",
+            "attributes": [
+              {
+                "name": "name",
+                "value": "Handover overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "states": [
+          {
+            "label": "idle",
+            "attributes": [
+              {
+                "name": "state",
+                "value": "idle"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "puc_c638abfa89e65e3d",
+            "key": "handover",
+            "claim": "A handover control is visible.",
+            "status": "observed_present",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_2d730b0be435c29a",
+                "anchor": "screen:0",
+                "quote": "Home overview",
+                "text": "An exact synthetic screen",
+                "role": "Visible state"
+              }
+            ]
+          },
+          {
+            "id": "puc_576b1bdc66b37231",
+            "key": "save",
+            "claim": "Saving after handover is not shown.",
+            "status": "unknown",
+            "evidence_refs": []
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "asset",
+            "id": "asset_2d730b0be435c29a",
+            "anchor": "screen:0",
+            "quote": "Home overview",
+            "text": "An exact synthetic screen",
+            "role": "Visible state"
+          }
+        ],
+        "supersedes": "",
+        "created_at": "2026-09-09T08:03:28.499525+00:00",
+        "history": [
+          {
+            "id": "product_understanding_c681eeba6d6cc274",
+            "version": 1,
+            "revision": "release:1",
+            "observed_at": "2026-09-09T08:00:00Z",
+            "supersedes": ""
+          },
+          {
+            "id": "product_understanding_5410e9b1ccb9a9d9",
+            "version": 2,
+            "revision": "release:2",
+            "observed_at": "2026-09-09T08:10:00Z",
+            "supersedes": "product_understanding_c681eeba6d6cc274"
+          }
+        ],
+        "context": "PRODUCT UNDERSTANDING (external stimulus; do not treat as persona memory)\nArtifact: product_understanding_c681eeba6d6cc274 · schema sonaloop.product_understanding.v1\nTarget: Handover product\nRevision: release:1 · observed at 2026-09-09T08:00:00Z\n- observed_present: A handover control is visible. [asset:asset_2d730b0be435c29a]\n- unknown: Saving after handover is not shown.\nUnknowns: Saving after handover is not shown."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "understanding-bounded",
+    "tool": "record_manifest_product_understanding",
+    "input": {
+      "project_id": "rproject_operation_ff21f36d817417cd",
+      "manifest_id": "flow_9305dd8a1c8d3c9c",
+      "observations": [
+        {
+          "step_index": 0,
+          "visible_observation": "The screen presents an overview."
+        }
+      ],
+      "unknown_capabilities": [
+        "Behavior after selection is not visible."
+      ],
+      "target_name": "Example product",
+      "target_url": "https://example.test/overview",
+      "dispatch_token": "dispatch_ba0040c53439fb70"
+    },
+    "value": {
+      "schema": "sonaloop.product_understanding.v1",
+      "id": "product_understanding_ba764a4f23b7583a",
+      "version": 1,
+      "project_id": "rproject_operation_ff21f36d817417cd",
+      "target": {
+        "name": "Example product",
+        "url": "https://example.test/overview"
+      },
+      "revision": "release:3",
+      "observed_at": "2026-09-09T08:20:00Z",
+      "routes": [],
+      "flows": [
+        {
+          "name": "Overview flow",
+          "evidence_refs": [
+            {
+              "kind": "flow",
+              "id": "flow_9305dd8a1c8d3c9c"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_08537160e24f5975"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "puc_4a8f6608fb622600",
+          "key": "capability_743680d3af8ad8cc",
+          "claim": "The screen presents an overview.",
+          "status": "observed_present",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_08537160e24f5975"
+            }
+          ]
+        },
+        {
+          "id": "puc_1c874b48bbc67ed3",
+          "key": "capability_1198848fd0dbb1b3",
+          "claim": "Behavior after selection is not visible.",
+          "status": "unknown",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "flow",
+          "id": "flow_9305dd8a1c8d3c9c"
+        }
+      ],
+      "supersedes": "",
+      "created_at": "2026-09-09T08:03:28.548184+00:00",
+      "stimulus_manifest": {
+        "schema": "sonaloop.stimulus_manifest_binding.v1",
+        "manifest_id": "flow_9305dd8a1c8d3c9c",
+        "manifest_version": 1,
+        "manifest_digest": "sha256:ecc2bfe14119d3a052b813f5fb6c87cef17b505371961799bfa2c7cb1d492a94",
+        "target_revision": "release:3",
+        "expected_task": "Understand the exact page",
+        "captured_at": "2026-09-09T08:20:00Z"
+      },
+      "coverage_checklist": [
+        {
+          "step_index": 0,
+          "status": "served_to_host",
+          "label": "Overview",
+          "asset_version_id": "asset_08537160e24f5975",
+          "content_digest": "sha256:e7dc52612c2698349147b1903984be6912e025d1baa22592945ab9e66b5bb488",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_08537160e24f5975"
+            }
+          ],
+          "notes": "Exact pixels were served to the host before this visible-state observation."
+        }
+      ],
+      "operation_id": "dispatch_ba0040c53439fb70",
+      "operation_fingerprint": "f70972541652bdc17d60c2feab33c11b53b654fd15962633be4afde3aaf53961",
+      "idempotent_replay": false,
+      "dispatch": {
+        "state": "completed",
+        "checkpointed": true,
+        "task_id": "preflight__product_understanding",
+        "receipt": {
+          "run_id": "run_operation_5b54d1a88205d281",
+          "cursor": 1,
+          "step_idx": 0,
+          "key": "run_operation_5b54d1a88205d281:preflight__product_understanding",
+          "deduplicated": false
+        }
+      },
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_operation_ff21f36d817417cd",
+      "bounded_authoring": {
+        "schema": "sonaloop.manifest_observations.v2",
+        "manifest_id": "flow_9305dd8a1c8d3c9c",
+        "served_steps": [
+          0
+        ],
+        "url_role": "target_identity_only"
+      }
+    },
+    "public_value": {
+      "schema_version": "sonaloop.product-understanding-view.v1",
+      "view": "record",
+      "value": {
+        "schema": "sonaloop.product_understanding.v1",
+        "id": "product_understanding_ba764a4f23b7583a",
+        "version": 1,
+        "project_id": "rproject_operation_ff21f36d817417cd",
+        "target": {
+          "title": "Example product",
+          "attributes": [
+            {
+              "name": "name",
+              "value": "Example product"
+            },
+            {
+              "name": "url",
+              "value": "https://example.test/overview"
+            }
+          ]
+        },
+        "revision": "release:3",
+        "observed_at": "2026-09-09T08:20:00Z",
+        "routes": [],
+        "flows": [
+          {
+            "label": "Overview flow",
+            "attributes": [
+              {
+                "name": "name",
+                "value": "Overview flow"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "flow",
+                "id": "flow_9305dd8a1c8d3c9c"
+              }
+            ]
+          }
+        ],
+        "states": [
+          {
+            "label": "Overview",
+            "attributes": [
+              {
+                "name": "state",
+                "value": "Overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_08537160e24f5975"
+              }
+            ]
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "puc_4a8f6608fb622600",
+            "key": "capability_743680d3af8ad8cc",
+            "claim": "The screen presents an overview.",
+            "status": "observed_present",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_08537160e24f5975"
+              }
+            ]
+          },
+          {
+            "id": "puc_1c874b48bbc67ed3",
+            "key": "capability_1198848fd0dbb1b3",
+            "claim": "Behavior after selection is not visible.",
+            "status": "unknown",
+            "evidence_refs": []
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "flow",
+            "id": "flow_9305dd8a1c8d3c9c"
+          }
+        ],
+        "supersedes": "",
+        "created_at": "2026-09-09T08:03:28.548184+00:00",
+        "stimulus_manifest": {
+          "schema": "sonaloop.stimulus_manifest_binding.v1",
+          "manifest_id": "flow_9305dd8a1c8d3c9c",
+          "manifest_version": 1,
+          "manifest_digest": "sha256:ecc2bfe14119d3a052b813f5fb6c87cef17b505371961799bfa2c7cb1d492a94",
+          "target_revision": "release:3",
+          "expected_task": "Understand the exact page",
+          "captured_at": "2026-09-09T08:20:00Z"
+        },
+        "coverage_checklist": [
+          {
+            "step_index": 0,
+            "status": "served_to_host",
+            "label": "Overview",
+            "asset_version_id": "asset_08537160e24f5975",
+            "content_digest": "sha256:e7dc52612c2698349147b1903984be6912e025d1baa22592945ab9e66b5bb488",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_08537160e24f5975"
+              }
+            ],
+            "notes": "Exact pixels were served to the host before this visible-state observation."
+          }
+        ],
+        "idempotent_replay": false,
+        "dispatch": {
+          "state": "completed",
+          "checkpointed": true,
+          "task_id": "preflight__product_understanding",
+          "receipt": {
+            "run_id": "run_operation_5b54d1a88205d281",
+            "cursor": 1,
+            "step_idx": 0,
+            "deduplicated": false
+          }
+        },
+        "project_url": "http://127.0.0.1:8787/jobs/rproject_operation_ff21f36d817417cd",
+        "bounded_authoring": {
+          "schema": "sonaloop.manifest_observations.v2",
+          "manifest_id": "flow_9305dd8a1c8d3c9c",
+          "served_steps": [
+            0
+          ],
+          "url_role": "target_identity_only"
+        }
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "understanding-bounded-replayed",
+    "tool": "record_manifest_product_understanding",
+    "input": {
+      "project_id": "rproject_operation_ff21f36d817417cd",
+      "manifest_id": "flow_9305dd8a1c8d3c9c",
+      "observations": [
+        {
+          "step_index": 0,
+          "visible_observation": "The screen presents an overview."
+        }
+      ],
+      "unknown_capabilities": [
+        "Behavior after selection is not visible."
+      ],
+      "target_name": "Example product",
+      "target_url": "https://example.test/overview",
+      "dispatch_token": "dispatch_ba0040c53439fb70"
+    },
+    "value": {
+      "schema": "sonaloop.product_understanding.v1",
+      "id": "product_understanding_ba764a4f23b7583a",
+      "version": 1,
+      "project_id": "rproject_operation_ff21f36d817417cd",
+      "target": {
+        "name": "Example product",
+        "url": "https://example.test/overview"
+      },
+      "revision": "release:3",
+      "observed_at": "2026-09-09T08:20:00Z",
+      "routes": [],
+      "flows": [
+        {
+          "name": "Overview flow",
+          "evidence_refs": [
+            {
+              "kind": "flow",
+              "id": "flow_9305dd8a1c8d3c9c"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_08537160e24f5975"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "puc_4a8f6608fb622600",
+          "key": "capability_743680d3af8ad8cc",
+          "claim": "The screen presents an overview.",
+          "status": "observed_present",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_08537160e24f5975"
+            }
+          ]
+        },
+        {
+          "id": "puc_1c874b48bbc67ed3",
+          "key": "capability_1198848fd0dbb1b3",
+          "claim": "Behavior after selection is not visible.",
+          "status": "unknown",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "flow",
+          "id": "flow_9305dd8a1c8d3c9c"
+        }
+      ],
+      "supersedes": "",
+      "created_at": "2026-09-09T08:03:28.548184+00:00",
+      "stimulus_manifest": {
+        "schema": "sonaloop.stimulus_manifest_binding.v1",
+        "manifest_id": "flow_9305dd8a1c8d3c9c",
+        "manifest_version": 1,
+        "manifest_digest": "sha256:ecc2bfe14119d3a052b813f5fb6c87cef17b505371961799bfa2c7cb1d492a94",
+        "target_revision": "release:3",
+        "expected_task": "Understand the exact page",
+        "captured_at": "2026-09-09T08:20:00Z"
+      },
+      "coverage_checklist": [
+        {
+          "step_index": 0,
+          "status": "served_to_host",
+          "label": "Overview",
+          "asset_version_id": "asset_08537160e24f5975",
+          "content_digest": "sha256:e7dc52612c2698349147b1903984be6912e025d1baa22592945ab9e66b5bb488",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_08537160e24f5975"
+            }
+          ],
+          "notes": "Exact pixels were served to the host before this visible-state observation."
+        }
+      ],
+      "operation_id": "dispatch_ba0040c53439fb70",
+      "operation_fingerprint": "f70972541652bdc17d60c2feab33c11b53b654fd15962633be4afde3aaf53961",
+      "idempotent_replay": true,
+      "dispatch": {
+        "state": "completed",
+        "checkpointed": true,
+        "task_id": "preflight__product_understanding",
+        "receipt": {
+          "run_id": "run_operation_5b54d1a88205d281",
+          "cursor": 1,
+          "step_idx": 0,
+          "key": "run_operation_5b54d1a88205d281:preflight__product_understanding",
+          "deduplicated": true
+        },
+        "reconciled_existing_checkpoint": true
+      },
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_operation_ff21f36d817417cd",
+      "bounded_authoring": {
+        "schema": "sonaloop.manifest_observations.v2",
+        "manifest_id": "flow_9305dd8a1c8d3c9c",
+        "served_steps": [
+          0
+        ],
+        "url_role": "target_identity_only"
+      }
+    },
+    "public_value": {
+      "schema_version": "sonaloop.product-understanding-view.v1",
+      "view": "record",
+      "value": {
+        "schema": "sonaloop.product_understanding.v1",
+        "id": "product_understanding_ba764a4f23b7583a",
+        "version": 1,
+        "project_id": "rproject_operation_ff21f36d817417cd",
+        "target": {
+          "title": "Example product",
+          "attributes": [
+            {
+              "name": "name",
+              "value": "Example product"
+            },
+            {
+              "name": "url",
+              "value": "https://example.test/overview"
+            }
+          ]
+        },
+        "revision": "release:3",
+        "observed_at": "2026-09-09T08:20:00Z",
+        "routes": [],
+        "flows": [
+          {
+            "label": "Overview flow",
+            "attributes": [
+              {
+                "name": "name",
+                "value": "Overview flow"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "flow",
+                "id": "flow_9305dd8a1c8d3c9c"
+              }
+            ]
+          }
+        ],
+        "states": [
+          {
+            "label": "Overview",
+            "attributes": [
+              {
+                "name": "state",
+                "value": "Overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_08537160e24f5975"
+              }
+            ]
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "puc_4a8f6608fb622600",
+            "key": "capability_743680d3af8ad8cc",
+            "claim": "The screen presents an overview.",
+            "status": "observed_present",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_08537160e24f5975"
+              }
+            ]
+          },
+          {
+            "id": "puc_1c874b48bbc67ed3",
+            "key": "capability_1198848fd0dbb1b3",
+            "claim": "Behavior after selection is not visible.",
+            "status": "unknown",
+            "evidence_refs": []
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "flow",
+            "id": "flow_9305dd8a1c8d3c9c"
+          }
+        ],
+        "supersedes": "",
+        "created_at": "2026-09-09T08:03:28.548184+00:00",
+        "stimulus_manifest": {
+          "schema": "sonaloop.stimulus_manifest_binding.v1",
+          "manifest_id": "flow_9305dd8a1c8d3c9c",
+          "manifest_version": 1,
+          "manifest_digest": "sha256:ecc2bfe14119d3a052b813f5fb6c87cef17b505371961799bfa2c7cb1d492a94",
+          "target_revision": "release:3",
+          "expected_task": "Understand the exact page",
+          "captured_at": "2026-09-09T08:20:00Z"
+        },
+        "coverage_checklist": [
+          {
+            "step_index": 0,
+            "status": "served_to_host",
+            "label": "Overview",
+            "asset_version_id": "asset_08537160e24f5975",
+            "content_digest": "sha256:e7dc52612c2698349147b1903984be6912e025d1baa22592945ab9e66b5bb488",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_08537160e24f5975"
+              }
+            ],
+            "notes": "Exact pixels were served to the host before this visible-state observation."
+          }
+        ],
+        "idempotent_replay": true,
+        "dispatch": {
+          "state": "completed",
+          "checkpointed": true,
+          "task_id": "preflight__product_understanding",
+          "receipt": {
+            "run_id": "run_operation_5b54d1a88205d281",
+            "cursor": 1,
+            "step_idx": 0,
+            "deduplicated": true
+          },
+          "reconciled_existing_checkpoint": true
+        },
+        "project_url": "http://127.0.0.1:8787/jobs/rproject_operation_ff21f36d817417cd",
+        "bounded_authoring": {
+          "schema": "sonaloop.manifest_observations.v2",
+          "manifest_id": "flow_9305dd8a1c8d3c9c",
+          "served_steps": [
+            0
+          ],
+          "url_role": "target_identity_only"
+        }
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "understanding-bounded-history",
+    "tool": "get_product_understanding",
+    "input": {
+      "project_id": "rproject_operation_ff21f36d817417cd"
+    },
+    "value": {
+      "schema": "sonaloop.product_understanding.v1",
+      "id": "product_understanding_ba764a4f23b7583a",
+      "version": 1,
+      "project_id": "rproject_operation_ff21f36d817417cd",
+      "target": {
+        "name": "Example product",
+        "url": "https://example.test/overview"
+      },
+      "revision": "release:3",
+      "observed_at": "2026-09-09T08:20:00Z",
+      "routes": [],
+      "flows": [
+        {
+          "name": "Overview flow",
+          "evidence_refs": [
+            {
+              "kind": "flow",
+              "id": "flow_9305dd8a1c8d3c9c"
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "Overview",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_08537160e24f5975"
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "puc_4a8f6608fb622600",
+          "key": "capability_743680d3af8ad8cc",
+          "claim": "The screen presents an overview.",
+          "status": "observed_present",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_08537160e24f5975"
+            }
+          ]
+        },
+        {
+          "id": "puc_1c874b48bbc67ed3",
+          "key": "capability_1198848fd0dbb1b3",
+          "claim": "Behavior after selection is not visible.",
+          "status": "unknown",
+          "evidence_refs": []
+        }
+      ],
+      "evidence_refs": [
+        {
+          "kind": "flow",
+          "id": "flow_9305dd8a1c8d3c9c"
+        }
+      ],
+      "supersedes": "",
+      "created_at": "2026-09-09T08:03:28.548184+00:00",
+      "stimulus_manifest": {
+        "schema": "sonaloop.stimulus_manifest_binding.v1",
+        "manifest_id": "flow_9305dd8a1c8d3c9c",
+        "manifest_version": 1,
+        "manifest_digest": "sha256:ecc2bfe14119d3a052b813f5fb6c87cef17b505371961799bfa2c7cb1d492a94",
+        "target_revision": "release:3",
+        "expected_task": "Understand the exact page",
+        "captured_at": "2026-09-09T08:20:00Z"
+      },
+      "coverage_checklist": [
+        {
+          "step_index": 0,
+          "status": "served_to_host",
+          "label": "Overview",
+          "asset_version_id": "asset_08537160e24f5975",
+          "content_digest": "sha256:e7dc52612c2698349147b1903984be6912e025d1baa22592945ab9e66b5bb488",
+          "evidence_refs": [
+            {
+              "kind": "asset",
+              "id": "asset_08537160e24f5975"
+            }
+          ],
+          "notes": "Exact pixels were served to the host before this visible-state observation."
+        }
+      ],
+      "operation_id": "dispatch_ba0040c53439fb70",
+      "operation_fingerprint": "f70972541652bdc17d60c2feab33c11b53b654fd15962633be4afde3aaf53961",
+      "history": [
+        {
+          "id": "product_understanding_ba764a4f23b7583a",
+          "version": 1,
+          "revision": "release:3",
+          "observed_at": "2026-09-09T08:20:00Z",
+          "supersedes": ""
+        }
+      ],
+      "context": "PRODUCT UNDERSTANDING (external stimulus; do not treat as persona memory)\nArtifact: product_understanding_ba764a4f23b7583a · schema sonaloop.product_understanding.v1\nTarget: Example product\nRevision: release:3 · observed at 2026-09-09T08:20:00Z\nFrozen stimulus: flow_9305dd8a1c8d3c9c v1 · sha256:ecc2bfe14119d3a052b813f5fb6c87cef17b505371961799bfa2c7cb1d492a94 · target release:3\nCoverage: 1 exact screenshot versions inspected\n- observed_present: The screen presents an overview. [asset:asset_08537160e24f5975]\n- unknown: Behavior after selection is not visible.\nUnknowns: Behavior after selection is not visible."
+    },
+    "public_value": {
+      "schema_version": "sonaloop.product-understanding-view.v1",
+      "view": "stored",
+      "value": {
+        "schema": "sonaloop.product_understanding.v1",
+        "id": "product_understanding_ba764a4f23b7583a",
+        "version": 1,
+        "project_id": "rproject_operation_ff21f36d817417cd",
+        "target": {
+          "title": "Example product",
+          "attributes": [
+            {
+              "name": "name",
+              "value": "Example product"
+            },
+            {
+              "name": "url",
+              "value": "https://example.test/overview"
+            }
+          ]
+        },
+        "revision": "release:3",
+        "observed_at": "2026-09-09T08:20:00Z",
+        "routes": [],
+        "flows": [
+          {
+            "label": "Overview flow",
+            "attributes": [
+              {
+                "name": "name",
+                "value": "Overview flow"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "flow",
+                "id": "flow_9305dd8a1c8d3c9c"
+              }
+            ]
+          }
+        ],
+        "states": [
+          {
+            "label": "Overview",
+            "attributes": [
+              {
+                "name": "state",
+                "value": "Overview"
+              }
+            ],
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_08537160e24f5975"
+              }
+            ]
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "puc_4a8f6608fb622600",
+            "key": "capability_743680d3af8ad8cc",
+            "claim": "The screen presents an overview.",
+            "status": "observed_present",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_08537160e24f5975"
+              }
+            ]
+          },
+          {
+            "id": "puc_1c874b48bbc67ed3",
+            "key": "capability_1198848fd0dbb1b3",
+            "claim": "Behavior after selection is not visible.",
+            "status": "unknown",
+            "evidence_refs": []
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "flow",
+            "id": "flow_9305dd8a1c8d3c9c"
+          }
+        ],
+        "supersedes": "",
+        "created_at": "2026-09-09T08:03:28.548184+00:00",
+        "stimulus_manifest": {
+          "schema": "sonaloop.stimulus_manifest_binding.v1",
+          "manifest_id": "flow_9305dd8a1c8d3c9c",
+          "manifest_version": 1,
+          "manifest_digest": "sha256:ecc2bfe14119d3a052b813f5fb6c87cef17b505371961799bfa2c7cb1d492a94",
+          "target_revision": "release:3",
+          "expected_task": "Understand the exact page",
+          "captured_at": "2026-09-09T08:20:00Z"
+        },
+        "coverage_checklist": [
+          {
+            "step_index": 0,
+            "status": "served_to_host",
+            "label": "Overview",
+            "asset_version_id": "asset_08537160e24f5975",
+            "content_digest": "sha256:e7dc52612c2698349147b1903984be6912e025d1baa22592945ab9e66b5bb488",
+            "evidence_refs": [
+              {
+                "kind": "asset",
+                "id": "asset_08537160e24f5975"
+              }
+            ],
+            "notes": "Exact pixels were served to the host before this visible-state observation."
+          }
+        ],
+        "history": [
+          {
+            "id": "product_understanding_ba764a4f23b7583a",
+            "version": 1,
+            "revision": "release:3",
+            "observed_at": "2026-09-09T08:20:00Z",
+            "supersedes": ""
+          }
+        ],
+        "context": "PRODUCT UNDERSTANDING (external stimulus; do not treat as persona memory)\nArtifact: product_understanding_ba764a4f23b7583a · schema sonaloop.product_understanding.v1\nTarget: Example product\nRevision: release:3 · observed at 2026-09-09T08:20:00Z\nFrozen stimulus: flow_9305dd8a1c8d3c9c v1 · sha256:ecc2bfe14119d3a052b813f5fb6c87cef17b505371961799bfa2c7cb1d492a94 · target release:3\nCoverage: 1 exact screenshot versions inspected\n- observed_present: The screen presents an overview. [asset:asset_08537160e24f5975]\n- unknown: Behavior after selection is not visible.\nUnknowns: Behavior after selection is not visible."
+      }
+    },
+    "state": "ready"
+  }
+]

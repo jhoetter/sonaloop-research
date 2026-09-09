@@ -8,8 +8,8 @@ after(async () => { await browser?.close(); });
 
 test('Research Plan cards retain task and judgment semantics with only local disclosures', async t => {
   const cases = fixtures.filter(item => item.family === 'researchplan');
-  assert.equal(cases.length, 22);
-  assert.equal(new Set(cases.map(item => item.tool)).size, 8);
+  assert.equal(cases.length, 24);
+  assert.equal(new Set(cases.map(item => item.tool)).size, 9);
   for (const item of cases) await t.test(item.scenario, async () => {
     const session = await openApp(browser, { family: 'researchplan', viewport: { width: 390, height: 844 } });
     try {
@@ -23,6 +23,12 @@ test('Research Plan cards retain task and judgment semantics with only local dis
       if (['record_judgment', 'assess_progress'].includes(item.tool)) {
         const title = await session.root.locator('h2').textContent();
         assert.ok(!(await session.root.locator('h3').allTextContents()).includes(title), 'Standalone title is not repeated by the shared history body');
+      }
+      if (item.tool === 'iterate_task') {
+        const native = item.result.structuredContent.data;
+        assert.ok(complete.includes(String(native.round)) && complete.includes('another round'));
+        for (const task of native.cloned) assert.ok(complete.includes(task.title) && complete.includes(task.id));
+        assert.ok(!complete.includes('deduplicated'));
       }
       if (item.tool === 'record_judgment') {
         const native = item.result.structuredContent.data;
