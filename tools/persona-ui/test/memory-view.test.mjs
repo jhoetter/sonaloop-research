@@ -39,6 +39,12 @@ for (const item of cases) test(`Memory App preserves native ${item.scenario} and
       assert.ok(visible.includes('2026-01-15') && visible.includes('2026-02-02'));
       assert.ok(visible.includes('pending') && !visible.includes('approved'));
       assert.ok(visible.includes('World context') && visible.includes('world_fixture'));
+      const distinctRows = await session.root.locator('.sl-research-memory-state .sl-research-memory-entity').evaluateAll(nodes =>
+        nodes.every(node => {
+          const parts = [...node.children].slice(0, 3).map(child => child.getBoundingClientRect());
+          return parts.every((part, i) => i === 0 || part.y >= parts[i - 1].bottom + 5);
+        }));
+      assert.ok(distinctRows, 'Historical kind, name/status and identity remain separate readable rows');
     }
     if (item.scenario === 'get_timeline') {
       assert.ok(visible.includes(item.value.note));
