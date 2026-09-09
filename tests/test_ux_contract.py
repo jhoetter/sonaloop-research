@@ -69,10 +69,8 @@ ALLOWED_CLASS_TOKENS = {
     "hyp", "hyprate", "hypseg", "hypstrip",
     # councils: turns/head-to-head tables (the votebar retired with the P3 Library rows)
     "turn-who",
-    # persona memory page
-    "mem-bar", "mem-date", "mem-ent", "mem-ent-h", "mem-ents", "mem-fact", "mem-fx",
-    "mem-group", "mem-group-h", "mem-hit", "mem-loop", "mem-loop-dot", "mem-loops",
-    "mem-n", "mem-pane", "mem-pane-h", "mem-status", "mem-tl", "mem-tool",
+    # persona memory page chrome; shared record bodies live in ui_components
+    "mem-bar", "mem-loops", "mem-tool",
     # runs journal (run-copy/run-resume markup moved into web/_runs_widget — shared with the chip)
     "run-meta", "runrow", "runrow-head", "runs-fin", "runs-sec",
     # usability session chrome; shared step/outcome/funnel bodies live in ui_components

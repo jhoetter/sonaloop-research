@@ -33,16 +33,19 @@ function shape(values) {
     return { type: 'boolean' };
   }));
 }
-function boundSchema(value, depth = 0) {
-  if (Array.isArray(value)) return value.map(item => boundSchema(item, depth + 1));
+function boundSchema(value, depth = 0, detailDepth = 10) {
+  if (Array.isArray(value)) return value.map(item => boundSchema(item, depth + 1, detailDepth));
   if (!value || typeof value !== 'object') return value;
   // The public schema format shares a 12-level traversal budget with examples.
   // Deep compound values keep an explicit JSON type. Complete shape/business
   // validation remains in the existing customer renderer, never in this catalog.
-  if (depth >= 10 && typeof value.type === 'string') return { type: value.type };
-  return Object.fromEntries(Object.entries(value).map(([key, child]) => [key, boundSchema(child, depth + 1)]));
+  if (depth >= detailDepth && typeof value.type === 'string') return { type: value.type };
+  return Object.fromEntries(Object.entries(value).map(([key, child]) => [key, boundSchema(child, depth + 1, detailDepth)]));
 }
-const labels = { calendar: 'Recorded Calendar and Activities', plans: 'Recorded Plans', prototypes: 'Prototypes', references: 'Captured References', assets: 'Files and Evidence', notes: 'Notes', sections: 'Sections', projects: 'Projects', search: 'Search',
+function jsonDepth(value) {
+  return value && typeof value === 'object' ? Math.max(0, ...Object.values(value).map(child => 1 + jsonDepth(child))) : 0;
+}
+const labels = { memory: 'Memory and Recorded Experience', calendar: 'Recorded Calendar and Activities', plans: 'Recorded Plans', prototypes: 'Prototypes', references: 'Captured References', assets: 'Files and Evidence', notes: 'Notes', sections: 'Sections', projects: 'Projects', search: 'Search',
   hypotheses: 'Hypotheses', decisions: 'Decisions', councils: 'Councils', surveys: 'Surveys',
   syntheses: 'Syntheses and Reports', sessions: 'Sessions and Funnels' };
 const { fixtures } = await nativeFixtureSet();
@@ -65,9 +68,14 @@ for (const [family, name] of Object.entries(labels)) {
   const selection = selectors.length <= 8 ? selectors : Array.from({ length: Math.ceil(selectors.length / 8) },
     (_, index) => ({ type: 'object', oneOf: selectors.slice(index * 8, index * 8 + 8) }));
   assert.ok(selection.length <= 8, 'Too many distinct public projection selectors');
-  const propsSchema = boundSchema({ $schema: 'https://json-schema.org/draft/2020-12/schema', type: 'object',
+  const authoredSchema = { $schema: 'https://json-schema.org/draft/2020-12/schema', type: 'object',
     description: 'Authored public input to render_component_props(component_id, {name, value}). Name selects an existing pure projection; value supplies its synthetic view-model DTO. Deep compound values retain their JSON type; the selected renderer checks its required presentation fields. This does not replace native business validation or call an MCP tool.',
-    oneOf: selection });
+    oneOf: selection };
+  let propsSchema = boundSchema(authoredSchema);
+  // Preserve existing bounded declarations. Deeper grouped nullable fields
+  // need room for the union array, its branch and the branch's type value.
+  if (jsonDepth(propsSchema) > 12) propsSchema = boundSchema(authoredSchema, 0, 8);
+  assert.ok(jsonDepth(propsSchema) <= 12, 'Public schema still exceeds its traversal budget');
   const requiredStates = ['focus', 'loading', 'disabled', 'empty', 'error', 'success'].map(state => ({ state,
     disposition: ['focus', 'disabled'].includes(state) ? 'not_applicable' : 'applicable',
     scenarioIds: scenarios.filter(item => item.state === ({ empty: 'empty', success: 'ready' }[state] || '')).map(item => item.id),

@@ -28,6 +28,7 @@ export const commonSourceInputs = [
 ];
 
 export const familySourceInputs = {
+  memory: ['tools/persona-ui/fixtures/memory.json', 'sonaloop/ui_components/memory.py', 'sonaloop/ui_components/memory_rows.py', 'sonaloop/ui_components/memory_outcomes.py', 'sonaloop/web/pages/personas.py'],
   calendar: ['tools/persona-ui/fixtures/calendar-plans.json', 'sonaloop/ui_components/calendar.py', 'sonaloop/web/pages/personas.py', 'sonaloop/web/pages/_calendar.py'],
   plans: ['tools/persona-ui/fixtures/calendar-plans.json', 'sonaloop/ui_components/plans.py', 'sonaloop/web/pages/personas.py'],
   prototypes: ['sonaloop/ui_components/prototypes.py', 'sonaloop/web/pages/library.py'],

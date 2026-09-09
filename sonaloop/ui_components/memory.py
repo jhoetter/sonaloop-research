@@ -53,7 +53,7 @@ def project(value):
         rows.fields(((t("rm_status_now"), value["status_now"]),)),
         h("p", {"class_": "sl-research-meta"}, t("rm_project_notice")),
         h("h3", {}, t("open_threads")), [rows.thread_row(item, passive=True) for item in threads_value],
-        h("h3", {}, t("events")), h("ul", {}, [h("li", {}, eid) for eid in events])), "ready"
+        h("h3", {}, t("rmo_events")), h("ul", {}, [h("li", {}, eid) for eid in events])), "ready"
 
 
 def knowledge_content(prepared_groups):
@@ -90,7 +90,7 @@ def state_content(value, *, passive=False):
         rows.text_record(item, ("id", "category", "fact", "t_valid"), nullable=("t_invalid", "created_at"))
         tags = rows.strings(item.get("relevance_tags", []))
         world_rows.append(h("div", {"class_": "sl-research-memory-fact"}, h("p", {"class_": "sl-research-prose"}, item["fact"]),
-            rows.fields((("id", item["id"]), (t("artifact_kind"), item["category"]),
+            rows.fields((("id", item["id"]), (t("type_h"), item["category"]),
                          (t("rm_valid_from"), item["t_valid"]), (t("rm_valid_until"), item.get("t_invalid")),
                          (t("rc_created_at"), item.get("created_at")))), h("ul", {}, [h("li", {}, tag) for tag in tags])))
     return h("div", {"class_": "mem-pane sl-research-memory-state"},
@@ -129,7 +129,7 @@ def timeline(value):
                      (t("rm_events_total"), value["events_total"]))),
         h("p", {"class_": "sl-research-meta"}, value["note"]) if value.get("note") else None,
         h("h3", {}, t("rm_facts")), [rows.fact_row(item, passive=True) for item in facts],
-        h("h3", {}, t("events")), event_rows)), "ready" if facts or events else "empty"
+        h("h3", {}, t("rmo_events")), event_rows)), "ready" if facts or events else "empty"
 
 
 def threads(value):

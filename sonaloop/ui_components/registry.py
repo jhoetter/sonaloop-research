@@ -6,6 +6,7 @@ from typing import Callable
 
 from .library import collection, note_card, section_card
 from . import references, assets, prototypes, calendar, plans, bets, councils, council_formats, discovery, surveys, syntheses, sessions, session_funnels
+from . import memory, memory_outcomes
 
 SCHEMA = "sonaloop.research-presentation.v1"
 
@@ -67,6 +68,23 @@ def _members(value):
 
 
 SURFACES = {
+    "list_active_projects": Surface("memory", memory.active_projects),
+    "search_entities": Surface("memory", memory.entities),
+    "resolve_entity": Surface("memory", memory.entity),
+    "get_project": Surface("memory", memory.project),
+    "get_state_at": Surface("memory", memory.state_at),
+    "get_timeline": Surface("memory", memory.timeline),
+    "get_open_loops": Surface("memory", memory.threads),
+    "recall_memory": Surface("memory", memory.recall),
+    "get_persona_memory": Surface("memory", memory.document),
+    "export_persona_memory": Surface("memory", memory.exported),
+    "record_memory_deltas": Surface("memory", memory_outcomes.consolidation),
+    "put_digest": Surface("memory", memory_outcomes.digest),
+    "list_digests": Surface("memory", memory_outcomes.digests),
+    "record_day": Surface("memory", memory_outcomes.day),
+    "record_month_bundle": Surface("memory", memory_outcomes.month),
+    "summarize_persona_period": Surface("memory", memory_outcomes.summary),
+    "extract_pain_points": Surface("memory", memory_outcomes.pain_points),
     **{name: Surface("plans", plans.plan) for name in (
         "put_day_plan", "get_day_plan", "put_period_plan", "get_period_plan")},
     "list_period_plans": Surface("plans", plans.plans),

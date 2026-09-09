@@ -90,7 +90,7 @@ accepted human review remain separate from the ledger's classifications.
 ## Passive shared views
 
 Notes, Sections, Projects, Search, Hypotheses, Decisions, Councils, Surveys,
-Syntheses/Reports, Sessions, Files and captured URL References
+Syntheses/Reports, Sessions, Files, Prototypes, Plans, Calendars, Memory and captured URL References
 have passive MCP resources registered on
 existing native tools. `registry.py` names each exact tool/result projection;
 only those names receive `supported` rows. The Note and Section detail pages,
@@ -197,6 +197,35 @@ agenda instead of implying a complete distribution from a capped heatmap. Native
 period totals and truncation notices remain visible. Product navigation, avatar
 resolution and clock-dependent today decorations are prepared outside the pure
 renderer. Invalid legacy optional shapes preserve a truthful product fallback.
+
+Memory views share the Persona inspector's entity, fact, thread, recall and
+document bodies. Its collapsed whole-record overview uses the same digest and
+experience-summary content, independently of the search and historical-state
+panels above it. `get_project` retains the native current status and current fact
+validity; an `as_of` filter does not turn those fields into a historical snapshot.
+`get_state_at` displays the supplied historical state. Threads included as open
+at that date may retain a later closure in their stored fields. Timeline cards
+keep the native cap notice, total quantities and every supplied row. Lean event
+rows do not acquire invented IDs. Recall scores remain ranking measurements,
+with native excerpt and embedding-mismatch notices; they are not probabilities.
+The product's compact twenty-thread section stays compact; passive tool results
+retain every supplied thread. Resolved entities can be viewed directly, while a
+native null resolution remains empty.
+
+Digest text, themes, arcs, trends and period identity remain authored records.
+Experience summaries preserve native event/day totals and the native selection
+of up to twenty completed entries and the latest ten open-loop entries. Pain
+observations reuse the existing Finding body, retain their recorded frequency
+and severity, and explicitly identify absent event evidence. `extract_pain_points`
+persists those observations, so its MCP annotation is write-bearing (`W`), not a
+read-only declaration. The product overview does not invoke it. Day, month and
+memory-delta outcomes display exactly the reported processing counts, including
+zero; retries can replace existing records, so those counts do not claim net
+growth. Rendering never repeats a writer. The native day recorder keeps its
+guarded Persona type through persistence and converts only the final public
+return. Timeline entity filters verify that the entity belongs to the requested
+Persona before reading facts. MEMORY.md cards render the supplied text; export
+cards show the actual destination and byte count without loading the file.
 
 Captured URL References reuse the product snapshot body. The passive view keeps
 all supplied headings and text; the product retains its compact clamped layout.

@@ -29,6 +29,10 @@ test('owned and shared source mutations change exact families without editing th
     ['sonaloop/ui_components/councils.py', ['councils']],
     ['sonaloop/ui_components/calendar.py', ['calendar']],
     ['sonaloop/ui_components/plans.py', ['plans']],
+    ['sonaloop/ui_components/memory.py', ['memory']],
+    ['sonaloop/ui_components/memory_rows.py', ['memory']],
+    ['sonaloop/ui_components/memory_outcomes.py', ['memory']],
+    ['tools/persona-ui/fixtures/memory.json', ['memory']],
     ['sonaloop/ui_components/prototypes.py', ['prototypes']],
     ['tools/persona-ui/fixtures/calendar-plans.json', ['calendar', 'plans']],
     ['sonaloop/suggestions/finding_kinds.json', ['syntheses']],
@@ -44,5 +48,20 @@ test('published manifests match the selected ownership map exactly', async () =>
   for (const family of Object.keys(familySourceInputs)) {
     const manifest = JSON.parse(await readFile(resolve(repo, `sonaloop/mcp_server/ui/${family}.manifest.json`)));
     assert.deepEqual(manifest.sources, await componentSourceHashes(repo, family));
+  }
+});
+
+test('public schemas remain bounded after nested projection groups and nullable fields', async () => {
+  for (const family of Object.keys(familySourceInputs)) {
+    const declaration = JSON.parse(await readFile(resolve(repo, `sonaloop/ui_components/declarations/${family}.json`)));
+    const pending = [{ value: declaration.propsSchema, depth: 0 }];
+    let nodes = 0;
+    while (pending.length) {
+      const { value, depth } = pending.pop();
+      assert.ok(++nodes <= 2048 && depth <= 12, `${family}: public schema traversal budget`);
+      if (value && typeof value === 'object')
+        for (const child of Object.values(value)) pending.push({ value: child, depth: depth + 1 });
+    }
+    assert.ok(Buffer.byteLength(canonical(declaration.propsSchema)) <= 24576);
   }
 });

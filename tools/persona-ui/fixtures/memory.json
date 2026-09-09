@@ -1,0 +1,1136 @@
+{
+  "dataKind": "synthetic_fixture",
+  "source": "Actual original native FastMCP returns from isolated temporary SQLite tests test_research_memory_ui.py and test_research_memory_outcomes_ui.py; inputs are never executed by the renderer.",
+  "cases": [
+    {
+      "input": {
+        "persona_id": "persona_ac43915e4e2c1c59"
+      },
+      "scenario": "list_active_projects",
+      "state": "ready",
+      "tool": "list_active_projects",
+      "value": [
+        {
+          "entity_id": "ent_renewal",
+          "last_seen": "2026-02-01",
+          "name": "Renewal",
+          "open_loops": 1,
+          "status": "approved",
+          "valid_facts": 1
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "project",
+        "name": "renewal",
+        "persona_id": "persona_ac43915e4e2c1c59"
+      },
+      "scenario": "search_entities",
+      "state": "ready",
+      "tool": "search_entities",
+      "value": [
+        {
+          "aliases": [
+            "Annual renewal"
+          ],
+          "created_at": "2026-01-01T09:00:00",
+          "first_seen": "2026-01-01",
+          "id": "ent_renewal",
+          "kind": "project",
+          "last_seen": "2026-02-01",
+          "name": "Renewal",
+          "persona_id": "persona_ac43915e4e2c1c59",
+          "status": "approved",
+          "updated_at": "2026-01-01T09:00:00"
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "project",
+        "mention": "Annual renewal",
+        "persona_id": "persona_ac43915e4e2c1c59"
+      },
+      "scenario": "resolve_entity",
+      "state": "ready",
+      "tool": "resolve_entity",
+      "value": {
+        "aliases": [
+          "Annual renewal"
+        ],
+        "created_at": "2026-01-01T09:00:00",
+        "first_seen": "2026-01-01",
+        "id": "ent_renewal",
+        "kind": "project",
+        "last_seen": "2026-02-01",
+        "name": "Renewal",
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "status": "approved",
+        "updated_at": "2026-01-01T09:00:00"
+      }
+    },
+    {
+      "input": {
+        "as_of": "2026-01-15",
+        "entity_id": "ent_renewal",
+        "persona_id": "persona_ac43915e4e2c1c59"
+      },
+      "scenario": "get_project",
+      "state": "ready",
+      "tool": "get_project",
+      "value": {
+        "entity": {
+          "aliases": [
+            "Annual renewal"
+          ],
+          "created_at": "2026-01-01T09:00:00",
+          "first_seen": "2026-01-01",
+          "id": "ent_renewal",
+          "kind": "project",
+          "last_seen": "2026-02-01",
+          "name": "Renewal",
+          "persona_id": "persona_ac43915e4e2c1c59",
+          "status": "approved",
+          "updated_at": "2026-01-01T09:00:00"
+        },
+        "event_ids": [
+          "evt_before",
+          "evt_after"
+        ],
+        "facts": [
+          {
+            "fact": "Renewal pending",
+            "status": "pending",
+            "t_invalid": "2026-02-01",
+            "t_valid": "2026-01-01",
+            "valid": false
+          }
+        ],
+        "open_threads": [
+          {
+            "closed_on": null,
+            "created_at": "2026-01-01T09:00:00",
+            "entity_id": "ent_renewal",
+            "id": "thread_open",
+            "opened_on": "2026-01-20",
+            "persona_id": "persona_ac43915e4e2c1c59",
+            "status": "open",
+            "text": "Confirm the next owner",
+            "updated_at": "2026-01-01T09:00:00"
+          }
+        ],
+        "status_now": "approved"
+      }
+    },
+    {
+      "input": {
+        "as_of": "2026-01-15",
+        "persona_id": "persona_ac43915e4e2c1c59"
+      },
+      "scenario": "get_state_at",
+      "state": "ready",
+      "tool": "get_state_at",
+      "value": {
+        "as_of": "2026-01-15",
+        "entities": [
+          {
+            "entity_id": "ent_contact",
+            "facts": [],
+            "kind": "person",
+            "name": "Jo",
+            "status_at": null
+          },
+          {
+            "entity_id": "ent_renewal",
+            "facts": [
+              {
+                "fact": "Renewal pending",
+                "status": "pending",
+                "t_valid": "2026-01-01"
+              }
+            ],
+            "kind": "project",
+            "name": "Renewal",
+            "status_at": "pending"
+          }
+        ],
+        "open_threads": [
+          {
+            "closed_on": "2026-02-02",
+            "created_at": "2026-01-01T09:00:00",
+            "entity_id": "ent_renewal",
+            "id": "thread_resolved",
+            "opened_on": "2026-01-02",
+            "persona_id": "persona_ac43915e4e2c1c59",
+            "status": "resolved",
+            "text": "Confirm the previous owner",
+            "updated_at": "2026-01-01T09:00:00"
+          }
+        ],
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "world_context": [
+          {
+            "category": "work",
+            "created_at": "2026-01-01T09:00:00",
+            "fact": "Office closed for the holiday.",
+            "id": "world_fixture",
+            "relevance_tags": [
+              "office"
+            ],
+            "t_invalid": null,
+            "t_valid": "2026-01-01"
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "end": "2026-12-31",
+        "max_events": 1,
+        "max_facts": 1,
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "start": "2026-01-01"
+      },
+      "scenario": "get_timeline",
+      "state": "ready",
+      "tool": "get_timeline",
+      "value": {
+        "end": "2026-12-31",
+        "events": [
+          {
+            "event_type": "focus",
+            "task": "Review renewal",
+            "timestamp": "2026-02-15T09:00:00"
+          }
+        ],
+        "events_total": 2,
+        "facts": [
+          {
+            "confidence": 0,
+            "created_at": "2026-01-01T09:00:00",
+            "entity_id": "ent_renewal",
+            "fact": "Renewal approved",
+            "id": "fact_new",
+            "importance": 3,
+            "persona_id": "persona_ac43915e4e2c1c59",
+            "review_status": "disputed",
+            "source_event_id": null,
+            "source_kind": "derived_fact",
+            "source_refs": [
+              {
+                "anchor": "line:2",
+                "id": "note_fixture",
+                "kind": "note",
+                "quote": "Keep the original qualifier.",
+                "role": "grounds",
+                "text": "Supplied source context."
+              }
+            ],
+            "status": "approved",
+            "t_invalid": null,
+            "t_valid": "2026-02-01"
+          }
+        ],
+        "facts_total": 2,
+        "note": "trimmed facts to the newest 1 of 2 and events to the newest 1 of 2 — narrow with start/end/entity_id or raise max_facts/max_events for more.",
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "start": "2026-01-01"
+      }
+    },
+    {
+      "input": {
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "status": null
+      },
+      "scenario": "get_open_loops",
+      "state": "ready",
+      "tool": "get_open_loops",
+      "value": [
+        {
+          "closed_on": "2026-02-02",
+          "created_at": "2026-01-01T09:00:00",
+          "entity_id": "ent_renewal",
+          "id": "thread_resolved",
+          "opened_on": "2026-01-02",
+          "persona_id": "persona_ac43915e4e2c1c59",
+          "status": "resolved",
+          "text": "Confirm the previous owner",
+          "updated_at": "2026-01-01T09:00:00"
+        },
+        {
+          "closed_on": null,
+          "created_at": "2026-01-01T09:00:00",
+          "entity_id": "ent_renewal",
+          "id": "thread_open",
+          "opened_on": "2026-01-20",
+          "persona_id": "persona_ac43915e4e2c1c59",
+          "status": "open",
+          "text": "Confirm the next owner",
+          "updated_at": "2026-01-01T09:00:00"
+        }
+      ]
+    },
+    {
+      "input": {
+        "as_of": "2026-01-15",
+        "k": 8,
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "query": "Renewal"
+      },
+      "scenario": "recall_memory",
+      "state": "ready",
+      "tool": "recall_memory",
+      "value": {
+        "as_of": "2026-01-15",
+        "hits": [
+          {
+            "confidence": null,
+            "importance": 0.6,
+            "keyword": 1.0,
+            "obj_id": "evt_before",
+            "obj_type": "event",
+            "recency": 1.0,
+            "review_status": null,
+            "score": 0.49,
+            "semantic": 0.0,
+            "source_kind": "simulated_episode",
+            "source_refs": [],
+            "text": "Review renewal. Checked the renewal. The record needs an owner.",
+            "when": "2026-01-15T09:00:00"
+          },
+          {
+            "confidence": 0,
+            "importance": 0.6,
+            "keyword": 1.0,
+            "obj_id": "fact_old",
+            "obj_type": "fact",
+            "recency": 0.7236,
+            "review_status": "disputed",
+            "score": 0.4485,
+            "semantic": 0.0,
+            "source_kind": "derived_fact",
+            "source_refs": [
+              {
+                "anchor": "line:2",
+                "id": "note_fixture",
+                "kind": "note",
+                "quote": "Keep the original qualifier.",
+                "role": "grounds",
+                "text": "Supplied source context."
+              }
+            ],
+            "text": "Renewal: Renewal pending",
+            "when": "2026-01-01"
+          },
+          {
+            "confidence": null,
+            "importance": 0.8,
+            "keyword": 0.0,
+            "obj_id": "thread_resolved",
+            "obj_type": "thread",
+            "recency": 0.7405,
+            "review_status": null,
+            "score": 0.2311,
+            "semantic": 0.0,
+            "source_kind": "derived_memory",
+            "source_refs": [],
+            "text": "Confirm the previous owner",
+            "when": "2026-01-02"
+          }
+        ],
+        "k": 8,
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "query": "Renewal",
+        "semantic_enabled": false
+      }
+    },
+    {
+      "input": {
+        "persona_id": "persona_ac43915e4e2c1c59"
+      },
+      "scenario": "get_persona_memory",
+      "state": "ready",
+      "tool": "get_persona_memory",
+      "value": {
+        "content": "# Memory reader — MEMORY\n\n> Gerendert aus dem Gedächtnis (Schicht 2/3). Hintergrundwissen — bei Bedarf abrufbar, nicht ständig erzählen.\n\n## Aktive Projekte\n### Renewal  —  Status: approved\n- 2026-01-01: Renewal pending  (überholt)\n- 2026-02-01: Renewal approved\n\n## Offene Fäden\n- Confirm the next owner (seit 2026-01-20)\n\n## Schlüsselpersonen / Stellen\n- Jo (person)\n\n## Verdichtete Rückblicke\n- [month 2026-01-01…2026-01-31] The handover remains unresolved.\n",
+        "persona_id": "persona_ac43915e4e2c1c59"
+      }
+    },
+    {
+      "input": {
+        "out_path": "exports/memory-fixture.md",
+        "persona_id": "persona_ac43915e4e2c1c59"
+      },
+      "scenario": "export_persona_memory",
+      "state": "ready",
+      "tool": "export_persona_memory",
+      "value": {
+        "bytes": 476,
+        "path": "data/exports/memory-fixture.md",
+        "persona_id": "persona_ac43915e4e2c1c59"
+      }
+    },
+    {
+      "input": {
+        "kind": "tool",
+        "mention": "Unmentioned object",
+        "persona_id": "persona_ac43915e4e2c1c59"
+      },
+      "scenario": "entity-null",
+      "state": "empty",
+      "tool": "resolve_entity",
+      "value": null
+    },
+    {
+      "input": {
+        "kind": "tool",
+        "persona_id": "persona_ac43915e4e2c1c59"
+      },
+      "scenario": "entities-empty",
+      "state": "empty",
+      "tool": "search_entities",
+      "value": []
+    },
+    {
+      "input": {
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "start": "2027-01-01"
+      },
+      "scenario": "timeline-empty",
+      "state": "empty",
+      "tool": "get_timeline",
+      "value": {
+        "end": null,
+        "events": [],
+        "events_total": 0,
+        "facts": [],
+        "facts_total": 0,
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "start": "2027-01-01"
+      }
+    },
+    {
+      "input": {
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "status": "unknown"
+      },
+      "scenario": "threads-empty",
+      "state": "empty",
+      "tool": "get_open_loops",
+      "value": []
+    },
+    {
+      "input": {
+        "as_of": "2025-01-01",
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "query": "Renewal"
+      },
+      "scenario": "recall-empty",
+      "state": "empty",
+      "tool": "recall_memory",
+      "value": {
+        "as_of": "2025-01-01",
+        "hits": [],
+        "k": 8,
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "query": "Renewal",
+        "semantic_enabled": false
+      }
+    },
+    {
+      "input": {
+        "as_of": "2025-01-01",
+        "persona_id": "persona_ac43915e4e2c1c59"
+      },
+      "scenario": "state-empty",
+      "state": "empty",
+      "tool": "get_state_at",
+      "value": {
+        "as_of": "2025-01-01",
+        "entities": [],
+        "open_threads": [],
+        "persona_id": "persona_ac43915e4e2c1c59",
+        "world_context": []
+      }
+    },
+    {
+      "scenario": "record_memory_deltas",
+      "tool": "record_memory_deltas",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "date": "2026-06-02",
+        "deltas": {
+          "entities": [
+            {
+              "mention": "Handover",
+              "kind": "project",
+              "status": "open"
+            }
+          ],
+          "facts": [
+            {
+              "entity": "Handover",
+              "fact": "A named owner is still needed."
+            }
+          ],
+          "threads": [],
+          "event_links": []
+        }
+      },
+      "value": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "date": "2026-06-02",
+        "entities_created": 1,
+        "entities_updated": 0,
+        "facts": 1,
+        "threads_opened": 0,
+        "threads_resolved": 0,
+        "event_links": 0,
+        "embeddings": {
+          "embedded": 0,
+          "skipped_existing": 0,
+          "disabled": 2
+        }
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "put_digest",
+      "tool": "put_digest",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "scope": "week",
+        "date": "2026-06-02",
+        "digest": {
+          "text": "The handover remained visible.",
+          "themes": [
+            "Ownership"
+          ],
+          "project_arcs": [
+            {
+              "name": "Handover",
+              "arc": "The owner remains unnamed."
+            }
+          ],
+          "trends": [
+            "Uncertainty persists"
+          ]
+        }
+      },
+      "value": {
+        "id": "digest_41676d786b78895a",
+        "persona_id": "persona_f34bad4b24e7416e",
+        "scope": "week",
+        "period_start": "2026-06-01",
+        "period_end": "2026-06-07",
+        "created_at": "2026-09-09T02:51:26.067930+00:00",
+        "text": "The handover remained visible.",
+        "themes": [
+          "Ownership"
+        ],
+        "project_arcs": [
+          {
+            "name": "Handover",
+            "arc": "The owner remains unnamed."
+          }
+        ],
+        "trends": [
+          "Uncertainty persists"
+        ]
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "list_digests",
+      "tool": "list_digests",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "scope": "week"
+      },
+      "value": [
+        {
+          "id": "digest_41676d786b78895a",
+          "persona_id": "persona_f34bad4b24e7416e",
+          "scope": "week",
+          "period_start": "2026-06-01",
+          "period_end": "2026-06-07",
+          "created_at": "2026-09-09T02:51:26.067930+00:00",
+          "text": "The handover remained visible.",
+          "themes": [
+            "Ownership"
+          ],
+          "project_arcs": [
+            {
+              "name": "Handover",
+              "arc": "The owner remains unnamed."
+            }
+          ],
+          "trends": [
+            "Uncertainty persists"
+          ]
+        }
+      ],
+      "state": "ready"
+    },
+    {
+      "scenario": "record_day",
+      "tool": "record_day",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "date": "2026-06-02",
+        "day_plan": {
+          "mood_forecast": "steady",
+          "blocks": [
+            {
+              "title": "Block 0",
+              "event_type": "focus",
+              "duration_minutes": 30,
+              "collaboration_mode": "",
+              "participants": [],
+              "tool": "CAD",
+              "why_it_happens": "work"
+            },
+            {
+              "title": "Block 1",
+              "event_type": "meeting",
+              "duration_minutes": 40,
+              "collaboration_mode": "",
+              "participants": [
+                "Client"
+              ],
+              "tool": "CAD",
+              "why_it_happens": "work"
+            },
+            {
+              "title": "Block 2",
+              "event_type": "focus",
+              "duration_minutes": 50,
+              "collaboration_mode": "",
+              "participants": [],
+              "tool": "CAD",
+              "why_it_happens": "work"
+            },
+            {
+              "title": "Block 3",
+              "event_type": "admin",
+              "duration_minutes": 60,
+              "collaboration_mode": "",
+              "participants": [],
+              "tool": "CAD",
+              "why_it_happens": "work"
+            },
+            {
+              "title": "Block 4",
+              "event_type": "interruption",
+              "duration_minutes": 70,
+              "collaboration_mode": "",
+              "participants": [],
+              "tool": "CAD",
+              "why_it_happens": "work"
+            }
+          ]
+        },
+        "plan": {
+          "summary": "Keep the handover visible.",
+          "intentions": [
+            "Confirm ownership"
+          ],
+          "expected_milestones": [
+            "A named owner"
+          ],
+          "mood_trajectory": "Steady",
+          "sample_days": [
+            "2026-06-02"
+          ]
+        },
+        "activities": {
+          "Block 0": {
+            "what_happened": "did the work",
+            "conversation": [],
+            "key_quotes": [
+              "quote"
+            ],
+            "actions_done": [
+              "acted"
+            ],
+            "artifacts_touched": [
+              "doc"
+            ],
+            "persona_thought": "fine",
+            "decision": null,
+            "open_loops": [],
+            "mood": "steady",
+            "energy_delta": -1,
+            "pain_points": []
+          },
+          "Block 1": {
+            "what_happened": "did the work",
+            "conversation": [],
+            "key_quotes": [
+              "quote"
+            ],
+            "actions_done": [
+              "acted"
+            ],
+            "artifacts_touched": [
+              "doc"
+            ],
+            "persona_thought": "fine",
+            "decision": null,
+            "open_loops": [],
+            "mood": "steady",
+            "energy_delta": -1,
+            "pain_points": []
+          },
+          "Block 2": {
+            "what_happened": "did the work",
+            "conversation": [],
+            "key_quotes": [
+              "quote"
+            ],
+            "actions_done": [
+              "acted"
+            ],
+            "artifacts_touched": [
+              "doc"
+            ],
+            "persona_thought": "fine",
+            "decision": null,
+            "open_loops": [],
+            "mood": "steady",
+            "energy_delta": -1,
+            "pain_points": []
+          },
+          "Block 3": {
+            "what_happened": "did the work",
+            "conversation": [],
+            "key_quotes": [
+              "quote"
+            ],
+            "actions_done": [
+              "acted"
+            ],
+            "artifacts_touched": [
+              "doc"
+            ],
+            "persona_thought": "fine",
+            "decision": null,
+            "open_loops": [],
+            "mood": "steady",
+            "energy_delta": -1,
+            "pain_points": []
+          },
+          "Block 4": {
+            "what_happened": "did the work",
+            "conversation": [],
+            "key_quotes": [
+              "quote"
+            ],
+            "actions_done": [
+              "acted"
+            ],
+            "artifacts_touched": [
+              "doc"
+            ],
+            "persona_thought": "fine",
+            "decision": null,
+            "open_loops": [],
+            "mood": "steady",
+            "energy_delta": -1,
+            "pain_points": []
+          }
+        }
+      },
+      "value": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "date": "2026-06-02",
+        "activities": 5
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "record_month_bundle",
+      "tool": "record_month_bundle",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "month": "2026-06",
+        "bundle": {
+          "period_plan": {
+            "summary": "Keep the handover visible.",
+            "intentions": [
+              "Confirm ownership"
+            ],
+            "expected_milestones": [
+              "A named owner"
+            ],
+            "mood_trajectory": "Steady",
+            "sample_days": [
+              "2026-06-02"
+            ]
+          },
+          "digest": {
+            "text": "The handover remained visible.",
+            "themes": [
+              "Ownership"
+            ],
+            "project_arcs": [],
+            "trends": []
+          },
+          "days": [
+            {
+              "date": "2026-06-02",
+              "day_plan": {
+                "summary": "Keep the handover visible.",
+                "intentions": [
+                  "Confirm ownership"
+                ],
+                "expected_milestones": [
+                  "A named owner"
+                ],
+                "mood_trajectory": "Steady",
+                "sample_days": [
+                  "2026-06-02"
+                ]
+              },
+              "plan": {
+                "mood_forecast": "steady",
+                "blocks": [
+                  {
+                    "title": "Block 0",
+                    "event_type": "focus",
+                    "duration_minutes": 30,
+                    "collaboration_mode": "",
+                    "participants": [],
+                    "tool": "CAD",
+                    "why_it_happens": "work"
+                  },
+                  {
+                    "title": "Block 1",
+                    "event_type": "meeting",
+                    "duration_minutes": 40,
+                    "collaboration_mode": "",
+                    "participants": [
+                      "Client"
+                    ],
+                    "tool": "CAD",
+                    "why_it_happens": "work"
+                  },
+                  {
+                    "title": "Block 2",
+                    "event_type": "focus",
+                    "duration_minutes": 50,
+                    "collaboration_mode": "",
+                    "participants": [],
+                    "tool": "CAD",
+                    "why_it_happens": "work"
+                  },
+                  {
+                    "title": "Block 3",
+                    "event_type": "admin",
+                    "duration_minutes": 60,
+                    "collaboration_mode": "",
+                    "participants": [],
+                    "tool": "CAD",
+                    "why_it_happens": "work"
+                  },
+                  {
+                    "title": "Block 4",
+                    "event_type": "interruption",
+                    "duration_minutes": 70,
+                    "collaboration_mode": "",
+                    "participants": [],
+                    "tool": "CAD",
+                    "why_it_happens": "work"
+                  }
+                ]
+              },
+              "activities": {
+                "Block 0": {
+                  "what_happened": "did the work",
+                  "conversation": [],
+                  "key_quotes": [
+                    "quote"
+                  ],
+                  "actions_done": [
+                    "acted"
+                  ],
+                  "artifacts_touched": [
+                    "doc"
+                  ],
+                  "persona_thought": "fine",
+                  "decision": null,
+                  "open_loops": [],
+                  "mood": "steady",
+                  "energy_delta": -1,
+                  "pain_points": []
+                },
+                "Block 1": {
+                  "what_happened": "did the work",
+                  "conversation": [],
+                  "key_quotes": [
+                    "quote"
+                  ],
+                  "actions_done": [
+                    "acted"
+                  ],
+                  "artifacts_touched": [
+                    "doc"
+                  ],
+                  "persona_thought": "fine",
+                  "decision": null,
+                  "open_loops": [],
+                  "mood": "steady",
+                  "energy_delta": -1,
+                  "pain_points": []
+                },
+                "Block 2": {
+                  "what_happened": "did the work",
+                  "conversation": [],
+                  "key_quotes": [
+                    "quote"
+                  ],
+                  "actions_done": [
+                    "acted"
+                  ],
+                  "artifacts_touched": [
+                    "doc"
+                  ],
+                  "persona_thought": "fine",
+                  "decision": null,
+                  "open_loops": [],
+                  "mood": "steady",
+                  "energy_delta": -1,
+                  "pain_points": []
+                },
+                "Block 3": {
+                  "what_happened": "did the work",
+                  "conversation": [],
+                  "key_quotes": [
+                    "quote"
+                  ],
+                  "actions_done": [
+                    "acted"
+                  ],
+                  "artifacts_touched": [
+                    "doc"
+                  ],
+                  "persona_thought": "fine",
+                  "decision": null,
+                  "open_loops": [],
+                  "mood": "steady",
+                  "energy_delta": -1,
+                  "pain_points": []
+                },
+                "Block 4": {
+                  "what_happened": "did the work",
+                  "conversation": [],
+                  "key_quotes": [
+                    "quote"
+                  ],
+                  "actions_done": [
+                    "acted"
+                  ],
+                  "artifacts_touched": [
+                    "doc"
+                  ],
+                  "persona_thought": "fine",
+                  "decision": null,
+                  "open_loops": [],
+                  "mood": "steady",
+                  "energy_delta": -1,
+                  "pain_points": []
+                }
+              },
+              "deltas": {
+                "entities": [],
+                "facts": [],
+                "threads": [],
+                "event_links": []
+              }
+            }
+          ]
+        }
+      },
+      "value": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "month": "2026-06",
+        "days": [
+          {
+            "date": "2026-06-02",
+            "activities": 5,
+            "entities": 0,
+            "facts": 0
+          }
+        ],
+        "sample_days": 1
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "summarize_persona_period",
+      "tool": "summarize_persona_period",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "start_date": "2026-06-02",
+        "end_date": "2026-06-03"
+      },
+      "value": {
+        "persona": {
+          "id": "persona_f34bad4b24e7416e",
+          "display_name": "Recorded memory outcomes",
+          "slug": "recorded-memory-outcomes"
+        },
+        "period": {
+          "start": "2026-06-02",
+          "end": "2026-06-03",
+          "lens": "work experience"
+        },
+        "days": 1,
+        "events": 5,
+        "top_pain_points": [
+          [
+            "Recorded memory outcomes pain alpha",
+            4
+          ],
+          [
+            "Recorded memory outcomes pain beta",
+            1
+          ]
+        ],
+        "completed": [
+          "Block 0",
+          "Block 1",
+          "Block 2",
+          "Block 3",
+          "Block 4"
+        ],
+        "blockers": [],
+        "open_loops": []
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "extract_pain_points",
+      "tool": "extract_pain_points",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "start_date": "2026-06-02",
+        "end_date": "2026-06-03"
+      },
+      "value": [
+        {
+          "id": "pain_cb7754cd7644a176",
+          "persona_id": "persona_f34bad4b24e7416e",
+          "issue": "Recorded memory outcomes pain alpha",
+          "severity": 4,
+          "frequency": 4,
+          "evidence_event_ids": [],
+          "affected_workflow": "workday execution",
+          "opportunity": "Investigate whether the real workflow can be changed without adding hidden work.",
+          "created_at": "2026-09-09T02:51:26.100340+00:00"
+        },
+        {
+          "id": "pain_7af51c6c8bba3c0a",
+          "persona_id": "persona_f34bad4b24e7416e",
+          "issue": "Recorded memory outcomes pain beta",
+          "severity": 1,
+          "frequency": 1,
+          "evidence_event_ids": [],
+          "affected_workflow": "workday execution",
+          "opportunity": "Investigate whether the real workflow can be changed without adding hidden work.",
+          "created_at": "2026-09-09T02:51:26.100413+00:00"
+        }
+      ],
+      "state": "ready"
+    },
+    {
+      "scenario": "deltas-repeated",
+      "tool": "record_memory_deltas",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "date": "2026-06-02",
+        "deltas": {
+          "entities": [
+            {
+              "mention": "Handover",
+              "kind": "project",
+              "status": "open"
+            }
+          ],
+          "facts": [
+            {
+              "entity": "Handover",
+              "fact": "A named owner is still needed."
+            }
+          ],
+          "threads": [],
+          "event_links": []
+        }
+      },
+      "value": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "date": "2026-06-02",
+        "entities_created": 0,
+        "entities_updated": 1,
+        "facts": 1,
+        "threads_opened": 0,
+        "threads_resolved": 0,
+        "event_links": 0,
+        "embeddings": {
+          "embedded": 0,
+          "skipped_existing": 0,
+          "disabled": 9
+        }
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "digests-empty",
+      "tool": "list_digests",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "scope": "year"
+      },
+      "value": [],
+      "state": "empty"
+    },
+    {
+      "scenario": "experience-empty",
+      "tool": "summarize_persona_period",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "start_date": "2027-01-01"
+      },
+      "value": {
+        "persona": {
+          "id": "persona_f34bad4b24e7416e",
+          "display_name": "Recorded memory outcomes",
+          "slug": "recorded-memory-outcomes"
+        },
+        "period": {
+          "start": "2027-01-01",
+          "end": null,
+          "lens": "work experience"
+        },
+        "days": 0,
+        "events": 0,
+        "top_pain_points": [],
+        "completed": [],
+        "blockers": [],
+        "open_loops": []
+      },
+      "state": "empty"
+    },
+    {
+      "scenario": "pains-empty",
+      "tool": "extract_pain_points",
+      "input": {
+        "persona_id": "persona_f34bad4b24e7416e",
+        "start_date": "2027-01-01"
+      },
+      "value": [],
+      "state": "empty"
+    }
+  ]
+}

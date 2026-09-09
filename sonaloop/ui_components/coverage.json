@@ -4307,10 +4307,10 @@
     },
     {
       "tool": "record_day",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "record_day",
@@ -4426,10 +4426,10 @@
     },
     {
       "tool": "record_memory_deltas",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "record_memory_deltas",
@@ -4460,10 +4460,10 @@
     },
     {
       "tool": "put_digest",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "put_digest",
@@ -4477,10 +4477,10 @@
     },
     {
       "tool": "list_digests",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "list_digests",
@@ -4494,10 +4494,10 @@
     },
     {
       "tool": "recall_memory",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "recall_memory",
@@ -4511,10 +4511,10 @@
     },
     {
       "tool": "list_active_projects",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "list_active_projects",
@@ -4528,10 +4528,10 @@
     },
     {
       "tool": "get_project",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "get_project",
@@ -4545,10 +4545,10 @@
     },
     {
       "tool": "get_state_at",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "get_state_at",
@@ -4562,10 +4562,10 @@
     },
     {
       "tool": "get_timeline",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "get_timeline",
@@ -4579,10 +4579,10 @@
     },
     {
       "tool": "search_entities",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "search_entities",
@@ -4596,10 +4596,10 @@
     },
     {
       "tool": "get_open_loops",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "get_open_loops",
@@ -4613,10 +4613,10 @@
     },
     {
       "tool": "resolve_entity",
-      "family": "memory_calendar",
-      "treatment": "context_only",
-      "reason": "Agent authoring/context preparation; no durable result yet. Show the later authored result in this family, keep this tool in activity/history.",
-      "status": "not_applicable",
+      "family": "memory",
+      "treatment": "surface",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "resolve_entity",
@@ -4630,10 +4630,10 @@
     },
     {
       "tool": "get_persona_memory",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "get_persona_memory",
@@ -4647,10 +4647,10 @@
     },
     {
       "tool": "export_persona_memory",
-      "family": "memory_calendar",
-      "treatment": "export",
-      "reason": "Family document preview/download using native returned export, no automatic arbitrary path/URL fetch or rerun.",
-      "status": "planned",
+      "family": "memory",
+      "treatment": "surface",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "export_persona_memory",
@@ -4681,10 +4681,10 @@
     },
     {
       "tool": "record_month_bundle",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "record_month_bundle",
@@ -4766,10 +4766,10 @@
     },
     {
       "tool": "summarize_persona_period",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "summarize_persona_period",
@@ -4783,10 +4783,10 @@
     },
     {
       "tool": "extract_pain_points",
-      "family": "memory_calendar",
+      "family": "memory",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native Memory entities, time-scoped facts, recall, document and recorded outcome content. Supplied dates, caps, counts and provenance remain explicit; no hidden retrieval or retry. Writer cards confirm the native return and grant no action.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_simulation.py",
         "symbol": "extract_pain_points",

@@ -76,6 +76,7 @@ ALLOWED_LITERALS = {
     "esc",       # a <kbd> key glyph seeded next to kbd children (palette footer)
     "Format",    # docs concept-group tag — identical word in de and en
     "rungs.",    # f"rungs.{k}" — a data-path tooltip on capability badges, not prose
+    "![[fig:",   # the parsed authored figure-reference token retained by the passive report
 }
 
 _PRUNE = (ast.Call, ast.Subscript, ast.Compare, ast.comprehension)

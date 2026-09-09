@@ -94,6 +94,9 @@ def test_every_registered_surface_has_a_real_projection_and_resource(name):
     format_case = next((case for case in formats if case["tool"] == name), None)
     if format_case:
         data = format_case["value"]
+    elif SURFACES[name].family == "memory":
+        cases = json.loads((Path(__file__).parents[1] / "tools/persona-ui/fixtures/memory.json").read_text())["cases"]
+        data = next(case["value"] for case in cases if case["tool"] == name)
     elif SURFACES[name].family in {"plans", "calendar"}:
         cases = json.loads((Path(__file__).parents[1] / "tools/persona-ui/fixtures/calendar-plans.json").read_text())["cases"]
         data = next(case["value"] for case in cases if case["tool"] == name)

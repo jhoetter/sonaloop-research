@@ -141,7 +141,7 @@ def entity_card(value, facts=None, *, prepared=None, passive=False):
     return h("div", {"class_": "mem-ent sl-research-memory-entity"},
              h("div", {"class_": "mem-ent-h"}, prepared.get("icon"), h("b", {}, value["name"]), status),
              fields((("id", value["id"]), (t("persona"), value["persona_id"]),
-                     (t("artifact_kind"), value["kind"]), (t("rm_status_now"), value.get("status")),
+                     (t("type_h"), value["kind"]), (t("rm_status_now"), value.get("status")),
                      (t("rm_first_seen"), value.get("first_seen")), (t("rm_last_seen"), value.get("last_seen")),
                      (t("rc_created_at"), value.get("created_at")), ("updated_at", value.get("updated_at")))) if passive else None,
              h("div", {}, h("h3", {}, t("rm_aliases")), h("ul", {}, [h("li", {}, alias) for alias in value.get("aliases", [])]))
