@@ -17,10 +17,21 @@ def register_product_styles():
     register_css((Path(__file__).parents[1] / "web/assets/research-view/research.css").read_text())
 
 
-def note_content(note: dict):
+def note_content(note: dict, *, attribution: dict | None = None):
     from ..web._components import _md
     h, _, raw = _kit()
-    return h("div", {"class_": "sl-prose sl-research-note-content"}, raw(_md(note.get("text", ""))))
+    extra = ""
+    if attribution is not None or note.get("kind") == "idea":
+        from .ideation import attribution_content
+        from ..web._i18n import t
+        try:
+            supplied = attribution if attribution is not None else note.get("data", {})
+            if attribution is None and "hmw_question" in note:
+                supplied = {**supplied, "hmw_question": note["hmw_question"]}
+            extra = attribution_content(supplied)
+        except (ValueError, TypeError):
+            extra = h("p", {"class_": "muted sl-research-format-unavailable"}, t("rid_unavailable"))
+    return h("div", {"class_": "sl-prose sl-research-note-content"}, raw(_md(note.get("text", ""))), extra)
 
 
 def note_card(note: dict):

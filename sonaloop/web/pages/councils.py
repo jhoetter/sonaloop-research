@@ -76,6 +76,9 @@ def register_councils(app) -> None:
         rt_html = (_format_content(session["red_team"], red_team_content) if is_rt else "")
         is_price = services.is_price_ladder(session)
         price_html = (_format_content(session["price_ladder"], price_ladder_content) if is_price else "")
+        from ...ui_components.ideation import ideation_content
+        has_ideation = bool(session.get("ideation"))
+        ideation_html = (_format_content(session["ideation"], ideation_content) if has_ideation else "")
         # The Voices section carries the framing for EVERY mode: each persona card is grouped under the
         # prompt it answers — the discovery QUESTIONS or the evaluation/decision PROPOSAL (rendered as
         # Markdown via render_prompt) — so "what was asked" always sits right above the cards. One
@@ -120,6 +123,8 @@ def register_councils(app) -> None:
                       raw(rt_html)) if is_rt else "")
         price_block = (h("div", {"class_": "sec", "id": "price-ladder"},
                          h("h2", {}, t("cf_price_ladder")), price_html) if is_price else "")
+        ideation_block = (h("div", {"class_": "sec", "id": "ideation"},
+                            h("h2", {}, t("rid_ideation")), ideation_html) if has_ideation else "")
         from .projects import _product_understanding_html
         pu_project = store.get_research_project(str(session.get("project_id") or "")) or {}
         body = fragment(
@@ -127,7 +132,7 @@ def register_councils(app) -> None:
             raw(_product_understanding_html(pu_project, store)),
             opener,
             summaries,
-            h2h_block, rt_block, price_block, raw(sentiment),
+            h2h_block, rt_block, price_block, ideation_block, raw(sentiment),
             h("div", {"class_": "sec", "id": "stimmen"}, h("h2", {}, t("voices")), intro, raw(voices_html)),
             # server-provided prev/next sibling URLs for the keymap's [ / ] bindings
             raw(sibling_attrs(*sibling_urls(
@@ -172,6 +177,7 @@ def register_councils(app) -> None:
                            + ([("h2h", t("h2h_title"))] if is_h2h else [])
                            + ([("red-team", t("rt_title"))] if is_rt else [])
                            + ([("price-ladder", t("cf_price_ladder"))] if is_price else [])
+                           + ([("ideation", t("rid_ideation"))] if has_ideation else [])
                            + [("stimmen", t("voices"))]),
             star=("council", session_id, short_title, f"/councils/{session_id}"),
             # delete-only (no content editing — the statements are generated prose):
