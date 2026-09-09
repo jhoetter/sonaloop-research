@@ -257,7 +257,6 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
           assert.equal(await session.root.locator('meter').count(), 0);
         } else if (scenario === 'surveys-ready') {
           assert.deepEqual(await session.root.locator('meter').evaluateAll(nodes => nodes.map(node => node.value)), [0.666666666667, 0.333333333333]);
-            if (scenario === 'sessions-flow-funnel') for (const value of ['Handover flow', 'Choose the next handover action', 'Dropped at step 0: 1', 'persona_fixture']) assert.ok(text.includes(value), value);
           assert.ok(text.includes('3 responses'));
         } else if (scenario === 'surveys-comparison') {
           assert.ok(text.includes('Council prediction (2)') && text.includes('Real answers (3)'));
