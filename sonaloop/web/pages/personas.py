@@ -10,12 +10,12 @@ from fastapi.responses import Response
 from ._ctx import *  # noqa: F401,F403  (shared render toolkit)
 from ._calendar import _calendar_tabs, _period_calendar_html
 from .sessions import _sessions_section
-from .._render import render_findings
 from .._html import register_css
 from .._keymap import sibling_attrs, sibling_urls
 from .._persona_view import persona_view_mount
 from ... import artifacts as _artifacts
 from ...ui_components import calendar as calendar_view, plans as plan_view
+from ...ui_components import memory as memory_view, memory_rows, memory_outcomes
 
 
 _PERSONA_CREATE_FIELDS = (
@@ -195,19 +195,12 @@ def _capabilities_html(caps: dict) -> str:
               if caps.get("accessibility") else None))
 
 
-def _mem_kind_label(kind: str) -> str:                      # explicit t() calls so the i18n usage scan sees them
-    return {"project": t("active_projects"), "person": t("mem_people"),
-            "topic": t("mem_topics"), "tool": t("mem_tools")}.get(kind, kind)
+def _mem_kind_label(kind: str) -> str:
+    return memory_rows.kind_label(kind)
 
 
 def _memory_source_label(source_kind: str) -> str:
-    return {
-        "simulated_episode": t("memory_source_simulated"),
-        "observed": t("memory_source_observed"),
-        "real_evidence": t("memory_source_evidence"),
-        "evidence": t("memory_source_evidence"),
-        "derived_fact": t("memory_source_derived"),
-    }.get(source_kind, source_kind.replace("_", " ") if source_kind else t("memory_source_derived"))
+    return memory_rows.source_label(source_kind)
 
 
 def _memory_html(store: Store, persona_id: str, as_of: str | None, q: str | None) -> str:
@@ -215,47 +208,28 @@ def _memory_html(store: Store, persona_id: str, as_of: str | None, q: str | None
     if not p:
         return _empty_state(t("profile_not_found"), t("runtime_maybe_cleared"), icon="memory")
     pid = p["id"]
-    sup_label = _label(t("outdated"), "var(--muted)", "outline", False)        # superseded fact tag
+    sup_label = _label(t("outdated"), "var(--muted)", "outline", False)
 
-    # --- the knowledge graph: entities grouped by kind, each a timeline of facts (newest first;
-    #     superseded facts dimmed + struck so the persona's belief CHANGES read at a glance) ---
+    # Resolve and format product context here; shared rows never consult Store.
     by_kind: dict[str, list] = {}
-    for e in store.list_entities(pid):
-        by_kind.setdefault(e.get("kind", ""), []).append(e)
+    icons = dict(_MEM_KINDS)
+    for entity in store.list_entities(pid):
+        facts = sorted(store.list_entity_facts(entity["id"]), key=lambda f: f.get("t_valid", ""), reverse=True)
+        prepared = {"icon": raw(_icon(icons.get(entity.get("kind"), "tag"))),
+                    "facts": {i: {"date": ui.local_date(f.get("t_valid") or ""), "superseded": sup_label}
+                              for i, f in enumerate(facts)}}
+        by_kind.setdefault(entity.get("kind", ""), []).append((entity, facts, prepared))
+    kinds = [kind for kind, _ in _MEM_KINDS] + [kind for kind in by_kind if kind not in icons]
+    try:
+        knowledge = memory_view.knowledge_content([(kind, by_kind[kind]) for kind in kinds if kind in by_kind])
+    except ValueError:
+        knowledge = h("p", {"class_": "muted"}, t("rm_unavailable"))
+    try:
+        loops = [memory_rows.thread_row(th, prepared={"opened": ui.fmt_date(th.get("opened_on") or "")})
+                 for th in store.list_threads(pid, "open")[:20]]
+    except ValueError:
+        loops = [h("p", {"class_": "muted"}, t("rm_unavailable"))]
 
-    def _ent_card(e: dict, icon: str) -> str:
-        facts = sorted(store.list_entity_facts(e["id"]), key=lambda f: f.get("t_valid", ""), reverse=True)
-        rows = []
-        for f in facts:
-            sup = bool(f.get("t_invalid"))
-            review = (t("memory_reviewed") if f.get("review_status") == "reviewed"
-                      else t("memory_unreviewed"))
-            rows.append(h("div", {"class_": "mem-fact" + (" sup" if sup else "")},
-                          h("span", {"class_": "mem-date"}, ui.local_date(f.get("t_valid") or "")),
-                          h("span", {"class_": "mem-fx"}, f.get("fact", ""),
-                            (fragment(" ", sup_label) if sup else None),
-                            h("span", {"class_": "sl-mem-fx-meta"},
-                              f'{_memory_source_label(f.get("source_kind") or "")} · {review}'))))
-        status = h("span", {"class_": "mem-status"}, e["status"]) if e.get("status") else None
-        return h("div", {"class_": "mem-ent"},
-                 h("div", {"class_": "mem-ent-h"}, raw(_icon(icon)), h("b", {}, e.get("name", "—")), status),
-                 h("div", {"class_": "mem-tl"}, fragment(*rows)) if rows else h("p", {"class_": "muted small"}, "—"))
-
-    know_secs = []
-    for kind, icon in _MEM_KINDS:
-        ents = by_kind.get(kind) or []
-        if ents:
-            know_secs.append(h("div", {"class_": "mem-group"},
-                               h("div", {"class_": "mem-group-h"}, _mem_kind_label(kind), h("span", {"class_": "mem-n"}, str(len(ents)))),
-                               h("div", {"class_": "mem-ents"}, fragment(*(_ent_card(e, icon) for e in ents)))))
-    knowledge = fragment(*know_secs) if know_secs else h("p", {"class_": "muted"}, t("none"))
-
-    # --- open threads (loops) ---
-    loops = [h("div", {"class_": "mem-loop"}, h("span", {"class_": "mem-loop-dot"}), th["text"],
-               h("span", {"class_": "muted small"}, f' · {t("since")} {ui.fmt_date(th.get("opened_on") or "")}'))
-             for th in store.list_threads(pid, "open")[:20]]
-
-    # --- compact toolbar: recall search + time-travel (one row, not two big cards) ---
     toolbar = h("div", {"class_": "mem-bar"},
         h("form", {"method": "get", "class_": "mem-tool"}, raw(_icon("search")),
           h("input", {"type": "text", "name": "q", "value": q or "", "placeholder": t("recall_placeholder")})),
@@ -263,27 +237,29 @@ def _memory_html(store: Store, persona_id: str, as_of: str | None, q: str | None
           h("input", {"type": "date", "name": "as_of", "value": as_of or ""}),
           h("button", {"class_": "sl-btn sl-btn--sm"}, t("show_state"))))
     panes = []
-    if as_of:
-        sa = services.get_state_at(pid, as_of, store=store)
-        rows = [h("div", {"class_": "mem-fact"}, h("span", {"class_": "mem-date"}, e["kind"]),
-                  h("span", {"class_": "mem-fx"}, h("b", {}, e["name"]), " → ", e.get("status_at") or "—"))
-                for e in sa["entities"] if e.get("status_at")]
-        panes.append(h("div", {"class_": "mem-pane"}, h("div", {"class_": "mem-pane-h"}, t("state_at", date=as_of)),
-                       fragment(*rows) if rows else h("p", {"class_": "muted small"}, t("nothing_valid")),
-                       h("p", {"class_": "muted small"}, t("open_threads_count", n=len(sa.get("open_threads", []))))))
-    if q:
-        hits = services.recall_memory(pid, q, store=store, k=8)["hits"]
-        rows = [h("div", {"class_": "mem-hit"}, h("span", {"class_": "muted small"}, f'{hit["obj_type"]} · {hit.get("when") or ""}'),
-                  h("div", {}, hit["text"])) for hit in hits]
-        panes.append(h("div", {"class_": "mem-pane"}, h("div", {"class_": "mem-pane-h"}, t("recall")),
-                       fragment(*rows) if rows else h("p", {"class_": "muted small"}, t("nothing"))))
+    try:
+        if as_of:
+            panes.append(memory_view.state_content(services.get_state_at(pid, as_of, store=store)))
+        if q:
+            panes.append(memory_view.recall_content(services.recall_memory(pid, q, store=store, k=8)))
+    except ValueError:
+        panes.append(h("p", {"class_": "muted"}, t("rm_unavailable")))
 
+    # These whole-record reads are deliberately separate from q/as_of panels.
+    try:
+        overview = fragment(memory_outcomes.summary_content(services.summarize_persona_period(pid, store=store)),
+                            memory_outcomes.digests(services.list_digests(pid, store=store))[0],
+                            memory_view.document(services.get_persona_memory(pid, store=store))[0])
+    except ValueError:
+        overview = h("p", {"class_": "muted"}, t("rm_unavailable"))
     main = fragment(
         _hero(t("memory_title", name=p["display_name"]), sub=t("memory_sub"), icon="memory"),
         toolbar, fragment(*panes),
         h("div", {"class_": "sec"}, h("h2", {}, t("knowledge")), knowledge),
         h("div", {"class_": "sec"}, h("h2", {}, t("open_threads")),
-          h("div", {"class_": "mem-loops"}, fragment(*loops)) if loops else h("p", {"class_": "muted"}, t("none"))))
+          h("div", {"class_": "mem-loops"}, fragment(*loops)) if loops else h("p", {"class_": "muted"}, t("none"))),
+        h("details", {"class_": "sec"}, h("summary", {}, t("rm_overview")),
+          h("p", {"class_": "muted"}, t("rm_overview_notice")), overview))
     return _doc(main)
 
 
@@ -713,7 +689,7 @@ def register_personas(app) -> None:
             h("div", {"class_": "sec", "id": "pains", **({"data-persona-surface-fallback": True} if not data["pain_points"] else {})}, h("h2", {}, t("pain_points")),
               # structured observations (issue + opportunity + severity/evidence) → the SAME finding row
               # as the synthesis; the plain profile list stays compact pills.
-              (raw(render_findings([_artifacts.pain_point_finding(x) for x in data["pain_points"]]))
+              (raw(memory_outcomes.pain_content(data["pain_points"]))
                if data["pain_points"] else raw(_pills(p["pain_points"])))),
             h("div", {"class_": "sec", "id": "tools"}, h("h2", {}, t("tools")), raw(_pills(p["tools"]))),
             h("div", {"class_": "sec", "id": "bez"}, h("h2", {}, t("relationships")), rel_rows),
