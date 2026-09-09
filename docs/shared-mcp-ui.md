@@ -432,3 +432,10 @@ writer/getter shapes or loosen native validation. The static Council format
 examples come from isolated temporary-Store compatibility tests, with fixture ID
 aliases and transient execution/navigation fields removed. Rendering these
 examples never invokes their recorded tool inputs.
+
+The customer scenario exporter shares byte-identical source/bridge/resource files
+within each new private run using filesystem hardlinks after the first write
+finishes. Every path keeps its own receipt hash and is independently verified.
+It does not edit earlier runs or share writable runtime state; receipts remain
+independent files. This reduces duplicate artifact storage without reducing
+scenario coverage or changing raster bytes.

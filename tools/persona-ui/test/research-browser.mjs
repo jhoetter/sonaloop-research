@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { execFile as execFileCallback } from 'node:child_process';
-import { readFile, writeFile, mkdir, mkdtemp } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, mkdtemp, link } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -416,6 +416,14 @@ export async function exportScenarios(outputParent = process.env.RESEARCH_SCENAR
   const rendererBuild = { harnessSha256: sha(rendererBytes), bridgeBundleSha256: sha(bundle),
     executableSha256: sha(await readFile(browserExecutable)), browserVersion: browser.version() };
   const receipts = [];
+  // Only this new private run is shared; earlier evidence is never rewritten.
+  // First writes finish before their path becomes a hardlink source.
+  const immutableFiles = new Map();
+  async function immutableFile(path, bytes) {
+    const digest = sha(bytes), existing = immutableFiles.get(digest);
+    if (existing) await link(existing, path);
+    else { await writeFile(path, bytes); immutableFiles.set(digest, path); }
+  }
   try {
     for (const { fixture, viewport } of scenarios) {
       const asset = await loadAsset(fixture.family, { verifySources: true });
@@ -427,6 +435,7 @@ export async function exportScenarios(outputParent = process.env.RESEARCH_SCENAR
         else await session.rendered();
         await session.assertPassive();
         const disclosureCount = await session.root.locator('details.sl-research-disclosure').count();
+        assert.ok(disclosureCount <= 4096, 'Bounded default-disclosure capture declaration');
         assert.equal(await session.root.locator('details[open]').count(), 0, 'Capture records default closed disclosures');
         assert.ok(await session.frame.locator('html').evaluate(node => node.scrollWidth <= innerWidth), 'No horizontal overflow');
         await session.frame.locator('body').evaluate(async () => { await document.fonts.ready; await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))); });
@@ -458,10 +467,10 @@ export async function exportScenarios(outputParent = process.env.RESEARCH_SCENAR
             ...(disclosureCount ? { disclosures: { count: disclosureCount, open: 0, content: 'retained_in_dom' } } : {}),
             runtimeVerification: 'not_asserted', humanAcceptance: 'not_asserted' } };
         await Promise.all([
-          writeFile(resolve(directory, 'view.png'), png), writeFile(resolve(directory, 'manifest.json'), asset.manifestBytes),
-          writeFile(resolve(directory, 'resource.html'), asset.resource), writeFile(resolve(directory, 'input.json'), input),
-          writeFile(resolve(directory, 'result.json'), result), writeFile(resolve(directory, 'renderer.mjs'), rendererBytes),
-          writeFile(resolve(directory, 'host.bundle.js'), bundle), writeFile(resolve(directory, 'receipt.json'), `${canonical(receipt)}\n`),
+          immutableFile(resolve(directory, 'view.png'), png), immutableFile(resolve(directory, 'manifest.json'), asset.manifestBytes),
+          immutableFile(resolve(directory, 'resource.html'), asset.resource), immutableFile(resolve(directory, 'input.json'), input),
+          immutableFile(resolve(directory, 'result.json'), result), immutableFile(resolve(directory, 'renderer.mjs'), rendererBytes),
+          immutableFile(resolve(directory, 'host.bundle.js'), bundle), writeFile(resolve(directory, 'receipt.json'), `${canonical(receipt)}\n`),
         ]);
         receipts.push({ directory, receiptSha256: sha(`${canonical(receipt)}\n`), ...receipt });
       } finally { await session.page.close(); }
