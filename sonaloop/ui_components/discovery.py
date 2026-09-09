@@ -2,20 +2,15 @@
 from __future__ import annotations
 
 from .library import _kit, collection, note_content
-
-
-def project_heading(project: dict, *, icon=None, level: str = "h1"):
-    h, fragment, _ = _kit()
-    return fragment(h(level, {"class_": "h1 sl-project-title" if level == "h1" else None}, icon, project.get("title", "")),
-                    h("p", {"class_": "lead"}, project.get("goal", "")))
+from .projects_rows import project_heading, project_body
 
 
 def project_card(project: dict):
     from ..web._i18n import t
     h, _, _ = _kit()
     return h("article", {"class_": "sl-research-card"},
-             h("span", {"class_": "sl-research-kind"}, t("project")), project_heading(project, level="h2"),
-             h("p", {"class_": "muted"}, project.get("description", "")) if project.get("description") else None)
+             h("span", {"class_": "sl-research-kind"}, t("project")),
+             project_body(project, level="h2", description=True))
 
 
 def search_hit_content(title: str, subtitle: str = "", date: str = ""):

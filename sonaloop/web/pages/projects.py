@@ -1,7 +1,7 @@
 """Project pages: home/index, detail (outline/graph + hypotheses), report, plan (spec/roadmap.md R2)."""
 from __future__ import annotations
 
-from ...ui_components.discovery import project_heading
+from ...ui_components import projects as project_ui
 
 from fastapi import Request
 from fastapi.responses import RedirectResponse
@@ -161,25 +161,29 @@ def _product_understanding_html(project: dict, store=None,
 
 
 def _project_lineage_html(project: dict, store) -> str:
-    predecessor = str(project.get("supersedes_project_id") or "")
-    successor = str(project.get("superseded_by_project_id") or "")
-    if not (predecessor or successor):
-        return ""
-    rows = []
-    for label, pid in ((t("lineage_supersedes"), predecessor),
-                       (t("lineage_superseded_by"), successor)):
+    prepared_refs = {}
+    for key in ("supersedes_project_id", "superseded_by_project_id"):
+        pid = str(project.get(key) or "")
         if not pid:
             continue
         target = store.get_research_project(pid)
         # Tenant-scoped Store lookup decides existence; never disclose a title
         # from an inaccessible workspace.
-        rows.append(h("li", {}, label, ": ",
-                      h("a", {"href": f"/jobs/{pid}"}, target.get("title") or pid)
-                      if target else h("code", {}, pid)))
-    return h("details", {"class_": "sl-project-lineage", "id": "project-lineage",
-                         "aria-label": t("lineage_h")},
-             h("summary", {}, raw(_icon("link")), t("lineage_h")),
-             h("ul", {"class_": "sl-pu-caps"}, fragment(*rows)))
+        prepared_refs[key] = (h("a", {"href": f"/jobs/{pid}"}, target.get("title") or pid)
+                              if target else h("code", {}, pid))
+    return project_ui.lineage_content(project, prepared_refs=prepared_refs, heading_icon=raw(_icon("link")))
+
+
+def _project_icon_details_html(project: dict) -> str:
+    """Inspect the supplied stored spec separately from the existing icon preview."""
+    if "icon" not in project:
+        return ""
+    try:
+        content = project_ui.icon_content(project["icon"])
+    except ValueError:
+        content = h("p", {"class_": "muted small"}, t("rpj_icon_unavailable"))
+    return h("details", {"class_": "sl-project-lineage"},
+             h("summary", {}, t("rpj_icon")), content)
 
 
 def _project_setup_details_html(project: dict, store) -> str:
@@ -361,20 +365,16 @@ def register_projects(app) -> None:
         # float at the page's far left), aligned with the title/outline left edge.
         body = h("div", {"class_": "proj"},
                  h("div", {"class_": "proj-head"},
-                   project_heading(proj, icon=raw(project_icon_html(proj, edit_project_id=proj["id"],
-                                                                 edit_label=t("f_project_icon")))),
-                   raw(experience_header),
-                   (h("p", {
+                   project_ui.project_body(proj,
+                     icon=raw(project_icon_html(proj, edit_project_id=proj["id"], edit_label=t("f_project_icon"))),
+                     prepared={"experience_header": raw(experience_header), "creator": (h("p", {
                        "class_": "sl-project-creator",
                        **({"title": origin_hint,
                            "aria-label": f"{creator_text}. {origin_hint}"}
                           if origin_hint else {}),
-                   }, creator_text) if creator_label else None),
-                   cohort_html,
-                   (h("p", {"class_": "sl-project-meta", "data-project-archived": True},
-                      t("archive_non_destructive"))
-                    if str(project_record.get("status") or "") == "archived" else None),
-                   raw(_project_lineage_html(project_record, store)),
+                     }, creator_text) if creator_label else None), "cohort": cohort_html,
+                     "lineage": raw(_project_lineage_html(project_record, store))}),
+                   _project_icon_details_html(project_record),
                    h("div", {"class_": "pills"}, raw(run_chip)),
                    bar if not customer_surface else None),
                  (raw(_project_setup_details_html(project_record, store))
