@@ -21,7 +21,7 @@ def active_projects(value):
         rows.text_record(item, ("entity_id", "name"), nullable=("status", "last_seen"))
         for key in ("open_loops", "valid_facts"):
             rows.number(item.get(key), count=True)
-        cards.append(_card(item["name"], h("p", {"class_": "sl-research-kind"}, t("active_projects")),
+        cards.append(_card(item["name"], h("p", {"class_": "sl-research-kind"}, t("rm_projects")),
             rows.fields((("entity_id", item["entity_id"]), (t("rm_status_now"), item.get("status")),
                          (t("rm_last_seen"), item.get("last_seen")), (t("open_threads"), item["open_loops"]),
                          (t("rm_valid_now") + " · " + t("rm_facts"), item["valid_facts"])))))
@@ -49,7 +49,7 @@ def project(value):
             raise ValueError("Expected native project fact validity")
     threads_value = rows.records(value["open_threads"])
     events = rows.strings(value["event_ids"])
-    return _card(t("active_projects"), rows.entity_card(value["entity"], value["facts"], passive=True),
+    return _card(t("rm_projects"), rows.entity_card(value["entity"], value["facts"], passive=True),
         rows.fields(((t("rm_status_now"), value["status_now"]),)),
         h("p", {"class_": "sl-research-meta"}, t("rm_project_notice")),
         h("h3", {}, t("open_threads")), [rows.thread_row(item, passive=True) for item in threads_value],

@@ -9,6 +9,7 @@ from __future__ import annotations
 STRINGS: dict[str, dict[str, str]] = {
     "de": {
         "rm_entities": "Gedächtniseinträge",
+        "rm_projects": "Memory-Projekte",
         "rm_entity_empty": "Kein passender Eintrag.",
         "rm_empty": "Keine übergebenen Gedächtniseinträge.",
         "rm_status_now": "Aktuell gespeicherter Status",
@@ -701,6 +702,7 @@ STRINGS: dict[str, dict[str, str]] = {
     },
     "en": {
         "rm_entities": "Memory entities",
+        "rm_projects": "Memory projects",
         "rm_entity_empty": "No matching entity.",
         "rm_empty": "No supplied memory records.",
         "rm_status_now": "Current recorded status",

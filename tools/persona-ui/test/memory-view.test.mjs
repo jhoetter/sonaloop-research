@@ -24,8 +24,16 @@ for (const item of cases) test(`Memory App preserves native ${item.scenario} and
     assert.ok(width.content <= width.box + 1, 'Memory cards fit a 390px viewport');
     assert.equal(await session.root.locator('a,button,input,iframe,img').count(), 0);
     if (item.tool === 'get_project') {
+      assert.equal(await session.root.getByRole('heading', { name: 'Memory projects', exact: true }).count(), 1);
       assert.ok(visible.includes('not a historical snapshot') && visible.includes('approved'));
       assert.ok(visible.includes('Renewal pending') && !visible.includes('Renewal approved'));
+    }
+    if (['get_project', 'search_entities', 'resolve_entity'].includes(item.tool) && item.state === 'ready') {
+      const separated = await session.root.locator('.sl-research-memory-entity-head').evaluate(node => {
+        const name = node.querySelector('b'), status = node.querySelector('span');
+        return !status || status.getBoundingClientRect().x - name.getBoundingClientRect().right >= 7;
+      });
+      assert.ok(separated, 'Entity name and stored status have distinct readable space');
     }
     if (item.scenario === 'get_state_at') {
       assert.ok(visible.includes('2026-01-15') && visible.includes('2026-02-02'));

@@ -22,3 +22,5 @@
 @media(max-width:520px){.sl-research-card .sl-research-fields{grid-template-columns:minmax(0,1fr);gap:2px}.sl-research-card .sl-research-fields dt:not(:first-child){margin-top:8px}}
 
 .sl-research-card .sl-research-memory-fact,.sl-research-card .sl-research-memory-hit,.sl-research-card .sl-research-memory-event{display:grid;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line,#d5ddd8)}.sl-research-card .sl-research-memory-entity{margin-top:16px}.sl-research-card .sl-research-memory-superseded{border-left:3px solid var(--line,#d5ddd8);padding-left:12px}.sl-research-card .sl-research-memory-thread,.sl-research-collection>.sl-research-memory-thread{display:block;padding:14px;border:1px solid var(--line,#d5ddd8);border-radius:10px;background:var(--panel,#fff);color:var(--ink,#263b31);overflow-wrap:anywhere}.sl-research-memory-counts dd{font-variant-numeric:tabular-nums}.sl-research-memory-document{overflow-wrap:anywhere}.sl-research-memory-document pre{white-space:pre-wrap}
+
+.sl-research-card .sl-research-memory-entity-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px}

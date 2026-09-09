@@ -139,7 +139,7 @@ def entity_card(value, facts=None, *, prepared=None, passive=False):
             for i, fact in enumerate(records(facts if facts is not None else []))]
     status = h("span", {"class_": "mem-status"}, value["status"]) if value.get("status") else None
     return h("div", {"class_": "mem-ent sl-research-memory-entity"},
-             h("div", {"class_": "mem-ent-h"}, prepared.get("icon"), h("b", {}, value["name"]), status),
+             h("div", {"class_": "mem-ent-h sl-research-memory-entity-head"}, prepared.get("icon"), h("b", {}, value["name"]), status),
              fields((("id", value["id"]), (t("persona"), value["persona_id"]),
                      (t("type_h"), value["kind"]), (t("rm_status_now"), value.get("status")),
                      (t("rm_first_seen"), value.get("first_seen")), (t("rm_last_seen"), value.get("last_seen")),
