@@ -45,15 +45,8 @@ def _cohort_age_text(value) -> str:
 
 
 def _cohort_origin_text(value: str) -> str:
-    key = str(value or "unknown")
-    labels = {
-        "catalog": t("cohort_origin_catalog"),
-        "grounded": t("cohort_origin_grounded"),
-        "authored": t("cohort_origin_authored"),
-        "missing": t("cohort_origin_missing"),
-        "unknown": t("cohort_origin_unknown"),
-    }
-    return labels.get(key, key)
+    from ..ui_components.cohort_preflight import _cohort_origin_text as origin_text
+    return origin_text(value)
 
 
 def render_cohort_integrity(project: dict, store=None, *, show_missing: bool = True,
@@ -94,96 +87,24 @@ def render_cohort_integrity(project: dict, store=None, *, show_missing: bool = T
         "needs_deepening": "var(--amber)", "needs_reselection": "var(--red)",
         "stale": "var(--red)",
     }
-    totals = (current.get("depth") or {}).get("totals") or {}
-    leakage = current.get("leakage") or {}
-    lexical_max = _maximum_score(leakage.get("lexical") or [])
-    semantic = leakage.get("semantic") or {}
-    semantic_max = _maximum_score(semantic.get("scores") or []) if semantic.get("provided") else None
     representation = current.get("representation") or {}
-    required_work = current.get("required_work") or []
-    persona_rows = []
-    for row in (current.get("depth") or {}).get("personas") or []:
-        depth = row.get("depth") or {}
-        provenance = row.get("source_provenance") or {}
-        age_text = _cohort_age_text(row.get("profile_age_hours_at_project_start"))
-        persona_rows.append(h(
-            "li", {},
-            t("cohort_persona_summary", name=row.get("display_name") or row.get("persona_id") or "—",
-              items=depth.get("independent_context_items", 0),
-              origin=_cohort_origin_text(provenance.get("origin") or "unknown"), age=age_text),
-            (" · " + t("cohort_persona_thin") if row.get("thin") else ""),
-        ))
-    work_rows = [h(
-        "li", {}, h("code", {}, row.get("code") or row.get("kind") or "—"),
-        (" · " + ", ".join(row.get("tools") or [])) if row.get("tools") else "",
-    ) for row in required_work]
-    limitation = current.get("override") or {}
+    leakage = current.get("leakage") or {}
+    semantic = leakage.get("semantic") or {}
     time_marker = "__SONALOOP_LOCAL_TIME__"
-    meta_text = t("cohort_policy_meta", version=current.get("policy_version") or "—",
-                  evaluated=time_marker)
-    meta_before, _, meta_after = meta_text.partition(time_marker)
-    meta = fragment(meta_before, ui.local_ts(current.get("evaluated_at") or ""), meta_after)
-    aria = f'{t("cohort_integrity_h")}: {labels.get(status, status)}. '
-    aria += t("cohort_depth_summary", personas=totals.get("personas", 0),
-              items=totals.get("independent_context_items", 0), thin=totals.get("thin", 0))
-    countervoices = representation.get("countervoice_count", 0)
-    countervoice_label = (
-        t("cohort_countervoice_one") if countervoices == 1
-        else t("cohort_countervoices_n", n=countervoices)
-    )
-    thin_profiles = totals.get("thin", 0)
-    thin_label = (
-        t("cohort_no_thin_profiles") if not thin_profiles
-        else t("cohort_thin_profile_one") if thin_profiles == 1
-        else t("cohort_thin_profiles_n", n=thin_profiles)
-    )
-    summary = t(
-        "cohort_compact_summary",
-        personas=totals.get("personas", 0),
-        countervoices=countervoice_label,
-        thin=thin_label,
-    )
-    wrapper_class = "sl-integrity sl-integrity--cohort"
-    if embedded:
-        wrapper_class += " sl-integrity--embedded"
-    return h(
-        "details", {"class_": wrapper_class, "id": "cohort-integrity", "aria-label": aria},
-        h("summary", {},
-          h("span", {"class_": "sl-integrity-heading"},
-            raw(_icon("personas")),
-            h("span", {"class_": "sl-integrity-heading-copy"},
-              h("strong", {"class_": "sl-integrity-title"}, t("cohort_integrity_h")),
-              h("span", {"class_": "sl-integrity-summary"}, summary))),
-          h("span", {"class_": "sl-integrity-badges"},
-            raw(_label(labels.get(status, status), colors.get(status, "var(--muted)"))),
-            (raw(_label(t("cohort_unverified_countervoices_n",
-                          n=len(representation.get("unverified_countervoice_persona_ids") or [])),
-                        "var(--red)"))
-             if representation.get("unverified_countervoice_persona_ids") else None))),
-        h("div", {"class_": "sl-integrity-body"},
-          h("p", {"class_": "sl-integrity-context"},
-            t("cohort_integrity_stale_help") if stale else t("cohort_boundary_help")),
-        (h("div", {"class_": "sl-cohort-required"},
-           h("strong", {}, t("cohort_required_work")),
-           h("ul", {"class_": "sl-integrity-list"}, fragment(*work_rows)))
-         if work_rows else None),
-        (h("div", {"class_": "sl-cohort-limitation"},
-           h("strong", {}, t("cohort_override_limitation")), " ", limitation.get("rationale", ""))
-         if limitation else None),
-          h("details", {"class_": "sl-integrity-nested"},
-            h("summary", {}, t("cohort_check_details")),
-            h("dl", {"class_": "sl-integrity-metrics"},
-              h("div", {}, h("dt", {}, t("cohort_independent_items")),
-                h("dd", {}, str(totals.get("independent_context_items", 0)))),
-              h("div", {}, h("dt", {}, t("cohort_lexical_overlap")),
-                h("dd", {}, f"{lexical_max:.0%}")),
-              h("div", {}, h("dt", {}, t("cohort_semantic_overlap")),
-                h("dd", {}, t("cohort_not_calculated") if semantic_max is None
-                  else f"{semantic_max:.0%}")),
-              h("div", {}, h("dt", {}, t("cohort_policy")),
-                h("dd", {"class_": "sl-integrity-technical"}, meta)))),
-          h("details", {"class_": "sl-integrity-nested"},
-            h("summary", {}, t("cohort_persona_basis_n", n=totals.get("personas", 0))),
-            h("ul", {"class_": "sl-integrity-list"}, fragment(*persona_rows))),
-        ),
-    )
+    meta_text = t("cohort_policy_meta", version=current.get("policy_version") or "—", evaluated=time_marker)
+    before, _, after = meta_text.partition(time_marker)
+    prepared = {
+        "status": status, "stale": stale,
+        "icon": raw(_icon("personas")),
+        "status_badge": raw(_label(labels.get(status, status), colors.get(status, "var(--muted)"))),
+        "unverified_badge": (raw(_label(t("cohort_unverified_countervoices_n",
+            n=len(representation.get("unverified_countervoice_persona_ids") or [])), "var(--red)"))
+            if representation.get("unverified_countervoice_persona_ids") else None),
+        "persona_ages": [_cohort_age_text(row.get("profile_age_hours_at_project_start"))
+            for row in (current.get("depth") or {}).get("personas") or []],
+        "lexical_max": _maximum_score(leakage.get("lexical") or []),
+        "semantic_max": _maximum_score(semantic.get("scores") or []) if semantic.get("provided") else None,
+        "meta": fragment(before, ui.local_ts(current.get("evaluated_at") or ""), after),
+    }
+    from ..ui_components.cohort_preflight import integrity_content
+    return integrity_content(current, prepared=prepared, embedded=embedded)
