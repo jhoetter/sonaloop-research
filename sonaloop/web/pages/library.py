@@ -216,9 +216,9 @@ def _find_reference(store: Store, reference_id: str) -> tuple[dict | None, dict 
 
 def _reference_status_pill(ref: dict) -> str:
     snap = ref.get("snapshot") or {}
-    if snap.get("ok"):
-        return _label(t("artifact_captured"), "var(--green)")
-    return _label(t("artifact_capture_failed"), "var(--muted)")
+    from ...ui_components.references import snapshot_label
+    return _label(snapshot_label(snap), "var(--green)" if snap.get("ok") else "var(--muted)")
+
 
 
 def _trace_filter_label(state: str) -> str:
@@ -570,17 +570,13 @@ def register_library(app) -> None:
         snap = ref.get("snapshot") or {}
         title = ref.get("title") or ref.get("url", "")
         kind_label = t("artifact_kind_" + (ref.get("kind") or "url"))
-        headings = snap.get("headings") or []
+        from ...ui_components.references import snapshot_content
         body = fragment(
             h("p", {},
               h("a", {"class_": "sl-btn", "href": ref.get("url", "#"), "target": "_blank", "rel": "noopener"},
                 raw(_icon("external")), " ", t("open_in_new_tab"))),
             ui.section(t("reference_snapshot_h"),
-                       h("div", {"class_": "sl-prose"},
-                         h("p", {}, snap.get("description", "")) if snap.get("description") else None,
-                         h("p", {"class_": "muted"}, " · ".join(headings[:8])) if headings else None,
-                         ui.clamp(snap.get("text", "") or snap.get("error", "") or t("artifact_capture_failed"),
-                                  threshold=ui.SECTION_CLAMP)),
+                       snapshot_content(snap),
                        id="sec-snapshot"))
         return detail_page(
             store, title=title, active="projects",

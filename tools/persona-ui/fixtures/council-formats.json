@@ -1,0 +1,1379 @@
+{
+  "schemaVersion": "sonaloop.synthetic-council-format-examples.v1",
+  "description": "Synthetic examples derived from isolated temporary-Store native compatibility tests. IDs are fixture aliases; navigation and transient execution metadata are omitted. No customer runtime or provider was used. The renderer never executes these input objects.",
+  "cases": [
+    {
+      "tool": "record_head_to_head",
+      "input": {
+        "project_id": "project_fixture",
+        "prompt": "What changes the handover?",
+        "persona_ids": [
+          "persona_fixture"
+        ],
+        "summary": "A bounded synthetic example.",
+        "statements": [
+          {
+            "persona_id": "persona_fixture",
+            "text": "Keep the full final context."
+          }
+        ],
+        "options": [
+          "Named owner",
+          "Shared inbox"
+        ],
+        "preferences": [
+          {
+            "persona_id": "persona_fixture",
+            "choice": "A",
+            "reason": "The owner is visible.",
+            "intensity": 0
+          },
+          {
+            "persona_id": "unresolved",
+            "choice": "neither",
+            "reason": "Neither fits the night shift."
+          }
+        ],
+        "variant_meta": {
+          "variants": {
+            "A": {
+              "id": "variant_a",
+              "version": "v0.2"
+            }
+          },
+          "order_shown": {
+            "persona_fixture": [
+              "B",
+              "A"
+            ]
+          }
+        }
+      },
+      "value": {
+        "id": "council_head_to_head_fixture",
+        "prompt": "What changes the handover?",
+        "persona_ids": [
+          "persona_fixture"
+        ],
+        "selection_reason": "head-to-head panel",
+        "proposal": "",
+        "votes": [],
+        "summary": "A bounded synthetic example.",
+        "created_at": "2026-09-09T01:10:21.044229+00:00",
+        "exec_summary": "",
+        "questions": [],
+        "project_id": "project_fixture",
+        "statements": [
+          {
+            "persona_id": "persona_fixture",
+            "text": "Keep the full final context.",
+            "id": "st1",
+            "meta": {
+              "claim_posture": "unsupported"
+            },
+            "refs": []
+          }
+        ],
+        "findings": [
+          {
+            "text": "Preference: Option A — Named owner (decisive, margin 1.0).",
+            "kind": "head_to_head",
+            "score": {
+              "margin": 1.0,
+              "voters": 1
+            },
+            "meta": {
+              "aggregate": {
+                "options": [
+                  {
+                    "label": "A",
+                    "title": "Named owner",
+                    "votes": 1
+                  },
+                  {
+                    "label": "B",
+                    "title": "Shared inbox",
+                    "votes": 0
+                  }
+                ],
+                "voters": 1,
+                "abstentions": 1,
+                "preference": "A",
+                "preference_title": "Named owner",
+                "tally": {
+                  "A": 1,
+                  "B": 0
+                },
+                "margin": 1.0,
+                "decisive": "decisive",
+                "segment_splits": [
+                  {
+                    "segment": "unspecified",
+                    "voters": 1,
+                    "tally": {
+                      "A": 1,
+                      "B": 0
+                    },
+                    "prefers": "A",
+                    "margin": 1.0,
+                    "abstentions": 1
+                  }
+                ]
+              },
+              "claim_posture": "unsupported"
+            },
+            "id": "f1",
+            "refs": []
+          }
+        ],
+        "prompts": [
+          {
+            "text": "Named owner",
+            "kind": "proposal",
+            "id": "opt:A"
+          },
+          {
+            "text": "Shared inbox",
+            "kind": "proposal",
+            "id": "opt:B"
+          }
+        ],
+        "claim_posture": {
+          "schema": "sonaloop.claim_posture.v1",
+          "default": "unsupported",
+          "claims": [
+            {
+              "id": "st1",
+              "text": "Keep the full final context.",
+              "posture": "unsupported",
+              "refs": []
+            },
+            {
+              "id": "f1",
+              "text": "Preference: Option A — Named owner (decisive, margin 1.0).",
+              "posture": "unsupported",
+              "refs": []
+            }
+          ],
+          "counts": {
+            "inferred": 0,
+            "memory_grounded": 0,
+            "observed": 0,
+            "simulated": 0,
+            "unsupported": 2
+          },
+          "prose_uncovered": true,
+          "verified": false
+        },
+        "head_to_head": {
+          "options": [
+            {
+              "label": "A",
+              "kind": "text",
+              "title": "Named owner",
+              "text": "Named owner"
+            },
+            {
+              "label": "B",
+              "kind": "text",
+              "title": "Shared inbox",
+              "text": "Shared inbox"
+            }
+          ],
+          "preferences": [
+            {
+              "persona_id": "persona_fixture",
+              "choice": "A",
+              "reason": "The owner is visible.",
+              "intensity": 0
+            },
+            {
+              "persona_id": "unresolved",
+              "choice": "neither",
+              "reason": "Neither fits the night shift."
+            }
+          ],
+          "result": {
+            "options": [
+              {
+                "label": "A",
+                "title": "Named owner",
+                "votes": 1
+              },
+              {
+                "label": "B",
+                "title": "Shared inbox",
+                "votes": 0
+              }
+            ],
+            "voters": 1,
+            "abstentions": 1,
+            "preference": "A",
+            "preference_title": "Named owner",
+            "tally": {
+              "A": 1,
+              "B": 0
+            },
+            "margin": 1.0,
+            "decisive": "decisive",
+            "segment_splits": [
+              {
+                "segment": "unspecified",
+                "voters": 1,
+                "tally": {
+                  "A": 1,
+                  "B": 0
+                },
+                "prefers": "A",
+                "margin": 1.0,
+                "abstentions": 1
+              }
+            ]
+          },
+          "recorded_at": "2026-09-09T01:10:21.050253+00:00",
+          "variant_meta": {
+            "variants": {
+              "A": {
+                "id": "variant_a",
+                "version": "v0.2"
+              }
+            },
+            "order_shown": {
+              "persona_fixture": [
+                "B",
+                "A"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "tool": "get_head_to_head",
+      "input": {
+        "session_id": "council_head_to_head_fixture"
+      },
+      "value": {
+        "id": "council_head_to_head_fixture",
+        "prompt": "What changes the handover?",
+        "project_id": "project_fixture",
+        "created_at": "2026-09-09T01:10:21.044229+00:00",
+        "options": [
+          {
+            "label": "A",
+            "kind": "text",
+            "title": "Named owner",
+            "text": "Named owner"
+          },
+          {
+            "label": "B",
+            "kind": "text",
+            "title": "Shared inbox",
+            "text": "Shared inbox"
+          }
+        ],
+        "preferences": [
+          {
+            "persona_id": "persona_fixture",
+            "choice": "A",
+            "reason": "The owner is visible.",
+            "intensity": 0
+          },
+          {
+            "persona_id": "unresolved",
+            "choice": "neither",
+            "reason": "Neither fits the night shift."
+          }
+        ],
+        "result": {
+          "options": [
+            {
+              "label": "A",
+              "title": "Named owner",
+              "votes": 1
+            },
+            {
+              "label": "B",
+              "title": "Shared inbox",
+              "votes": 0
+            }
+          ],
+          "voters": 1,
+          "abstentions": 1,
+          "preference": "A",
+          "preference_title": "Named owner",
+          "tally": {
+            "A": 1,
+            "B": 0
+          },
+          "margin": 1.0,
+          "decisive": "decisive",
+          "segment_splits": [
+            {
+              "segment": "unspecified",
+              "voters": 1,
+              "tally": {
+                "A": 1,
+                "B": 0
+              },
+              "prefers": "A",
+              "margin": 1.0,
+              "abstentions": 1
+            }
+          ]
+        },
+        "recorded_at": "2026-09-09T01:10:21.050253+00:00",
+        "variant_meta": {
+          "variants": {
+            "A": {
+              "id": "variant_a",
+              "version": "v0.2"
+            }
+          },
+          "order_shown": {
+            "persona_fixture": [
+              "B",
+              "A"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "tool": "record_price_ladder",
+      "input": {
+        "project_id": "project_fixture",
+        "prompt": "What changes the handover?",
+        "persona_ids": [
+          "persona_fixture"
+        ],
+        "summary": "A bounded synthetic example.",
+        "statements": [
+          {
+            "persona_id": "persona_fixture",
+            "text": "Keep the full final context."
+          }
+        ],
+        "price_points": [
+          "10 / month",
+          "20 / month",
+          "30 / month"
+        ],
+        "responses": [
+          {
+            "persona_id": "persona_fixture",
+            "price": 10,
+            "band": "bargain",
+            "quote": "Fits the small budget."
+          },
+          {
+            "persona_id": "persona_fixture",
+            "price": 10,
+            "band": "bargain",
+            "quote": "Repeated authored response."
+          },
+          {
+            "persona_id": "persona_fixture",
+            "price": 20,
+            "band": "too_expensive",
+            "quote": "No approval above this point."
+          }
+        ]
+      },
+      "value": {
+        "id": "council_price_ladder_fixture",
+        "prompt": "What changes the handover?",
+        "persona_ids": [
+          "persona_fixture"
+        ],
+        "selection_reason": "price-ladder panel",
+        "proposal": "",
+        "votes": [],
+        "summary": "A bounded synthetic example.",
+        "created_at": "2026-09-09T01:10:21.056678+00:00",
+        "exec_summary": "",
+        "questions": [],
+        "project_id": "project_fixture",
+        "statements": [
+          {
+            "persona_id": "persona_fixture",
+            "text": "Keep the full final context.",
+            "id": "st1",
+            "meta": {
+              "claim_posture": "unsupported"
+            },
+            "refs": []
+          }
+        ],
+        "findings": [
+          {
+            "text": "Acceptable range 10 / month–10 / month. Cliff after 10 / month (acceptance −1.0).",
+            "kind": "price_ladder",
+            "score": {
+              "respondents": 1
+            },
+            "meta": {
+              "result": {
+                "bands": [
+                  "too_cheap",
+                  "bargain",
+                  "getting_expensive",
+                  "too_expensive"
+                ],
+                "overall": {
+                  "respondents": 1,
+                  "points": [
+                    {
+                      "label": "10 / month",
+                      "amount": 10.0,
+                      "respondents": 2,
+                      "counts": {
+                        "too_cheap": 0,
+                        "bargain": 2,
+                        "getting_expensive": 0,
+                        "too_expensive": 0
+                      },
+                      "acceptance": 1.0
+                    },
+                    {
+                      "label": "20 / month",
+                      "amount": 20.0,
+                      "respondents": 1,
+                      "counts": {
+                        "too_cheap": 0,
+                        "bargain": 0,
+                        "getting_expensive": 0,
+                        "too_expensive": 1
+                      },
+                      "acceptance": 0.0
+                    },
+                    {
+                      "label": "30 / month",
+                      "amount": 30.0,
+                      "respondents": 0,
+                      "counts": {
+                        "too_cheap": 0,
+                        "bargain": 0,
+                        "getting_expensive": 0,
+                        "too_expensive": 0
+                      },
+                      "acceptance": null
+                    }
+                  ],
+                  "acceptable_range": {
+                    "low": "10 / month",
+                    "low_amount": 10.0,
+                    "high": "10 / month",
+                    "high_amount": 10.0
+                  },
+                  "cliff": {
+                    "from": "10 / month",
+                    "to": "20 / month",
+                    "from_amount": 10.0,
+                    "to_amount": 20.0,
+                    "drop": 1.0
+                  }
+                },
+                "segments": [
+                  {
+                    "segment": "unspecified",
+                    "respondents": 1,
+                    "points": [
+                      {
+                        "label": "10 / month",
+                        "amount": 10.0,
+                        "respondents": 2,
+                        "counts": {
+                          "too_cheap": 0,
+                          "bargain": 2,
+                          "getting_expensive": 0,
+                          "too_expensive": 0
+                        },
+                        "acceptance": 1.0
+                      },
+                      {
+                        "label": "20 / month",
+                        "amount": 20.0,
+                        "respondents": 1,
+                        "counts": {
+                          "too_cheap": 0,
+                          "bargain": 0,
+                          "getting_expensive": 0,
+                          "too_expensive": 1
+                        },
+                        "acceptance": 0.0
+                      },
+                      {
+                        "label": "30 / month",
+                        "amount": 30.0,
+                        "respondents": 0,
+                        "counts": {
+                          "too_cheap": 0,
+                          "bargain": 0,
+                          "getting_expensive": 0,
+                          "too_expensive": 0
+                        },
+                        "acceptance": null
+                      }
+                    ],
+                    "acceptable_range": {
+                      "low": "10 / month",
+                      "low_amount": 10.0,
+                      "high": "10 / month",
+                      "high_amount": 10.0
+                    },
+                    "cliff": {
+                      "from": "10 / month",
+                      "to": "20 / month",
+                      "from_amount": 10.0,
+                      "to_amount": 20.0,
+                      "drop": 1.0
+                    }
+                  }
+                ]
+              },
+              "claim_posture": "unsupported"
+            },
+            "id": "f1",
+            "refs": []
+          }
+        ],
+        "prompts": [
+          {
+            "text": "10 / month",
+            "kind": "question",
+            "id": "price:10 / month"
+          },
+          {
+            "text": "20 / month",
+            "kind": "question",
+            "id": "price:20 / month"
+          },
+          {
+            "text": "30 / month",
+            "kind": "question",
+            "id": "price:30 / month"
+          }
+        ],
+        "claim_posture": {
+          "schema": "sonaloop.claim_posture.v1",
+          "default": "unsupported",
+          "claims": [
+            {
+              "id": "st1",
+              "text": "Keep the full final context.",
+              "posture": "unsupported",
+              "refs": []
+            },
+            {
+              "id": "f1",
+              "text": "Acceptable range 10 / month–10 / month. Cliff after 10 / month (acceptance −1.0).",
+              "posture": "unsupported",
+              "refs": []
+            }
+          ],
+          "counts": {
+            "inferred": 0,
+            "memory_grounded": 0,
+            "observed": 0,
+            "simulated": 0,
+            "unsupported": 2
+          },
+          "prose_uncovered": true,
+          "verified": false
+        },
+        "price_ladder": {
+          "price_points": [
+            {
+              "label": "10 / month",
+              "amount": 10.0
+            },
+            {
+              "label": "20 / month",
+              "amount": 20.0
+            },
+            {
+              "label": "30 / month",
+              "amount": 30.0
+            }
+          ],
+          "responses": [
+            {
+              "persona_id": "persona_fixture",
+              "price": "10 / month",
+              "amount": 10.0,
+              "band": "bargain",
+              "quote": "Fits the small budget."
+            },
+            {
+              "persona_id": "persona_fixture",
+              "price": "10 / month",
+              "amount": 10.0,
+              "band": "bargain",
+              "quote": "Repeated authored response."
+            },
+            {
+              "persona_id": "persona_fixture",
+              "price": "20 / month",
+              "amount": 20.0,
+              "band": "too_expensive",
+              "quote": "No approval above this point."
+            }
+          ],
+          "result": {
+            "bands": [
+              "too_cheap",
+              "bargain",
+              "getting_expensive",
+              "too_expensive"
+            ],
+            "overall": {
+              "respondents": 1,
+              "points": [
+                {
+                  "label": "10 / month",
+                  "amount": 10.0,
+                  "respondents": 2,
+                  "counts": {
+                    "too_cheap": 0,
+                    "bargain": 2,
+                    "getting_expensive": 0,
+                    "too_expensive": 0
+                  },
+                  "acceptance": 1.0
+                },
+                {
+                  "label": "20 / month",
+                  "amount": 20.0,
+                  "respondents": 1,
+                  "counts": {
+                    "too_cheap": 0,
+                    "bargain": 0,
+                    "getting_expensive": 0,
+                    "too_expensive": 1
+                  },
+                  "acceptance": 0.0
+                },
+                {
+                  "label": "30 / month",
+                  "amount": 30.0,
+                  "respondents": 0,
+                  "counts": {
+                    "too_cheap": 0,
+                    "bargain": 0,
+                    "getting_expensive": 0,
+                    "too_expensive": 0
+                  },
+                  "acceptance": null
+                }
+              ],
+              "acceptable_range": {
+                "low": "10 / month",
+                "low_amount": 10.0,
+                "high": "10 / month",
+                "high_amount": 10.0
+              },
+              "cliff": {
+                "from": "10 / month",
+                "to": "20 / month",
+                "from_amount": 10.0,
+                "to_amount": 20.0,
+                "drop": 1.0
+              }
+            },
+            "segments": [
+              {
+                "segment": "unspecified",
+                "respondents": 1,
+                "points": [
+                  {
+                    "label": "10 / month",
+                    "amount": 10.0,
+                    "respondents": 2,
+                    "counts": {
+                      "too_cheap": 0,
+                      "bargain": 2,
+                      "getting_expensive": 0,
+                      "too_expensive": 0
+                    },
+                    "acceptance": 1.0
+                  },
+                  {
+                    "label": "20 / month",
+                    "amount": 20.0,
+                    "respondents": 1,
+                    "counts": {
+                      "too_cheap": 0,
+                      "bargain": 0,
+                      "getting_expensive": 0,
+                      "too_expensive": 1
+                    },
+                    "acceptance": 0.0
+                  },
+                  {
+                    "label": "30 / month",
+                    "amount": 30.0,
+                    "respondents": 0,
+                    "counts": {
+                      "too_cheap": 0,
+                      "bargain": 0,
+                      "getting_expensive": 0,
+                      "too_expensive": 0
+                    },
+                    "acceptance": null
+                  }
+                ],
+                "acceptable_range": {
+                  "low": "10 / month",
+                  "low_amount": 10.0,
+                  "high": "10 / month",
+                  "high_amount": 10.0
+                },
+                "cliff": {
+                  "from": "10 / month",
+                  "to": "20 / month",
+                  "from_amount": 10.0,
+                  "to_amount": 20.0,
+                  "drop": 1.0
+                }
+              }
+            ]
+          },
+          "recorded_at": "2026-09-09T01:10:21.061933+00:00"
+        }
+      }
+    },
+    {
+      "tool": "get_price_ladder",
+      "input": {
+        "session_id": "council_price_ladder_fixture"
+      },
+      "value": {
+        "id": "council_price_ladder_fixture",
+        "prompt": "What changes the handover?",
+        "project_id": "project_fixture",
+        "created_at": "2026-09-09T01:10:21.056678+00:00",
+        "price_points": [
+          {
+            "label": "10 / month",
+            "amount": 10.0
+          },
+          {
+            "label": "20 / month",
+            "amount": 20.0
+          },
+          {
+            "label": "30 / month",
+            "amount": 30.0
+          }
+        ],
+        "responses": [
+          {
+            "persona_id": "persona_fixture",
+            "price": "10 / month",
+            "amount": 10.0,
+            "band": "bargain",
+            "quote": "Fits the small budget."
+          },
+          {
+            "persona_id": "persona_fixture",
+            "price": "10 / month",
+            "amount": 10.0,
+            "band": "bargain",
+            "quote": "Repeated authored response."
+          },
+          {
+            "persona_id": "persona_fixture",
+            "price": "20 / month",
+            "amount": 20.0,
+            "band": "too_expensive",
+            "quote": "No approval above this point."
+          }
+        ],
+        "result": {
+          "bands": [
+            "too_cheap",
+            "bargain",
+            "getting_expensive",
+            "too_expensive"
+          ],
+          "overall": {
+            "respondents": 1,
+            "points": [
+              {
+                "label": "10 / month",
+                "amount": 10.0,
+                "respondents": 2,
+                "counts": {
+                  "too_cheap": 0,
+                  "bargain": 2,
+                  "getting_expensive": 0,
+                  "too_expensive": 0
+                },
+                "acceptance": 1.0
+              },
+              {
+                "label": "20 / month",
+                "amount": 20.0,
+                "respondents": 1,
+                "counts": {
+                  "too_cheap": 0,
+                  "bargain": 0,
+                  "getting_expensive": 0,
+                  "too_expensive": 1
+                },
+                "acceptance": 0.0
+              },
+              {
+                "label": "30 / month",
+                "amount": 30.0,
+                "respondents": 0,
+                "counts": {
+                  "too_cheap": 0,
+                  "bargain": 0,
+                  "getting_expensive": 0,
+                  "too_expensive": 0
+                },
+                "acceptance": null
+              }
+            ],
+            "acceptable_range": {
+              "low": "10 / month",
+              "low_amount": 10.0,
+              "high": "10 / month",
+              "high_amount": 10.0
+            },
+            "cliff": {
+              "from": "10 / month",
+              "to": "20 / month",
+              "from_amount": 10.0,
+              "to_amount": 20.0,
+              "drop": 1.0
+            }
+          },
+          "segments": [
+            {
+              "segment": "unspecified",
+              "respondents": 1,
+              "points": [
+                {
+                  "label": "10 / month",
+                  "amount": 10.0,
+                  "respondents": 2,
+                  "counts": {
+                    "too_cheap": 0,
+                    "bargain": 2,
+                    "getting_expensive": 0,
+                    "too_expensive": 0
+                  },
+                  "acceptance": 1.0
+                },
+                {
+                  "label": "20 / month",
+                  "amount": 20.0,
+                  "respondents": 1,
+                  "counts": {
+                    "too_cheap": 0,
+                    "bargain": 0,
+                    "getting_expensive": 0,
+                    "too_expensive": 1
+                  },
+                  "acceptance": 0.0
+                },
+                {
+                  "label": "30 / month",
+                  "amount": 30.0,
+                  "respondents": 0,
+                  "counts": {
+                    "too_cheap": 0,
+                    "bargain": 0,
+                    "getting_expensive": 0,
+                    "too_expensive": 0
+                  },
+                  "acceptance": null
+                }
+              ],
+              "acceptable_range": {
+                "low": "10 / month",
+                "low_amount": 10.0,
+                "high": "10 / month",
+                "high_amount": 10.0
+              },
+              "cliff": {
+                "from": "10 / month",
+                "to": "20 / month",
+                "from_amount": 10.0,
+                "to_amount": 20.0,
+                "drop": 1.0
+              }
+            }
+          ]
+        },
+        "recorded_at": "2026-09-09T01:10:21.061933+00:00"
+      }
+    },
+    {
+      "tool": "price_ladder_analysis",
+      "input": {
+        "session_id": "council_price_ladder_fixture"
+      },
+      "value": {
+        "schema": "price_ladder_analysis",
+        "session_id": "council_price_ladder_fixture",
+        "project_id": "project_fixture",
+        "prompt": "What changes the handover?",
+        "bands": [
+          "too_cheap",
+          "bargain",
+          "getting_expensive",
+          "too_expensive"
+        ],
+        "overall": {
+          "respondents": 1,
+          "acceptable_range": {
+            "low": "10 / month",
+            "low_amount": 10.0,
+            "high": "10 / month",
+            "high_amount": 10.0
+          },
+          "cliff": {
+            "from": "10 / month",
+            "to": "20 / month",
+            "from_amount": 10.0,
+            "to_amount": 20.0,
+            "drop": 1.0
+          },
+          "points": [
+            {
+              "label": "10 / month",
+              "amount": 10.0,
+              "respondents": 2,
+              "counts": {
+                "too_cheap": 0,
+                "bargain": 2,
+                "getting_expensive": 0,
+                "too_expensive": 0
+              },
+              "acceptance": 1.0
+            },
+            {
+              "label": "20 / month",
+              "amount": 20.0,
+              "respondents": 1,
+              "counts": {
+                "too_cheap": 0,
+                "bargain": 0,
+                "getting_expensive": 0,
+                "too_expensive": 1
+              },
+              "acceptance": 0.0
+            },
+            {
+              "label": "30 / month",
+              "amount": 30.0,
+              "respondents": 0,
+              "counts": {
+                "too_cheap": 0,
+                "bargain": 0,
+                "getting_expensive": 0,
+                "too_expensive": 0
+              },
+              "acceptance": null
+            }
+          ]
+        },
+        "segments": [
+          {
+            "segment": "unspecified",
+            "respondents": 1,
+            "points": [
+              {
+                "label": "10 / month",
+                "amount": 10.0,
+                "respondents": 2,
+                "counts": {
+                  "too_cheap": 0,
+                  "bargain": 2,
+                  "getting_expensive": 0,
+                  "too_expensive": 0
+                },
+                "acceptance": 1.0
+              },
+              {
+                "label": "20 / month",
+                "amount": 20.0,
+                "respondents": 1,
+                "counts": {
+                  "too_cheap": 0,
+                  "bargain": 0,
+                  "getting_expensive": 0,
+                  "too_expensive": 1
+                },
+                "acceptance": 0.0
+              },
+              {
+                "label": "30 / month",
+                "amount": 30.0,
+                "respondents": 0,
+                "counts": {
+                  "too_cheap": 0,
+                  "bargain": 0,
+                  "getting_expensive": 0,
+                  "too_expensive": 0
+                },
+                "acceptance": null
+              }
+            ],
+            "acceptable_range": {
+              "low": "10 / month",
+              "low_amount": 10.0,
+              "high": "10 / month",
+              "high_amount": 10.0
+            },
+            "cliff": {
+              "from": "10 / month",
+              "to": "20 / month",
+              "from_amount": 10.0,
+              "to_amount": 20.0,
+              "drop": 1.0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tool": "record_red_team",
+      "input": {
+        "project_id": "project_fixture",
+        "prompt": "What changes the handover?",
+        "persona_ids": [
+          "persona_resolved_fixture_1"
+        ],
+        "summary": "A bounded synthetic example.",
+        "statements": [
+          {
+            "persona_id": "persona_resolved_fixture_1",
+            "text": "Keep the full final context."
+          }
+        ],
+        "stance": "both",
+        "objections": [
+          {
+            "persona_id": "persona_resolved_fixture_1",
+            "theme": "Ownership",
+            "text": "The final owner can still be absent.",
+            "severity": "unknown-native-token"
+          }
+        ],
+        "endorsements": [
+          {
+            "persona_id": "unresolved",
+            "theme": "Clarity",
+            "text": "The next shift sees the pending issue."
+          }
+        ]
+      },
+      "value": {
+        "id": "council_red_team_fixture",
+        "prompt": "What changes the handover?",
+        "persona_ids": [
+          "persona_resolved_fixture_1"
+        ],
+        "selection_reason": "red-team panel",
+        "proposal": "",
+        "votes": [],
+        "summary": "A bounded synthetic example.",
+        "created_at": "2026-09-09T01:10:21.070951+00:00",
+        "exec_summary": "",
+        "questions": [],
+        "project_id": "project_fixture",
+        "statements": [
+          {
+            "persona_id": "persona_resolved_fixture_1",
+            "text": "Keep the full final context.",
+            "id": "st1",
+            "meta": {
+              "claim_posture": "unsupported"
+            },
+            "refs": []
+          }
+        ],
+        "findings": [
+          {
+            "text": "Case against: 1 blocker themes from 1 personas; top blocker 'Ownership' (worst severity medium).",
+            "kind": "red_team",
+            "score": {
+              "blockers": 1,
+              "voices": 1
+            },
+            "meta": {
+              "case_against": {
+                "themes": [
+                  {
+                    "theme": "Ownership",
+                    "personas": [
+                      "persona_resolved_fixture_1"
+                    ],
+                    "count": 1,
+                    "items": [
+                      {
+                        "persona_id": "persona_resolved_fixture_1",
+                        "text": "The final owner can still be absent.",
+                        "severity": "medium",
+                        "severity_raw": "unknown-native-token"
+                      }
+                    ],
+                    "severity": "medium"
+                  }
+                ],
+                "theme_count": 1,
+                "voices": 1,
+                "total": 1,
+                "worst_severity": "medium",
+                "top_blocker": "Ownership"
+              },
+              "case_for": {
+                "themes": [
+                  {
+                    "theme": "Clarity",
+                    "personas": [
+                      "unresolved"
+                    ],
+                    "count": 1,
+                    "items": [
+                      {
+                        "persona_id": "unresolved",
+                        "text": "The next shift sees the pending issue."
+                      }
+                    ]
+                  }
+                ],
+                "theme_count": 1,
+                "voices": 0,
+                "total": 1
+              },
+              "stance": "both",
+              "claim_posture": "unsupported"
+            },
+            "id": "f1",
+            "refs": []
+          }
+        ],
+        "prompts": [
+          {
+            "text": "What changes the handover?",
+            "kind": "proposal",
+            "id": "red_team"
+          }
+        ],
+        "claim_posture": {
+          "schema": "sonaloop.claim_posture.v1",
+          "default": "unsupported",
+          "claims": [
+            {
+              "id": "st1",
+              "text": "Keep the full final context.",
+              "posture": "unsupported",
+              "refs": []
+            },
+            {
+              "id": "f1",
+              "text": "Case against: 1 blocker themes from 1 personas; top blocker 'Ownership' (worst severity medium).",
+              "posture": "unsupported",
+              "refs": []
+            }
+          ],
+          "counts": {
+            "inferred": 0,
+            "memory_grounded": 0,
+            "observed": 0,
+            "simulated": 0,
+            "unsupported": 2
+          },
+          "prose_uncovered": true,
+          "verified": false
+        },
+        "red_team": {
+          "stance": "both",
+          "roles": {
+            "persona_resolved_fixture_1": {
+              "id": "skeptic",
+              "name": "Skeptic",
+              "lens": "Doubt the core claim. Why might it simply not be true / not work for you?"
+            }
+          },
+          "objections": [
+            {
+              "persona_id": "persona_resolved_fixture_1",
+              "theme": "Ownership",
+              "text": "The final owner can still be absent.",
+              "severity": "unknown-native-token"
+            }
+          ],
+          "endorsements": [
+            {
+              "persona_id": "unresolved",
+              "theme": "Clarity",
+              "text": "The next shift sees the pending issue."
+            }
+          ],
+          "case_against": {
+            "themes": [
+              {
+                "theme": "Ownership",
+                "personas": [
+                  "persona_resolved_fixture_1"
+                ],
+                "count": 1,
+                "items": [
+                  {
+                    "persona_id": "persona_resolved_fixture_1",
+                    "text": "The final owner can still be absent.",
+                    "severity": "medium",
+                    "severity_raw": "unknown-native-token"
+                  }
+                ],
+                "severity": "medium"
+              }
+            ],
+            "theme_count": 1,
+            "voices": 1,
+            "total": 1,
+            "worst_severity": "medium",
+            "top_blocker": "Ownership"
+          },
+          "case_for": {
+            "themes": [
+              {
+                "theme": "Clarity",
+                "personas": [
+                  "unresolved"
+                ],
+                "count": 1,
+                "items": [
+                  {
+                    "persona_id": "unresolved",
+                    "text": "The next shift sees the pending issue."
+                  }
+                ]
+              }
+            ],
+            "theme_count": 1,
+            "voices": 0,
+            "total": 1
+          },
+          "recorded_at": "2026-09-09T01:10:21.077740+00:00"
+        }
+      }
+    },
+    {
+      "tool": "get_red_team",
+      "input": {
+        "session_id": "council_red_team_fixture"
+      },
+      "value": {
+        "id": "council_red_team_fixture",
+        "prompt": "What changes the handover?",
+        "project_id": "project_fixture",
+        "created_at": "2026-09-09T01:10:21.070951+00:00",
+        "stance": "both",
+        "roles": {
+          "persona_resolved_fixture_1": {
+            "id": "skeptic",
+            "name": "Skeptic",
+            "lens": "Doubt the core claim. Why might it simply not be true / not work for you?"
+          }
+        },
+        "objections": [
+          {
+            "persona_id": "persona_resolved_fixture_1",
+            "theme": "Ownership",
+            "text": "The final owner can still be absent.",
+            "severity": "unknown-native-token"
+          }
+        ],
+        "endorsements": [
+          {
+            "persona_id": "unresolved",
+            "theme": "Clarity",
+            "text": "The next shift sees the pending issue."
+          }
+        ],
+        "case_against": {
+          "themes": [
+            {
+              "theme": "Ownership",
+              "personas": [
+                "persona_resolved_fixture_1"
+              ],
+              "count": 1,
+              "items": [
+                {
+                  "persona_id": "persona_resolved_fixture_1",
+                  "text": "The final owner can still be absent.",
+                  "severity": "medium",
+                  "severity_raw": "unknown-native-token"
+                }
+              ],
+              "severity": "medium"
+            }
+          ],
+          "theme_count": 1,
+          "voices": 1,
+          "total": 1,
+          "worst_severity": "medium",
+          "top_blocker": "Ownership"
+        },
+        "case_for": {
+          "themes": [
+            {
+              "theme": "Clarity",
+              "personas": [
+                "unresolved"
+              ],
+              "count": 1,
+              "items": [
+                {
+                  "persona_id": "unresolved",
+                  "text": "The next shift sees the pending issue."
+                }
+              ]
+            }
+          ],
+          "theme_count": 1,
+          "voices": 0,
+          "total": 1
+        },
+        "recorded_at": "2026-09-09T01:10:21.077740+00:00"
+      }
+    },
+    {
+      "tool": "query_councils",
+      "input": {
+        "project_id": "project_fixture",
+        "limit": 1
+      },
+      "value": {
+        "substrate_version": 1,
+        "total": 3,
+        "limit": 1,
+        "offset": 0,
+        "next_offset": 1,
+        "items": [
+          {
+            "id": "council_red_team_fixture",
+            "project_id": "project_fixture",
+            "prompt": "What changes the handover?",
+            "persona_ids": [
+              "persona_resolved_fixture_1"
+            ],
+            "statements": 1,
+            "votes": 0,
+            "questions": 0,
+            "created_at": "2026-09-09T01:10:21.070951+00:00"
+          }
+        ]
+      }
+    }
+  ]
+}

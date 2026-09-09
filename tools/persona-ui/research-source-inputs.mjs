@@ -28,6 +28,8 @@ export const commonSourceInputs = [
 ];
 
 export const familySourceInputs = {
+  references: ['sonaloop/ui_components/references.py', 'sonaloop/web/pages/library.py'],
+  assets: ['sonaloop/ui_components/assets.py', 'sonaloop/web/pages/assets.py'],
   notes: ['sonaloop/web/pages/library.py'],
   sections: ['sonaloop/web/pages/library.py'],
   projects: ['sonaloop/ui_components/discovery.py', 'sonaloop/web/pages/projects.py'],
@@ -36,7 +38,7 @@ export const familySourceInputs = {
   decisions: ['sonaloop/ui_components/bets.py', 'sonaloop/web/pages/decisions.py'],
   // Product Council sentiment and Session funnel charts share _synthesis.py;
   // they do not use the Synthesis family's full report renderer.
-  councils: ['sonaloop/ui_components/councils.py', 'sonaloop/web/pages/councils.py', 'sonaloop/web/_synthesis.py'],
+  councils: ['tools/persona-ui/fixtures/council-formats.json', 'sonaloop/ui_components/councils.py', 'sonaloop/ui_components/council_formats.py', 'sonaloop/web/pages/councils.py', 'sonaloop/web/_synthesis.py'],
   surveys: ['sonaloop/ui_components/surveys.py', 'sonaloop/web/pages/surveys.py'],
   syntheses: ['sonaloop/ui_components/syntheses.py', 'sonaloop/ui_components/reports.py',
     'sonaloop/web/_report.py', 'sonaloop/web/_synthesis.py', 'sonaloop/web/pages/syntheses.py',

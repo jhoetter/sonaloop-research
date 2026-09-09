@@ -90,7 +90,7 @@ accepted human review remain separate from the ledger's classifications.
 ## Passive shared views
 
 Notes, Sections, Projects, Search, Hypotheses, Decisions, Councils, Surveys,
-Syntheses/Reports and Sessions
+Syntheses/Reports, Sessions, Files and captured URL References
 have passive MCP resources registered on
 existing native tools. `registry.py` names each exact tool/result projection;
 only those names receive `supported` rows. The Note and Section detail pages,
@@ -120,7 +120,17 @@ statement keeps its own trust/context information even when grouped with other
 statements by the same persona. List summaries show the native participant,
 voice and vote counts without inventing a transcript. Full records must contain
 native `statements`; legacy or unknown shapes retain ordinary tool output.
-Embedded head-to-head/red-team verdicts display their stored aggregates.
+Head-to-head, price-ladder and red-team results reuse the complete product format
+bodies: supplied preferences, abstentions, variant metadata, price responses and
+recorded aggregate counts, objections, endorsements and roles. The renderer never
+recomputes a preference, acceptable price range or acceptance drop. Missing answers
+remain unanswered; repeated price responses retain their native count. A theme may
+contain more entries than resolved persona voices, so both native quantities remain
+visible. Writer results retain their full Council voices and claim-posture notices;
+flattened getters do not invent a transcript. Offset-based Council queries keep their
+integer statement/vote/question counts separate from cursor-based list summaries.
+Native free-text direction values such as `both` remain literal labels in passive
+findings; they do not become a normalized numeric stance.
 
 Survey instruments share the product question body and distinguish an unknown
 response count from an actual zero. Result views show native per-option counts
@@ -154,6 +164,20 @@ Funnel views preserve native entered/continued/dropped counts, drop reasons and
 completed totals; they do not run another session or recompute its verdict.
 All existing recording, memory, authorization and idempotency rules stay in the
 original native tool; displaying the result adds no new operation.
+
+File views reuse the product's file identity, full supplied excerpt and provenance
+body. They retain native filenames, media types, size, source, timestamps and
+supersession references. Image metadata does not become an image fetch: these cards
+say when no pixels were supplied. `view_asset` image results are not yet registered
+by this passive metadata family. Confirmed detach results show the native count,
+including zero, and state that content-addressed file bytes are retained.
+
+Captured URL References reuse the product snapshot body. The passive view keeps
+all supplied headings and text; the product retains its compact clamped layout.
+A skipped capture stays distinct from a failed capture or a successful snapshot.
+A successful empty page is labeled as captured without text in both product and App.
+URLs remain literal text, and no view recaptures or navigates to them. A confirmed
+reference deletion displays only the native deletion count.
 
 The MCP adapter calls each original native function once. FastMCP's original
 input/output metadata remains in place, including the bare `search` and `fetch`
@@ -247,3 +271,11 @@ resource digest bind browser dependencies, and execution/raster receipts retain
 their separate runtime and synthetic-data boundaries. Mutation tests show which
 shared and family-owned source changes alter each Component identity without
 modifying actual source files during testing.
+
+A family with more than eight projection names uses nested, disjoint `oneOf`
+groups. Every union level retains the existing eight-branch bound and each tool
+name retains its own required view-model fields. This does not merge unlike
+writer/getter shapes or loosen native validation. The static Council format
+examples come from isolated temporary-Store compatibility tests, with fixture ID
+aliases and transient execution/navigation fields removed. Rendering these
+examples never invokes their recorded tool inputs.

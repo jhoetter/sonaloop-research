@@ -42,7 +42,7 @@ function boundSchema(value, depth = 0) {
   if (depth >= 10 && typeof value.type === 'string') return { type: value.type };
   return Object.fromEntries(Object.entries(value).map(([key, child]) => [key, boundSchema(child, depth + 1)]));
 }
-const labels = { notes: 'Notes', sections: 'Sections', projects: 'Projects', search: 'Search',
+const labels = { references: 'Captured References', assets: 'Files and Evidence', notes: 'Notes', sections: 'Sections', projects: 'Projects', search: 'Search',
   hypotheses: 'Hypotheses', decisions: 'Decisions', councils: 'Councils', surveys: 'Surveys',
   syntheses: 'Syntheses and Reports', sessions: 'Sessions and Funnels' };
 const { fixtures } = await nativeFixtureSet();
@@ -56,12 +56,18 @@ for (const [family, name] of Object.entries(labels)) {
     props: { name: item.tool, value: ['search', 'fetch'].includes(item.tool) ? item.native : item.native.data } }));
   for (const item of scenarios) assert.ok(Buffer.byteLength(canonical(item.props)) <= 8192);
   const projectionNames = [...new Set(scenarios.map(item => item.props.name))];
+  const selectors = projectionNames.map(name => ({ type: 'object', additionalProperties: false,
+    properties: { name: { type: 'string', const: name },
+      value: shape(scenarios.filter(item => item.props.name === name).map(item => item.props.value)) },
+    required: ['name', 'value'] }));
+  // Name selectors remain disjoint and retain each projection's own required
+  // fields. Nested bounded groups preserve the eight-branch schema limit.
+  const selection = selectors.length <= 8 ? selectors : Array.from({ length: Math.ceil(selectors.length / 8) },
+    (_, index) => ({ type: 'object', oneOf: selectors.slice(index * 8, index * 8 + 8) }));
+  assert.ok(selection.length <= 8, 'Too many distinct public projection selectors');
   const propsSchema = boundSchema({ $schema: 'https://json-schema.org/draft/2020-12/schema', type: 'object',
     description: 'Authored public input to render_component_props(component_id, {name, value}). Name selects an existing pure projection; value supplies its synthetic view-model DTO. Deep compound values retain their JSON type; the selected renderer checks its required presentation fields. This does not replace native business validation or call an MCP tool.',
-    oneOf: projectionNames.map(name => ({ type: 'object', additionalProperties: false,
-      properties: { name: { type: 'string', const: name },
-        value: shape(scenarios.filter(item => item.props.name === name).map(item => item.props.value)) },
-      required: ['name', 'value'] })) });
+    oneOf: selection });
   const requiredStates = ['focus', 'loading', 'disabled', 'empty', 'error', 'success'].map(state => ({ state,
     disposition: ['focus', 'disabled'].includes(state) ? 'not_applicable' : 'applicable',
     scenarioIds: scenarios.filter(item => item.state === ({ empty: 'empty', success: 'ready' }[state] || '')).map(item => item.id),

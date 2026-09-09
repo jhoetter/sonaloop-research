@@ -4,8 +4,8 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { launchBrowser, openApp, nativeFixtureSet, toolResult, repo, sha, pngDimensions, loadAsset } from './research-browser.mjs';
 
-let browser, fixtures, declarations;
-before(async () => { browser = await launchBrowser(); ({ fixtures, declarations } = await nativeFixtureSet()); });
+let browser, fixtures, declarations, noteFixture;
+before(async () => { browser = await launchBrowser(); ({ fixtures, declarations } = await nativeFixtureSet()); noteFixture = fixtures.find(item => item.scenario === 'notes-ready'); assert.equal(noteFixture.tool, 'list_notes'); });
 after(async () => { await browser?.close(); });
 
 for (const [locale, label] of [['en', 'Loading view…'], ['de', 'Ansicht wird geladen…']])
@@ -22,7 +22,7 @@ for (const [locale, label] of [['en', 'Loading view…'], ['de', 'Ansicht wird g
 test('logging notification failure cannot erase a successfully rendered native result', async () => {
   const session = await openApp(browser, { rejectLogging: true });
   try {
-    await session.send(fixtures[0].result, fixtures[0].input);
+    await session.send(noteFixture.result, noteFixture.input);
     await session.root.evaluate(async () => {
       for (let attempt = 0; attempt < 120 && !globalThis.__loggingTransportFailures; attempt++)
         await new Promise(resolve => requestAnimationFrame(resolve));
@@ -38,7 +38,7 @@ test('logging notification failure cannot erase a successfully rendered native r
 });
 
 test('all built resources bind the passive manifest, source and declared tools', async () => {
-  for (const family of ['notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions', 'surveys', 'councils', 'syntheses', 'sessions']) {
+  for (const family of ['references', 'assets', 'notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions', 'surveys', 'councils', 'syntheses', 'sessions']) {
     const { manifest } = await loadAsset(family, { verifySources: true });
     const tools = declarations.filter(item => item.componentId === manifest.component_id);
     assert.ok(tools.length > 0);
@@ -141,7 +141,7 @@ test('packaged resource keeps hostile result HTML passive inside the MCP Apps sa
 test('passive native reference keeps the final qualifier and source anchor after sanitizing', async () => {
   const session = await openApp(browser, { viewport: { width: 390, height: 900 } });
   try {
-    await session.send(toolResult(fixtures[0].passive_reference_html));
+    await session.send(toolResult(noteFixture.passive_reference_html));
     await session.rendered();
     const text = await session.root.innerText();
     assert.ok(text.includes('An observation with substantial context. '.repeat(12).trim()));
@@ -194,11 +194,14 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
   'councils-voices', 'councils-input', 'councils-list', 'councils-empty',
   'syntheses-convergence', 'syntheses-report', 'syntheses-outline', 'syntheses-empty',
   'sessions-completed', 'sessions-dropped', 'sessions-salience', 'sessions-prototype', 'sessions-funnel', 'sessions-funnel-empty', 'sessions-empty',
+  'councils-record-head-to-head', 'councils-get-head-to-head', 'councils-record-price-ladder', 'councils-get-price-ladder', 'councils-price-ladder-analysis', 'councils-record-red-team', 'councils-get-red-team', 'councils-query-councils',
+  'references-added', 'references-detail', 'references-list', 'references-empty', 'references-failed', 'references-deleted',
+  'assets-attached', 'assets-detail', 'assets-list', 'assets-empty', 'assets-shot', 'assets-admitted', 'assets-detached', 'assets-missing',
   'notes-created', 'notes-data', 'sections-created', 'sections-updated', 'sections-added', 'sections-removed', 'sections-members-set',
   'hypotheses-result-recorded', 'surveys-detail', 'syntheses-recorded', 'sessions-flow-funnel', 'councils-recorded'])
   test(`actual packaged MCP Apps bridge renders shared native ${scenario} HTML`, async () => {
     const fixture = fixtures.find(item => item.scenario === scenario);
-    const height = ['sessions', 'syntheses'].includes(fixture.family) ? 1800 : 844;
+    const height = ['sessions', 'syntheses', 'councils'].includes(fixture.family) ? 3800 : 844;
     const session = await openApp(browser, { family: fixture.family, viewport: { width: 390, height } });
     try {
       await session.send(fixture.result, fixture.input);
@@ -271,6 +274,18 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
           assert.equal(await session.root.locator('blockquote').count(), 2);
           assert.ok(text.includes('Only applies during the pilot.') && text.includes('2 / 3'));
         } else assert.ok(text.includes('1 responses processed') && text.includes('3 responses'));
+      } else if (scenario.startsWith('councils-') && ['record-head-to-head', 'get-head-to-head', 'record-price-ladder', 'get-price-ladder', 'price-ladder-analysis', 'record-red-team', 'get-red-team', 'query-councils'].some(suffix => scenario === 'councils-' + suffix)) {
+        const text = await session.root.innerText();
+        assert.ok(text.includes('What changes the handover?'));
+        if (scenario.includes('price')) {
+          assert.ok(text.includes('Not answered') && text.includes('bargain: 2'));
+          if (!scenario.includes('analysis')) assert.ok(text.includes('Repeated authored response.'));
+          else assert.ok(!text.includes('Repeated authored response.'));
+        } else if (scenario.includes('head-to-head')) for (const value of ['Neither fits the night shift.', 'Intensity: 0', 'B → A', 'variant_a']) assert.ok(text.includes(value), value);
+        else if (scenario.includes('red-team')) for (const value of ['The final owner can still be absent.', 'unknown-native-token']) assert.ok(text.includes(value), value);
+        else assert.ok(text.includes('Offset 0') && text.includes('1 statements · 0 votes · 0 questions'));
+        if (scenario.includes('-record-')) assert.ok(text.includes('Keep the full final context.') && await session.root.locator('.sl-research-claim-notice').count() > 0);
+        else assert.equal(await session.root.locator('.sl-research-council-voices').count(), 0);
       } else if (scenario.startsWith('councils-') && scenario !== 'councils-empty') {
         const text = await session.root.innerText();
         assert.ok(text.includes('What interrupts the handover?'));
@@ -339,6 +354,29 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
             if (scenario === 'sessions-salience') for (const value of ['Owner salience hypothesis', 'x: 10%', 'not eye-tracking']) assert.ok(text.includes(value), value);
           }
         }
+      } else if (scenario.startsWith('references-') && scenario !== 'references-empty') {
+        const text = await session.root.innerText();
+        if (scenario === 'references-deleted') assert.ok(text.includes('1 references removed'));
+        else {
+          assert.ok(text.includes('Handover concept') && text.includes('https://example.invalid/handover'));
+          if (scenario === 'references-added') assert.ok(text.includes('Capture skipped') && !text.includes('next shift'));
+          else if (scenario === 'references-failed') assert.ok(text.includes('Synthetic capture failure'));
+          else assert.ok(text.includes('Only the supplied snapshot is shown.') && text.includes('Current owner'));
+        }
+        assert.equal(await session.root.locator('a,img,iframe,button').count(), 0);
+      } else if (scenario.startsWith('assets-') && scenario !== 'assets-empty') {
+        const text = await session.root.innerText();
+        if (['assets-detached', 'assets-missing'].includes(scenario)) {
+          assert.ok(text.includes(`${scenario === 'assets-detached' ? 1 : 0} files detached`));
+          assert.ok(text.includes('file contents remain'));
+        } else {
+          assert.ok(text.includes('Handover') && text.includes('Provenance'));
+          assert.ok(text.includes(scenario === 'assets-detail' ? 'synthesis:synthesis_fixture' : scenario === 'assets-shot' ? 'prototype:prototype_fixture' : scenario === 'assets-admitted' ? 'remote_mcp:direct_upload' : 'Authored fixture text'));
+          if (['assets-admitted', 'assets-shot'].includes(scenario)) assert.ok(text.includes('image pixels were not supplied'));
+          if (scenario === 'assets-list') assert.ok(!text.includes('Keep the owner clear.'));
+          if (scenario === 'assets-detail') assert.ok(text.includes('handover-v1.txt') && text.includes('Keep the owner clear.'));
+        }
+        assert.equal(await session.root.locator('img,a,button,details').count(), 0);
       } else assert.equal(await session.root.locator('.sl-research-empty').count(), 1);
       assert.ok(await session.frame.locator('html').evaluate(node => node.scrollWidth <= innerWidth));
       const box = await session.root.boundingBox();
@@ -363,7 +401,7 @@ const invalid = {
 for (const [name, mutate] of Object.entries(invalid)) test(`${name} shows truthful fallback and clears prior rendered data`, async () => {
   const session = await openApp(browser);
   try {
-    const result = structuredClone(fixtures[0].result);
+    const result = structuredClone(noteFixture.result);
     await session.send(result);
     await session.rendered();
     mutate(result);

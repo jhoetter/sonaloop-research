@@ -226,7 +226,35 @@ prototype_session = {"id": "ps_fixture", "persona_id": "persona_fixture", "proto
     "prototype_version": "v0.7", "grounded_verified": False, "reaction": prototype_reaction}
 funnel = {"subject": {"kind": "flow", "key": "flow_fixture"}, "sessions": 3, "completed": 2,
     "rows": [{"step": 0, "entered": 3, "continued": 2, "dropped": 1, "drop_reasons": ["The next action was missing"]}]}
+asset = {"id": "asset_fixture", "kind": "document", "filename": "handover.txt", "title": "Handover evidence",
+    "notes": "Synthetic file for component review, not research evidence.", "source": "Authored fixture text", "direction": "in",
+    "media_type": "text/plain", "bytes": 21, "text_excerpt": "Keep the owner clear.", "created_at": "2026-09-09T00:00:00Z"}
+asset_image = {**asset, "kind": "screenshot", "filename": "handover.png", "title": "Handover screenshot metadata",
+    "media_type": "image/png", "bytes": 70, "text_excerpt": "", "source": "prototype:prototype_fixture"}
+asset_prototype_shot = {**asset_image, "filename": "0123456789abcdef.png", "bytes": 74832}
+asset_deliverable = {**asset, "direction": "out", "source": "synthesis:synthesis_fixture", "supersedes": [
+    {"id": "asset_previous", "filename": "handover-v1.txt", "created_at": "2026-09-08T00:00:00Z"}]}
+reference = {"id": "reference_fixture", "kind": "variant", "url": "https://example.invalid/handover", "title": "Handover concept", "label": "A", "captured_at": "2026-09-09T00:00:00Z",
+    "snapshot": {"ok": True, "mode": "text", "description": "Synthetic captured page content.", "headings": ["Current owner", "Unresolved questions"], "text": "The next shift can find the current owner.\nOnly the supplied snapshot is shown."}}
+reference_skipped = {**reference, "snapshot": {"ok": False, "mode": "skipped", "description": "", "headings": [], "text": ""}}
 specs = [
+    ("references-added", "references", "add_artifact", {"project_id": "project_fixture", "url": reference["url"], "kind": "variant", "title": reference["title"], "label": "A", "capture": False}, reference_skipped),
+    ("references-detail", "references", "get_artifact", {"project_id": "project_fixture", "artifact_id": "reference_fixture"}, reference),
+    ("references-list", "references", "list_artifacts", {"project_id": "project_fixture"}, [reference]),
+    ("references-empty", "references", "list_artifacts", {"project_id": "project_fixture"}, []),
+    ("references-failed", "references", "get_artifact", {"project_id": "project_fixture", "artifact_id": "reference_fixture"}, {**reference, "snapshot": {"ok": False, "mode": "unavailable", "headings": [], "error": "Synthetic capture failure"}}),
+    ("references-deleted", "references", "delete_artifact", {"project_id": "project_fixture", "artifact_id": "reference_fixture"}, {"deleted": 1}),
+    ("assets-attached", "assets", "attach_asset", {"project_id": "project_fixture", "content_base64": "S2VlcCB0aGUgb3duZXIgY2xlYXIu", "filename": asset["filename"], "title": asset["title"], "notes": asset["notes"], "source": asset["source"]}, asset),
+    ("assets-detail", "assets", "get_asset", {"project_id": "project_fixture", "asset_id": "asset_fixture"}, asset_deliverable),
+    ("assets-list", "assets", "list_assets", {"project_id": "project_fixture"}, [{key: value for key, value in asset.items() if key != "text_excerpt"}]),
+    ("assets-empty", "assets", "list_assets", {"project_id": "project_fixture"}, []),
+    ("assets-shot", "assets", "attach_prototype_shot", {"project_id": "project_fixture", "prototype_id": "prototype_fixture", "title": asset_prototype_shot["title"], "notes": asset_prototype_shot["notes"]}, asset_prototype_shot),
+    ("assets-admitted", "assets", "admit_remote_screenshot", {"project_id": "project_fixture", "run_id": "run_fixture", "operation_id": "upload_fixture",
+        "content_base64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", "filename": "handover.png", "media_type": "image/png",
+        "captured_at": "2026-09-09T00:00:00Z", "target_revision": "fixture_v1", "title": asset_image["title"], "dispatch_token": "synthetic_dispatch"},
+        {**asset_image, "source": "remote_mcp:direct_upload", "notes": "", "idempotent_replay": False}),
+    ("assets-detached", "assets", "remove_asset", {"project_id": "project_fixture", "asset_id": "asset_fixture"}, {"deleted": 1}),
+    ("assets-missing", "assets", "remove_asset", {"project_id": "project_fixture", "asset_id": "asset_missing"}, {"deleted": 0}),
     ("notes-ready", "notes", "list_notes", {"project_id": "project_fixture"}, {"items": [note], "total": 1, "has_more": False}),
     ("notes-empty", "notes", "list_notes", {"project_id": "project_fixture"}, {"items": [], "total": 0, "has_more": False}),
     ("sections-ready", "sections", "get_section_members", {"section_id": "section_fixture"}, {"section": section, "members": members}),
@@ -300,6 +328,9 @@ for path in Path("sonaloop/mcp_server").glob("_tools*.py"):
             required |= {arg.arg for arg, default in zip(node.args.kwonlyargs, node.args.kw_defaults) if default is None}
             signatures[node.name] = names, required
 output = []
+# Checked synthetic DTOs from isolated native compatibility tests; never execute inputs.
+for case in json.loads(Path("tools/persona-ui/fixtures/council-formats.json").read_text())["cases"]:
+    specs.append(("councils-" + case["tool"].replace("_", "-"), "councils", case["tool"], case["input"], case["value"]))
 for scenario, family, tool, arguments, data in specs:
     names, required = signatures[tool]
     assert set(arguments) <= names and required <= set(arguments), (scenario, "Invalid native fixture arguments")
@@ -343,10 +374,12 @@ export async function exportScenarios(outputParent = process.env.RESEARCH_SCENAR
   await mkdir(outputParent, { recursive: true });
   const output = await mkdtemp(resolve(outputParent, 'run-'));
   const { fixtures, declarations } = await nativeFixtureSet();
-  const failed = { ...fixtures[0], scenario: 'notes-error', state: 'unavailable',
+  const noteFixture = fixtures.find(item => item.scenario === 'notes-ready');
+  assert.ok(noteFixture && noteFixture.tool === 'list_notes' && noteFixture.family === 'notes');
+  const failed = { ...noteFixture, scenario: 'notes-error', state: 'unavailable',
     result: { isError: true, content: [{ type: 'text', text: 'Synthetic native tool failure; no operation was invoked.' }] } };
-  const scenarios = [...fixtures, failed].map(fixture => ({ fixture, viewport: { width: 390, height: ['sessions', 'syntheses'].includes(fixture.family) ? 1800 : 844 } }));
-  scenarios.unshift({ fixture: fixtures[0], viewport: { width: 960, height: 900 } });
+  const scenarios = [...fixtures, failed].map(fixture => ({ fixture, viewport: { width: 390, height: ['sessions', 'syntheses', 'councils'].includes(fixture.family) ? 3800 : 844 } }));
+  scenarios.unshift({ fixture: noteFixture, viewport: { width: 960, height: 900 } });
   const rendererBytes = await readFile(fileURLToPath(import.meta.url)), bundle = await hostBundle();
   const { stdout: commit } = await execFile('git', ['rev-parse', 'HEAD'], { cwd: repo });
   const { stdout: dirty } = await execFile('git', ['status', '--porcelain'], { cwd: repo });

@@ -152,7 +152,7 @@ def render_claim_posture_notice(record: dict, store=None, *, passive: bool = Fal
                exact_refs))
 
 
-def render_stance(st: dict | None, *, passive: bool = False) -> str:
+def render_stance(st: dict | str | None, *, passive: bool = False) -> str:
     """The one stance chip — label + color resolved from the canonical VALUE via the data-driven scale
     (artifacts.stance_meta → i18n label_key). Stored label strings never pick the key: a compatibility free
     label ('mixed') is ignored, an unresolvable host token (`label_raw`) only surfaces as the tooltip.
@@ -161,6 +161,8 @@ def render_stance(st: dict | None, *, passive: bool = False) -> str:
     if not st:
         return ""
     if passive:
+        if isinstance(st, str):
+            return h("span", {"class_": "sl-research-badge"}, st)
         return h("span", {"class_": "sl-research-badge"}, str(st.get("value", "")),
                  f' · {st["label"]}' if st.get("label") else None,
                  f' · {st["label_raw"]}' if st.get("label_raw") else None)

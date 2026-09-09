@@ -41,7 +41,6 @@ def _provenance_section(a: dict, store) -> str:
     the supersede chain when recorded · notes — the sl-props row contract, so provenance reads
     like structure, not prose. The Generated/Received verb already states the direction; the
     header pill is the page's ONE direction encoding (round-4 J2: no repeats)."""
-    is_out = asset_direction(a) == "out"
     when = ui.local_ts(a.get("created_at") or "")
     chain = a.get("supersedes") or []
     chain_html = fragment(*(
@@ -49,22 +48,10 @@ def _provenance_section(a: dict, store) -> str:
           s.get("filename", "") or s.get("id", ""), " · ",
           ui.local_ts(s.get("created_at") or ""))
         for s in chain)) if chain else None
-    rows = [
-        ("dot", t("asset_generated") if is_out else t("asset_received"), when),
-        ("link", t("asset_source"), raw(asset_source_chip(a, store))),
-        ("download", t("asset_supersedes"), chain_html),
-        ("panel", t("notes_h"), a.get("notes", "")),
-    ]
-    props = [h("div", {"class_": "sl-prop"},
-               h("span", {"class_": "sl-prop__k"}, raw(_icon(ic)), lbl),
-               h("span", {"class_": "sl-prop__v"}, val))
-             for ic, lbl, val in rows if val not in (None, "", "—")]
-    # The same .sec/h2 heading idiom as the page's other sections (sec-file, sec-excerpt);
-    # the rows ride the QUIET frameless props contract (V9: the file card is the hero,
-    # provenance reads as quiet structure below it).
-    return h("div", {"class_": "sec", "id": "sec-provenance"},
-             h("h2", {}, t("provenance_h")),
-             h("div", {"class_": "sl-props sl-props--quiet"}, fragment(*props)))
+    from ...ui_components.assets import provenance_content
+    return provenance_content(a, source=raw(asset_source_chip(a, store)),
+                              when=when, chain=chain_html)
+
 
 
 def register_assets(app) -> None:
@@ -98,14 +85,10 @@ def register_assets(app) -> None:
         title = a.get("title") or a.get("filename", "")
         excerpt = (a.get("text_excerpt") or "").strip()
         preview = asset_preview_html(a)
-        body = fragment(
-            raw(preview),
-            h("div", {"class_": "sec", "id": "sec-file"},
-              raw(asset_file_card(a, stage=not preview))),
-            (h("div", {"class_": "sec", "id": "sec-excerpt"},
-               h("h2", {}, t("asset_excerpt_h")),
-               ui.clamp(excerpt, threshold=ui.SECTION_CLAMP)) if excerpt else None),
-            raw(_provenance_section(a, store)))
+        from ...ui_components.assets import asset_content
+        body = asset_content(a, preview=raw(preview),
+                             file_card=raw(asset_file_card(a, stage=not preview)),
+                             provenance=raw(_provenance_section(a, store)))
         proj_link = h("a", {"href": f'/jobs/{proj["id"]}'}, proj["title"])
         prop_rows = [
             ("projects", t("project"), proj_link),

@@ -508,13 +508,11 @@ def asset_file_card(asset: dict, *, stage: bool = True) -> str:
     url = asset_content_url(asset) or "#"
     link = ({"href": url, "download": asset.get("filename", "")} if is_out
             else {"href": url, "target": "_blank", "rel": "noopener"})
-    meta = " · ".join(x for x in (asset_size(asset), asset.get("media_type", "")) if x)
+    from ..ui_components.assets import file_identity
     return h("a", {"class_": "sl-file", **link},
              raw(file_stage(asset, thumb=False)) if stage else None,
              h("div", {"class_": "sl-file__body"},
-               h("div", {"class_": "sl-file__info"},
-                 h("span", {"class_": "sl-file__name"}, asset.get("filename", "")),
-                 h("span", {"class_": "sl-file__meta"}, meta)),
+               file_identity(asset),
                h("span", {"class_": "sl-file__action"},
                  h("span", {"class_": "sl-entity__action"},
                    raw(_icon("download" if is_out else "external"))))))

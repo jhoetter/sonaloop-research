@@ -82,3 +82,25 @@ def test_schema_keeps_required_fields_bound_to_the_selected_projection(family, n
     assert not validator.is_valid({"name": name, "value": {}})
     assert not validator.is_valid({"name": name, "value": {"items": []}})
     assert not validator.is_valid({"name": name, "value": {"sessions": []}})
+
+
+def test_large_family_uses_bounded_disjoint_selectors_without_weakening_required_fields():
+    declaration = json.loads((DIRECTORY / "councils.json").read_text())
+    names = {scenario["props"]["name"] for scenario in declaration["scenarios"]}
+    assert len(names) > 8
+    def inspect(value):
+        if isinstance(value, list):
+            for item in value: inspect(item)
+        elif isinstance(value, dict):
+            for key, child in value.items():
+                if key in {"anyOf", "oneOf", "allOf"}:
+                    assert 0 < len(child) <= 8
+                inspect(child)
+    inspect(declaration["propsSchema"])
+    validator = Draft202012Validator(declaration["propsSchema"])
+    for name in names:
+        assert not validator.is_valid({"name": name, "value": {}}), name
+    for name in ("record_head_to_head", "get_price_ladder", "query_councils"):
+        props = next(row["props"] for row in declaration["scenarios"] if row["props"]["name"] == name)
+        assert validator.is_valid(props)
+        assert not validator.is_valid({**props, "name": "get_council"})

@@ -90,7 +90,17 @@ def test_native_schema_text_and_structured_output_are_unchanged():
 def test_every_registered_surface_has_a_real_projection_and_resource(name):
     server = build_server()
     tool = server._tool_manager._tools[name]
-    if name in {"record_synthesis", "get_synthesis", "record_synthesis_outline", "record_synthesis_section"}:
+    formats = json.loads((Path(__file__).parents[1] / "tools/persona-ui/fixtures/council-formats.json").read_text())["cases"]
+    format_case = next((case for case in formats if case["tool"] == name), None)
+    if format_case:
+        data = format_case["value"]
+    elif SURFACES[name].family == "references":
+        reference = {"id": "r", "kind": "url", "title": "Reference", "url": "https://example.invalid/", "snapshot": {"ok": False, "mode": "skipped", "headings": [], "text": ""}}
+        data = [reference] if name == "list_artifacts" else {"deleted": 1} if name == "delete_artifact" else reference
+    elif SURFACES[name].family == "assets":
+        asset = {"id": "asset_one", "filename": "notes.txt", "kind": "document", "media_type": "text/plain", "bytes": 6, "text_excerpt": "Notes."}
+        data = [asset] if name == "list_assets" else {"deleted": 1} if name == "remove_asset" else asset
+    elif name in {"record_synthesis", "get_synthesis", "record_synthesis_outline", "record_synthesis_section"}:
         data = SYNTHESIS
     elif name == "list_syntheses":
         data = [SYNTHESIS]

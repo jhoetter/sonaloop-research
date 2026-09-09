@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Callable
 
 from .library import collection, note_card, section_card
-from . import bets, councils, discovery, surveys, syntheses, sessions, session_funnels
+from . import references, assets, bets, councils, council_formats, discovery, surveys, syntheses, sessions, session_funnels
 
 SCHEMA = "sonaloop.research-presentation.v1"
 
@@ -67,6 +67,21 @@ def _members(value):
 
 
 SURFACES = {
+    "record_head_to_head": Surface("councils", council_formats.head_to_head_write),
+    "get_head_to_head": Surface("councils", council_formats.head_to_head),
+    "record_price_ladder": Surface("councils", council_formats.price_ladder_write),
+    "get_price_ladder": Surface("councils", council_formats.price_ladder),
+    "price_ladder_analysis": Surface("councils", council_formats.price_analysis),
+    "record_red_team": Surface("councils", council_formats.red_team_write),
+    "get_red_team": Surface("councils", council_formats.red_team),
+    "query_councils": Surface("councils", council_formats.query_councils),
+    **{name: Surface("references", references.reference) for name in ("add_artifact", "get_artifact")},
+    "list_artifacts": Surface("references", references.references),
+    "delete_artifact": Surface("references", references.removed),
+    **{name: Surface("assets", assets.asset) for name in (
+        "attach_asset", "attach_prototype_shot", "admit_remote_screenshot", "get_asset")},
+    "list_assets": Surface("assets", assets.assets),
+    "remove_asset": Surface("assets", assets.removed),
     **{name: Surface("syntheses", syntheses.synthesis) for name in (
         "record_synthesis", "get_synthesis", "record_synthesis_outline", "record_synthesis_section")},
     "list_syntheses": Surface("syntheses", syntheses.syntheses),

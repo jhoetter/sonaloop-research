@@ -263,3 +263,11 @@ def test_native_council_mcp_roundtrip_keeps_sdk_envelopes_and_schemas(store, mon
     assert page["items"][0]["personas"] == 1 and page["items"][0]["turns"] == 1
     assert "Participants: 1" in list_html and "Voices: 1" in list_html
     assert [name for name, _ in envelopes] == list(names)
+
+
+@pytest.mark.parametrize("value", ["both", "<script>direction</script>"])
+def test_passive_native_direction_string_is_literal_not_normalized(value, monkeypatch):
+    monkeypatch.setattr(artifacts, "stance_meta", forbidden)
+    html = render.render_stance(value, passive=True)
+    assert "sl-research-badge" in html and "<script>" not in html
+    assert ("both" if value == "both" else "&lt;script&gt;direction&lt;/script&gt;") in html
