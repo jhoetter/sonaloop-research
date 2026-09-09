@@ -20,6 +20,8 @@ from .._session_lightbox import LIGHTBOX_JS
 from .._session_focus import focus_crop as _focus_crop, focus_lens_attrs
 from ... import artifacts as _A
 from ... import config as _config
+from ...ui_components.session_steps import StepPresentation, step_content, predicted_behaviors, outcome_banner, reaction_reads, timeline_steps
+from ...ui_components.session_funnels import funnel_content
 
 
 # Co-located CSS: the dual-timeline replay (screen ⇄ action), friction rail, outcome banner, funnel.
@@ -264,31 +266,8 @@ def proto_session_rows(store: Store, project_id: str | None = None,
     return vms
 
 
-# reaction.timeline is the other authored walk shape: narration lives under monologue|monolog,
-# the observed screen under observed|beobachtung|screen.
-_TL_MONOLOGUE_KEYS = ("monologue", "monolog")
-_TL_OBSERVED_KEYS = ("observed", "beobachtung", "screen")
-
-
 def _timeline_steps(timeline) -> list[dict]:
-    """Adapt a free-form `reaction.timeline` onto the steps contract the replay renderer reads
-    (§9 V4 root cause: half the showcase's prototype reactions recorded their walk HERE, not
-    under reaction.steps — the replay rendered nothing and every retained step-<n>.png stayed
-    invisible). Index comes from the authored `step` number (falling back to the position), the
-    action stays free text (no typed chip), narration/observed-state map onto monologue/screen."""
-    if not isinstance(timeline, list):
-        return []
-    steps = []
-    for pos, entry in enumerate(e for e in timeline if isinstance(e, dict)):
-        try:
-            idx = int(str(entry.get("step", pos)).strip())
-        except (TypeError, ValueError):
-            idx = pos
-        monologue = next((entry[k] for k in _TL_MONOLOGUE_KEYS if entry.get(k)), "")
-        observed = next((entry[k] for k in _TL_OBSERVED_KEYS if entry.get(k)), "")
-        steps.append({"index": idx, "action": {"detail": str(entry.get("action") or "")},
-                      "monologue": str(monologue), "state": {"screen": str(observed)}})
-    return steps
+    return timeline_steps(timeline)
 
 
 def _proto_step_shim(sess: dict) -> dict:
@@ -348,17 +327,9 @@ def _predicted_behaviors_html(behaviors: list, store: Store) -> str:
     none."""
     if not behaviors:
         return ""
-    rows = []
-    for b in behaviors:
-        refs = fragment(*(raw(render_ref(r, store)) for r in (b.get("refs") or [])))
-        rows.append(h("div", {"class_": "hyp"},
-                      h("div", {}, ui.likelihood(b.get("likelihood")), " ",
-                        h("b", {}, b.get("action", ""))),
-                      (h("p", {"class_": "muted small"}, b["trigger"]) if b.get("trigger") else None),
-                      (h("p", {"class_": "muted small turn-refs"}, refs) if b.get("refs") else None)))
-    return h("div", {"class_": "sec", "id": "sec-predicted"},
-             h("h2", {}, t("predicted_behaviors_h"), h("span", {"class_": "h1cnt"}, str(len(behaviors)))),
-             fragment(*rows))
+    refs = [fragment(*(raw(render_ref(ref, store)) for ref in behavior.get("refs") or [])) for behavior in behaviors]
+    return predicted_behaviors(behaviors, references=refs,
+                               likelihoods=[ui.likelihood(behavior.get("likelihood")) for behavior in behaviors])
 
 
 def _proto_session_detail(store: Store, sess: dict) -> str:
@@ -384,17 +355,7 @@ def _proto_session_detail(store: Store, sess: dict) -> str:
               f' · {t("session_kind_prototype")} · ', session_day))
     shim = _proto_step_shim(sess)
     steps = shim["steps"]
-    verdict_html = (raw(_study_lead(ui.clamp(raw(_md(r["verdict"])), threshold=ui.SECTION_CLAMP),
-                                    t("verdict_h"), qid="sec-verdict"))
-                    if (r.get("verdict") or "").strip() else "")
-    def _read_list(sid: str, heading: str, items: list) -> str:
-        if not items:
-            return ""
-        return h("div", {"class_": "sec", "id": sid},
-                 h("h2", {}, heading, h("span", {"class_": "h1cnt"}, str(len(items)))),
-                 fragment(*(h("p", {"class_": "small"}, x) for x in items)))
-    liked_html = _read_list("sec-liked", t("proto_liked_h"), r.get("liked") or [])
-    friction_html = _read_list("sec-friction", t("friction_rail_h"), r.get("friction") or [])
+    verdict_html, liked_html, friction_html = reaction_reads(r)
     timeline = ""
     if steps:
         timeline = h("div", {"class_": "sec", "id": "sec-replay"},
@@ -464,25 +425,15 @@ def _session_row(s: dict, store: Store) -> str:
 def _funnel_html(funnel: dict) -> str:
     """The cross-session funnel for ONE subject (services.get_session_funnel): per step a
     continued/dropped bar against the entered count, with the drop reasons under the row."""
-    rows = []
+    bars = []
     mx = max((r["entered"] for r in funnel["rows"]), default=0) or 1
-    for r in funnel["rows"]:
-        parts = [(r["continued"], "var(--green)", t("funnel_continued")),
-                 (r["dropped"], "var(--red)", t("funnel_dropped"))]
-        bar = h("div", {"style": f'max-width:{r["entered"] / mx * 100:.1f}%'}, _stacked(parts, thin=True))
-        rows.append(h("div", {"class_": "sess-frow"},
-                      h("span", {"class_": "sfl"}, t("step_n", n=r["step"])), bar,
-                      h("span", {"class_": "sfn"},
-                        f'{r["entered"]} {t("funnel_entered")} · {r["dropped"]} {t("funnel_dropped")}')))
-        for reason in r.get("drop_reasons", []):
-            rows.append(h("div", {"class_": "sess-frow"}, h("span", {}),
-                          h("span", {"class_": "sess-freason"}, raw(_icon("warning")), " ", reason)))
+    for row in funnel["rows"]:
+        parts = [(row["continued"], "var(--green)", t("funnel_continued")),
+                 (row["dropped"], "var(--red)", t("funnel_dropped"))]
+        bars.append(h("div", {"style": f'max-width:{row["entered"] / mx * 100:.1f}%'}, _stacked(parts, thin=True)))
     legend = _legend([(funnel["completed"], "var(--green)", t("funnel_continued")),
                       (funnel["sessions"] - funnel["completed"], "var(--red)", t("funnel_dropped"))])
-    return h("div", {"class_": "sess-funnel", "id": "funnel"},
-             h("h2", {}, t("funnel_h"), " · ", (funnel.get("subject") or {}).get("key", "")),
-             h("p", {"class_": "ihint"}, t("funnel_hint", n=funnel["sessions"])),
-             fragment(*rows), legend)
+    return funnel_content(funnel, bars=bars, legend=legend)
 
 
 def _sessions_section(store: Store, sessions: list[dict], sid: str = "sec-sessions",
@@ -563,30 +514,14 @@ def _step_html(sess: dict, step: dict, store: Store | None = None) -> str:
     screen = (h("div", focus_lens_attrs(crop), shot,
                 raw(_focus_overlay(crop["focus"] if crop else focus)))
               if shot and focus else shot or missing_screen)
-    caption = " · ".join(x for x in (state.get("url"), state.get("title")) if x)
-    target = (action.get("target") or "").strip()
-    detail = (action.get("detail") or "").strip()
-    monologue = (step.get("monologue") or "").strip()
     verdict = step.get("verdict") or {}
     show_verdict = not focus or verdict.get("would_continue") is False
     foot = h("div", {"class_": "sess-foot"},
              raw(_label(t(meta["label_key"]), meta["color"], title=fr.get("note") or None)) if has_friction else None,
              (h("span", {}, fr["note"]) if has_friction and fr.get("note") else None),
              _verdict_chip(verdict) if show_verdict else None) if (has_friction or show_verdict) else ""
-    style = f'--sfc:{meta["color"]}' if has_friction else None
-    return h("div", {"class_": "sess-step sl-session-focus-step" if focus else "sess-step",
-                     "id": f"step-{i}", "style": style},
-             h("div", {"class_": "sess-screen"}, screen,
-               h("div", {"class_": "sess-cap", "title": caption}, caption) if caption else None),
-             h("div", {"class_": "sess-act"},
-               h("div", {"class_": "sess-act-h"},
-                 h("span", {"class_": "sess-n"}, str(i + 1) if focus else str(i)),
-                 # a timeline-shaped step has free-text action only — no typed chip to paint
-                 raw(_action_chip(action)) if action.get("type") and not focus else None,
-                 h("span", {"class_": "sess-target"}, target) if target and not focus else None),
-               h("p", {"class_": "sess-detail"}, detail) if detail else None,
-               h("blockquote", {"class_": "sess-mono"}, monologue) if monologue else None,
-               foot))
+    return step_content(StepPresentation(step, screen, raw(_action_chip(action)), foot,
+                                         bool(focus), meta["color"] if has_friction else None))
 
 
 def _focus_rect(raw_focus) -> dict | None:
@@ -638,17 +573,7 @@ def _friction_rail(sess: dict) -> str:
 
 
 def _outcome_banner(sess: dict) -> str:
-    out = sess.get("outcome") or {}
-    summary = (out.get("summary") or "").strip()
-    if out.get("completed"):
-        return h("div", {"class_": "sess-banner", "style": "--sbc:var(--green)"}, raw(_icon("check")),
-                 h("strong", {}, t("completed")), h("span", {"class_": "muted"}, summary) if summary else None)
-    drop = out.get("dropoff_step", 0)
-    step = next((s for s in sess.get("steps") or [] if s.get("index") == drop), {})
-    reason = ((step.get("verdict") or {}).get("reason") or summary or "").strip()
-    return h("div", {"class_": "sess-banner", "style": "--sbc:var(--red)"}, raw(_icon("warning")),
-             h("strong", {}, h("a", {"href": f"#step-{drop}"}, t("outcome_dropped", n=drop))),
-             h("span", {"class_": "muted"}, reason) if reason else None)
+    return outcome_banner(sess)
 
 
 def register_sessions(app) -> None:

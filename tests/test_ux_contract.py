@@ -66,18 +66,18 @@ ALLOWED_CLASS_TOKENS = {
     # hypothesis/decision cards (.hyp co-located in pages/hypotheses.py)
     "hyp", "hyprate", "hypseg", "hypstrip",
     # councils: turns/head-to-head tables (the votebar retired with the P3 Library rows)
-    "turn-refs", "turn-who",
+    "turn-who",
     # persona memory page
     "mem-bar", "mem-date", "mem-ent", "mem-ent-h", "mem-ents", "mem-fact", "mem-fx",
     "mem-group", "mem-group-h", "mem-hit", "mem-loop", "mem-loop-dot", "mem-loops",
     "mem-n", "mem-pane", "mem-pane-h", "mem-status", "mem-tl", "mem-tool",
     # runs journal (run-copy/run-resume markup moved into web/_runs_widget — shared with the chip)
     "run-meta", "runrow", "runrow-head", "runs-fin", "runs-sec",
-    # usability sessions
-    "sess-act", "sess-act-h", "sess-banner", "sess-cap", "sess-detail", "sess-foot",
-    "sess-freason", "sess-frow", "sess-funnel", "sess-mono", "sess-n", "sess-rail",
-    "sess-rail-h", "sess-rail-note", "sess-screen", "sess-shot",
-    "sess-step", "sess-steps", "sess-target", "sfl", "sfn",
+    # usability session chrome; shared step/outcome/funnel bodies live in ui_components
+    "sess-foot",
+    "sess-n", "sess-rail",
+    "sess-rail-h", "sess-rail-note", "sess-shot",
+    "sess-steps",
     # surveys + syntheses
     "svq", "syn-meta", "pvbar", "pvseg",
 }

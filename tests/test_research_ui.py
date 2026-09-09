@@ -27,6 +27,17 @@ COUNCIL = {"id": "council_one", "prompt": "What helps the handover?", "persona_i
            "statements": [{"persona_id": "persona_one", "text": "Knowing who owns the open issue."}], "summary": "Make ownership explicit."}
 
 
+SYNTHESIS = {"id": "syn_fixture", "title": "Handover findings", "scope": "convergence", "status": "in_progress",
+             "start_input": "Where is handover unclear?", "arc_narrative": "", "gesamtbild": "Show the current owner.",
+             "positionierung": "", "created_at": "2026-09-09T01:00:00Z", "council_ids": [],
+             "statements": [], "findings": [], "sections": []}
+SESSION = {"id": "session_fixture", "persona_id": "persona_fixture", "subject": {"kind": "flow", "id": "flow_fixture", "label": "Handover"},
+           "fidelity": "artifact", "steps": [{"index": 0, "action": {"type": "look", "target": "Owner", "detail": ""},
+               "monologue": "Who owns this?", "state": {"screen": "Owner panel"}, "friction": {"level": "none", "note": ""},
+               "verdict": {"would_continue": True, "reason": "The owner is visible."}}],
+           "outcome": {"completed": True, "dropoff_step": None, "summary": "Found the owner", "predicted_behaviors": []}}
+
+
 def test_cold_product_bootstrap_registers_shared_css_before_shell_digest():
     # A fresh process is essential: another test's first rendered card must not
     # accidentally prime the registry and hide a release-token change on navigation.
@@ -79,7 +90,23 @@ def test_native_schema_text_and_structured_output_are_unchanged():
 def test_every_registered_surface_has_a_real_projection_and_resource(name):
     server = build_server()
     tool = server._tool_manager._tools[name]
-    if name in {"record_council", "get_council"}:
+    if name in {"record_synthesis", "get_synthesis", "record_synthesis_outline", "record_synthesis_section"}:
+        data = SYNTHESIS
+    elif name == "list_syntheses":
+        data = [SYNTHESIS]
+    elif name == "get_usability_session":
+        data = SESSION
+    elif name == "record_usability_session":
+        data = {"usability_session": SESSION}
+    elif name == "list_usability_sessions":
+        data = {"sessions": [SESSION]}
+    elif name == "record_prototype_session":
+        data = {"prototype_session": {"id": "ps_fixture", "persona_id": "persona_fixture", "prototype_id": "prototype_fixture",
+                                     "reaction": {"verdict": "Keep the owner visible", "steps": SESSION["steps"]}}}
+    elif name in {"get_session_funnel", "flow_funnel"}:
+        data = {"subject": {"kind": "flow", "key": "flow_fixture"}, "sessions": 1, "completed": 1,
+                "rows": [{"step": 0, "entered": 1, "continued": 1, "dropped": 0, "drop_reasons": []}]}
+    elif name in {"record_council", "get_council"}:
         data = COUNCIL
     elif name == "list_councils":
         data = {"items": [{"id": "council_one", "prompt": COUNCIL["prompt"], "created_at": "2026-09-08", "personas": 1, "turns": 1, "votes": {}}], "total": 1, "has_more": False}

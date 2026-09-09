@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Callable
 
 from .library import collection, note_card, section_card
-from . import bets, councils, discovery, surveys
+from . import bets, councils, discovery, surveys, syntheses, sessions, session_funnels
 
 SCHEMA = "sonaloop.research-presentation.v1"
 
@@ -67,6 +67,14 @@ def _members(value):
 
 
 SURFACES = {
+    **{name: Surface("syntheses", syntheses.synthesis) for name in (
+        "record_synthesis", "get_synthesis", "record_synthesis_outline", "record_synthesis_section")},
+    "list_syntheses": Surface("syntheses", syntheses.syntheses),
+    "record_usability_session": Surface("sessions", sessions.session_write),
+    "get_usability_session": Surface("sessions", sessions.session),
+    "list_usability_sessions": Surface("sessions", sessions.sessions),
+    "record_prototype_session": Surface("sessions", sessions.prototype_session_write),
+    **{name: Surface("sessions", session_funnels.funnel) for name in ("get_session_funnel", "flow_funnel")},
     "record_survey": Surface("surveys", surveys.survey_write),
     "get_survey": Surface("surveys", surveys.survey),
     "list_surveys": Surface("surveys", surveys.surveys),

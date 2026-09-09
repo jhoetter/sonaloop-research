@@ -1,6 +1,6 @@
 // The native customer renderer emits semantic HTML. A passive App does not
 // inherit product navigation, scripts, images, forms, styles or event handlers.
-const tags = new Set('ARTICLE HEADER H1 H2 H3 H4 H5 H6 DIV SPAN P UL OL LI STRONG B EM I DEL CODE PRE BLOCKQUOTE TABLE THEAD TBODY TR TH TD HR BR METER'.split(' '));
+const tags = new Set('ARTICLE HEADER SECTION FIGURE FIGCAPTION H1 H2 H3 H4 H5 H6 DIV SPAN P UL OL LI STRONG B EM I DEL CODE PRE BLOCKQUOTE TABLE THEAD TBODY TR TH TD HR BR METER'.split(' '));
 const sha = async text => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)))].map(x => x.toString(16).padStart(2, '0')).join('');
 export async function acceptPresentation(result, component) {
   const value = result?._meta?.['sonaloop/presentation'];
@@ -18,6 +18,8 @@ export async function acceptPresentation(result, component) {
     const tag = node.tagName.toUpperCase();
     if (['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'SVG', 'MATH', 'TEMPLATE', 'IMG', 'VIDEO', 'AUDIO', 'FORM', 'INPUT', 'BUTTON'].includes(tag)) return;
     const element = document.createElement(tags.has(tag) ? tag.toLowerCase() : 'span');
+    if (tag === 'TH' && ['row', 'col'].includes(node.getAttribute('scope')))
+      element.setAttribute('scope', node.getAttribute('scope'));
     if (tag === 'METER') {
       const value = node.getAttribute('value');
       // Only a unit-interval quantity is admitted. Native counts remain readable

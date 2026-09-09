@@ -38,7 +38,7 @@ test('logging notification failure cannot erase a successfully rendered native r
 });
 
 test('all built resources bind the passive manifest, source and declared tools', async () => {
-  for (const family of ['notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions', 'surveys', 'councils']) {
+  for (const family of ['notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions', 'surveys', 'councils', 'syntheses', 'sessions']) {
     const { manifest } = await loadAsset(family, { verifySources: true });
     const tools = declarations.filter(item => item.componentId === manifest.component_id);
     assert.ok(tools.length > 0);
@@ -134,6 +134,18 @@ test('passive native reference keeps the final qualifier and source anchor after
   } finally { await session.page.close(); }
 });
 
+test('passive report semantics and table header scope survive without arbitrary attributes', async () => {
+  const session = await openApp(browser);
+  try {
+    await session.send(toolResult('<section class="sl-research-report-section" onclick="bad()"><h2>Recorded figure</h2><figure><table><thead><tr><th scope="col">Series</th><th scope="col">Value</th></tr></thead><tbody><tr><th scope="row">Pilot</th><td>0</td></tr><tr><th scope="bad" data-secret="discard">Unknown</th><td>-2.5</td></tr></tbody></table><figcaption>Supplied values, no image</figcaption></figure></section>'));
+    await session.rendered();
+    assert.equal(await session.root.locator('section figure figcaption').innerText(), 'Supplied values, no image');
+    assert.deepEqual(await session.root.locator('th[scope]').evaluateAll(nodes => nodes.map(node => node.getAttribute('scope'))), ['col', 'col', 'row']);
+    assert.equal(await session.root.locator('[onclick],[data-secret],[scope="bad"]').count(), 0);
+    await session.assertPassive();
+  } finally { await session.page.close(); }
+});
+
 test('native count meters admit only a passive unit quantity and accessible label', async () => {
   const session = await openApp(browser);
   try {
@@ -161,10 +173,13 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
   'hypotheses-open', 'hypotheses-observed', 'hypotheses-dropped', 'hypotheses-empty',
   'decisions-proposed', 'decisions-adopted', 'decisions-superseded', 'decisions-empty',
   'surveys-instrument', 'surveys-ready', 'surveys-comparison', 'surveys-repeated-choice', 'surveys-text', 'surveys-empty', 'surveys-imported',
-  'councils-voices', 'councils-input', 'councils-list', 'councils-empty'])
+  'councils-voices', 'councils-input', 'councils-list', 'councils-empty',
+  'syntheses-convergence', 'syntheses-report', 'syntheses-outline', 'syntheses-empty',
+  'sessions-completed', 'sessions-dropped', 'sessions-salience', 'sessions-prototype', 'sessions-funnel', 'sessions-funnel-empty', 'sessions-empty'])
   test(`actual packaged MCP Apps bridge renders shared native ${scenario} HTML`, async () => {
     const fixture = fixtures.find(item => item.scenario === scenario);
-    const session = await openApp(browser, { family: fixture.family, viewport: { width: 390, height: 844 } });
+    const height = ['sessions', 'syntheses'].includes(fixture.family) ? 1800 : 844;
+    const session = await openApp(browser, { family: fixture.family, viewport: { width: 390, height } });
     try {
       await session.send(fixture.result, fixture.input);
       await session.rendered();
@@ -255,10 +270,50 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
           assert.ok(text.includes('support: 1') && text.includes('oppose: 1'));
           assert.ok(!text.includes('persona_fixture'), 'Summary counts never invent participant identities');
         }
+      } else if (scenario.startsWith('syntheses-') && scenario !== 'syntheses-empty') {
+        const text = await session.root.innerText();
+        assert.equal(await session.root.locator('.sl-research-report-cover').count(), 1);
+        assert.equal(await session.root.locator('details,summary,pre').count(), 0);
+        if (scenario === 'syntheses-convergence') {
+          assert.ok(text.includes('A named owner makes the handover easier.'));
+          assert.ok(text.includes('Keep the current owner visible.'));
+        } else if (scenario === 'syntheses-report') {
+          for (const value of ['Only observed during the pilot.', 'council:fixture', 'The owner is clear.', 'asset:asset_fixture',
+            'A recorded reference; no image pixels supplied.', 'Synthetic component example.']) assert.ok(text.includes(value), value);
+          assert.equal(await session.root.locator('.sl-research-figure').count(), 1);
+          assert.equal(await session.root.locator('section.sl-research-report-section figure figcaption').count(), 1,
+            'The passive bridge preserves report and figure document semantics');
+        } else {
+          assert.ok(text.includes('not yet authored'));
+          assert.ok(!text.includes('Only observed during the pilot.'));
+          assert.notEqual(await session.root.locator('.sl-research-status').innerText(),
+            await session.root.evaluate((_, html) => new DOMParser().parseFromString(html, 'text/html').querySelector('.sl-research-status').textContent, fixtures.find(item => item.scenario === 'syntheses-report').html), 'An outline does not claim a completed report');
+        }
+      } else if (scenario.startsWith('sessions-') && scenario !== 'sessions-empty') {
+        const text = await session.root.innerText();
+        if (scenario.startsWith('sessions-funnel')) {
+          assert.ok(text.includes(scenario.endsWith('-empty') ? 'Completed: 0 / 0' : 'Completed: 2 / 3'));
+          if (scenario === 'sessions-funnel') {
+            assert.ok(text.includes('3 entered · 1 dropped') && text.includes('The next action was missing'));
+            assert.deepEqual(await session.root.locator('meter').evaluateAll(nodes => nodes.map(node => node.value)), [0.666666666667, 0.333333333333]);
+          } else assert.equal(await session.root.locator('meter').count(), 0);
+        } else {
+          assert.ok(text.includes('Owner panel'));
+          assert.ok(text.includes('screenshot pixels are not displayed here'));
+          if (scenario === 'sessions-prototype') {
+            for (const value of ['Recorded version', 'v0.7', 'The next action is missing']) assert.ok(text.includes(value), value);
+            assert.ok(!text.includes('step-4.png') && !text.includes('would drop'));
+          } else {
+            assert.ok(text.includes('step-0.png') && text.includes('I can find the person responsible.'));
+            if (scenario === 'sessions-dropped') assert.ok(text.includes('The handover was abandoned') && text.includes('Dropped at step 0'));
+            else assert.ok(text.includes('Found the owner'));
+            if (scenario === 'sessions-salience') for (const value of ['Owner salience hypothesis', 'x: 10%', 'not eye-tracking']) assert.ok(text.includes(value), value);
+          }
+        }
       } else assert.equal(await session.root.locator('.sl-research-empty').count(), 1);
       assert.ok(await session.frame.locator('html').evaluate(node => node.scrollWidth <= innerWidth));
       const box = await session.root.boundingBox();
-      assert.ok(box.width <= 390 && box.height <= 844);
+      assert.ok(box.width <= 390 && box.height <= height);
       const png = await session.root.screenshot({ type: 'png' });
       const dimensions = pngDimensions(png);
       assert.ok(png.length <= 2 * 1024 * 1024 && dimensions.width * dimensions.height <= 4 * 1024 * 1024);

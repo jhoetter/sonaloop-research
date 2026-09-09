@@ -89,7 +89,8 @@ accepted human review remain separate from the ledger's classifications.
 
 ## Passive shared views
 
-Notes, Sections, Projects, Search, Hypotheses, Decisions, Councils and Surveys
+Notes, Sections, Projects, Search, Hypotheses, Decisions, Councils, Surveys,
+Syntheses/Reports and Sessions
 have passive MCP resources registered on
 existing native tools. `registry.py` names each exact tool/result projection;
 only those names receive `supported` rows. The Note and Section detail pages,
@@ -132,6 +133,27 @@ with a notice and no proportion bar. Import receipts say how many responses were
 replayed import need not add that many new rows. Exported survey forms and
 evidence attachment keep their existing native workflows; these passive cards
 do not submit responses, export forms or attach evidence.
+
+Synthesis and Report views share the product's report cover, narrative sections,
+findings, statements and citations after the product adapter has resolved its
+own context. Passive views retain the native `scope` and `status`; an outline
+stays explicitly unfinished. Figures without supplied pixels remain labeled
+references, and missing figure slots never shift a later `![[fig:N]]` reference.
+The renderer neither loads a cited study nor recreates Council aggregates from
+unavailable records. Full report and convergence records retain their own prose
+and explicit source addresses; unknown legacy shapes fall back to native text.
+
+Session views share the product's step, outcome, prediction and funnel bodies.
+They show the supplied screen description, action, persona monologue, friction,
+continue/drop decision and stored outcome. Screenshot paths stay literal
+references: no filesystem or browser media is read. Supplied focus rectangles
+remain stated salience hypotheses, never measured gaze. Recorded prototype
+versions and state references are shown without looking up a current prototype.
+Native verification is displayed only when the result actually supplies it.
+Funnel views preserve native entered/continued/dropped counts, drop reasons and
+completed totals; they do not run another session or recompute its verdict.
+All existing recording, memory, authorization and idempotency rules stay in the
+original native tool; displaying the result adds no new operation.
 
 The MCP adapter calls each original native function once. FastMCP's original
 input/output metadata remains in place, including the bare `search` and `fetch`

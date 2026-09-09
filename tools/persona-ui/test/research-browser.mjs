@@ -194,6 +194,34 @@ council_input = {**council, "prompts": [], "exec_summary": "",
 council_list = {"items": [{"id": "council_fixture", "prompt": council["prompt"], "personas": 2, "turns": 3,
                            "votes": {"support": 1, "oppose": 1}, "created_at": "2026-09-08T12:00:00Z"}],
                 "total": 1, "has_more": False, "next_cursor": None}
+from copy import deepcopy
+synthesis = {"id": "synthesis_fixture", "title": "Handover synthesis", "scope": "convergence", "status": "done",
+    "created_at": "2026-09-09T01:00:00Z", "start_input": "What helps the next shift?", "arc_narrative": "",
+    "gesamtbild": "A named owner makes the handover easier.", "positionierung": "", "council_ids": [],
+    "statements": [], "findings": [{"kind": "recommendation", "text": "Keep the current owner visible."}], "sections": []}
+report_section = {"id": "section1", "heading": "Handover finding", "markdown": "Only observed during the pilot. ![[fig:1]]",
+    "citations": [{"study_id": "council:fixture", "quote": "The owner is clear."}], "source_study_ids": ["council:fixture"],
+    "figures": [{"kind": "asset", "id": "asset_fixture", "caption": "A recorded reference; no image pixels supplied."}]}
+report = {**synthesis, "title": "Handover report", "scope": "project", "gesamtbild": "", "start_input": "", "findings": [],
+    "sections": [report_section], "limitations": [{"original_status": "simulated", "rationale": "Synthetic component example."}]}
+outline = {**report, "status": "in_progress", "limitations": [], "sections": [{**report_section, "markdown": "", "figures": [], "citations": []}]}
+session_step = {"index": 0, "action": {"type": "look", "target": "Owner", "detail": "Read the owner panel"},
+    "state": {"screen": "Owner panel", "screenshot": "step-0.png"}, "monologue": "I can find the person responsible.",
+    "friction": {"level": "none", "note": ""}, "verdict": {"would_continue": True, "reason": "Owner is visible"}}
+session_record = {"id": "session_fixture", "persona_id": "persona_fixture", "date": "2026-09-09", "fidelity": "artifact",
+    "subject": {"kind": "flow", "id": "flow_fixture", "label": "Handover trace"}, "steps": [session_step], "statements": [],
+    "outcome": {"completed": True, "dropoff_step": None, "summary": "Found the owner", "predicted_behaviors": []}}
+session_dropped = deepcopy(session_record)
+session_dropped["steps"][0]["verdict"] = {"would_continue": False, "reason": "The next action was missing"}
+session_dropped["outcome"] = {"completed": False, "dropoff_step": 0, "summary": "The handover was abandoned", "predicted_behaviors": []}
+session_salience = deepcopy(session_record)
+session_salience["steps"][0]["state"]["focus"] = {"x": 10, "y": 20, "width": 30, "height": 40, "label": "Owner salience hypothesis"}
+prototype_reaction = {"verdict": "The owner is clear", "observed_state_refs": ["Owner panel"],
+    "timeline": [{"step": 4, "action": "Read the owner panel", "monolog": "The next action is missing", "observed": "Owner panel"}]}
+prototype_session = {"id": "ps_fixture", "persona_id": "persona_fixture", "prototype_id": "prototype_fixture", "date": "2026-09-09",
+    "prototype_version": "v0.7", "grounded_verified": False, "reaction": prototype_reaction}
+funnel = {"subject": {"kind": "flow", "key": "flow_fixture"}, "sessions": 3, "completed": 2,
+    "rows": [{"step": 0, "entered": 3, "continued": 2, "dropped": 1, "drop_reasons": ["The next action was missing"]}]}
 specs = [
     ("notes-ready", "notes", "list_notes", {"project_id": "project_fixture"}, {"items": [note], "total": 1, "has_more": False}),
     ("notes-empty", "notes", "list_notes", {"project_id": "project_fixture"}, {"items": [], "total": 0, "has_more": False}),
@@ -223,6 +251,18 @@ specs = [
     ("surveys-text", "surveys", "survey_results", {"survey_id": "survey_fixture"}, survey_text),
     ("surveys-empty", "surveys", "list_surveys", {"project_id": "project_fixture"}, {"surveys": []}),
     ("surveys-imported", "surveys", "import_survey_responses", {"survey_id": "survey_fixture", "responses": [{"respondent_key": "fixture-response", "answers": [{"question_id": "q1", "value": "Named owner"}]}]}, {"survey_id": "survey_fixture", "imported": 1, "total_responses": 3}),
+    ("syntheses-convergence", "syntheses", "get_synthesis", {"synthesis_id": "synthesis_fixture"}, synthesis),
+    ("syntheses-report", "syntheses", "record_synthesis_section", {"project_id": "project_fixture", "section_id": "section1",
+        "content": {key: report_section[key] for key in ("markdown", "citations", "figures")}}, report),
+    ("syntheses-outline", "syntheses", "record_synthesis_outline", {"project_id": "project_fixture", "outline": {"title": outline["title"], "sections": outline["sections"]}}, outline),
+    ("syntheses-empty", "syntheses", "list_syntheses", {}, []),
+    ("sessions-completed", "sessions", "get_usability_session", {"session_id": "session_fixture"}, session_record),
+    ("sessions-dropped", "sessions", "record_usability_session", {key: session_dropped[key] for key in ("persona_id", "subject", "fidelity", "date", "steps", "outcome")}, {"usability_session": session_dropped}),
+    ("sessions-salience", "sessions", "get_usability_session", {"session_id": "session_fixture"}, session_salience),
+    ("sessions-prototype", "sessions", "record_prototype_session", {"persona_id": "persona_fixture", "prototype_id": "prototype_fixture", "session_id": "session_fixture", "date": "2026-09-09", "reaction": prototype_reaction}, {"prototype_session": prototype_session}),
+    ("sessions-funnel", "sessions", "get_session_funnel", {"subject_kind": "flow", "subject_id_or_url": "flow_fixture"}, funnel),
+    ("sessions-funnel-empty", "sessions", "get_session_funnel", {"subject_kind": "flow", "subject_id_or_url": "flow_fixture"}, {**funnel, "sessions": 0, "completed": 0, "rows": []}),
+    ("sessions-empty", "sessions", "list_usability_sessions", {"project_id": "project_fixture"}, {"sessions": []}),
     ("councils-voices", "councils", "get_council", {"session_id": "council_fixture"}, council),
     ("councils-input", "councils", "get_council", {"session_id": "council_fixture"}, council_input),
     ("councils-list", "councils", "list_councils", {"limit": 25}, council_list),
@@ -284,7 +324,7 @@ export async function exportScenarios(outputParent = process.env.RESEARCH_SCENAR
   const { fixtures, declarations } = await nativeFixtureSet();
   const failed = { ...fixtures[0], scenario: 'notes-error', state: 'unavailable',
     result: { isError: true, content: [{ type: 'text', text: 'Synthetic native tool failure; no operation was invoked.' }] } };
-  const scenarios = [...fixtures, failed].map(fixture => ({ fixture, viewport: { width: 390, height: 844 } }));
+  const scenarios = [...fixtures, failed].map(fixture => ({ fixture, viewport: { width: 390, height: ['sessions', 'syntheses'].includes(fixture.family) ? 1800 : 844 } }));
   scenarios.unshift({ fixture: fixtures[0], viewport: { width: 960, height: 900 } });
   const rendererBytes = await readFile(fileURLToPath(import.meta.url)), bundle = await hostBundle();
   const { stdout: commit } = await execFile('git', ['rev-parse', 'HEAD'], { cwd: repo });
