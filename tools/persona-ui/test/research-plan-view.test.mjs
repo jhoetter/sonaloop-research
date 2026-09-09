@@ -20,6 +20,10 @@ test('Research Plan cards retain task and judgment semantics with only local dis
       assert.equal(await session.root.locator('details[open],img,iframe,form,input,button,a').count(), 0);
       assert.ok(await session.frame.locator('html').evaluate(node => node.scrollWidth <= innerWidth));
       assert.ok(!complete.includes('operation_id') && !complete.includes('dispatch_token'));
+      if (['record_judgment', 'assess_progress'].includes(item.tool)) {
+        const title = await session.root.locator('h2').textContent();
+        assert.ok(!(await session.root.locator('h3').allTextContents()).includes(title), 'Standalone title is not repeated by the shared history body');
+      }
       if (item.tool === 'record_judgment') {
         const native = item.result.structuredContent.data;
         assert.ok(complete.includes(native.rationale));

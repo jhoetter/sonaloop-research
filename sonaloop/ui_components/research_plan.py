@@ -196,9 +196,9 @@ def render_view(view):
     elif kind == "task":
         title, body = t("rplan_task"), task_content(value)
     elif kind == "judgment":
-        title, body = t("rplan_judgment"), rows.judgment_content(value)
+        title, body = t("rplan_judgment"), rows.judgment_content(value, heading=False)
     elif kind == "progress":
-        title, body = t("rplan_progress_record"), rows.progress_content(value)
+        title, body = t("rplan_progress_record"), rows.progress_content(value, heading=False)
     else:
         title = t("rplan_park_record") if kind == "parked" else t("rplan_unpark_record")
         body = rows.parking_content(value)

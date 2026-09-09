@@ -110,7 +110,7 @@ def texts(values):
 
 def section(label, *body):
     h, _, _ = _kit()
-    return h("section", {}, h("h3", {}, label), *body)
+    return h("section", {}, h("h3", {}, label) if label is not None else None, *body)
 
 
 def selected(value, keys):
@@ -131,16 +131,16 @@ def dispatch_content(value):
         if "receipt" in value else None)
 
 
-def judgment_content(value):
-    return section(t("rplan_judgment"), fields((("gate_tag", value["gate_tag"]),
+def judgment_content(value, *, heading=True):
+    return section(t("rplan_judgment") if heading else None, fields((("gate_tag", value["gate_tag"]),
         (t("rplan_decided"), value["decided"]))), section(t("rplan_rationale"), prose(value["rationale"])), texts(value["evidence_refs"]),
         disclosure(t("rpx_record_details"), selected(value, ("task_id", "created_at"))),
         dispatch_content(value["dispatch"]) if "dispatch" in value else None)
 
 
-def progress_content(value):
+def progress_content(value, *, heading=True):
     coverage = value["coverage"]
-    return section(t("rplan_progress_record"), prose(value["goal"]),
+    return section(t("rplan_progress_record") if heading else None, prose(value["goal"]),
         fields(((t("rplan_delta"), value["delta"]),)), section(t("rplan_rationale"), prose(value["rationale"])), texts(value["evidence_refs"]),
         disclosure(t("rplan_coverage"), prose(t("rplan_coverage_notice")),
             selected(coverage, ("artifacts", "sessions", "personas_touched", "tasks_done", "tasks_total")),
