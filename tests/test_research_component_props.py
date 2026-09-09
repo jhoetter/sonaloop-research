@@ -27,15 +27,20 @@ def test_public_scenarios_validate_and_render_without_native_authority(path, mon
     assert declaration["schemaVersion"] == "sonaloop.customer-component.v1"
     assert len(declaration["requiredStates"]) == 6
     validator = Draft202012Validator(declaration["propsSchema"])
+    local_disclosures = False
     for scenario in declaration["scenarios"]:
         validator.validate(scenario["props"])
         html, state = render_component_props(f"sonaloop.research.{path.stem}-view", scenario["props"])
         assert state == scenario["state"] and str(html).strip()
+        local_disclosures |= "<summary" in str(html)
     for state in declaration["requiredStates"]:
         if state["state"] in {"loading", "error"}:
             assert state["disposition"] == "applicable" and state["scenarioIds"] == []
-        if state["state"] in {"focus", "disabled"}:
+        if state["state"] == "disabled":
             assert state["disposition"] == "not_applicable" and state["reason"]
+        if state["state"] == "focus":
+            assert state["disposition"] == ("applicable" if local_disclosures else "not_applicable")
+            assert state["reason"]
     assert declaration["accessibility"]["keyboard"] == "not_reviewed"
     assert declaration["accessibility"]["screenReader"] == "not_reviewed"
 

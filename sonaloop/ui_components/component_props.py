@@ -8,15 +8,22 @@ from __future__ import annotations
 import json
 
 from .registry import SURFACES
+from . import run_journal
+
+_RUN_PROJECTIONS = {"start_run": run_journal.journal_view, "run_journal": run_journal.journal_view,
+                    "resume_project_run": run_journal.resumed_view, "finish_run": run_journal.finished_view}
 
 
 def public_component_value(name: str, value):
     """Prepare authored public view-model values without altering native MCP output.
 
     The native remote-registration envelope uses the reserved JS key `prototype`.
-    Public examples use `artifact` for that one envelope; dispatch/private context
-    is not a visual prop. Other projections preserve their existing authored DTO.
+    Public examples use `artifact` for that one envelope; Run results use their
+    explicit closed run-view.v1 projection. Dispatch/private context is not a
+    visual prop. Other projections preserve their existing authored DTO.
     """
+    if name in _RUN_PROJECTIONS:
+        return _RUN_PROJECTIONS[name](value)
     if name == "register_remote_prototype":
         if not isinstance(value, dict) or "prototype" not in value:
             raise ValueError("Expected native remote registration envelope")
@@ -58,4 +65,10 @@ def render_component_props(component_id: str, props: dict):
         if not isinstance(value, dict) or "artifact" not in value or set(value) - {"artifact", "note"}:
             raise ValueError("Expected public remote-registration artifact and optional note")
         value = {"prototype": value["artifact"], **({"note": value["note"]} if "note" in value else {})}
+    if props["name"] in _RUN_PROJECTIONS:
+        expected = {"start_run": "journal", "run_journal": "journal",
+                    "resume_project_run": "resumed", "finish_run": "finished"}[props["name"]]
+        if not isinstance(value, dict) or value.get("view") != expected:
+            raise ValueError("Run presentation does not belong to this projection")
+        return run_journal.render_view(value)
     return surface.render(value)

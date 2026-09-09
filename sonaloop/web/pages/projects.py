@@ -209,6 +209,8 @@ def _project_setup_details_html(project: dict, store) -> str:
 
 
 def register_projects(app) -> None:
+    from ._run_journal import register_run_journal
+    register_run_journal(app)
     def _redirect_legacy(request: Request, target: str) -> RedirectResponse:
         query = request.url.query
         return RedirectResponse(target + (f"?{query}" if query else ""), status_code=308)
@@ -396,7 +398,9 @@ def register_projects(app) -> None:
                    h("details", {"class_": "sl-project-lineage"},
                      h("summary", {}, t("rpr_study")),
                      h("p", {}, h("a", {"href": f'/jobs/{proj["id"]}/results'}, t("rpr_study"))),
-                     h("p", {}, h("a", {"href": f'/jobs/{proj["id"]}/cohort'}, t("rcg_cohorts")))),
+                     h("p", {}, h("a", {"href": f'/jobs/{proj["id"]}/cohort'}, t("rcg_cohorts"))),
+                     h("p", {}, h("a", {"href": f'/jobs/{proj["id"]}/runs/{health["run_id"]}'},
+                         t("rrun_journal"))) if health and health.get("run_id") else None),
                    h("div", {"class_": "pills"}, raw(run_chip)),
                    bar if not customer_surface else None),
                  (raw(_project_setup_details_html(project_record, store))

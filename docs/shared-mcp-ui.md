@@ -119,6 +119,25 @@ paths, URLs and supplied prose remain literal; rendering never loads or verifies
 them. The Product checks active-workspace Persona ownership before reading the
 three histories. No new persistence or execution authority is introduced.
 
+**Run journals and outcomes** reuse a read-only, project-owned Product inspector.
+`start_run` and `run_journal` retain supplied steps, references, dispatch lifecycle,
+critic verdicts, timestamps and replay markers. `resume_project_run` is a
+continuation receipt, not a complete Health assessment; `finish_run` reports its
+actual status, step count and repeated-receipt flag, without inventing a project
+or a full journal. The Project result details link to its actual known Run.
+Opening the inspector reads once and checks active-workspace Project and Run
+ownership before rendering; it does not advance or finish the Run.
+
+For these four tools, `public_component_value` explicitly projects native results
+into the closed authored `sonaloop.run-view.v1` presentation model. Public
+`{name,value}` examples enter `render_view` directly, with a matching view tag;
+no native result is reconstructed or guessed. Every nested record is validated.
+Native scope/correlation tokens and operation aliases are omitted execution
+context, not alleged authorization bearers. The unchanged native MCP transport
+retains its original fields. Dispatch arguments, next calls and host trace
+queries are not display props; references remain literal and are not resolved.
+Local disclosures retain the supplied public diagnostics without tool calls.
+
 **Persona conversations and continuity proposals** shares stored chat, exchange,
 summary and proposal bodies with read-only Persona-scoped Product inspectors.
 `chat_with_persona` prepares a new reply and can open an empty chat; its supplied

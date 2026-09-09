@@ -3101,8 +3101,8 @@
       "tool": "resume_project_run",
       "family": "plan_run",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared Product Run journal and explicit closed sonaloop.run-view.v1 presentation preserve the actual supplied state, steps, references, dispatch lifecycle, critic verdicts and replay/outcome fields. Scope/correlation and operation aliases are omitted execution context, not alleged authorization bearers. No next action executes or hidden journal is fetched.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "resume_project_run",
@@ -3220,8 +3220,8 @@
       "tool": "start_run",
       "family": "plan_run",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared Product Run journal and explicit closed sonaloop.run-view.v1 presentation preserve the actual supplied state, steps, references, dispatch lifecycle, critic verdicts and replay/outcome fields. Scope/correlation and operation aliases are omitted execution context, not alleged authorization bearers. No next action executes or hidden journal is fetched.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "start_run",
@@ -3237,8 +3237,8 @@
       "tool": "run_journal",
       "family": "plan_run",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared Product Run journal and explicit closed sonaloop.run-view.v1 presentation preserve the actual supplied state, steps, references, dispatch lifecycle, critic verdicts and replay/outcome fields. Scope/correlation and operation aliases are omitted execution context, not alleged authorization bearers. No next action executes or hidden journal is fetched.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "run_journal",
@@ -3288,8 +3288,8 @@
       "tool": "finish_run",
       "family": "plan_run",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared Product Run journal and explicit closed sonaloop.run-view.v1 presentation preserve the actual supplied state, steps, references, dispatch lifecycle, critic verdicts and replay/outcome fields. Scope/correlation and operation aliases are omitted execution context, not alleged authorization bearers. No next action executes or hidden journal is fetched.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "finish_run",

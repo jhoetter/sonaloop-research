@@ -1,0 +1,824 @@
+[
+  {
+    "scenario": "runs-started",
+    "tool": "start_run",
+    "input": {
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "budget": 10,
+      "operation_id": "run-view-active"
+    },
+    "value": {
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "methodology": "",
+      "status": "active",
+      "budget": 10,
+      "cursor": 0,
+      "steps": [],
+      "dispatches": [],
+      "critic_rounds": [],
+      "created_at": "2026-09-09T06:07:59.720314+00:00",
+      "updated_at": "2026-09-09T06:07:59.720314+00:00",
+      "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+      "operation_id": "run-view-active",
+      "operation_fingerprint": "263f98338ff3f3295c680391e1b2aa218ed2d3be66082ed63251022bf36a9934"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "journal",
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "methodology": "",
+      "status": "active",
+      "budget": 10,
+      "cursor": 0,
+      "created_at": "2026-09-09T06:07:59.720314+00:00",
+      "updated_at": "2026-09-09T06:07:59.720314+00:00",
+      "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+      "steps": [],
+      "dispatches": [],
+      "critic_rounds": []
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-start-replayed",
+    "tool": "start_run",
+    "input": {
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "budget": 10,
+      "operation_id": "run-view-active"
+    },
+    "value": {
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "methodology": "",
+      "status": "active",
+      "budget": 10,
+      "cursor": 0,
+      "steps": [],
+      "dispatches": [],
+      "critic_rounds": [],
+      "created_at": "2026-09-09T06:07:59.720314+00:00",
+      "updated_at": "2026-09-09T06:07:59.720314+00:00",
+      "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+      "operation_id": "run-view-active",
+      "operation_fingerprint": "263f98338ff3f3295c680391e1b2aa218ed2d3be66082ed63251022bf36a9934",
+      "idempotent_replay": true
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "journal",
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "methodology": "",
+      "status": "active",
+      "budget": 10,
+      "cursor": 0,
+      "created_at": "2026-09-09T06:07:59.720314+00:00",
+      "updated_at": "2026-09-09T06:07:59.720314+00:00",
+      "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+      "idempotent_replay": true,
+      "steps": [],
+      "dispatches": [],
+      "critic_rounds": []
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-journal-empty",
+    "tool": "run_journal",
+    "input": {
+      "run_id": "run_operation_bbf37d08e8d3428e"
+    },
+    "value": {
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "methodology": "",
+      "status": "active",
+      "budget": 10,
+      "cursor": 0,
+      "steps": [],
+      "dispatches": [],
+      "critic_rounds": [],
+      "created_at": "2026-09-09T06:07:59.720314+00:00",
+      "updated_at": "2026-09-09T06:07:59.720314+00:00",
+      "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+      "operation_id": "run-view-active",
+      "operation_fingerprint": "263f98338ff3f3295c680391e1b2aa218ed2d3be66082ed63251022bf36a9934"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "journal",
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "methodology": "",
+      "status": "active",
+      "budget": 10,
+      "cursor": 0,
+      "created_at": "2026-09-09T06:07:59.720314+00:00",
+      "updated_at": "2026-09-09T06:07:59.720314+00:00",
+      "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+      "steps": [],
+      "dispatches": [],
+      "critic_rounds": []
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-resumed-empty",
+    "tool": "resume_project_run",
+    "input": {
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "run_id": "run_operation_bbf37d08e8d3428e"
+    },
+    "value": {
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "operation_id": "run-view-active",
+      "idempotent_replay": true,
+      "cursor": 0,
+      "status": "active",
+      "safe_next_action": {
+        "tool": "run_step",
+        "arguments": {
+          "run_id": "run_operation_bbf37d08e8d3428e"
+        }
+      },
+      "unmet_invariant": null,
+      "trace": {
+        "support_ref": "sltrace_f1f4c530611a464388d94b26",
+        "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+        "local_journal": "available",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_07f5c1762738ac61",
+          "run_id": "run_operation_bbf37d08e8d3428e",
+          "operation_id": "run-view-project:active"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      }
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "resumed",
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "status": "active",
+      "cursor": 0,
+      "idempotent_replay": true,
+      "continuation_tool": "run_step",
+      "unmet_invariant": null,
+      "trace": {
+        "support_ref": "sltrace_f1f4c530611a464388d94b26",
+        "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+        "local_journal": "available",
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-journal-populated",
+    "tool": "run_journal",
+    "input": {
+      "run_id": "run_operation_bbf37d08e8d3428e"
+    },
+    "value": {
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "methodology": "",
+      "status": "active",
+      "budget": 10,
+      "cursor": 1,
+      "steps": [
+        {
+          "idx": 0,
+          "task_id": "frame__root",
+          "bucket": "analyze",
+          "key": "run_operation_bbf37d08e8d3428e:frame__root",
+          "evidence": [
+            "council:unresolved-example"
+          ],
+          "dispatch_token": "dispatch_57c354bcb4d7fb7f",
+          "summary": "Recorded supplied source labels; their content is not resolved by this view.",
+          "consume_refs": [
+            "frame:earlier-example"
+          ],
+          "optional_context_refs": [
+            {
+              "kind": "evidence",
+              "id": "source-example",
+              "anchor": "line-2",
+              "quote": "A supplied quotation.",
+              "text": "Its supplied context."
+            }
+          ],
+          "produced_refs": [
+            "council:unresolved-example"
+          ],
+          "downstream_refs": [
+            "verify:example"
+          ],
+          "open_questions": [
+            "What remains uncertain?"
+          ],
+          "parked_refs": [
+            "reference:parked-example"
+          ],
+          "expected_output_kind": "frame",
+          "receipt": {
+            "run_id": "run_operation_bbf37d08e8d3428e",
+            "cursor": 1,
+            "step_idx": 0,
+            "key": "run_operation_bbf37d08e8d3428e:frame__root"
+          }
+        }
+      ],
+      "dispatches": [
+        {
+          "dispatch_token": "dispatch_57c354bcb4d7fb7f",
+          "operation_id": "dispatch_57c354bcb4d7fb7f",
+          "workspace_id": "local",
+          "project_id": "rproject_operation_07f5c1762738ac61",
+          "run_id": "run_operation_bbf37d08e8d3428e",
+          "task_id": "frame__root",
+          "step_id": "frame__root",
+          "bucket": "analyze",
+          "key": "run_operation_bbf37d08e8d3428e:frame__root",
+          "dispatch_cursor": 0,
+          "expected_output_kind": "frame",
+          "input_fingerprint": "b1732f35c227ac202b507c0b8b61ba5e77699e61eb7b9ca8bf626052f59616d0",
+          "output_contract": {
+            "schema": "sonaloop.dispatch_output_contract.v1",
+            "max_primary_outputs": 1,
+            "allowed_primary_kinds": [
+              "frame"
+            ],
+            "supporting_kinds": [
+              "asset",
+              "flow",
+              "reference",
+              "evidence",
+              "cohort_selection"
+            ],
+            "closing_kinds": [
+              "judgment",
+              "task_completion"
+            ]
+          },
+          "primary_output_kind": "",
+          "payload_fingerprints": {},
+          "payload_revisions": {},
+          "status": "completed",
+          "issued_at": "2026-09-09T06:07:59.727470+00:00",
+          "progress_receipts": {
+            "example:source-inspected": {
+              "id": "progress_59790a687921236c",
+              "action_key": "example:source-inspected",
+              "kind": "source_inspected",
+              "input_fingerprint": "21e55a959e4f980bdf78fad0d9aba7a4e4d0c069cdf37432a07f476a741e79b9",
+              "result_digest": "recorded-example-digest",
+              "status": "recorded",
+              "recorded_at": "2026-09-09T06:07:59.727811+00:00"
+            }
+          },
+          "completed_at": "2026-09-09T06:07:59.728031+00:00",
+          "produced_refs": [
+            "council:unresolved-example"
+          ],
+          "receipt": {
+            "run_id": "run_operation_bbf37d08e8d3428e",
+            "cursor": 1,
+            "step_idx": 0,
+            "key": "run_operation_bbf37d08e8d3428e:frame__root"
+          }
+        }
+      ],
+      "critic_rounds": [
+        {
+          "round": 0,
+          "key": "run-view-critic-open",
+          "critic_report_id": "completeness_operation_72f7b6b6d2bd0b59",
+          "passed": false,
+          "missing": 1
+        }
+      ],
+      "created_at": "2026-09-09T06:07:59.720314+00:00",
+      "updated_at": "2026-09-09T06:07:59.728778+00:00",
+      "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+      "operation_id": "run-view-active",
+      "operation_fingerprint": "263f98338ff3f3295c680391e1b2aa218ed2d3be66082ed63251022bf36a9934"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "journal",
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "methodology": "",
+      "status": "active",
+      "budget": 10,
+      "cursor": 1,
+      "created_at": "2026-09-09T06:07:59.720314+00:00",
+      "updated_at": "2026-09-09T06:07:59.728778+00:00",
+      "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+      "steps": [
+        {
+          "idx": 0,
+          "task_id": "frame__root",
+          "bucket": "analyze",
+          "summary": "Recorded supplied source labels; their content is not resolved by this view.",
+          "expected_output_kind": "frame",
+          "open_questions": [
+            "What remains uncertain?"
+          ],
+          "evidence": [
+            "council:unresolved-example"
+          ],
+          "consume_refs": [
+            "frame:earlier-example"
+          ],
+          "optional_context_refs": [
+            {
+              "kind": "evidence",
+              "id": "source-example",
+              "anchor": "line-2",
+              "quote": "A supplied quotation.",
+              "text": "Its supplied context."
+            }
+          ],
+          "produced_refs": [
+            "council:unresolved-example"
+          ],
+          "downstream_refs": [
+            "verify:example"
+          ],
+          "parked_refs": [
+            "reference:parked-example"
+          ],
+          "receipt": {
+            "run_id": "run_operation_bbf37d08e8d3428e",
+            "cursor": 1,
+            "step_idx": 0
+          }
+        }
+      ],
+      "dispatches": [
+        {
+          "task_id": "frame__root",
+          "step_id": "frame__root",
+          "bucket": "analyze",
+          "dispatch_cursor": 0,
+          "status": "completed",
+          "issued_at": "2026-09-09T06:07:59.727470+00:00",
+          "completed_at": "2026-09-09T06:07:59.728031+00:00",
+          "expected_output_kind": "frame",
+          "primary_output_kind": "",
+          "input_fingerprint": "b1732f35c227ac202b507c0b8b61ba5e77699e61eb7b9ca8bf626052f59616d0",
+          "output_contract": {
+            "schema": "sonaloop.dispatch_output_contract.v1",
+            "max_primary_outputs": 1,
+            "allowed_primary_kinds": [
+              "frame"
+            ],
+            "supporting_kinds": [
+              "asset",
+              "flow",
+              "reference",
+              "evidence",
+              "cohort_selection"
+            ],
+            "closing_kinds": [
+              "judgment",
+              "task_completion"
+            ]
+          },
+          "produced_refs": [
+            "council:unresolved-example"
+          ],
+          "receipt": {
+            "run_id": "run_operation_bbf37d08e8d3428e",
+            "cursor": 1,
+            "step_idx": 0
+          },
+          "payload_fingerprints": [],
+          "payload_revisions": [],
+          "progress_receipts": [
+            {
+              "id": "progress_59790a687921236c",
+              "kind": "source_inspected",
+              "status": "recorded",
+              "recorded_at": "2026-09-09T06:07:59.727811+00:00",
+              "input_fingerprint": "21e55a959e4f980bdf78fad0d9aba7a4e4d0c069cdf37432a07f476a741e79b9",
+              "result_digest": "recorded-example-digest"
+            }
+          ]
+        }
+      ],
+      "critic_rounds": [
+        {
+          "round": 0,
+          "critic_report_id": "completeness_operation_72f7b6b6d2bd0b59",
+          "passed": false,
+          "missing": 1
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-resumed-context",
+    "tool": "resume_project_run",
+    "input": {
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "run_id": "run_operation_bbf37d08e8d3428e"
+    },
+    "value": {
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "operation_id": "run-view-active",
+      "idempotent_replay": true,
+      "cursor": 1,
+      "status": "active",
+      "safe_next_action": {
+        "tool": "run_step",
+        "arguments": {
+          "run_id": "run_operation_bbf37d08e8d3428e"
+        }
+      },
+      "unmet_invariant": null,
+      "trace": {
+        "support_ref": "sltrace_f1f4c530611a464388d94b26",
+        "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+        "local_journal": "available",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_07f5c1762738ac61",
+          "run_id": "run_operation_bbf37d08e8d3428e",
+          "operation_id": "run-view-project:active"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      }
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "resumed",
+      "run_id": "run_operation_bbf37d08e8d3428e",
+      "project_id": "rproject_operation_07f5c1762738ac61",
+      "status": "active",
+      "cursor": 1,
+      "idempotent_replay": true,
+      "continuation_tool": "run_step",
+      "unmet_invariant": null,
+      "trace": {
+        "support_ref": "sltrace_f1f4c530611a464388d94b26",
+        "workflow_trace_id": "sltrace_f1f4c530611a464388d94b26",
+        "local_journal": "available",
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-stopped",
+    "tool": "finish_run",
+    "input": {
+      "run_id": "run_operation_9edafd636a77a1ef",
+      "status": "stopped"
+    },
+    "value": {
+      "run_id": "run_operation_9edafd636a77a1ef",
+      "status": "stopped",
+      "steps": 0,
+      "deduplicated": false
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "finished",
+      "run_id": "run_operation_9edafd636a77a1ef",
+      "status": "stopped",
+      "steps": 0,
+      "deduplicated": false
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-stop-replayed",
+    "tool": "finish_run",
+    "input": {
+      "run_id": "run_operation_9edafd636a77a1ef",
+      "status": "stopped"
+    },
+    "value": {
+      "run_id": "run_operation_9edafd636a77a1ef",
+      "status": "stopped",
+      "steps": 0,
+      "deduplicated": true
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "finished",
+      "run_id": "run_operation_9edafd636a77a1ef",
+      "status": "stopped",
+      "steps": 0,
+      "deduplicated": true
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-capped",
+    "tool": "finish_run",
+    "input": {
+      "run_id": "run_operation_691285dbf2e9f7f1",
+      "status": "capped"
+    },
+    "value": {
+      "run_id": "run_operation_691285dbf2e9f7f1",
+      "status": "capped",
+      "steps": 0,
+      "deduplicated": false
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "finished",
+      "run_id": "run_operation_691285dbf2e9f7f1",
+      "status": "capped",
+      "steps": 0,
+      "deduplicated": false
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-finished",
+    "tool": "finish_run",
+    "input": {
+      "run_id": "run_operation_fe16956a988a0a75",
+      "status": "finished"
+    },
+    "value": {
+      "run_id": "run_operation_fe16956a988a0a75",
+      "status": "finished",
+      "steps": 1,
+      "deduplicated": false
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "finished",
+      "run_id": "run_operation_fe16956a988a0a75",
+      "status": "finished",
+      "steps": 1,
+      "deduplicated": false
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-journal-finished",
+    "tool": "run_journal",
+    "input": {
+      "run_id": "run_operation_fe16956a988a0a75"
+    },
+    "value": {
+      "run_id": "run_operation_fe16956a988a0a75",
+      "project_id": "rproject_operation_a9c173a06f220d58",
+      "methodology": "",
+      "status": "finished",
+      "budget": null,
+      "cursor": 1,
+      "steps": [
+        {
+          "idx": 0,
+          "task_id": "frame__root",
+          "bucket": "analyze",
+          "key": "run_operation_fe16956a988a0a75:frame__root",
+          "evidence": [
+            "frame:frame__root"
+          ],
+          "dispatch_token": "dispatch_be5cb2477a62edfe",
+          "summary": "recorded evidence-grounded research frame",
+          "consume_refs": [],
+          "optional_context_refs": [],
+          "produced_refs": [
+            "frame:frame__root"
+          ],
+          "downstream_refs": [],
+          "open_questions": [],
+          "parked_refs": [],
+          "receipt": {
+            "run_id": "run_operation_fe16956a988a0a75",
+            "cursor": 1,
+            "step_idx": 0,
+            "key": "run_operation_fe16956a988a0a75:frame__root"
+          }
+        }
+      ],
+      "dispatches": [
+        {
+          "dispatch_token": "dispatch_be5cb2477a62edfe",
+          "operation_id": "dispatch_be5cb2477a62edfe",
+          "workspace_id": "local",
+          "project_id": "rproject_operation_a9c173a06f220d58",
+          "run_id": "run_operation_fe16956a988a0a75",
+          "task_id": "frame__root",
+          "step_id": "frame__root",
+          "bucket": "analyze",
+          "key": "run_operation_fe16956a988a0a75:frame__root",
+          "dispatch_cursor": 0,
+          "expected_output_kind": "frame",
+          "input_fingerprint": "b1732f35c227ac202b507c0b8b61ba5e77699e61eb7b9ca8bf626052f59616d0",
+          "output_contract": {
+            "schema": "sonaloop.dispatch_output_contract.v1",
+            "max_primary_outputs": 1,
+            "allowed_primary_kinds": [
+              "frame"
+            ],
+            "supporting_kinds": [
+              "asset",
+              "flow",
+              "reference",
+              "evidence",
+              "cohort_selection"
+            ],
+            "closing_kinds": [
+              "judgment",
+              "task_completion"
+            ]
+          },
+          "primary_output_kind": "frame",
+          "payload_fingerprints": {},
+          "payload_revisions": {},
+          "status": "completed",
+          "issued_at": "2026-09-09T06:07:59.741667+00:00",
+          "completed_at": "2026-09-09T06:07:59.742446+00:00",
+          "produced_refs": [
+            "frame:frame__root"
+          ],
+          "receipt": {
+            "run_id": "run_operation_fe16956a988a0a75",
+            "cursor": 1,
+            "step_idx": 0,
+            "key": "run_operation_fe16956a988a0a75:frame__root"
+          }
+        }
+      ],
+      "critic_rounds": [
+        {
+          "round": 0,
+          "key": "run-view-finished-critic:0",
+          "critic_report_id": "completeness_operation_c1945dcb82df7f81",
+          "passed": true,
+          "missing": 0
+        },
+        {
+          "round": 1,
+          "key": "run-view-finished-critic:1",
+          "critic_report_id": "completeness_operation_7d7bbbf513ac384a",
+          "passed": true,
+          "missing": 0
+        }
+      ],
+      "created_at": "2026-09-09T06:07:59.740645+00:00",
+      "updated_at": "2026-09-09T06:07:59.745656+00:00",
+      "workflow_trace_id": "sltrace_1cd3a4406a8776a988bde5f9",
+      "operation_id": "run-view-finished",
+      "operation_fingerprint": "05a6e0af36bf193c5330323b8adb7b4973f34f4d51c589d8815bedbbf8d4240e"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "journal",
+      "run_id": "run_operation_fe16956a988a0a75",
+      "project_id": "rproject_operation_a9c173a06f220d58",
+      "methodology": "",
+      "status": "finished",
+      "budget": null,
+      "cursor": 1,
+      "created_at": "2026-09-09T06:07:59.740645+00:00",
+      "updated_at": "2026-09-09T06:07:59.745656+00:00",
+      "workflow_trace_id": "sltrace_1cd3a4406a8776a988bde5f9",
+      "steps": [
+        {
+          "idx": 0,
+          "task_id": "frame__root",
+          "bucket": "analyze",
+          "summary": "recorded evidence-grounded research frame",
+          "open_questions": [],
+          "evidence": [
+            "frame:frame__root"
+          ],
+          "consume_refs": [],
+          "optional_context_refs": [],
+          "produced_refs": [
+            "frame:frame__root"
+          ],
+          "downstream_refs": [],
+          "parked_refs": [],
+          "receipt": {
+            "run_id": "run_operation_fe16956a988a0a75",
+            "cursor": 1,
+            "step_idx": 0
+          }
+        }
+      ],
+      "dispatches": [
+        {
+          "task_id": "frame__root",
+          "step_id": "frame__root",
+          "bucket": "analyze",
+          "dispatch_cursor": 0,
+          "status": "completed",
+          "issued_at": "2026-09-09T06:07:59.741667+00:00",
+          "completed_at": "2026-09-09T06:07:59.742446+00:00",
+          "expected_output_kind": "frame",
+          "primary_output_kind": "frame",
+          "input_fingerprint": "b1732f35c227ac202b507c0b8b61ba5e77699e61eb7b9ca8bf626052f59616d0",
+          "output_contract": {
+            "schema": "sonaloop.dispatch_output_contract.v1",
+            "max_primary_outputs": 1,
+            "allowed_primary_kinds": [
+              "frame"
+            ],
+            "supporting_kinds": [
+              "asset",
+              "flow",
+              "reference",
+              "evidence",
+              "cohort_selection"
+            ],
+            "closing_kinds": [
+              "judgment",
+              "task_completion"
+            ]
+          },
+          "produced_refs": [
+            "frame:frame__root"
+          ],
+          "receipt": {
+            "run_id": "run_operation_fe16956a988a0a75",
+            "cursor": 1,
+            "step_idx": 0
+          },
+          "payload_fingerprints": [],
+          "payload_revisions": []
+        }
+      ],
+      "critic_rounds": [
+        {
+          "round": 0,
+          "critic_report_id": "completeness_operation_c1945dcb82df7f81",
+          "passed": true,
+          "missing": 0
+        },
+        {
+          "round": 1,
+          "critic_report_id": "completeness_operation_7d7bbbf513ac384a",
+          "passed": true,
+          "missing": 0
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "runs-negative-budget",
+    "tool": "start_run",
+    "input": {
+      "project_id": "rproject_operation_8fe5d23aa7c0402a",
+      "budget": -1,
+      "operation_id": "run-view-negative"
+    },
+    "value": {
+      "run_id": "run_operation_9cbc3dca43193408",
+      "project_id": "rproject_operation_8fe5d23aa7c0402a",
+      "methodology": "",
+      "status": "active",
+      "budget": -1,
+      "cursor": 0,
+      "steps": [],
+      "dispatches": [],
+      "critic_rounds": [],
+      "created_at": "2026-09-09T06:07:59.750715+00:00",
+      "updated_at": "2026-09-09T06:07:59.750715+00:00",
+      "workflow_trace_id": "sltrace_9f662dc2a596c717143aded5",
+      "operation_id": "run-view-negative",
+      "operation_fingerprint": "99c6a6d98bf32a9c949ce419a24186cf9d8bf5f1e97c4c9974271609e7a8878b"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.run-view.v1",
+      "view": "journal",
+      "run_id": "run_operation_9cbc3dca43193408",
+      "project_id": "rproject_operation_8fe5d23aa7c0402a",
+      "methodology": "",
+      "status": "active",
+      "budget": -1,
+      "cursor": 0,
+      "created_at": "2026-09-09T06:07:59.750715+00:00",
+      "updated_at": "2026-09-09T06:07:59.750715+00:00",
+      "workflow_trace_id": "sltrace_9f662dc2a596c717143aded5",
+      "steps": [],
+      "dispatches": [],
+      "critic_rounds": []
+    },
+    "state": "ready"
+  }
+]

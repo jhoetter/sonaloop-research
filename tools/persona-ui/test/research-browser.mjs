@@ -354,6 +354,8 @@ for family in ("cohorts", "profiles", "records", "chats"):
         specs.append((case["scenario"].replace("_", "-"), family, case["tool"], case["input"], case["value"]))
 for case in json.loads(Path("tools/persona-ui/fixtures/preparation.json").read_text()):
     specs.append(("preparation-" + case["scenario"].replace("_", "-"), "preparation", case["tool"], case["input"], case["value"]))
+for case in json.loads(Path("tools/persona-ui/fixtures/run-journal.json").read_text()):
+    specs.append((case["scenario"], "runs", case["tool"], case["input"], case["value"]))
 for case in json.loads(Path("tools/persona-ui/fixtures/project-health.json").read_text()):
     specs.append(("runs-" + case["scenario"].replace("_", "-"), "runs", case["tool"], case["input"], case["value"]))
 for case in json.loads(Path("tools/persona-ui/fixtures/projects.json").read_text()):
