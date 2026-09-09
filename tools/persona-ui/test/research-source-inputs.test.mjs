@@ -26,7 +26,7 @@ test('owned and shared source mutations change exact families without editing th
   const baseline = new Map(await Promise.all(names.map(async family => [family, await identity(family)])));
   for (const [path, affected] of [
     ['sonaloop/ui_components/surveys.py', ['surveys', 'sessions']],
-    ['sonaloop/ui_components/councils.py', ['councils']],
+    ['sonaloop/ui_components/councils.py', ['councils', 'ideation']],
     ['sonaloop/ui_components/calendar.py', ['calendar']],
     ['sonaloop/ui_components/plans.py', ['plans']],
     ['sonaloop/ui_components/research_plan.py', ['researchplan']],
@@ -35,8 +35,8 @@ test('owned and shared source mutations change exact families without editing th
     ['sonaloop/web/_graph.py', ['researchplan']],
     ['sonaloop/ui_components/memory.py', ['memory', 'preparation']],
     ['sonaloop/ui_components/project_graph.py', ['projects']],
-    ['sonaloop/ui_components/projects_rows.py', ['projects', 'search', 'runs', 'preparation', 'profiles', 'cohorts', 'records', 'chats', 'catalog', 'researchplan', 'understanding']],
-    ['sonaloop/ui_components/project_health.py', ['projects', 'runs']],
+    ['sonaloop/ui_components/projects_rows.py', names],
+    ['sonaloop/ui_components/project_health.py', ['projects', 'runs', 'assessment']],
     ['sonaloop/ui_components/memory_rows.py', ['memory', 'preparation']],
     ['sonaloop/ui_components/memory_outcomes.py', ['memory']],
     ['tools/persona-ui/fixtures/memory.json', ['memory']],
@@ -45,6 +45,9 @@ test('owned and shared source mutations change exact families without editing th
     ['sonaloop/suggestions/finding_kinds.json', ['syntheses', 'projects']],
     ['sonaloop/web/_synthesis.py', ['councils', 'syntheses', 'sessions', 'projects']],
     ['sonaloop/ui_components/declarations/notes.json', ['notes']],
+    ['sonaloop/ui_components/plan_assessment.py', ['assessment']],
+    ['sonaloop/ui_components/plan_assessment_rows.py', ['assessment']],
+    ['sonaloop/ui_components/ideation.py', names],
     ['sonaloop/ui_components/statements.py', names],
     ['sonaloop/web/_html.py', names],
   ]) for (const family of names)

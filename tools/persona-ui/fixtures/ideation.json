@@ -1,0 +1,3176 @@
+[
+  {
+    "scenario": "ideation-reframe-hypothesis",
+    "tool": "record_hmw_reframe",
+    "input": {
+      "project_id": "rproject_3facb27d98797a3d",
+      "problem": "The next owner lacks context.",
+      "hmws": [
+        {
+          "question": "How might we name the next owner?",
+          "prediction": {
+            "metric": "handover_delay",
+            "expected_direction": "decrease"
+          }
+        },
+        "How might we preserve pending work?",
+        "How might we show unresolved risk?"
+      ]
+    },
+    "value": {
+      "schema": "hmw_reframe",
+      "project_id": "rproject_3facb27d98797a3d",
+      "problem": "The next owner lacks context.",
+      "hmw": [
+        {
+          "id": "oq_cf55133212a9db8b",
+          "question": "How might we name the next owner?",
+          "hypothesis_id": "hyp_6a39b3f81c070ed4"
+        },
+        {
+          "id": "oq_e6089127a320fe8b",
+          "question": "How might we preserve pending work?"
+        },
+        {
+          "id": "oq_50246967fe63ef14",
+          "question": "How might we show unresolved risk?"
+        }
+      ],
+      "next": "Run the diverge council (brief_council with these questions as prompts), then record_ideas — every idea attributed to a persona + one of these hmw ids."
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "schema": "hmw_reframe",
+        "project_id": "rproject_3facb27d98797a3d",
+        "problem": "The next owner lacks context.",
+        "hmw": [
+          {
+            "id": "oq_cf55133212a9db8b",
+            "question": "How might we name the next owner?",
+            "hypothesis_id": "hyp_6a39b3f81c070ed4"
+          },
+          {
+            "id": "oq_e6089127a320fe8b",
+            "question": "How might we preserve pending work?"
+          },
+          {
+            "id": "oq_50246967fe63ef14",
+            "question": "How might we show unresolved risk?"
+          }
+        ],
+        "next": "Run the diverge council (brief_council with these questions as prompts), then record_ideas — every idea attributed to a persona + one of these hmw ids."
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "record_hmw_reframe",
+        "latency_ms": 2.5,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb"
+      }
+    },
+    "public_value": {
+      "schema": "hmw_reframe",
+      "project_id": "rproject_3facb27d98797a3d",
+      "problem": "The next owner lacks context.",
+      "hmw": [
+        {
+          "id": "oq_cf55133212a9db8b",
+          "question": "How might we name the next owner?",
+          "hypothesis_id": "hyp_6a39b3f81c070ed4"
+        },
+        {
+          "id": "oq_e6089127a320fe8b",
+          "question": "How might we preserve pending work?"
+        },
+        {
+          "id": "oq_50246967fe63ef14",
+          "question": "How might we show unresolved risk?"
+        }
+      ],
+      "next": "Run the diverge council (brief_council with these questions as prompts), then record_ideas — every idea attributed to a persona + one of these hmw ids."
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "ideation-ideas-recorded",
+    "tool": "record_ideas",
+    "input": {
+      "project_id": "rproject_3facb27d98797a3d",
+      "ideas": [
+        {
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership"
+        },
+        {
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b",
+          "cluster": ""
+        }
+      ]
+    },
+    "value": {
+      "ideas": [
+        {
+          "id": "note_beed15d30821d5af",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.898925+00:00",
+          "hmw_question": "How might we name the next owner?"
+        },
+        {
+          "id": "note_ed6dafc7ed920bbd",
+          "title": "Keep a shared handover note",
+          "text": "Keep a shared handover note",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          "created_at": "2026-09-09T08:47:06.899221+00:00",
+          "hmw_question": "How might we preserve pending work?"
+        }
+      ]
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "title": "Show the pending owner",
+            "text": "Show the pending owner",
+            "kind": "idea",
+            "data": {
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            "created_at": "2026-09-09T08:47:06.898925+00:00",
+            "hmw_question": "How might we name the next owner?"
+          },
+          {
+            "id": "note_ed6dafc7ed920bbd",
+            "title": "Keep a shared handover note",
+            "text": "Keep a shared handover note",
+            "kind": "idea",
+            "data": {
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b"
+            },
+            "created_at": "2026-09-09T08:47:06.899221+00:00",
+            "hmw_question": "How might we preserve pending work?"
+          }
+        ]
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "record_ideas",
+        "latency_ms": 1.4,
+        "server_version": "0.2.0",
+        "schema_version": 5
+      }
+    },
+    "public_value": {
+      "ideas": [
+        {
+          "id": "note_beed15d30821d5af",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.898925+00:00",
+          "hmw_question": "How might we name the next owner?"
+        },
+        {
+          "id": "note_ed6dafc7ed920bbd",
+          "title": "Keep a shared handover note",
+          "text": "Keep a shared handover note",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          "created_at": "2026-09-09T08:47:06.899221+00:00",
+          "hmw_question": "How might we preserve pending work?"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "ideation-ideas-recorded-replay",
+    "tool": "record_ideas",
+    "input": {
+      "project_id": "rproject_3facb27d98797a3d",
+      "ideas": [
+        {
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership"
+        },
+        {
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b",
+          "cluster": ""
+        }
+      ]
+    },
+    "value": {
+      "ideas": [
+        {
+          "id": "note_fad51d8c0f901176",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.900435+00:00",
+          "hmw_question": "How might we name the next owner?"
+        },
+        {
+          "id": "note_b69148b60b1c4d56",
+          "title": "Keep a shared handover note",
+          "text": "Keep a shared handover note",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          "created_at": "2026-09-09T08:47:06.900751+00:00",
+          "hmw_question": "How might we preserve pending work?"
+        }
+      ]
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "ideas": [
+          {
+            "id": "note_fad51d8c0f901176",
+            "title": "Show the pending owner",
+            "text": "Show the pending owner",
+            "kind": "idea",
+            "data": {
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            "created_at": "2026-09-09T08:47:06.900435+00:00",
+            "hmw_question": "How might we name the next owner?"
+          },
+          {
+            "id": "note_b69148b60b1c4d56",
+            "title": "Keep a shared handover note",
+            "text": "Keep a shared handover note",
+            "kind": "idea",
+            "data": {
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b"
+            },
+            "created_at": "2026-09-09T08:47:06.900751+00:00",
+            "hmw_question": "How might we preserve pending work?"
+          }
+        ]
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "record_ideas",
+        "latency_ms": 1.5,
+        "server_version": "0.2.0",
+        "schema_version": 5
+      }
+    },
+    "public_value": {
+      "ideas": [
+        {
+          "id": "note_fad51d8c0f901176",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.900435+00:00",
+          "hmw_question": "How might we name the next owner?"
+        },
+        {
+          "id": "note_b69148b60b1c4d56",
+          "title": "Keep a shared handover note",
+          "text": "Keep a shared handover note",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          "created_at": "2026-09-09T08:47:06.900751+00:00",
+          "hmw_question": "How might we preserve pending work?"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "ideation-ideas-listed",
+    "tool": "list_ideas",
+    "input": {
+      "project_id": "rproject_3facb27d98797a3d"
+    },
+    "value": {
+      "ideas": [
+        {
+          "id": "note_beed15d30821d5af",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.898925+00:00"
+        },
+        {
+          "id": "note_ed6dafc7ed920bbd",
+          "title": "Keep a shared handover note",
+          "text": "Keep a shared handover note",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          "created_at": "2026-09-09T08:47:06.899221+00:00"
+        },
+        {
+          "id": "note_fad51d8c0f901176",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.900435+00:00"
+        },
+        {
+          "id": "note_b69148b60b1c4d56",
+          "title": "Keep a shared handover note",
+          "text": "Keep a shared handover note",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          "created_at": "2026-09-09T08:47:06.900751+00:00"
+        }
+      ]
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "title": "Show the pending owner",
+            "text": "Show the pending owner",
+            "kind": "idea",
+            "data": {
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            "created_at": "2026-09-09T08:47:06.898925+00:00"
+          },
+          {
+            "id": "note_ed6dafc7ed920bbd",
+            "title": "Keep a shared handover note",
+            "text": "Keep a shared handover note",
+            "kind": "idea",
+            "data": {
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b"
+            },
+            "created_at": "2026-09-09T08:47:06.899221+00:00"
+          },
+          {
+            "id": "note_fad51d8c0f901176",
+            "title": "Show the pending owner",
+            "text": "Show the pending owner",
+            "kind": "idea",
+            "data": {
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            "created_at": "2026-09-09T08:47:06.900435+00:00"
+          },
+          {
+            "id": "note_b69148b60b1c4d56",
+            "title": "Keep a shared handover note",
+            "text": "Keep a shared handover note",
+            "kind": "idea",
+            "data": {
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b"
+            },
+            "created_at": "2026-09-09T08:47:06.900751+00:00"
+          }
+        ]
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "list_ideas",
+        "latency_ms": 0.8,
+        "server_version": "0.2.0",
+        "schema_version": 5
+      }
+    },
+    "public_value": {
+      "ideas": [
+        {
+          "id": "note_beed15d30821d5af",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.898925+00:00"
+        },
+        {
+          "id": "note_ed6dafc7ed920bbd",
+          "title": "Keep a shared handover note",
+          "text": "Keep a shared handover note",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          "created_at": "2026-09-09T08:47:06.899221+00:00"
+        },
+        {
+          "id": "note_fad51d8c0f901176",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.900435+00:00"
+        },
+        {
+          "id": "note_b69148b60b1c4d56",
+          "title": "Keep a shared handover note",
+          "text": "Keep a shared handover note",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          "created_at": "2026-09-09T08:47:06.900751+00:00"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "ideation-ideas-empty-filter",
+    "tool": "list_ideas",
+    "input": {
+      "project_id": "rproject_3facb27d98797a3d",
+      "cluster": "absent-cluster"
+    },
+    "value": {
+      "ideas": []
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "ideas": []
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "list_ideas",
+        "latency_ms": 0.8,
+        "server_version": "0.2.0",
+        "schema_version": 5
+      }
+    },
+    "public_value": {
+      "ideas": []
+    },
+    "state": "empty"
+  },
+  {
+    "scenario": "ideation-ideas-filtered",
+    "tool": "list_ideas",
+    "input": {
+      "project_id": "rproject_3facb27d98797a3d",
+      "hmw_ref": "oq_cf55133212a9db8b",
+      "persona_id": "persona_a13a08cabe8f4770",
+      "cluster": "ownership"
+    },
+    "value": {
+      "ideas": [
+        {
+          "id": "note_beed15d30821d5af",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.898925+00:00"
+        },
+        {
+          "id": "note_fad51d8c0f901176",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.900435+00:00"
+        }
+      ]
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "title": "Show the pending owner",
+            "text": "Show the pending owner",
+            "kind": "idea",
+            "data": {
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            "created_at": "2026-09-09T08:47:06.898925+00:00"
+          },
+          {
+            "id": "note_fad51d8c0f901176",
+            "title": "Show the pending owner",
+            "text": "Show the pending owner",
+            "kind": "idea",
+            "data": {
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            "created_at": "2026-09-09T08:47:06.900435+00:00"
+          }
+        ]
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "list_ideas",
+        "latency_ms": 0.8,
+        "server_version": "0.2.0",
+        "schema_version": 5
+      }
+    },
+    "public_value": {
+      "ideas": [
+        {
+          "id": "note_beed15d30821d5af",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.898925+00:00"
+        },
+        {
+          "id": "note_fad51d8c0f901176",
+          "title": "Show the pending owner",
+          "text": "Show the pending owner",
+          "kind": "idea",
+          "data": {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          "created_at": "2026-09-09T08:47:06.900435+00:00"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "ideation-summary-recorded",
+    "tool": "record_ideation_summary",
+    "input": {
+      "project_id": "rproject_3facb27d98797a3d",
+      "problem": "The next owner lacks context.",
+      "key": "synthetic-ideation-key",
+      "shortlist": [
+        {
+          "idea_id": "note_ed6dafc7ed920bbd",
+          "rationale": "The shared note preserves unfinished work."
+        },
+        {
+          "idea_id": "note_beed15d30821d5af",
+          "rationale": "Then identify who takes over."
+        }
+      ],
+      "statements": [
+        {
+          "persona_id": "persona_a13a08cabe8f4770",
+          "text": "I need the unresolved work before accepting a handover.",
+          "stance": {
+            "value": 1
+          },
+          "about": {
+            "kind": "prompt",
+            "id": "hmw:0"
+          },
+          "relevance": "Keeps the next shift informed",
+          "shift": {
+            "from": 0,
+            "to": 1
+          },
+          "refs": [
+            {
+              "kind": "persona",
+              "id": "persona_a13a08cabe8f4770",
+              "anchor": "detail",
+              "role": "derived_from",
+              "quote": "A supplied quotation",
+              "text": "A supplied reference text"
+            }
+          ],
+          "meta": {
+            "authored_empty": "",
+            "authored_null": null,
+            "dispatch_token": "literal authored field"
+          }
+        }
+      ],
+      "summary": "Start with pending work.",
+      "exec_summary": "Preserve context before naming the next owner."
+    },
+    "value": {
+      "id": "council_838af25a4a454cc3",
+      "prompt": "The next owner lacks context.",
+      "persona_ids": [
+        "persona_a13a08cabe8f4770"
+      ],
+      "selection_reason": "ideation council (HMW diverge→converge)",
+      "proposal": "",
+      "votes": [],
+      "summary": "Start with pending work.",
+      "created_at": "2026-09-09T08:47:06.905509+00:00",
+      "exec_summary": "Preserve context before naming the next owner.",
+      "questions": [],
+      "project_id": "rproject_3facb27d98797a3d",
+      "statements": [
+        {
+          "persona_id": "persona_a13a08cabe8f4770",
+          "text": "I need the unresolved work before accepting a handover.",
+          "stance": {
+            "value": 1,
+            "label": "conditional"
+          },
+          "about": {
+            "kind": "prompt",
+            "id": "hmw:0"
+          },
+          "refs": [
+            {
+              "kind": "persona",
+              "id": "persona_a13a08cabe8f4770",
+              "anchor": "detail",
+              "quote": "A supplied quotation",
+              "text": "A supplied reference text",
+              "role": "derived_from"
+            }
+          ],
+          "relevance": "Keeps the next shift informed",
+          "shift": {
+            "from": 0,
+            "to": 1
+          },
+          "meta": {
+            "authored_empty": "",
+            "authored_null": null,
+            "dispatch_token": "literal authored field",
+            "claim_posture": "unsupported"
+          },
+          "id": "st1"
+        }
+      ],
+      "findings": [
+        {
+          "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+          "kind": "ideation",
+          "score": {
+            "ideas": 4,
+            "shortlisted": 2
+          },
+          "refs": [
+            {
+              "kind": "persona",
+              "id": "persona_a13a08cabe8f4770",
+              "anchor": "detail",
+              "quote": "A supplied quotation",
+              "text": "A supplied reference text",
+              "role": "derived_from"
+            }
+          ],
+          "meta": {
+            "shortlist": [
+              {
+                "rank": 1,
+                "idea_id": "note_ed6dafc7ed920bbd",
+                "text": "Keep a shared handover note",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_e6089127a320fe8b",
+                "cluster": null,
+                "rationale": "The shared note preserves unfinished work."
+              },
+              {
+                "rank": 2,
+                "idea_id": "note_beed15d30821d5af",
+                "text": "Show the pending owner",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_cf55133212a9db8b",
+                "cluster": "ownership",
+                "rationale": "Then identify who takes over."
+              }
+            ],
+            "claim_posture": "inferred"
+          },
+          "id": "f1"
+        }
+      ],
+      "prompts": [
+        {
+          "text": "How might we name the next owner?",
+          "kind": "question",
+          "id": "hmw:0"
+        },
+        {
+          "text": "How might we preserve pending work?",
+          "kind": "question",
+          "id": "hmw:1"
+        }
+      ],
+      "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb",
+      "claim_posture": {
+        "schema": "sonaloop.claim_posture.v1",
+        "default": "unsupported",
+        "claims": [
+          {
+            "id": "st1",
+            "text": "I need the unresolved work before accepting a handover.",
+            "posture": "unsupported",
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ]
+          },
+          {
+            "id": "f1",
+            "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+            "posture": "inferred",
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ]
+          }
+        ],
+        "counts": {
+          "inferred": 1,
+          "memory_grounded": 0,
+          "observed": 0,
+          "simulated": 0,
+          "unsupported": 1
+        },
+        "prose_uncovered": true,
+        "verified": false
+      },
+      "dispatch_provenance": {
+        "state": "legacy"
+      },
+      "url": "http://127.0.0.1:8787/councils/council_838af25a4a454cc3",
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_3facb27d98797a3d",
+      "dispatch": {
+        "state": "legacy",
+        "checkpointed": false,
+        "provenance": "not governed by an active dispatch"
+      },
+      "warnings": [
+        "UNVERIFIED_HYPOTHESIS_DRAFT: claim posture is incomplete/unsupported; the Reaction Test gate stays blocked until prose and structured claims cite admissible evidence",
+        "participants have ZERO simulated memory (0 facts/events) — this council is ungrounded; deepen the cohort (simulate-cohort) before relying on it",
+        "recorded OUTSIDE the governed run loop — the project's plan has ready work and no active run (council:council_838af25a4a454cc3 is not linked to a plan task. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:4e54f7c5b4ece86f34b870e5c7cc7df09346b70803091bde744e215bbccb89ab', project_id='rproject_3facb27d98797a3d').); drive councils via start_run → run_step → checkpoint_step so plan gates and assess_project stay honest"
+      ],
+      "ideation": {
+        "problem": "The next owner lacks context.",
+        "hmw": [
+          {
+            "id": "oq_cf55133212a9db8b",
+            "question": "How might we name the next owner?"
+          },
+          {
+            "id": "oq_e6089127a320fe8b",
+            "question": "How might we preserve pending work?"
+          }
+        ],
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          {
+            "id": "note_fad51d8c0f901176",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_b69148b60b1c4d56",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          }
+        ],
+        "shortlist": [
+          {
+            "rank": 1,
+            "idea_id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b",
+            "cluster": null,
+            "rationale": "The shared note preserves unfinished work."
+          },
+          {
+            "rank": 2,
+            "idea_id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership",
+            "rationale": "Then identify who takes over."
+          }
+        ],
+        "recorded_at": "2026-09-09T08:47:06.907037+00:00"
+      },
+      "cite_as": {
+        "kind": "council",
+        "id": "council_838af25a4a454cc3",
+        "role": "based_on"
+      }
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "id": "council_838af25a4a454cc3",
+        "prompt": "The next owner lacks context.",
+        "persona_ids": [
+          "persona_a13a08cabe8f4770"
+        ],
+        "selection_reason": "ideation council (HMW diverge→converge)",
+        "proposal": "",
+        "votes": [],
+        "summary": "Start with pending work.",
+        "created_at": "2026-09-09T08:47:06.905509+00:00",
+        "exec_summary": "Preserve context before naming the next owner.",
+        "questions": [],
+        "project_id": "rproject_3facb27d98797a3d",
+        "statements": [
+          {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "text": "I need the unresolved work before accepting a handover.",
+            "stance": {
+              "value": 1,
+              "label": "conditional"
+            },
+            "about": {
+              "kind": "prompt",
+              "id": "hmw:0"
+            },
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ],
+            "relevance": "Keeps the next shift informed",
+            "shift": {
+              "from": 0,
+              "to": 1
+            },
+            "meta": {
+              "authored_empty": "",
+              "authored_null": null,
+              "dispatch_token": "literal authored field",
+              "claim_posture": "unsupported"
+            },
+            "id": "st1"
+          }
+        ],
+        "findings": [
+          {
+            "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+            "kind": "ideation",
+            "score": {
+              "ideas": 4,
+              "shortlisted": 2
+            },
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ],
+            "meta": {
+              "shortlist": [
+                {
+                  "rank": 1,
+                  "idea_id": "note_ed6dafc7ed920bbd",
+                  "text": "Keep a shared handover note",
+                  "persona_id": "persona_a13a08cabe8f4770",
+                  "hmw_ref": "oq_e6089127a320fe8b",
+                  "cluster": null,
+                  "rationale": "The shared note preserves unfinished work."
+                },
+                {
+                  "rank": 2,
+                  "idea_id": "note_beed15d30821d5af",
+                  "text": "Show the pending owner",
+                  "persona_id": "persona_a13a08cabe8f4770",
+                  "hmw_ref": "oq_cf55133212a9db8b",
+                  "cluster": "ownership",
+                  "rationale": "Then identify who takes over."
+                }
+              ],
+              "claim_posture": "inferred"
+            },
+            "id": "f1"
+          }
+        ],
+        "prompts": [
+          {
+            "text": "How might we name the next owner?",
+            "kind": "question",
+            "id": "hmw:0"
+          },
+          {
+            "text": "How might we preserve pending work?",
+            "kind": "question",
+            "id": "hmw:1"
+          }
+        ],
+        "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb",
+        "claim_posture": {
+          "schema": "sonaloop.claim_posture.v1",
+          "default": "unsupported",
+          "claims": [
+            {
+              "id": "st1",
+              "text": "I need the unresolved work before accepting a handover.",
+              "posture": "unsupported",
+              "refs": [
+                {
+                  "kind": "persona",
+                  "id": "persona_a13a08cabe8f4770",
+                  "anchor": "detail",
+                  "quote": "A supplied quotation",
+                  "text": "A supplied reference text",
+                  "role": "derived_from"
+                }
+              ]
+            },
+            {
+              "id": "f1",
+              "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+              "posture": "inferred",
+              "refs": [
+                {
+                  "kind": "persona",
+                  "id": "persona_a13a08cabe8f4770",
+                  "anchor": "detail",
+                  "quote": "A supplied quotation",
+                  "text": "A supplied reference text",
+                  "role": "derived_from"
+                }
+              ]
+            }
+          ],
+          "counts": {
+            "inferred": 1,
+            "memory_grounded": 0,
+            "observed": 0,
+            "simulated": 0,
+            "unsupported": 1
+          },
+          "prose_uncovered": true,
+          "verified": false
+        },
+        "dispatch_provenance": {
+          "state": "legacy"
+        },
+        "url": "http://127.0.0.1:8787/councils/council_838af25a4a454cc3",
+        "project_url": "http://127.0.0.1:8787/jobs/rproject_3facb27d98797a3d",
+        "dispatch": {
+          "state": "legacy",
+          "checkpointed": false,
+          "provenance": "not governed by an active dispatch"
+        },
+        "warnings": [
+          "UNVERIFIED_HYPOTHESIS_DRAFT: claim posture is incomplete/unsupported; the Reaction Test gate stays blocked until prose and structured claims cite admissible evidence",
+          "participants have ZERO simulated memory (0 facts/events) — this council is ungrounded; deepen the cohort (simulate-cohort) before relying on it",
+          "recorded OUTSIDE the governed run loop — the project's plan has ready work and no active run (council:council_838af25a4a454cc3 is not linked to a plan task. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:4e54f7c5b4ece86f34b870e5c7cc7df09346b70803091bde744e215bbccb89ab', project_id='rproject_3facb27d98797a3d').); drive councils via start_run → run_step → checkpoint_step so plan gates and assess_project stay honest"
+        ],
+        "ideation": {
+          "problem": "The next owner lacks context.",
+          "hmw": [
+            {
+              "id": "oq_cf55133212a9db8b",
+              "question": "How might we name the next owner?"
+            },
+            {
+              "id": "oq_e6089127a320fe8b",
+              "question": "How might we preserve pending work?"
+            }
+          ],
+          "ideas": [
+            {
+              "id": "note_beed15d30821d5af",
+              "text": "Show the pending owner",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            {
+              "id": "note_ed6dafc7ed920bbd",
+              "text": "Keep a shared handover note",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b"
+            },
+            {
+              "id": "note_fad51d8c0f901176",
+              "text": "Show the pending owner",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            {
+              "id": "note_b69148b60b1c4d56",
+              "text": "Keep a shared handover note",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b"
+            }
+          ],
+          "shortlist": [
+            {
+              "rank": 1,
+              "idea_id": "note_ed6dafc7ed920bbd",
+              "text": "Keep a shared handover note",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b",
+              "cluster": null,
+              "rationale": "The shared note preserves unfinished work."
+            },
+            {
+              "rank": 2,
+              "idea_id": "note_beed15d30821d5af",
+              "text": "Show the pending owner",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership",
+              "rationale": "Then identify who takes over."
+            }
+          ],
+          "recorded_at": "2026-09-09T08:47:06.907037+00:00"
+        },
+        "cite_as": {
+          "kind": "council",
+          "id": "council_838af25a4a454cc3",
+          "role": "based_on"
+        }
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "record_ideation_summary",
+        "latency_ms": 3.4,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb"
+      }
+    },
+    "public_value": {
+      "id": "council_838af25a4a454cc3",
+      "prompt": "The next owner lacks context.",
+      "persona_ids": [
+        "persona_a13a08cabe8f4770"
+      ],
+      "selection_reason": "ideation council (HMW diverge→converge)",
+      "proposal": "",
+      "votes": [],
+      "summary": "Start with pending work.",
+      "created_at": "2026-09-09T08:47:06.905509+00:00",
+      "exec_summary": "Preserve context before naming the next owner.",
+      "questions": [],
+      "project_id": "rproject_3facb27d98797a3d",
+      "statements": [
+        {
+          "persona_id": "persona_a13a08cabe8f4770",
+          "text": "I need the unresolved work before accepting a handover.",
+          "stance": {
+            "value": 1,
+            "label": "conditional"
+          },
+          "about": {
+            "kind": "prompt",
+            "id": "hmw:0"
+          },
+          "refs": [
+            {
+              "kind": "persona",
+              "id": "persona_a13a08cabe8f4770",
+              "anchor": "detail",
+              "quote": "A supplied quotation",
+              "text": "A supplied reference text",
+              "role": "derived_from"
+            }
+          ],
+          "relevance": "Keeps the next shift informed",
+          "shift": {
+            "from": 0,
+            "to": 1
+          },
+          "meta": {
+            "authored_empty": "",
+            "authored_null": null,
+            "dispatch_token": "literal authored field",
+            "claim_posture": "unsupported"
+          },
+          "id": "st1"
+        }
+      ],
+      "findings": [
+        {
+          "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+          "kind": "ideation",
+          "score": {
+            "ideas": 4,
+            "shortlisted": 2
+          },
+          "refs": [
+            {
+              "kind": "persona",
+              "id": "persona_a13a08cabe8f4770",
+              "anchor": "detail",
+              "quote": "A supplied quotation",
+              "text": "A supplied reference text",
+              "role": "derived_from"
+            }
+          ],
+          "meta": {
+            "shortlist": [
+              {
+                "rank": 1,
+                "idea_id": "note_ed6dafc7ed920bbd",
+                "text": "Keep a shared handover note",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_e6089127a320fe8b",
+                "cluster": null,
+                "rationale": "The shared note preserves unfinished work."
+              },
+              {
+                "rank": 2,
+                "idea_id": "note_beed15d30821d5af",
+                "text": "Show the pending owner",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_cf55133212a9db8b",
+                "cluster": "ownership",
+                "rationale": "Then identify who takes over."
+              }
+            ],
+            "claim_posture": "inferred"
+          },
+          "id": "f1"
+        }
+      ],
+      "prompts": [
+        {
+          "text": "How might we name the next owner?",
+          "kind": "question",
+          "id": "hmw:0"
+        },
+        {
+          "text": "How might we preserve pending work?",
+          "kind": "question",
+          "id": "hmw:1"
+        }
+      ],
+      "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb",
+      "claim_posture": {
+        "schema": "sonaloop.claim_posture.v1",
+        "default": "unsupported",
+        "claims": [
+          {
+            "id": "st1",
+            "text": "I need the unresolved work before accepting a handover.",
+            "posture": "unsupported",
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ]
+          },
+          {
+            "id": "f1",
+            "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+            "posture": "inferred",
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ]
+          }
+        ],
+        "counts": {
+          "inferred": 1,
+          "memory_grounded": 0,
+          "observed": 0,
+          "simulated": 0,
+          "unsupported": 1
+        },
+        "prose_uncovered": true,
+        "verified": false
+      },
+      "dispatch_provenance": {
+        "state": "legacy"
+      },
+      "url": "http://127.0.0.1:8787/councils/council_838af25a4a454cc3",
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_3facb27d98797a3d",
+      "dispatch": {
+        "state": "legacy",
+        "checkpointed": false,
+        "provenance": "not governed by an active dispatch"
+      },
+      "warnings": [
+        "UNVERIFIED_HYPOTHESIS_DRAFT: claim posture is incomplete/unsupported; the Reaction Test gate stays blocked until prose and structured claims cite admissible evidence",
+        "participants have ZERO simulated memory (0 facts/events) — this council is ungrounded; deepen the cohort (simulate-cohort) before relying on it",
+        "recorded OUTSIDE the governed run loop — the project's plan has ready work and no active run (council:council_838af25a4a454cc3 is not linked to a plan task. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:4e54f7c5b4ece86f34b870e5c7cc7df09346b70803091bde744e215bbccb89ab', project_id='rproject_3facb27d98797a3d').); drive councils via start_run → run_step → checkpoint_step so plan gates and assess_project stay honest"
+      ],
+      "ideation": {
+        "problem": "The next owner lacks context.",
+        "hmw": [
+          {
+            "id": "oq_cf55133212a9db8b",
+            "question": "How might we name the next owner?"
+          },
+          {
+            "id": "oq_e6089127a320fe8b",
+            "question": "How might we preserve pending work?"
+          }
+        ],
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          {
+            "id": "note_fad51d8c0f901176",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_b69148b60b1c4d56",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          }
+        ],
+        "shortlist": [
+          {
+            "rank": 1,
+            "idea_id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b",
+            "cluster": null,
+            "rationale": "The shared note preserves unfinished work."
+          },
+          {
+            "rank": 2,
+            "idea_id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership",
+            "rationale": "Then identify who takes over."
+          }
+        ],
+        "recorded_at": "2026-09-09T08:47:06.907037+00:00"
+      },
+      "cite_as": {
+        "kind": "council",
+        "id": "council_838af25a4a454cc3",
+        "role": "based_on"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "ideation-summary-replay",
+    "tool": "record_ideation_summary",
+    "input": {
+      "project_id": "rproject_3facb27d98797a3d",
+      "problem": "The next owner lacks context.",
+      "key": "synthetic-ideation-key",
+      "shortlist": [
+        {
+          "idea_id": "note_ed6dafc7ed920bbd",
+          "rationale": "The shared note preserves unfinished work."
+        },
+        {
+          "idea_id": "note_beed15d30821d5af",
+          "rationale": "Then identify who takes over."
+        }
+      ],
+      "statements": [
+        {
+          "persona_id": "persona_a13a08cabe8f4770",
+          "text": "I need the unresolved work before accepting a handover.",
+          "stance": {
+            "value": 1
+          },
+          "about": {
+            "kind": "prompt",
+            "id": "hmw:0"
+          },
+          "relevance": "Keeps the next shift informed",
+          "shift": {
+            "from": 0,
+            "to": 1
+          },
+          "refs": [
+            {
+              "kind": "persona",
+              "id": "persona_a13a08cabe8f4770",
+              "anchor": "detail",
+              "role": "derived_from",
+              "quote": "A supplied quotation",
+              "text": "A supplied reference text"
+            }
+          ],
+          "meta": {
+            "authored_empty": "",
+            "authored_null": null,
+            "dispatch_token": "literal authored field"
+          }
+        }
+      ],
+      "summary": "Start with pending work.",
+      "exec_summary": "Preserve context before naming the next owner."
+    },
+    "value": {
+      "id": "council_838af25a4a454cc3",
+      "prompt": "The next owner lacks context.",
+      "persona_ids": [
+        "persona_a13a08cabe8f4770"
+      ],
+      "selection_reason": "ideation council (HMW diverge→converge)",
+      "proposal": "",
+      "votes": [],
+      "summary": "Start with pending work.",
+      "created_at": "2026-09-09T08:47:06.905509+00:00",
+      "exec_summary": "Preserve context before naming the next owner.",
+      "questions": [],
+      "project_id": "rproject_3facb27d98797a3d",
+      "statements": [
+        {
+          "persona_id": "persona_a13a08cabe8f4770",
+          "text": "I need the unresolved work before accepting a handover.",
+          "stance": {
+            "value": 1,
+            "label": "conditional"
+          },
+          "about": {
+            "kind": "prompt",
+            "id": "hmw:0"
+          },
+          "refs": [
+            {
+              "kind": "persona",
+              "id": "persona_a13a08cabe8f4770",
+              "anchor": "detail",
+              "quote": "A supplied quotation",
+              "text": "A supplied reference text",
+              "role": "derived_from"
+            }
+          ],
+          "relevance": "Keeps the next shift informed",
+          "shift": {
+            "from": 0,
+            "to": 1
+          },
+          "meta": {
+            "authored_empty": "",
+            "authored_null": null,
+            "dispatch_token": "literal authored field",
+            "claim_posture": "unsupported"
+          },
+          "id": "st1"
+        }
+      ],
+      "findings": [
+        {
+          "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+          "kind": "ideation",
+          "score": {
+            "ideas": 4,
+            "shortlisted": 2
+          },
+          "refs": [
+            {
+              "kind": "persona",
+              "id": "persona_a13a08cabe8f4770",
+              "anchor": "detail",
+              "quote": "A supplied quotation",
+              "text": "A supplied reference text",
+              "role": "derived_from"
+            }
+          ],
+          "meta": {
+            "shortlist": [
+              {
+                "rank": 1,
+                "idea_id": "note_ed6dafc7ed920bbd",
+                "text": "Keep a shared handover note",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_e6089127a320fe8b",
+                "cluster": null,
+                "rationale": "The shared note preserves unfinished work."
+              },
+              {
+                "rank": 2,
+                "idea_id": "note_beed15d30821d5af",
+                "text": "Show the pending owner",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_cf55133212a9db8b",
+                "cluster": "ownership",
+                "rationale": "Then identify who takes over."
+              }
+            ],
+            "claim_posture": "inferred"
+          },
+          "id": "f1"
+        }
+      ],
+      "prompts": [
+        {
+          "text": "How might we name the next owner?",
+          "kind": "question",
+          "id": "hmw:0"
+        },
+        {
+          "text": "How might we preserve pending work?",
+          "kind": "question",
+          "id": "hmw:1"
+        }
+      ],
+      "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb",
+      "claim_posture": {
+        "schema": "sonaloop.claim_posture.v1",
+        "default": "unsupported",
+        "claims": [
+          {
+            "id": "st1",
+            "text": "I need the unresolved work before accepting a handover.",
+            "posture": "unsupported",
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ]
+          },
+          {
+            "id": "f1",
+            "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+            "posture": "inferred",
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ]
+          }
+        ],
+        "counts": {
+          "inferred": 1,
+          "memory_grounded": 0,
+          "observed": 0,
+          "simulated": 0,
+          "unsupported": 1
+        },
+        "prose_uncovered": true,
+        "verified": false
+      },
+      "dispatch_provenance": {
+        "state": "legacy"
+      },
+      "url": "http://127.0.0.1:8787/councils/council_838af25a4a454cc3",
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_3facb27d98797a3d",
+      "dispatch": {
+        "state": "legacy",
+        "checkpointed": false,
+        "provenance": "not governed by an active dispatch"
+      },
+      "warnings": [
+        "UNVERIFIED_HYPOTHESIS_DRAFT: claim posture is incomplete/unsupported; the Reaction Test gate stays blocked until prose and structured claims cite admissible evidence",
+        "participants have ZERO simulated memory (0 facts/events) — this council is ungrounded; deepen the cohort (simulate-cohort) before relying on it",
+        "recorded OUTSIDE the governed run loop — the project's plan has ready work and no active run (council:council_838af25a4a454cc3 is not linked to a plan task. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:4e54f7c5b4ece86f34b870e5c7cc7df09346b70803091bde744e215bbccb89ab', project_id='rproject_3facb27d98797a3d').); drive councils via start_run → run_step → checkpoint_step so plan gates and assess_project stay honest"
+      ],
+      "ideation": {
+        "problem": "The next owner lacks context.",
+        "hmw": [
+          {
+            "id": "oq_cf55133212a9db8b",
+            "question": "How might we name the next owner?"
+          },
+          {
+            "id": "oq_e6089127a320fe8b",
+            "question": "How might we preserve pending work?"
+          }
+        ],
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          {
+            "id": "note_fad51d8c0f901176",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_b69148b60b1c4d56",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          }
+        ],
+        "shortlist": [
+          {
+            "rank": 1,
+            "idea_id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b",
+            "cluster": null,
+            "rationale": "The shared note preserves unfinished work."
+          },
+          {
+            "rank": 2,
+            "idea_id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership",
+            "rationale": "Then identify who takes over."
+          }
+        ],
+        "recorded_at": "2026-09-09T08:47:06.910113+00:00"
+      },
+      "cite_as": {
+        "kind": "council",
+        "id": "council_838af25a4a454cc3",
+        "role": "based_on"
+      }
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "id": "council_838af25a4a454cc3",
+        "prompt": "The next owner lacks context.",
+        "persona_ids": [
+          "persona_a13a08cabe8f4770"
+        ],
+        "selection_reason": "ideation council (HMW diverge→converge)",
+        "proposal": "",
+        "votes": [],
+        "summary": "Start with pending work.",
+        "created_at": "2026-09-09T08:47:06.905509+00:00",
+        "exec_summary": "Preserve context before naming the next owner.",
+        "questions": [],
+        "project_id": "rproject_3facb27d98797a3d",
+        "statements": [
+          {
+            "persona_id": "persona_a13a08cabe8f4770",
+            "text": "I need the unresolved work before accepting a handover.",
+            "stance": {
+              "value": 1,
+              "label": "conditional"
+            },
+            "about": {
+              "kind": "prompt",
+              "id": "hmw:0"
+            },
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ],
+            "relevance": "Keeps the next shift informed",
+            "shift": {
+              "from": 0,
+              "to": 1
+            },
+            "meta": {
+              "authored_empty": "",
+              "authored_null": null,
+              "dispatch_token": "literal authored field",
+              "claim_posture": "unsupported"
+            },
+            "id": "st1"
+          }
+        ],
+        "findings": [
+          {
+            "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+            "kind": "ideation",
+            "score": {
+              "ideas": 4,
+              "shortlisted": 2
+            },
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ],
+            "meta": {
+              "shortlist": [
+                {
+                  "rank": 1,
+                  "idea_id": "note_ed6dafc7ed920bbd",
+                  "text": "Keep a shared handover note",
+                  "persona_id": "persona_a13a08cabe8f4770",
+                  "hmw_ref": "oq_e6089127a320fe8b",
+                  "cluster": null,
+                  "rationale": "The shared note preserves unfinished work."
+                },
+                {
+                  "rank": 2,
+                  "idea_id": "note_beed15d30821d5af",
+                  "text": "Show the pending owner",
+                  "persona_id": "persona_a13a08cabe8f4770",
+                  "hmw_ref": "oq_cf55133212a9db8b",
+                  "cluster": "ownership",
+                  "rationale": "Then identify who takes over."
+                }
+              ],
+              "claim_posture": "inferred"
+            },
+            "id": "f1"
+          }
+        ],
+        "prompts": [
+          {
+            "text": "How might we name the next owner?",
+            "kind": "question",
+            "id": "hmw:0"
+          },
+          {
+            "text": "How might we preserve pending work?",
+            "kind": "question",
+            "id": "hmw:1"
+          }
+        ],
+        "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb",
+        "claim_posture": {
+          "schema": "sonaloop.claim_posture.v1",
+          "default": "unsupported",
+          "claims": [
+            {
+              "id": "st1",
+              "text": "I need the unresolved work before accepting a handover.",
+              "posture": "unsupported",
+              "refs": [
+                {
+                  "kind": "persona",
+                  "id": "persona_a13a08cabe8f4770",
+                  "anchor": "detail",
+                  "quote": "A supplied quotation",
+                  "text": "A supplied reference text",
+                  "role": "derived_from"
+                }
+              ]
+            },
+            {
+              "id": "f1",
+              "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+              "posture": "inferred",
+              "refs": [
+                {
+                  "kind": "persona",
+                  "id": "persona_a13a08cabe8f4770",
+                  "anchor": "detail",
+                  "quote": "A supplied quotation",
+                  "text": "A supplied reference text",
+                  "role": "derived_from"
+                }
+              ]
+            }
+          ],
+          "counts": {
+            "inferred": 1,
+            "memory_grounded": 0,
+            "observed": 0,
+            "simulated": 0,
+            "unsupported": 1
+          },
+          "prose_uncovered": true,
+          "verified": false
+        },
+        "dispatch_provenance": {
+          "state": "legacy"
+        },
+        "url": "http://127.0.0.1:8787/councils/council_838af25a4a454cc3",
+        "project_url": "http://127.0.0.1:8787/jobs/rproject_3facb27d98797a3d",
+        "dispatch": {
+          "state": "legacy",
+          "checkpointed": false,
+          "provenance": "not governed by an active dispatch"
+        },
+        "warnings": [
+          "UNVERIFIED_HYPOTHESIS_DRAFT: claim posture is incomplete/unsupported; the Reaction Test gate stays blocked until prose and structured claims cite admissible evidence",
+          "participants have ZERO simulated memory (0 facts/events) — this council is ungrounded; deepen the cohort (simulate-cohort) before relying on it",
+          "recorded OUTSIDE the governed run loop — the project's plan has ready work and no active run (council:council_838af25a4a454cc3 is not linked to a plan task. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:4e54f7c5b4ece86f34b870e5c7cc7df09346b70803091bde744e215bbccb89ab', project_id='rproject_3facb27d98797a3d').); drive councils via start_run → run_step → checkpoint_step so plan gates and assess_project stay honest"
+        ],
+        "ideation": {
+          "problem": "The next owner lacks context.",
+          "hmw": [
+            {
+              "id": "oq_cf55133212a9db8b",
+              "question": "How might we name the next owner?"
+            },
+            {
+              "id": "oq_e6089127a320fe8b",
+              "question": "How might we preserve pending work?"
+            }
+          ],
+          "ideas": [
+            {
+              "id": "note_beed15d30821d5af",
+              "text": "Show the pending owner",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            {
+              "id": "note_ed6dafc7ed920bbd",
+              "text": "Keep a shared handover note",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b"
+            },
+            {
+              "id": "note_fad51d8c0f901176",
+              "text": "Show the pending owner",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            {
+              "id": "note_b69148b60b1c4d56",
+              "text": "Keep a shared handover note",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b"
+            }
+          ],
+          "shortlist": [
+            {
+              "rank": 1,
+              "idea_id": "note_ed6dafc7ed920bbd",
+              "text": "Keep a shared handover note",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b",
+              "cluster": null,
+              "rationale": "The shared note preserves unfinished work."
+            },
+            {
+              "rank": 2,
+              "idea_id": "note_beed15d30821d5af",
+              "text": "Show the pending owner",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership",
+              "rationale": "Then identify who takes over."
+            }
+          ],
+          "recorded_at": "2026-09-09T08:47:06.910113+00:00"
+        },
+        "cite_as": {
+          "kind": "council",
+          "id": "council_838af25a4a454cc3",
+          "role": "based_on"
+        }
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "record_ideation_summary",
+        "latency_ms": 2.7,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb"
+      }
+    },
+    "public_value": {
+      "id": "council_838af25a4a454cc3",
+      "prompt": "The next owner lacks context.",
+      "persona_ids": [
+        "persona_a13a08cabe8f4770"
+      ],
+      "selection_reason": "ideation council (HMW diverge→converge)",
+      "proposal": "",
+      "votes": [],
+      "summary": "Start with pending work.",
+      "created_at": "2026-09-09T08:47:06.905509+00:00",
+      "exec_summary": "Preserve context before naming the next owner.",
+      "questions": [],
+      "project_id": "rproject_3facb27d98797a3d",
+      "statements": [
+        {
+          "persona_id": "persona_a13a08cabe8f4770",
+          "text": "I need the unresolved work before accepting a handover.",
+          "stance": {
+            "value": 1,
+            "label": "conditional"
+          },
+          "about": {
+            "kind": "prompt",
+            "id": "hmw:0"
+          },
+          "refs": [
+            {
+              "kind": "persona",
+              "id": "persona_a13a08cabe8f4770",
+              "anchor": "detail",
+              "quote": "A supplied quotation",
+              "text": "A supplied reference text",
+              "role": "derived_from"
+            }
+          ],
+          "relevance": "Keeps the next shift informed",
+          "shift": {
+            "from": 0,
+            "to": 1
+          },
+          "meta": {
+            "authored_empty": "",
+            "authored_null": null,
+            "dispatch_token": "literal authored field",
+            "claim_posture": "unsupported"
+          },
+          "id": "st1"
+        }
+      ],
+      "findings": [
+        {
+          "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+          "kind": "ideation",
+          "score": {
+            "ideas": 4,
+            "shortlisted": 2
+          },
+          "refs": [
+            {
+              "kind": "persona",
+              "id": "persona_a13a08cabe8f4770",
+              "anchor": "detail",
+              "quote": "A supplied quotation",
+              "text": "A supplied reference text",
+              "role": "derived_from"
+            }
+          ],
+          "meta": {
+            "shortlist": [
+              {
+                "rank": 1,
+                "idea_id": "note_ed6dafc7ed920bbd",
+                "text": "Keep a shared handover note",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_e6089127a320fe8b",
+                "cluster": null,
+                "rationale": "The shared note preserves unfinished work."
+              },
+              {
+                "rank": 2,
+                "idea_id": "note_beed15d30821d5af",
+                "text": "Show the pending owner",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_cf55133212a9db8b",
+                "cluster": "ownership",
+                "rationale": "Then identify who takes over."
+              }
+            ],
+            "claim_posture": "inferred"
+          },
+          "id": "f1"
+        }
+      ],
+      "prompts": [
+        {
+          "text": "How might we name the next owner?",
+          "kind": "question",
+          "id": "hmw:0"
+        },
+        {
+          "text": "How might we preserve pending work?",
+          "kind": "question",
+          "id": "hmw:1"
+        }
+      ],
+      "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb",
+      "claim_posture": {
+        "schema": "sonaloop.claim_posture.v1",
+        "default": "unsupported",
+        "claims": [
+          {
+            "id": "st1",
+            "text": "I need the unresolved work before accepting a handover.",
+            "posture": "unsupported",
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ]
+          },
+          {
+            "id": "f1",
+            "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+            "posture": "inferred",
+            "refs": [
+              {
+                "kind": "persona",
+                "id": "persona_a13a08cabe8f4770",
+                "anchor": "detail",
+                "quote": "A supplied quotation",
+                "text": "A supplied reference text",
+                "role": "derived_from"
+              }
+            ]
+          }
+        ],
+        "counts": {
+          "inferred": 1,
+          "memory_grounded": 0,
+          "observed": 0,
+          "simulated": 0,
+          "unsupported": 1
+        },
+        "prose_uncovered": true,
+        "verified": false
+      },
+      "dispatch_provenance": {
+        "state": "legacy"
+      },
+      "url": "http://127.0.0.1:8787/councils/council_838af25a4a454cc3",
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_3facb27d98797a3d",
+      "dispatch": {
+        "state": "legacy",
+        "checkpointed": false,
+        "provenance": "not governed by an active dispatch"
+      },
+      "warnings": [
+        "UNVERIFIED_HYPOTHESIS_DRAFT: claim posture is incomplete/unsupported; the Reaction Test gate stays blocked until prose and structured claims cite admissible evidence",
+        "participants have ZERO simulated memory (0 facts/events) — this council is ungrounded; deepen the cohort (simulate-cohort) before relying on it",
+        "recorded OUTSIDE the governed run loop — the project's plan has ready work and no active run (council:council_838af25a4a454cc3 is not linked to a plan task. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:4e54f7c5b4ece86f34b870e5c7cc7df09346b70803091bde744e215bbccb89ab', project_id='rproject_3facb27d98797a3d').); drive councils via start_run → run_step → checkpoint_step so plan gates and assess_project stay honest"
+      ],
+      "ideation": {
+        "problem": "The next owner lacks context.",
+        "hmw": [
+          {
+            "id": "oq_cf55133212a9db8b",
+            "question": "How might we name the next owner?"
+          },
+          {
+            "id": "oq_e6089127a320fe8b",
+            "question": "How might we preserve pending work?"
+          }
+        ],
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          {
+            "id": "note_fad51d8c0f901176",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_b69148b60b1c4d56",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          }
+        ],
+        "shortlist": [
+          {
+            "rank": 1,
+            "idea_id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b",
+            "cluster": null,
+            "rationale": "The shared note preserves unfinished work."
+          },
+          {
+            "rank": 2,
+            "idea_id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership",
+            "rationale": "Then identify who takes over."
+          }
+        ],
+        "recorded_at": "2026-09-09T08:47:06.910113+00:00"
+      },
+      "cite_as": {
+        "kind": "council",
+        "id": "council_838af25a4a454cc3",
+        "role": "based_on"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "ideation-summary-stored",
+    "tool": "get_ideation",
+    "input": {
+      "session_id": "council_838af25a4a454cc3"
+    },
+    "value": {
+      "id": "council_838af25a4a454cc3",
+      "prompt": "The next owner lacks context.",
+      "project_id": "rproject_3facb27d98797a3d",
+      "created_at": "2026-09-09T08:47:06.905509+00:00",
+      "problem": "The next owner lacks context.",
+      "hmw": [
+        {
+          "id": "oq_cf55133212a9db8b",
+          "question": "How might we name the next owner?"
+        },
+        {
+          "id": "oq_e6089127a320fe8b",
+          "question": "How might we preserve pending work?"
+        }
+      ],
+      "ideas": [
+        {
+          "id": "note_beed15d30821d5af",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership"
+        },
+        {
+          "id": "note_ed6dafc7ed920bbd",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b"
+        },
+        {
+          "id": "note_fad51d8c0f901176",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership"
+        },
+        {
+          "id": "note_b69148b60b1c4d56",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b"
+        }
+      ],
+      "shortlist": [
+        {
+          "rank": 1,
+          "idea_id": "note_ed6dafc7ed920bbd",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b",
+          "cluster": null,
+          "rationale": "The shared note preserves unfinished work."
+        },
+        {
+          "rank": 2,
+          "idea_id": "note_beed15d30821d5af",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership",
+          "rationale": "Then identify who takes over."
+        }
+      ],
+      "recorded_at": "2026-09-09T08:47:06.910113+00:00",
+      "cite_as": {
+        "kind": "council",
+        "id": "council_838af25a4a454cc3",
+        "role": "based_on"
+      }
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "id": "council_838af25a4a454cc3",
+        "prompt": "The next owner lacks context.",
+        "project_id": "rproject_3facb27d98797a3d",
+        "created_at": "2026-09-09T08:47:06.905509+00:00",
+        "problem": "The next owner lacks context.",
+        "hmw": [
+          {
+            "id": "oq_cf55133212a9db8b",
+            "question": "How might we name the next owner?"
+          },
+          {
+            "id": "oq_e6089127a320fe8b",
+            "question": "How might we preserve pending work?"
+          }
+        ],
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          {
+            "id": "note_fad51d8c0f901176",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_b69148b60b1c4d56",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          }
+        ],
+        "shortlist": [
+          {
+            "rank": 1,
+            "idea_id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b",
+            "cluster": null,
+            "rationale": "The shared note preserves unfinished work."
+          },
+          {
+            "rank": 2,
+            "idea_id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership",
+            "rationale": "Then identify who takes over."
+          }
+        ],
+        "recorded_at": "2026-09-09T08:47:06.910113+00:00",
+        "cite_as": {
+          "kind": "council",
+          "id": "council_838af25a4a454cc3",
+          "role": "based_on"
+        }
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "get_ideation",
+        "latency_ms": 0.9,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb"
+      }
+    },
+    "public_value": {
+      "id": "council_838af25a4a454cc3",
+      "prompt": "The next owner lacks context.",
+      "project_id": "rproject_3facb27d98797a3d",
+      "created_at": "2026-09-09T08:47:06.905509+00:00",
+      "problem": "The next owner lacks context.",
+      "hmw": [
+        {
+          "id": "oq_cf55133212a9db8b",
+          "question": "How might we name the next owner?"
+        },
+        {
+          "id": "oq_e6089127a320fe8b",
+          "question": "How might we preserve pending work?"
+        }
+      ],
+      "ideas": [
+        {
+          "id": "note_beed15d30821d5af",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership"
+        },
+        {
+          "id": "note_ed6dafc7ed920bbd",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b"
+        },
+        {
+          "id": "note_fad51d8c0f901176",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership"
+        },
+        {
+          "id": "note_b69148b60b1c4d56",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b"
+        }
+      ],
+      "shortlist": [
+        {
+          "rank": 1,
+          "idea_id": "note_ed6dafc7ed920bbd",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b",
+          "cluster": null,
+          "rationale": "The shared note preserves unfinished work."
+        },
+        {
+          "rank": 2,
+          "idea_id": "note_beed15d30821d5af",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership",
+          "rationale": "Then identify who takes over."
+        }
+      ],
+      "recorded_at": "2026-09-09T08:47:06.910113+00:00",
+      "cite_as": {
+        "kind": "council",
+        "id": "council_838af25a4a454cc3",
+        "role": "based_on"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "ideation-summary-no-statements",
+    "tool": "record_ideation_summary",
+    "input": {
+      "project_id": "rproject_3facb27d98797a3d",
+      "problem": "The next owner lacks context.",
+      "key": "synthetic-quiet-ideation-key",
+      "shortlist": [
+        {
+          "idea_id": "note_ed6dafc7ed920bbd",
+          "rationale": "The shared note preserves unfinished work."
+        },
+        {
+          "idea_id": "note_beed15d30821d5af",
+          "rationale": "Then identify who takes over."
+        }
+      ],
+      "statements": [],
+      "summary": "",
+      "exec_summary": ""
+    },
+    "value": {
+      "id": "council_59a24348afd88ee5",
+      "prompt": "The next owner lacks context.",
+      "persona_ids": [
+        "persona_a13a08cabe8f4770"
+      ],
+      "selection_reason": "ideation council (HMW diverge→converge)",
+      "proposal": "",
+      "votes": [],
+      "summary": "",
+      "created_at": "2026-09-09T08:47:06.912756+00:00",
+      "exec_summary": "",
+      "questions": [],
+      "project_id": "rproject_3facb27d98797a3d",
+      "statements": [],
+      "findings": [
+        {
+          "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+          "kind": "ideation",
+          "score": {
+            "ideas": 4,
+            "shortlisted": 2
+          },
+          "meta": {
+            "shortlist": [
+              {
+                "rank": 1,
+                "idea_id": "note_ed6dafc7ed920bbd",
+                "text": "Keep a shared handover note",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_e6089127a320fe8b",
+                "cluster": null,
+                "rationale": "The shared note preserves unfinished work."
+              },
+              {
+                "rank": 2,
+                "idea_id": "note_beed15d30821d5af",
+                "text": "Show the pending owner",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_cf55133212a9db8b",
+                "cluster": "ownership",
+                "rationale": "Then identify who takes over."
+              }
+            ],
+            "claim_posture": "unsupported"
+          },
+          "id": "f1",
+          "refs": []
+        }
+      ],
+      "prompts": [
+        {
+          "text": "How might we name the next owner?",
+          "kind": "question",
+          "id": "hmw:0"
+        },
+        {
+          "text": "How might we preserve pending work?",
+          "kind": "question",
+          "id": "hmw:1"
+        }
+      ],
+      "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb",
+      "claim_posture": {
+        "schema": "sonaloop.claim_posture.v1",
+        "default": "unsupported",
+        "claims": [
+          {
+            "id": "f1",
+            "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+            "posture": "unsupported",
+            "refs": []
+          }
+        ],
+        "counts": {
+          "inferred": 0,
+          "memory_grounded": 0,
+          "observed": 0,
+          "simulated": 0,
+          "unsupported": 1
+        },
+        "prose_uncovered": false,
+        "verified": false
+      },
+      "dispatch_provenance": {
+        "state": "legacy"
+      },
+      "url": "http://127.0.0.1:8787/councils/council_59a24348afd88ee5",
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_3facb27d98797a3d",
+      "dispatch": {
+        "state": "legacy",
+        "checkpointed": false,
+        "provenance": "not governed by an active dispatch"
+      },
+      "warnings": [
+        "UNVERIFIED_HYPOTHESIS_DRAFT: claim posture is incomplete/unsupported; the Reaction Test gate stays blocked until prose and structured claims cite admissible evidence",
+        "participants have ZERO simulated memory (0 facts/events) — this council is ungrounded; deepen the cohort (simulate-cohort) before relying on it",
+        "recorded OUTSIDE the governed run loop — the project's plan has ready work and no active run (council:council_59a24348afd88ee5 is not linked to a plan task. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:4e54f7c5b4ece86f34b870e5c7cc7df09346b70803091bde744e215bbccb89ab', project_id='rproject_3facb27d98797a3d').); drive councils via start_run → run_step → checkpoint_step so plan gates and assess_project stay honest"
+      ],
+      "ideation": {
+        "problem": "The next owner lacks context.",
+        "hmw": [
+          {
+            "id": "oq_cf55133212a9db8b",
+            "question": "How might we name the next owner?"
+          },
+          {
+            "id": "oq_e6089127a320fe8b",
+            "question": "How might we preserve pending work?"
+          }
+        ],
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          {
+            "id": "note_fad51d8c0f901176",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_b69148b60b1c4d56",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          }
+        ],
+        "shortlist": [
+          {
+            "rank": 1,
+            "idea_id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b",
+            "cluster": null,
+            "rationale": "The shared note preserves unfinished work."
+          },
+          {
+            "rank": 2,
+            "idea_id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership",
+            "rationale": "Then identify who takes over."
+          }
+        ],
+        "recorded_at": "2026-09-09T08:47:06.914166+00:00"
+      },
+      "cite_as": {
+        "kind": "council",
+        "id": "council_59a24348afd88ee5",
+        "role": "based_on"
+      }
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "id": "council_59a24348afd88ee5",
+        "prompt": "The next owner lacks context.",
+        "persona_ids": [
+          "persona_a13a08cabe8f4770"
+        ],
+        "selection_reason": "ideation council (HMW diverge→converge)",
+        "proposal": "",
+        "votes": [],
+        "summary": "",
+        "created_at": "2026-09-09T08:47:06.912756+00:00",
+        "exec_summary": "",
+        "questions": [],
+        "project_id": "rproject_3facb27d98797a3d",
+        "statements": [],
+        "findings": [
+          {
+            "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+            "kind": "ideation",
+            "score": {
+              "ideas": 4,
+              "shortlisted": 2
+            },
+            "meta": {
+              "shortlist": [
+                {
+                  "rank": 1,
+                  "idea_id": "note_ed6dafc7ed920bbd",
+                  "text": "Keep a shared handover note",
+                  "persona_id": "persona_a13a08cabe8f4770",
+                  "hmw_ref": "oq_e6089127a320fe8b",
+                  "cluster": null,
+                  "rationale": "The shared note preserves unfinished work."
+                },
+                {
+                  "rank": 2,
+                  "idea_id": "note_beed15d30821d5af",
+                  "text": "Show the pending owner",
+                  "persona_id": "persona_a13a08cabe8f4770",
+                  "hmw_ref": "oq_cf55133212a9db8b",
+                  "cluster": "ownership",
+                  "rationale": "Then identify who takes over."
+                }
+              ],
+              "claim_posture": "unsupported"
+            },
+            "id": "f1",
+            "refs": []
+          }
+        ],
+        "prompts": [
+          {
+            "text": "How might we name the next owner?",
+            "kind": "question",
+            "id": "hmw:0"
+          },
+          {
+            "text": "How might we preserve pending work?",
+            "kind": "question",
+            "id": "hmw:1"
+          }
+        ],
+        "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb",
+        "claim_posture": {
+          "schema": "sonaloop.claim_posture.v1",
+          "default": "unsupported",
+          "claims": [
+            {
+              "id": "f1",
+              "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+              "posture": "unsupported",
+              "refs": []
+            }
+          ],
+          "counts": {
+            "inferred": 0,
+            "memory_grounded": 0,
+            "observed": 0,
+            "simulated": 0,
+            "unsupported": 1
+          },
+          "prose_uncovered": false,
+          "verified": false
+        },
+        "dispatch_provenance": {
+          "state": "legacy"
+        },
+        "url": "http://127.0.0.1:8787/councils/council_59a24348afd88ee5",
+        "project_url": "http://127.0.0.1:8787/jobs/rproject_3facb27d98797a3d",
+        "dispatch": {
+          "state": "legacy",
+          "checkpointed": false,
+          "provenance": "not governed by an active dispatch"
+        },
+        "warnings": [
+          "UNVERIFIED_HYPOTHESIS_DRAFT: claim posture is incomplete/unsupported; the Reaction Test gate stays blocked until prose and structured claims cite admissible evidence",
+          "participants have ZERO simulated memory (0 facts/events) — this council is ungrounded; deepen the cohort (simulate-cohort) before relying on it",
+          "recorded OUTSIDE the governed run loop — the project's plan has ready work and no active run (council:council_59a24348afd88ee5 is not linked to a plan task. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:4e54f7c5b4ece86f34b870e5c7cc7df09346b70803091bde744e215bbccb89ab', project_id='rproject_3facb27d98797a3d').); drive councils via start_run → run_step → checkpoint_step so plan gates and assess_project stay honest"
+        ],
+        "ideation": {
+          "problem": "The next owner lacks context.",
+          "hmw": [
+            {
+              "id": "oq_cf55133212a9db8b",
+              "question": "How might we name the next owner?"
+            },
+            {
+              "id": "oq_e6089127a320fe8b",
+              "question": "How might we preserve pending work?"
+            }
+          ],
+          "ideas": [
+            {
+              "id": "note_beed15d30821d5af",
+              "text": "Show the pending owner",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            {
+              "id": "note_ed6dafc7ed920bbd",
+              "text": "Keep a shared handover note",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b"
+            },
+            {
+              "id": "note_fad51d8c0f901176",
+              "text": "Show the pending owner",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership"
+            },
+            {
+              "id": "note_b69148b60b1c4d56",
+              "text": "Keep a shared handover note",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b"
+            }
+          ],
+          "shortlist": [
+            {
+              "rank": 1,
+              "idea_id": "note_ed6dafc7ed920bbd",
+              "text": "Keep a shared handover note",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_e6089127a320fe8b",
+              "cluster": null,
+              "rationale": "The shared note preserves unfinished work."
+            },
+            {
+              "rank": 2,
+              "idea_id": "note_beed15d30821d5af",
+              "text": "Show the pending owner",
+              "persona_id": "persona_a13a08cabe8f4770",
+              "hmw_ref": "oq_cf55133212a9db8b",
+              "cluster": "ownership",
+              "rationale": "Then identify who takes over."
+            }
+          ],
+          "recorded_at": "2026-09-09T08:47:06.914166+00:00"
+        },
+        "cite_as": {
+          "kind": "council",
+          "id": "council_59a24348afd88ee5",
+          "role": "based_on"
+        }
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "record_ideation_summary",
+        "latency_ms": 2.7,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb"
+      }
+    },
+    "public_value": {
+      "id": "council_59a24348afd88ee5",
+      "prompt": "The next owner lacks context.",
+      "persona_ids": [
+        "persona_a13a08cabe8f4770"
+      ],
+      "selection_reason": "ideation council (HMW diverge→converge)",
+      "proposal": "",
+      "votes": [],
+      "summary": "",
+      "created_at": "2026-09-09T08:47:06.912756+00:00",
+      "exec_summary": "",
+      "questions": [],
+      "project_id": "rproject_3facb27d98797a3d",
+      "statements": [],
+      "findings": [
+        {
+          "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+          "kind": "ideation",
+          "score": {
+            "ideas": 4,
+            "shortlisted": 2
+          },
+          "meta": {
+            "shortlist": [
+              {
+                "rank": 1,
+                "idea_id": "note_ed6dafc7ed920bbd",
+                "text": "Keep a shared handover note",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_e6089127a320fe8b",
+                "cluster": null,
+                "rationale": "The shared note preserves unfinished work."
+              },
+              {
+                "rank": 2,
+                "idea_id": "note_beed15d30821d5af",
+                "text": "Show the pending owner",
+                "persona_id": "persona_a13a08cabe8f4770",
+                "hmw_ref": "oq_cf55133212a9db8b",
+                "cluster": "ownership",
+                "rationale": "Then identify who takes over."
+              }
+            ],
+            "claim_posture": "unsupported"
+          },
+          "id": "f1",
+          "refs": []
+        }
+      ],
+      "prompts": [
+        {
+          "text": "How might we name the next owner?",
+          "kind": "question",
+          "id": "hmw:0"
+        },
+        {
+          "text": "How might we preserve pending work?",
+          "kind": "question",
+          "id": "hmw:1"
+        }
+      ],
+      "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb",
+      "claim_posture": {
+        "schema": "sonaloop.claim_posture.v1",
+        "default": "unsupported",
+        "claims": [
+          {
+            "id": "f1",
+            "text": "Shortlist: 2 of 4 ideas, spanning 2 HMW question(s) and 1 persona voice(s).",
+            "posture": "unsupported",
+            "refs": []
+          }
+        ],
+        "counts": {
+          "inferred": 0,
+          "memory_grounded": 0,
+          "observed": 0,
+          "simulated": 0,
+          "unsupported": 1
+        },
+        "prose_uncovered": false,
+        "verified": false
+      },
+      "dispatch_provenance": {
+        "state": "legacy"
+      },
+      "url": "http://127.0.0.1:8787/councils/council_59a24348afd88ee5",
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_3facb27d98797a3d",
+      "dispatch": {
+        "state": "legacy",
+        "checkpointed": false,
+        "provenance": "not governed by an active dispatch"
+      },
+      "warnings": [
+        "UNVERIFIED_HYPOTHESIS_DRAFT: claim posture is incomplete/unsupported; the Reaction Test gate stays blocked until prose and structured claims cite admissible evidence",
+        "participants have ZERO simulated memory (0 facts/events) — this council is ungrounded; deepen the cohort (simulate-cohort) before relying on it",
+        "recorded OUTSIDE the governed run loop — the project's plan has ready work and no active run (council:council_59a24348afd88ee5 is not linked to a plan task. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:4e54f7c5b4ece86f34b870e5c7cc7df09346b70803091bde744e215bbccb89ab', project_id='rproject_3facb27d98797a3d').); drive councils via start_run → run_step → checkpoint_step so plan gates and assess_project stay honest"
+      ],
+      "ideation": {
+        "problem": "The next owner lacks context.",
+        "hmw": [
+          {
+            "id": "oq_cf55133212a9db8b",
+            "question": "How might we name the next owner?"
+          },
+          {
+            "id": "oq_e6089127a320fe8b",
+            "question": "How might we preserve pending work?"
+          }
+        ],
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          {
+            "id": "note_fad51d8c0f901176",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_b69148b60b1c4d56",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          }
+        ],
+        "shortlist": [
+          {
+            "rank": 1,
+            "idea_id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b",
+            "cluster": null,
+            "rationale": "The shared note preserves unfinished work."
+          },
+          {
+            "rank": 2,
+            "idea_id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership",
+            "rationale": "Then identify who takes over."
+          }
+        ],
+        "recorded_at": "2026-09-09T08:47:06.914166+00:00"
+      },
+      "cite_as": {
+        "kind": "council",
+        "id": "council_59a24348afd88ee5",
+        "role": "based_on"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "ideation-summary-no-statements-stored",
+    "tool": "get_ideation",
+    "input": {
+      "session_id": "council_59a24348afd88ee5"
+    },
+    "value": {
+      "id": "council_59a24348afd88ee5",
+      "prompt": "The next owner lacks context.",
+      "project_id": "rproject_3facb27d98797a3d",
+      "created_at": "2026-09-09T08:47:06.912756+00:00",
+      "problem": "The next owner lacks context.",
+      "hmw": [
+        {
+          "id": "oq_cf55133212a9db8b",
+          "question": "How might we name the next owner?"
+        },
+        {
+          "id": "oq_e6089127a320fe8b",
+          "question": "How might we preserve pending work?"
+        }
+      ],
+      "ideas": [
+        {
+          "id": "note_beed15d30821d5af",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership"
+        },
+        {
+          "id": "note_ed6dafc7ed920bbd",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b"
+        },
+        {
+          "id": "note_fad51d8c0f901176",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership"
+        },
+        {
+          "id": "note_b69148b60b1c4d56",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b"
+        }
+      ],
+      "shortlist": [
+        {
+          "rank": 1,
+          "idea_id": "note_ed6dafc7ed920bbd",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b",
+          "cluster": null,
+          "rationale": "The shared note preserves unfinished work."
+        },
+        {
+          "rank": 2,
+          "idea_id": "note_beed15d30821d5af",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership",
+          "rationale": "Then identify who takes over."
+        }
+      ],
+      "recorded_at": "2026-09-09T08:47:06.914166+00:00",
+      "cite_as": {
+        "kind": "council",
+        "id": "council_59a24348afd88ee5",
+        "role": "based_on"
+      }
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "id": "council_59a24348afd88ee5",
+        "prompt": "The next owner lacks context.",
+        "project_id": "rproject_3facb27d98797a3d",
+        "created_at": "2026-09-09T08:47:06.912756+00:00",
+        "problem": "The next owner lacks context.",
+        "hmw": [
+          {
+            "id": "oq_cf55133212a9db8b",
+            "question": "How might we name the next owner?"
+          },
+          {
+            "id": "oq_e6089127a320fe8b",
+            "question": "How might we preserve pending work?"
+          }
+        ],
+        "ideas": [
+          {
+            "id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          },
+          {
+            "id": "note_fad51d8c0f901176",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership"
+          },
+          {
+            "id": "note_b69148b60b1c4d56",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b"
+          }
+        ],
+        "shortlist": [
+          {
+            "rank": 1,
+            "idea_id": "note_ed6dafc7ed920bbd",
+            "text": "Keep a shared handover note",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_e6089127a320fe8b",
+            "cluster": null,
+            "rationale": "The shared note preserves unfinished work."
+          },
+          {
+            "rank": 2,
+            "idea_id": "note_beed15d30821d5af",
+            "text": "Show the pending owner",
+            "persona_id": "persona_a13a08cabe8f4770",
+            "hmw_ref": "oq_cf55133212a9db8b",
+            "cluster": "ownership",
+            "rationale": "Then identify who takes over."
+          }
+        ],
+        "recorded_at": "2026-09-09T08:47:06.914166+00:00",
+        "cite_as": {
+          "kind": "council",
+          "id": "council_59a24348afd88ee5",
+          "role": "based_on"
+        }
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "get_ideation",
+        "latency_ms": 0.8,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_af18a0d7e9951d37113af1bb"
+      }
+    },
+    "public_value": {
+      "id": "council_59a24348afd88ee5",
+      "prompt": "The next owner lacks context.",
+      "project_id": "rproject_3facb27d98797a3d",
+      "created_at": "2026-09-09T08:47:06.912756+00:00",
+      "problem": "The next owner lacks context.",
+      "hmw": [
+        {
+          "id": "oq_cf55133212a9db8b",
+          "question": "How might we name the next owner?"
+        },
+        {
+          "id": "oq_e6089127a320fe8b",
+          "question": "How might we preserve pending work?"
+        }
+      ],
+      "ideas": [
+        {
+          "id": "note_beed15d30821d5af",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership"
+        },
+        {
+          "id": "note_ed6dafc7ed920bbd",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b"
+        },
+        {
+          "id": "note_fad51d8c0f901176",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership"
+        },
+        {
+          "id": "note_b69148b60b1c4d56",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b"
+        }
+      ],
+      "shortlist": [
+        {
+          "rank": 1,
+          "idea_id": "note_ed6dafc7ed920bbd",
+          "text": "Keep a shared handover note",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_e6089127a320fe8b",
+          "cluster": null,
+          "rationale": "The shared note preserves unfinished work."
+        },
+        {
+          "rank": 2,
+          "idea_id": "note_beed15d30821d5af",
+          "text": "Show the pending owner",
+          "persona_id": "persona_a13a08cabe8f4770",
+          "hmw_ref": "oq_cf55133212a9db8b",
+          "cluster": "ownership",
+          "rationale": "Then identify who takes over."
+        }
+      ],
+      "recorded_at": "2026-09-09T08:47:06.914166+00:00",
+      "cite_as": {
+        "kind": "council",
+        "id": "council_59a24348afd88ee5",
+        "role": "based_on"
+      }
+    },
+    "state": "ready"
+  }
+]

@@ -8,7 +8,10 @@ from __future__ import annotations
 import json
 
 from .registry import SURFACES
-from . import run_journal, research_plan, product_understanding
+from . import run_journal, research_plan, product_understanding, plan_assessment, ideation
+
+_ASSESSMENT_PROJECTIONS = {"assess_project": plan_assessment.assessment_view,
+    "export_plan_md": plan_assessment.document_view}
 
 _UNDERSTANDING_PROJECTIONS = {"record_product_understanding": product_understanding.recorded_view,
     "record_manifest_product_understanding": product_understanding.recorded_view,
@@ -33,6 +36,10 @@ def public_component_value(name: str, value):
     authored research-plan-view.v1 projection. Dispatch/private context is not a
     visual prop. Other projections preserve their existing authored DTO.
     """
+    if name in ideation.TOOLS:
+        return ideation.public_value(name, value)
+    if name in _ASSESSMENT_PROJECTIONS:
+        return _ASSESSMENT_PROJECTIONS[name](value)
     if name in _UNDERSTANDING_PROJECTIONS:
         return _UNDERSTANDING_PROJECTIONS[name](value)
     if name in _PLAN_PROJECTIONS:
@@ -80,6 +87,11 @@ def render_component_props(component_id: str, props: dict):
         if not isinstance(value, dict) or "artifact" not in value or set(value) - {"artifact", "note"}:
             raise ValueError("Expected public remote-registration artifact and optional note")
         value = {"prototype": value["artifact"], **({"note": value["note"]} if "note" in value else {})}
+    if props["name"] in _ASSESSMENT_PROJECTIONS:
+        expected = "assessment" if props["name"] == "assess_project" else "document"
+        if not isinstance(value, dict) or value.get("view") != expected:
+            raise ValueError("Assessment presentation does not belong to this projection")
+        return plan_assessment.render_view(value)
     if props["name"] in _UNDERSTANDING_PROJECTIONS:
         expected = "stored" if props["name"] == "get_product_understanding" else "record"
         if not isinstance(value, dict) or value.get("view") != expected:

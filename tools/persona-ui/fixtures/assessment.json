@@ -1,0 +1,1634 @@
+[
+  {
+    "scenario": "assessment-open",
+    "tool": "assess_project",
+    "input": {
+      "project_id": "rproject_96971e545a5f4208"
+    },
+    "value": {
+      "project_id": "rproject_96971e545a5f4208",
+      "goal": "Understand the handover",
+      "complete": false,
+      "tasks_complete": false,
+      "url": "http://127.0.0.1:8787/jobs/rproject_96971e545a5f4208",
+      "recommendation": "frame",
+      "run_state": {
+        "active_run": false,
+        "tasks_done": 0,
+        "tasks_total": 3,
+        "note": "no active run \u2014 0/3 tasks done and the project is NOT finished; call start_run('rproject_96971e545a5f4208') so the loop is governed and resumable (budget, journal, critic decide the end \u2014 not your judgment). Stopping now strands the project mid-run."
+      },
+      "coverage": {
+        "evidence_by_kind": {},
+        "artifacts": 1,
+        "sessions": 1,
+        "personas_touched": 0,
+        "tasks_done": 0,
+        "tasks_total": 3
+      },
+      "tasks_by_bucket": {
+        "analyze": {
+          "done": 0,
+          "total": 1
+        },
+        "act": {
+          "done": 0,
+          "total": 1
+        },
+        "verify": {
+          "done": 0,
+          "total": 1
+        }
+      },
+      "open_gates": [
+        {
+          "task": "verify__decide",
+          "title": "Review the evidence",
+          "unmet": [
+            "need >= 1 act tasks (distinct angles) with evidence in the fan (have 0)",
+            "a decided `reviewed` judgment must exist",
+            "need >= 1 GROUNDED session of `handover` \u2014 1 recorded but none verified against real observed usage; drive the prototype (proto_open/proto_act) and cite states you actually saw, then record"
+          ]
+        }
+      ],
+      "open_questions": [
+        "What remains unclear?"
+      ],
+      "saturation": {
+        "act_done": 0,
+        "councils": 0,
+        "syntheses": 0,
+        "hint": "early \u2014 no act evidence yet"
+      },
+      "novelty": {
+        "artifact_kinds": [
+          "model"
+        ],
+        "distinct_kinds": 1,
+        "has_interactive_model": true,
+        "hint": "diverse"
+      },
+      "finish": {
+        "organized": false,
+        "concluded": false,
+        "handed_off": false,
+        "finished": false,
+        "gaps": [
+          "not organized \u2014 create phase/theme SECTIONS (Discover/Define/Solution/Prototype-ladder/Deliver) so the hi-fi + conclusion are surfaced",
+          "no substantial CONCLUSION \u2014 author a rich terminal solution-presentation synthesis (the answer, who-wins + non-targets, validated solvers, build spec)",
+          "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)"
+        ],
+        "report_handoff": {
+          "exists": false,
+          "complete": false,
+          "handed_off": false,
+          "latest_report_id": "",
+          "latest_complete": false,
+          "lead_missing": false,
+          "completed_report_ids": [],
+          "incomplete_report_ids": [],
+          "stale_report_ids": [],
+          "latest_stale": false,
+          "required_source_ids": [],
+          "reports": []
+        }
+      },
+      "result_contract": {
+        "expected": [],
+        "recorded": [],
+        "missing": [],
+        "satisfied": true
+      },
+      "memory_depth": {
+        "personas": 1,
+        "facts": 0,
+        "events": 0,
+        "avg_per_persona": 0.0,
+        "hint": "thin \u2014 deepen the cohort (simulate-cohort) for richer councils"
+      },
+      "gaps": [
+        "Review the evidence: need >= 1 act tasks (distinct angles) with evidence in the fan (have 0)",
+        "Review the evidence: a decided `reviewed` judgment must exist",
+        "Review the evidence: need >= 1 GROUNDED session of `handover` \u2014 1 recorded but none verified against real observed usage; drive the prototype (proto_open/proto_act) and cite states you actually saw, then record",
+        "1/1 proband session(s) ungrounded (not verified against real observed usage) \u2014 re-test by driving the prototype so the evidence is real",
+        "not organized \u2014 create phase/theme SECTIONS (Discover/Define/Solution/Prototype-ladder/Deliver) so the hi-fi + conclusion are surfaced",
+        "no substantial CONCLUSION \u2014 author a rich terminal solution-presentation synthesis (the answer, who-wins + non-targets, validated solvers, build spec)",
+        "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)",
+        "cohort memory is thin (few simulated events/facts per persona) \u2014 deepen it (simulate-cohort) so councils are grounded in rich lived experience"
+      ],
+      "ready": [
+        "frame__root"
+      ],
+      "next": "ANALYZE/frame: Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs. \u2192 record_frame(questions, hypotheses, memory_refs citing persona memory). Understand before concluding."
+    },
+    "public_value": {
+      "schema_version": "sonaloop.plan-assessment-view.v1",
+      "view": "assessment",
+      "value": {
+        "project_id": "rproject_96971e545a5f4208",
+        "goal": "Understand the handover",
+        "complete": false,
+        "tasks_complete": false,
+        "url": "http://127.0.0.1:8787/jobs/rproject_96971e545a5f4208",
+        "recommendation": "frame",
+        "run_state": {
+          "active_run": false,
+          "tasks_done": 0,
+          "tasks_total": 3,
+          "note": "no active run \u2014 0/3 tasks done and the project is NOT finished; call start_run('rproject_96971e545a5f4208') so the loop is governed and resumable (budget, journal, critic decide the end \u2014 not your judgment). Stopping now strands the project mid-run."
+        },
+        "coverage": {
+          "evidence_by_kind": [],
+          "artifacts": 1,
+          "sessions": 1,
+          "personas_touched": 0,
+          "tasks_done": 0,
+          "tasks_total": 3
+        },
+        "tasks_by_bucket": [
+          {
+            "bucket": "analyze",
+            "done": 0,
+            "total": 1
+          },
+          {
+            "bucket": "act",
+            "done": 0,
+            "total": 1
+          },
+          {
+            "bucket": "verify",
+            "done": 0,
+            "total": 1
+          }
+        ],
+        "open_gates": [
+          {
+            "task": "verify__decide",
+            "title": "Review the evidence",
+            "unmet": [
+              "need >= 1 act tasks (distinct angles) with evidence in the fan (have 0)",
+              "a decided `reviewed` judgment must exist",
+              "need >= 1 GROUNDED session of `handover` \u2014 1 recorded but none verified against real observed usage; drive the prototype (proto_open/proto_act) and cite states you actually saw, then record"
+            ]
+          }
+        ],
+        "open_questions": [
+          "What remains unclear?"
+        ],
+        "saturation": {
+          "act_done": 0,
+          "councils": 0,
+          "syntheses": 0,
+          "hint": "early \u2014 no act evidence yet"
+        },
+        "novelty": {
+          "artifact_kinds": [
+            "model"
+          ],
+          "distinct_kinds": 1,
+          "has_interactive_model": true,
+          "hint": "diverse"
+        },
+        "finish": {
+          "organized": false,
+          "concluded": false,
+          "handed_off": false,
+          "finished": false,
+          "gaps": [
+            "not organized \u2014 create phase/theme SECTIONS (Discover/Define/Solution/Prototype-ladder/Deliver) so the hi-fi + conclusion are surfaced",
+            "no substantial CONCLUSION \u2014 author a rich terminal solution-presentation synthesis (the answer, who-wins + non-targets, validated solvers, build spec)",
+            "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)"
+          ],
+          "report_handoff": {
+            "exists": false,
+            "complete": false,
+            "handed_off": false,
+            "latest_report_id": "",
+            "latest_complete": false,
+            "lead_missing": false,
+            "completed_report_ids": [],
+            "incomplete_report_ids": [],
+            "stale_report_ids": [],
+            "latest_stale": false,
+            "required_source_ids": [],
+            "reports": []
+          }
+        },
+        "result_contract": {
+          "expected": [],
+          "recorded": [],
+          "missing": [],
+          "satisfied": true
+        },
+        "memory_depth": {
+          "personas": 1,
+          "facts": 0,
+          "events": 0,
+          "avg_per_persona": 0.0,
+          "hint": "thin \u2014 deepen the cohort (simulate-cohort) for richer councils"
+        },
+        "gaps": [
+          "Review the evidence: need >= 1 act tasks (distinct angles) with evidence in the fan (have 0)",
+          "Review the evidence: a decided `reviewed` judgment must exist",
+          "Review the evidence: need >= 1 GROUNDED session of `handover` \u2014 1 recorded but none verified against real observed usage; drive the prototype (proto_open/proto_act) and cite states you actually saw, then record",
+          "1/1 proband session(s) ungrounded (not verified against real observed usage) \u2014 re-test by driving the prototype so the evidence is real",
+          "not organized \u2014 create phase/theme SECTIONS (Discover/Define/Solution/Prototype-ladder/Deliver) so the hi-fi + conclusion are surfaced",
+          "no substantial CONCLUSION \u2014 author a rich terminal solution-presentation synthesis (the answer, who-wins + non-targets, validated solvers, build spec)",
+          "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)",
+          "cohort memory is thin (few simulated events/facts per persona) \u2014 deepen it (simulate-cohort) so councils are grounded in rich lived experience"
+        ],
+        "ready": [
+          "frame__root"
+        ],
+        "next": "ANALYZE/frame: Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs. \u2192 record_frame(questions, hypotheses, memory_refs citing persona memory). Understand before concluding."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "assessment-document-open",
+    "tool": "export_plan_md",
+    "input": {
+      "project_id": "rproject_96971e545a5f4208"
+    },
+    "value": {
+      "markdown": "# Research plan \u2014 Understand the handover\n\nMethodology: freeform \u00b7 Tasks: 3 \u00b7 Updated: 2026-09-09T08:19:58.494421+00:00\n\n## Next (ready)\n- **frame__root** [analyze/frame] Frame the inquiry \u2014 todo\n\n## Analyze\n- [ ] **frame__root** (frame) Frame the inquiry \u2014 `todo`\n    evidence: \u2014\n\n## Act\n- [ ] **act__explore** (explore) Inspect a handover \u2014 `todo` \u2282 frame__root\n    evidence: \u2014\n\n## Verify\n- [ ] **verify__decide** (decide) Review the evidence \u2014 `todo` \u2282 frame__root; gates: min_inputs=1 \u00b7 gate=reviewed \u00b7 artifacts=handover \u00b7 sessions=handover\n    evidence: \u2014\n"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.plan-assessment-view.v1",
+      "view": "document",
+      "value": {
+        "markdown": "# Research plan \u2014 Understand the handover\n\nMethodology: freeform \u00b7 Tasks: 3 \u00b7 Updated: 2026-09-09T08:19:58.494421+00:00\n\n## Next (ready)\n- **frame__root** [analyze/frame] Frame the inquiry \u2014 todo\n\n## Analyze\n- [ ] **frame__root** (frame) Frame the inquiry \u2014 `todo`\n    evidence: \u2014\n\n## Act\n- [ ] **act__explore** (explore) Inspect a handover \u2014 `todo` \u2282 frame__root\n    evidence: \u2014\n\n## Verify\n- [ ] **verify__decide** (decide) Review the evidence \u2014 `todo` \u2282 frame__root; gates: min_inputs=1 \u00b7 gate=reviewed \u00b7 artifacts=handover \u00b7 sessions=handover\n    evidence: \u2014\n"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "assessment-act",
+    "tool": "assess_project",
+    "input": {
+      "project_id": "rproject_96971e545a5f4208"
+    },
+    "value": {
+      "project_id": "rproject_96971e545a5f4208",
+      "goal": "Understand the handover",
+      "complete": false,
+      "tasks_complete": false,
+      "url": "http://127.0.0.1:8787/jobs/rproject_96971e545a5f4208",
+      "recommendation": "act",
+      "run_state": {
+        "active_run": false,
+        "tasks_done": 1,
+        "tasks_total": 3,
+        "note": "no active run \u2014 1/3 tasks done and the project is NOT finished; call start_run('rproject_96971e545a5f4208') so the loop is governed and resumable (budget, journal, critic decide the end \u2014 not your judgment). Stopping now strands the project mid-run."
+      },
+      "coverage": {
+        "evidence_by_kind": {
+          "frame": 1
+        },
+        "artifacts": 1,
+        "sessions": 1,
+        "personas_touched": 0,
+        "tasks_done": 1,
+        "tasks_total": 3
+      },
+      "tasks_by_bucket": {
+        "analyze": {
+          "done": 1,
+          "total": 1
+        },
+        "act": {
+          "done": 0,
+          "total": 1
+        },
+        "verify": {
+          "done": 0,
+          "total": 1
+        }
+      },
+      "open_gates": [
+        {
+          "task": "verify__decide",
+          "title": "Review the evidence",
+          "unmet": [
+            "need >= 1 act tasks (distinct angles) with evidence in the fan (have 0)",
+            "a decided `reviewed` judgment must exist",
+            "need >= 1 GROUNDED session of `handover` \u2014 1 recorded but none verified against real observed usage; drive the prototype (proto_open/proto_act) and cite states you actually saw, then record"
+          ]
+        }
+      ],
+      "open_questions": [
+        "What remains unclear?"
+      ],
+      "saturation": {
+        "act_done": 0,
+        "councils": 0,
+        "syntheses": 0,
+        "hint": "early \u2014 no act evidence yet"
+      },
+      "novelty": {
+        "artifact_kinds": [
+          "model"
+        ],
+        "distinct_kinds": 1,
+        "has_interactive_model": true,
+        "hint": "diverse"
+      },
+      "finish": {
+        "organized": false,
+        "concluded": false,
+        "handed_off": false,
+        "finished": false,
+        "gaps": [
+          "not organized \u2014 create phase/theme SECTIONS (Discover/Define/Solution/Prototype-ladder/Deliver) so the hi-fi + conclusion are surfaced",
+          "no substantial CONCLUSION \u2014 author a rich terminal solution-presentation synthesis (the answer, who-wins + non-targets, validated solvers, build spec)",
+          "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)"
+        ],
+        "report_handoff": {
+          "exists": false,
+          "complete": false,
+          "handed_off": false,
+          "latest_report_id": "",
+          "latest_complete": false,
+          "lead_missing": false,
+          "completed_report_ids": [],
+          "incomplete_report_ids": [],
+          "stale_report_ids": [],
+          "latest_stale": false,
+          "required_source_ids": [],
+          "reports": []
+        }
+      },
+      "result_contract": {
+        "expected": [],
+        "recorded": [],
+        "missing": [],
+        "satisfied": true
+      },
+      "memory_depth": {
+        "personas": 1,
+        "facts": 0,
+        "events": 0,
+        "avg_per_persona": 0.0,
+        "hint": "thin \u2014 deepen the cohort (simulate-cohort) for richer councils"
+      },
+      "gaps": [
+        "Review the evidence: need >= 1 act tasks (distinct angles) with evidence in the fan (have 0)",
+        "Review the evidence: a decided `reviewed` judgment must exist",
+        "Review the evidence: need >= 1 GROUNDED session of `handover` \u2014 1 recorded but none verified against real observed usage; drive the prototype (proto_open/proto_act) and cite states you actually saw, then record",
+        "1/1 proband session(s) ungrounded (not verified against real observed usage) \u2014 re-test by driving the prototype so the evidence is real",
+        "not organized \u2014 create phase/theme SECTIONS (Discover/Define/Solution/Prototype-ladder/Deliver) so the hi-fi + conclusion are surfaced",
+        "no substantial CONCLUSION \u2014 author a rich terminal solution-presentation synthesis (the answer, who-wins + non-targets, validated solvers, build spec)",
+        "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)",
+        "cohort memory is thin (few simulated events/facts per persona) \u2014 deepen it (simulate-cohort) so councils are grounded in rich lived experience"
+      ],
+      "ready": [
+        "act__explore",
+        "verify__decide"
+      ],
+      "next": "ACT/explore: do the work (run-council on a framed question / scaffold_artifact / record_artifact_session), link_evidence, then complete_task. Breadth = angles \u00d7 persona diversity, not one council per persona."
+    },
+    "public_value": {
+      "schema_version": "sonaloop.plan-assessment-view.v1",
+      "view": "assessment",
+      "value": {
+        "project_id": "rproject_96971e545a5f4208",
+        "goal": "Understand the handover",
+        "complete": false,
+        "tasks_complete": false,
+        "url": "http://127.0.0.1:8787/jobs/rproject_96971e545a5f4208",
+        "recommendation": "act",
+        "run_state": {
+          "active_run": false,
+          "tasks_done": 1,
+          "tasks_total": 3,
+          "note": "no active run \u2014 1/3 tasks done and the project is NOT finished; call start_run('rproject_96971e545a5f4208') so the loop is governed and resumable (budget, journal, critic decide the end \u2014 not your judgment). Stopping now strands the project mid-run."
+        },
+        "coverage": {
+          "evidence_by_kind": [
+            {
+              "kind": "frame",
+              "count": 1
+            }
+          ],
+          "artifacts": 1,
+          "sessions": 1,
+          "personas_touched": 0,
+          "tasks_done": 1,
+          "tasks_total": 3
+        },
+        "tasks_by_bucket": [
+          {
+            "bucket": "analyze",
+            "done": 1,
+            "total": 1
+          },
+          {
+            "bucket": "act",
+            "done": 0,
+            "total": 1
+          },
+          {
+            "bucket": "verify",
+            "done": 0,
+            "total": 1
+          }
+        ],
+        "open_gates": [
+          {
+            "task": "verify__decide",
+            "title": "Review the evidence",
+            "unmet": [
+              "need >= 1 act tasks (distinct angles) with evidence in the fan (have 0)",
+              "a decided `reviewed` judgment must exist",
+              "need >= 1 GROUNDED session of `handover` \u2014 1 recorded but none verified against real observed usage; drive the prototype (proto_open/proto_act) and cite states you actually saw, then record"
+            ]
+          }
+        ],
+        "open_questions": [
+          "What remains unclear?"
+        ],
+        "saturation": {
+          "act_done": 0,
+          "councils": 0,
+          "syntheses": 0,
+          "hint": "early \u2014 no act evidence yet"
+        },
+        "novelty": {
+          "artifact_kinds": [
+            "model"
+          ],
+          "distinct_kinds": 1,
+          "has_interactive_model": true,
+          "hint": "diverse"
+        },
+        "finish": {
+          "organized": false,
+          "concluded": false,
+          "handed_off": false,
+          "finished": false,
+          "gaps": [
+            "not organized \u2014 create phase/theme SECTIONS (Discover/Define/Solution/Prototype-ladder/Deliver) so the hi-fi + conclusion are surfaced",
+            "no substantial CONCLUSION \u2014 author a rich terminal solution-presentation synthesis (the answer, who-wins + non-targets, validated solvers, build spec)",
+            "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)"
+          ],
+          "report_handoff": {
+            "exists": false,
+            "complete": false,
+            "handed_off": false,
+            "latest_report_id": "",
+            "latest_complete": false,
+            "lead_missing": false,
+            "completed_report_ids": [],
+            "incomplete_report_ids": [],
+            "stale_report_ids": [],
+            "latest_stale": false,
+            "required_source_ids": [],
+            "reports": []
+          }
+        },
+        "result_contract": {
+          "expected": [],
+          "recorded": [],
+          "missing": [],
+          "satisfied": true
+        },
+        "memory_depth": {
+          "personas": 1,
+          "facts": 0,
+          "events": 0,
+          "avg_per_persona": 0.0,
+          "hint": "thin \u2014 deepen the cohort (simulate-cohort) for richer councils"
+        },
+        "gaps": [
+          "Review the evidence: need >= 1 act tasks (distinct angles) with evidence in the fan (have 0)",
+          "Review the evidence: a decided `reviewed` judgment must exist",
+          "Review the evidence: need >= 1 GROUNDED session of `handover` \u2014 1 recorded but none verified against real observed usage; drive the prototype (proto_open/proto_act) and cite states you actually saw, then record",
+          "1/1 proband session(s) ungrounded (not verified against real observed usage) \u2014 re-test by driving the prototype so the evidence is real",
+          "not organized \u2014 create phase/theme SECTIONS (Discover/Define/Solution/Prototype-ladder/Deliver) so the hi-fi + conclusion are surfaced",
+          "no substantial CONCLUSION \u2014 author a rich terminal solution-presentation synthesis (the answer, who-wins + non-targets, validated solvers, build spec)",
+          "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)",
+          "cohort memory is thin (few simulated events/facts per persona) \u2014 deepen it (simulate-cohort) so councils are grounded in rich lived experience"
+        ],
+        "ready": [
+          "act__explore",
+          "verify__decide"
+        ],
+        "next": "ACT/explore: do the work (run-council on a framed question / scaffold_artifact / record_artifact_session), link_evidence, then complete_task. Breadth = angles \u00d7 persona diversity, not one council per persona."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "assessment-contract-missing",
+    "tool": "assess_project",
+    "input": {
+      "project_id": "rproject_96971e545a5f4208"
+    },
+    "value": {
+      "project_id": "rproject_96971e545a5f4208",
+      "goal": "Understand the handover",
+      "complete": false,
+      "tasks_complete": true,
+      "url": "http://127.0.0.1:8787/jobs/rproject_96971e545a5f4208",
+      "recommendation": "finish",
+      "coverage": {
+        "evidence_by_kind": {
+          "frame": 1,
+          "synthesis": 1
+        },
+        "artifacts": 1,
+        "sessions": 1,
+        "personas_touched": 0,
+        "tasks_done": 3,
+        "tasks_total": 3
+      },
+      "tasks_by_bucket": {
+        "analyze": {
+          "done": 1,
+          "total": 1
+        },
+        "act": {
+          "done": 1,
+          "total": 1
+        },
+        "verify": {
+          "done": 1,
+          "total": 1
+        }
+      },
+      "open_gates": [],
+      "open_questions": [
+        "What remains unclear?"
+      ],
+      "saturation": {
+        "act_done": 1,
+        "councils": 0,
+        "syntheses": 1,
+        "hint": "complete"
+      },
+      "novelty": {
+        "artifact_kinds": [
+          "model"
+        ],
+        "distinct_kinds": 1,
+        "has_interactive_model": true,
+        "hint": "diverse"
+      },
+      "finish": {
+        "organized": true,
+        "concluded": true,
+        "handed_off": false,
+        "finished": false,
+        "gaps": [
+          "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)"
+        ],
+        "report_handoff": {
+          "exists": false,
+          "complete": false,
+          "handed_off": false,
+          "latest_report_id": "",
+          "latest_complete": false,
+          "lead_missing": false,
+          "completed_report_ids": [],
+          "incomplete_report_ids": [],
+          "stale_report_ids": [],
+          "latest_stale": false,
+          "required_source_ids": [
+            "synthesis:synthetic-terminal"
+          ],
+          "reports": []
+        }
+      },
+      "result_contract": {
+        "expected": [
+          {
+            "id": "synthetic_output.v1",
+            "role": "target"
+          }
+        ],
+        "recorded": [],
+        "missing": [
+          {
+            "id": "synthetic_output.v1",
+            "role": "target"
+          }
+        ],
+        "satisfied": false
+      },
+      "memory_depth": {
+        "personas": 1,
+        "facts": 0,
+        "events": 0,
+        "avg_per_persona": 0.0,
+        "hint": "thin \u2014 deepen the cohort (simulate-cohort) for richer councils"
+      },
+      "gaps": [
+        "1/1 proband session(s) ungrounded (not verified against real observed usage) \u2014 re-test by driving the prototype so the evidence is real",
+        "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)",
+        "cohort memory is thin (few simulated events/facts per persona) \u2014 deepen it (simulate-cohort) so councils are grounded in rich lived experience"
+      ],
+      "ready": [],
+      "next": "Plan complete \u2014 export plan.md and present the answer."
+    },
+    "public_value": {
+      "schema_version": "sonaloop.plan-assessment-view.v1",
+      "view": "assessment",
+      "value": {
+        "project_id": "rproject_96971e545a5f4208",
+        "goal": "Understand the handover",
+        "complete": false,
+        "tasks_complete": true,
+        "url": "http://127.0.0.1:8787/jobs/rproject_96971e545a5f4208",
+        "recommendation": "finish",
+        "coverage": {
+          "evidence_by_kind": [
+            {
+              "kind": "frame",
+              "count": 1
+            },
+            {
+              "kind": "synthesis",
+              "count": 1
+            }
+          ],
+          "artifacts": 1,
+          "sessions": 1,
+          "personas_touched": 0,
+          "tasks_done": 3,
+          "tasks_total": 3
+        },
+        "tasks_by_bucket": [
+          {
+            "bucket": "analyze",
+            "done": 1,
+            "total": 1
+          },
+          {
+            "bucket": "act",
+            "done": 1,
+            "total": 1
+          },
+          {
+            "bucket": "verify",
+            "done": 1,
+            "total": 1
+          }
+        ],
+        "open_gates": [],
+        "open_questions": [
+          "What remains unclear?"
+        ],
+        "saturation": {
+          "act_done": 1,
+          "councils": 0,
+          "syntheses": 1,
+          "hint": "complete"
+        },
+        "novelty": {
+          "artifact_kinds": [
+            "model"
+          ],
+          "distinct_kinds": 1,
+          "has_interactive_model": true,
+          "hint": "diverse"
+        },
+        "finish": {
+          "organized": true,
+          "concluded": true,
+          "handed_off": false,
+          "finished": false,
+          "gaps": [
+            "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)"
+          ],
+          "report_handoff": {
+            "exists": false,
+            "complete": false,
+            "handed_off": false,
+            "latest_report_id": "",
+            "latest_complete": false,
+            "lead_missing": false,
+            "completed_report_ids": [],
+            "incomplete_report_ids": [],
+            "stale_report_ids": [],
+            "latest_stale": false,
+            "required_source_ids": [
+              "synthesis:synthetic-terminal"
+            ],
+            "reports": []
+          }
+        },
+        "result_contract": {
+          "expected": [
+            {
+              "id": "synthetic_output.v1",
+              "role": "target"
+            }
+          ],
+          "recorded": [],
+          "missing": [
+            {
+              "id": "synthetic_output.v1",
+              "role": "target"
+            }
+          ],
+          "satisfied": false
+        },
+        "memory_depth": {
+          "personas": 1,
+          "facts": 0,
+          "events": 0,
+          "avg_per_persona": 0.0,
+          "hint": "thin \u2014 deepen the cohort (simulate-cohort) for richer councils"
+        },
+        "gaps": [
+          "1/1 proband session(s) ungrounded (not verified against real observed usage) \u2014 re-test by driving the prototype so the evidence is real",
+          "no REPORT \u2014 author the project narrative/handover (scaffold_synthesis)",
+          "cohort memory is thin (few simulated events/facts per persona) \u2014 deepen it (simulate-cohort) so councils are grounded in rich lived experience"
+        ],
+        "ready": [],
+        "next": "Plan complete \u2014 export plan.md and present the answer."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "assessment-stale-handoff",
+    "tool": "assess_project",
+    "input": {
+      "project_id": "rproject_96971e545a5f4208"
+    },
+    "value": {
+      "project_id": "rproject_96971e545a5f4208",
+      "goal": "Understand the handover",
+      "complete": false,
+      "tasks_complete": true,
+      "url": "http://127.0.0.1:8787/jobs/rproject_96971e545a5f4208",
+      "recommendation": "finish",
+      "coverage": {
+        "evidence_by_kind": {
+          "frame": 1,
+          "synthesis": 1
+        },
+        "artifacts": 1,
+        "sessions": 1,
+        "personas_touched": 0,
+        "tasks_done": 3,
+        "tasks_total": 3
+      },
+      "tasks_by_bucket": {
+        "analyze": {
+          "done": 1,
+          "total": 1
+        },
+        "act": {
+          "done": 1,
+          "total": 1
+        },
+        "verify": {
+          "done": 1,
+          "total": 1
+        }
+      },
+      "open_gates": [],
+      "open_questions": [
+        "What remains unclear?"
+      ],
+      "saturation": {
+        "act_done": 1,
+        "councils": 0,
+        "syntheses": 1,
+        "hint": "complete"
+      },
+      "novelty": {
+        "artifact_kinds": [
+          "model"
+        ],
+        "distinct_kinds": 1,
+        "has_interactive_model": true,
+        "hint": "diverse"
+      },
+      "finish": {
+        "organized": true,
+        "concluded": true,
+        "handed_off": false,
+        "finished": false,
+        "gaps": [
+          "REPORT stale \u2014 the current terminal synthesis is not an explicit input; scaffold a new report from the current graph before handing it off"
+        ],
+        "report_handoff": {
+          "exists": true,
+          "complete": false,
+          "handed_off": false,
+          "latest_report_id": "synthetic-report",
+          "latest_complete": false,
+          "lead_missing": false,
+          "completed_report_ids": [],
+          "incomplete_report_ids": [
+            "synthetic-report"
+          ],
+          "stale_report_ids": [
+            "synthetic-report"
+          ],
+          "latest_stale": true,
+          "required_source_ids": [
+            "synthesis:synthetic-terminal"
+          ],
+          "reports": [
+            {
+              "report_id": "synthetic-report",
+              "status": "in_progress",
+              "complete": false,
+              "section_count": 1,
+              "authored_section_count": 1,
+              "authored_section_ids": [
+                "report-section"
+              ],
+              "incomplete_section_ids": [],
+              "body_empty": false,
+              "lead_missing": false,
+              "content_complete": true,
+              "required_source_ids": [
+                "synthesis:synthetic-terminal"
+              ],
+              "source_coverage_missing": [
+                "synthesis:synthetic-terminal"
+              ]
+            }
+          ]
+        }
+      },
+      "result_contract": {
+        "expected": [
+          {
+            "id": "synthetic_output.v1",
+            "role": "target"
+          }
+        ],
+        "recorded": [],
+        "missing": [
+          {
+            "id": "synthetic_output.v1",
+            "role": "target"
+          }
+        ],
+        "satisfied": false
+      },
+      "memory_depth": {
+        "personas": 1,
+        "facts": 0,
+        "events": 0,
+        "avg_per_persona": 0.0,
+        "hint": "thin \u2014 deepen the cohort (simulate-cohort) for richer councils"
+      },
+      "gaps": [
+        "1/1 proband session(s) ungrounded (not verified against real observed usage) \u2014 re-test by driving the prototype so the evidence is real",
+        "REPORT stale \u2014 the current terminal synthesis is not an explicit input; scaffold a new report from the current graph before handing it off",
+        "cohort memory is thin (few simulated events/facts per persona) \u2014 deepen it (simulate-cohort) so councils are grounded in rich lived experience"
+      ],
+      "ready": [],
+      "next": "Plan complete \u2014 export plan.md and present the answer."
+    },
+    "public_value": {
+      "schema_version": "sonaloop.plan-assessment-view.v1",
+      "view": "assessment",
+      "value": {
+        "project_id": "rproject_96971e545a5f4208",
+        "goal": "Understand the handover",
+        "complete": false,
+        "tasks_complete": true,
+        "url": "http://127.0.0.1:8787/jobs/rproject_96971e545a5f4208",
+        "recommendation": "finish",
+        "coverage": {
+          "evidence_by_kind": [
+            {
+              "kind": "frame",
+              "count": 1
+            },
+            {
+              "kind": "synthesis",
+              "count": 1
+            }
+          ],
+          "artifacts": 1,
+          "sessions": 1,
+          "personas_touched": 0,
+          "tasks_done": 3,
+          "tasks_total": 3
+        },
+        "tasks_by_bucket": [
+          {
+            "bucket": "analyze",
+            "done": 1,
+            "total": 1
+          },
+          {
+            "bucket": "act",
+            "done": 1,
+            "total": 1
+          },
+          {
+            "bucket": "verify",
+            "done": 1,
+            "total": 1
+          }
+        ],
+        "open_gates": [],
+        "open_questions": [
+          "What remains unclear?"
+        ],
+        "saturation": {
+          "act_done": 1,
+          "councils": 0,
+          "syntheses": 1,
+          "hint": "complete"
+        },
+        "novelty": {
+          "artifact_kinds": [
+            "model"
+          ],
+          "distinct_kinds": 1,
+          "has_interactive_model": true,
+          "hint": "diverse"
+        },
+        "finish": {
+          "organized": true,
+          "concluded": true,
+          "handed_off": false,
+          "finished": false,
+          "gaps": [
+            "REPORT stale \u2014 the current terminal synthesis is not an explicit input; scaffold a new report from the current graph before handing it off"
+          ],
+          "report_handoff": {
+            "exists": true,
+            "complete": false,
+            "handed_off": false,
+            "latest_report_id": "synthetic-report",
+            "latest_complete": false,
+            "lead_missing": false,
+            "completed_report_ids": [],
+            "incomplete_report_ids": [
+              "synthetic-report"
+            ],
+            "stale_report_ids": [
+              "synthetic-report"
+            ],
+            "latest_stale": true,
+            "required_source_ids": [
+              "synthesis:synthetic-terminal"
+            ],
+            "reports": [
+              {
+                "report_id": "synthetic-report",
+                "status": "in_progress",
+                "complete": false,
+                "section_count": 1,
+                "authored_section_count": 1,
+                "authored_section_ids": [
+                  "report-section"
+                ],
+                "incomplete_section_ids": [],
+                "body_empty": false,
+                "lead_missing": false,
+                "content_complete": true,
+                "required_source_ids": [
+                  "synthesis:synthetic-terminal"
+                ],
+                "source_coverage_missing": [
+                  "synthesis:synthetic-terminal"
+                ]
+              }
+            ]
+          }
+        },
+        "result_contract": {
+          "expected": [
+            {
+              "id": "synthetic_output.v1",
+              "role": "target"
+            }
+          ],
+          "recorded": [],
+          "missing": [
+            {
+              "id": "synthetic_output.v1",
+              "role": "target"
+            }
+          ],
+          "satisfied": false
+        },
+        "memory_depth": {
+          "personas": 1,
+          "facts": 0,
+          "events": 0,
+          "avg_per_persona": 0.0,
+          "hint": "thin \u2014 deepen the cohort (simulate-cohort) for richer councils"
+        },
+        "gaps": [
+          "1/1 proband session(s) ungrounded (not verified against real observed usage) \u2014 re-test by driving the prototype so the evidence is real",
+          "REPORT stale \u2014 the current terminal synthesis is not an explicit input; scaffold a new report from the current graph before handing it off",
+          "cohort memory is thin (few simulated events/facts per persona) \u2014 deepen it (simulate-cohort) so councils are grounded in rich lived experience"
+        ],
+        "ready": [],
+        "next": "Plan complete \u2014 export plan.md and present the answer."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "assessment-complete",
+    "tool": "assess_project",
+    "input": {
+      "project_id": "rproject_96971e545a5f4208"
+    },
+    "value": {
+      "project_id": "rproject_96971e545a5f4208",
+      "goal": "Understand the handover",
+      "complete": true,
+      "tasks_complete": true,
+      "url": "http://127.0.0.1:8787/jobs/rproject_96971e545a5f4208",
+      "recommendation": "complete",
+      "coverage": {
+        "evidence_by_kind": {
+          "frame": 1,
+          "synthesis": 1
+        },
+        "artifacts": 1,
+        "sessions": 1,
+        "personas_touched": 0,
+        "tasks_done": 3,
+        "tasks_total": 3
+      },
+      "tasks_by_bucket": {
+        "analyze": {
+          "done": 1,
+          "total": 1
+        },
+        "act": {
+          "done": 1,
+          "total": 1
+        },
+        "verify": {
+          "done": 1,
+          "total": 1
+        }
+      },
+      "open_gates": [],
+      "open_questions": [
+        "What remains unclear?"
+      ],
+      "saturation": {
+        "act_done": 1,
+        "councils": 0,
+        "syntheses": 1,
+        "hint": "complete"
+      },
+      "novelty": {
+        "artifact_kinds": [
+          "model"
+        ],
+        "distinct_kinds": 1,
+        "has_interactive_model": true,
+        "hint": "diverse"
+      },
+      "finish": {
+        "organized": true,
+        "concluded": true,
+        "handed_off": true,
+        "finished": true,
+        "gaps": [],
+        "report_handoff": {
+          "exists": true,
+          "complete": true,
+          "handed_off": true,
+          "latest_report_id": "synthetic-report",
+          "latest_complete": true,
+          "lead_missing": false,
+          "completed_report_ids": [
+            "synthetic-report"
+          ],
+          "incomplete_report_ids": [],
+          "stale_report_ids": [],
+          "latest_stale": false,
+          "required_source_ids": [
+            "synthesis:synthetic-terminal"
+          ],
+          "reports": [
+            {
+              "report_id": "synthetic-report",
+              "status": "done",
+              "complete": true,
+              "section_count": 1,
+              "authored_section_count": 1,
+              "authored_section_ids": [
+                "report-section"
+              ],
+              "incomplete_section_ids": [],
+              "body_empty": false,
+              "lead_missing": false,
+              "content_complete": true,
+              "required_source_ids": [
+                "synthesis:synthetic-terminal"
+              ],
+              "source_coverage_missing": []
+            }
+          ]
+        }
+      },
+      "result_contract": {
+        "expected": [
+          {
+            "id": "synthetic_output.v1",
+            "role": "target"
+          }
+        ],
+        "recorded": [
+          {
+            "id": "synthetic-outcome",
+            "schema_id": "synthetic_output.v1"
+          }
+        ],
+        "missing": [],
+        "satisfied": true
+      },
+      "memory_depth": {
+        "personas": 1,
+        "facts": 0,
+        "events": 0,
+        "avg_per_persona": 0.0,
+        "hint": "thin \u2014 deepen the cohort (simulate-cohort) for richer councils"
+      },
+      "gaps": [
+        "1/1 proband session(s) ungrounded (not verified against real observed usage) \u2014 re-test by driving the prototype so the evidence is real",
+        "cohort memory is thin (few simulated events/facts per persona) \u2014 deepen it (simulate-cohort) so councils are grounded in rich lived experience"
+      ],
+      "ready": [],
+      "next": "Plan complete \u2014 export plan.md and present the answer."
+    },
+    "public_value": {
+      "schema_version": "sonaloop.plan-assessment-view.v1",
+      "view": "assessment",
+      "value": {
+        "project_id": "rproject_96971e545a5f4208",
+        "goal": "Understand the handover",
+        "complete": true,
+        "tasks_complete": true,
+        "url": "http://127.0.0.1:8787/jobs/rproject_96971e545a5f4208",
+        "recommendation": "complete",
+        "coverage": {
+          "evidence_by_kind": [
+            {
+              "kind": "frame",
+              "count": 1
+            },
+            {
+              "kind": "synthesis",
+              "count": 1
+            }
+          ],
+          "artifacts": 1,
+          "sessions": 1,
+          "personas_touched": 0,
+          "tasks_done": 3,
+          "tasks_total": 3
+        },
+        "tasks_by_bucket": [
+          {
+            "bucket": "analyze",
+            "done": 1,
+            "total": 1
+          },
+          {
+            "bucket": "act",
+            "done": 1,
+            "total": 1
+          },
+          {
+            "bucket": "verify",
+            "done": 1,
+            "total": 1
+          }
+        ],
+        "open_gates": [],
+        "open_questions": [
+          "What remains unclear?"
+        ],
+        "saturation": {
+          "act_done": 1,
+          "councils": 0,
+          "syntheses": 1,
+          "hint": "complete"
+        },
+        "novelty": {
+          "artifact_kinds": [
+            "model"
+          ],
+          "distinct_kinds": 1,
+          "has_interactive_model": true,
+          "hint": "diverse"
+        },
+        "finish": {
+          "organized": true,
+          "concluded": true,
+          "handed_off": true,
+          "finished": true,
+          "gaps": [],
+          "report_handoff": {
+            "exists": true,
+            "complete": true,
+            "handed_off": true,
+            "latest_report_id": "synthetic-report",
+            "latest_complete": true,
+            "lead_missing": false,
+            "completed_report_ids": [
+              "synthetic-report"
+            ],
+            "incomplete_report_ids": [],
+            "stale_report_ids": [],
+            "latest_stale": false,
+            "required_source_ids": [
+              "synthesis:synthetic-terminal"
+            ],
+            "reports": [
+              {
+                "report_id": "synthetic-report",
+                "status": "done",
+                "complete": true,
+                "section_count": 1,
+                "authored_section_count": 1,
+                "authored_section_ids": [
+                  "report-section"
+                ],
+                "incomplete_section_ids": [],
+                "body_empty": false,
+                "lead_missing": false,
+                "content_complete": true,
+                "required_source_ids": [
+                  "synthesis:synthetic-terminal"
+                ],
+                "source_coverage_missing": []
+              }
+            ]
+          }
+        },
+        "result_contract": {
+          "expected": [
+            {
+              "id": "synthetic_output.v1",
+              "role": "target"
+            }
+          ],
+          "recorded": [
+            {
+              "id": "synthetic-outcome",
+              "schema_id": "synthetic_output.v1"
+            }
+          ],
+          "missing": [],
+          "satisfied": true
+        },
+        "memory_depth": {
+          "personas": 1,
+          "facts": 0,
+          "events": 0,
+          "avg_per_persona": 0.0,
+          "hint": "thin \u2014 deepen the cohort (simulate-cohort) for richer councils"
+        },
+        "gaps": [
+          "1/1 proband session(s) ungrounded (not verified against real observed usage) \u2014 re-test by driving the prototype so the evidence is real",
+          "cohort memory is thin (few simulated events/facts per persona) \u2014 deepen it (simulate-cohort) so councils are grounded in rich lived experience"
+        ],
+        "ready": [],
+        "next": "Plan complete \u2014 export plan.md and present the answer."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "assessment-document-decisions",
+    "tool": "export_plan_md",
+    "input": {
+      "project_id": "rproject_96971e545a5f4208"
+    },
+    "value": {
+      "markdown": "# Research plan \u2014 Understand the handover\n\nMethodology: freeform \u00b7 Tasks: 3 \u00b7 Updated: 2026-09-09T08:19:58.500315+00:00\n\n## Next (ready)\n- _(none \u2014 plan complete or blocked)_\n\n## Analyze\n- [x] **frame__root** (frame) Frame the inquiry \u2014 `done`\n    evidence: frame:frame__root\n\n## Act\n- [x] **act__explore** (explore) Inspect a handover \u2014 `done` \u2282 frame__root\n    evidence: \u2014\n\n## Verify\n- [x] **verify__decide** (decide) Review the evidence \u2014 `done` \u2282 frame__root; gates: min_inputs=1 \u00b7 gate=reviewed \u00b7 artifacts=handover \u00b7 sessions=handover\n    evidence: synthesis:synthetic-terminal\n\n## Decisions\n\n- **Revise the handover** \u2014 `proposed`\n  Add a visible state indicator.\n  - based on: Handover finding (synthesis:synthetic-terminal)\n  - rejected: Keep the existing handover (decision:dec_5023308df8a21ac8) \u2014 The state remained unclear.\n- **Keep the existing handover** \u2014 `superseded`\n  Use the evidenced route.\n  - based on: Handover finding (synthesis:synthetic-terminal)\n  - superseded by: Revise the handover (decision:dec_0bbf99d52417b23a)\n"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.plan-assessment-view.v1",
+      "view": "document",
+      "value": {
+        "markdown": "# Research plan \u2014 Understand the handover\n\nMethodology: freeform \u00b7 Tasks: 3 \u00b7 Updated: 2026-09-09T08:19:58.500315+00:00\n\n## Next (ready)\n- _(none \u2014 plan complete or blocked)_\n\n## Analyze\n- [x] **frame__root** (frame) Frame the inquiry \u2014 `done`\n    evidence: frame:frame__root\n\n## Act\n- [x] **act__explore** (explore) Inspect a handover \u2014 `done` \u2282 frame__root\n    evidence: \u2014\n\n## Verify\n- [x] **verify__decide** (decide) Review the evidence \u2014 `done` \u2282 frame__root; gates: min_inputs=1 \u00b7 gate=reviewed \u00b7 artifacts=handover \u00b7 sessions=handover\n    evidence: synthesis:synthetic-terminal\n\n## Decisions\n\n- **Revise the handover** \u2014 `proposed`\n  Add a visible state indicator.\n  - based on: Handover finding (synthesis:synthetic-terminal)\n  - rejected: Keep the existing handover (decision:dec_5023308df8a21ac8) \u2014 The state remained unclear.\n- **Keep the existing handover** \u2014 `superseded`\n  Use the evidenced route.\n  - based on: Handover finding (synthesis:synthetic-terminal)\n  - superseded by: Revise the handover (decision:dec_0bbf99d52417b23a)\n"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "assessment-blocked",
+    "tool": "assess_project",
+    "input": {
+      "project_id": "rproject_34f2d3f10695de0c"
+    },
+    "value": {
+      "project_id": "rproject_34f2d3f10695de0c",
+      "goal": "",
+      "complete": false,
+      "tasks_complete": false,
+      "url": "http://127.0.0.1:8787/jobs/rproject_34f2d3f10695de0c",
+      "recommendation": "blocked",
+      "coverage": {
+        "evidence_by_kind": {},
+        "artifacts": 0,
+        "sessions": 0,
+        "personas_touched": 0,
+        "tasks_done": 0,
+        "tasks_total": 0
+      },
+      "tasks_by_bucket": {},
+      "open_gates": [],
+      "open_questions": [],
+      "saturation": {
+        "act_done": 0,
+        "councils": 0,
+        "syntheses": 0,
+        "hint": "complete"
+      },
+      "novelty": {
+        "artifact_kinds": [],
+        "distinct_kinds": 0,
+        "has_interactive_model": false,
+        "hint": "no artifacts yet"
+      },
+      "finish": {
+        "organized": true,
+        "concluded": true,
+        "handed_off": true,
+        "finished": true,
+        "gaps": [],
+        "report_handoff": {
+          "exists": false,
+          "complete": false,
+          "handed_off": false,
+          "latest_report_id": "",
+          "latest_complete": false,
+          "lead_missing": false,
+          "completed_report_ids": [],
+          "incomplete_report_ids": [],
+          "stale_report_ids": [],
+          "latest_stale": false,
+          "required_source_ids": [],
+          "reports": []
+        }
+      },
+      "result_contract": {
+        "expected": [],
+        "recorded": [],
+        "missing": [],
+        "satisfied": true
+      },
+      "memory_depth": {},
+      "gaps": [],
+      "ready": [],
+      "next": "No ready tasks \u2014 resolve a blocker / open question, or add tasks."
+    },
+    "public_value": {
+      "schema_version": "sonaloop.plan-assessment-view.v1",
+      "view": "assessment",
+      "value": {
+        "project_id": "rproject_34f2d3f10695de0c",
+        "goal": "",
+        "complete": false,
+        "tasks_complete": false,
+        "url": "http://127.0.0.1:8787/jobs/rproject_34f2d3f10695de0c",
+        "recommendation": "blocked",
+        "coverage": {
+          "evidence_by_kind": [],
+          "artifacts": 0,
+          "sessions": 0,
+          "personas_touched": 0,
+          "tasks_done": 0,
+          "tasks_total": 0
+        },
+        "tasks_by_bucket": [],
+        "open_gates": [],
+        "open_questions": [],
+        "saturation": {
+          "act_done": 0,
+          "councils": 0,
+          "syntheses": 0,
+          "hint": "complete"
+        },
+        "novelty": {
+          "artifact_kinds": [],
+          "distinct_kinds": 0,
+          "has_interactive_model": false,
+          "hint": "no artifacts yet"
+        },
+        "finish": {
+          "organized": true,
+          "concluded": true,
+          "handed_off": true,
+          "finished": true,
+          "gaps": [],
+          "report_handoff": {
+            "exists": false,
+            "complete": false,
+            "handed_off": false,
+            "latest_report_id": "",
+            "latest_complete": false,
+            "lead_missing": false,
+            "completed_report_ids": [],
+            "incomplete_report_ids": [],
+            "stale_report_ids": [],
+            "latest_stale": false,
+            "required_source_ids": [],
+            "reports": []
+          }
+        },
+        "result_contract": {
+          "expected": [],
+          "recorded": [],
+          "missing": [],
+          "satisfied": true
+        },
+        "memory_depth": {},
+        "gaps": [],
+        "ready": [],
+        "next": "No ready tasks \u2014 resolve a blocker / open question, or add tasks."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "assessment-document-empty-plan",
+    "tool": "export_plan_md",
+    "input": {
+      "project_id": "rproject_34f2d3f10695de0c"
+    },
+    "value": {
+      "markdown": "# Research plan \u2014 rproject_34f2d3f10695de0c\n\nMethodology: freeform \u00b7 Tasks: 0 \u00b7 Updated: 2026-09-09T08:19:58.508468+00:00\n\n## Next (ready)\n- _(no tasks yet)_\n"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.plan-assessment-view.v1",
+      "view": "document",
+      "value": {
+        "markdown": "# Research plan \u2014 rproject_34f2d3f10695de0c\n\nMethodology: freeform \u00b7 Tasks: 0 \u00b7 Updated: 2026-09-09T08:19:58.508468+00:00\n\n## Next (ready)\n- _(no tasks yet)_\n"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "assessment-minimal-complete",
+    "tool": "assess_project",
+    "input": {
+      "project_id": "rproject_f8d783f034eae5c4"
+    },
+    "value": {
+      "project_id": "rproject_f8d783f034eae5c4",
+      "goal": "A bounded question",
+      "complete": true,
+      "tasks_complete": true,
+      "url": "http://127.0.0.1:8787/jobs/rproject_f8d783f034eae5c4",
+      "recommendation": "complete",
+      "coverage": {
+        "evidence_by_kind": {
+          "frame": 1
+        },
+        "artifacts": 0,
+        "sessions": 0,
+        "personas_touched": 0,
+        "tasks_done": 1,
+        "tasks_total": 1
+      },
+      "tasks_by_bucket": {
+        "analyze": {
+          "done": 1,
+          "total": 1
+        }
+      },
+      "open_gates": [],
+      "open_questions": [],
+      "saturation": {
+        "act_done": 0,
+        "councils": 0,
+        "syntheses": 0,
+        "hint": "complete"
+      },
+      "novelty": {
+        "artifact_kinds": [],
+        "distinct_kinds": 0,
+        "has_interactive_model": false,
+        "hint": "no artifacts yet"
+      },
+      "finish": {
+        "organized": true,
+        "concluded": true,
+        "handed_off": true,
+        "finished": true,
+        "gaps": [],
+        "report_handoff": {
+          "exists": false,
+          "complete": false,
+          "handed_off": false,
+          "latest_report_id": "",
+          "latest_complete": false,
+          "lead_missing": false,
+          "completed_report_ids": [],
+          "incomplete_report_ids": [],
+          "stale_report_ids": [],
+          "latest_stale": false,
+          "required_source_ids": [],
+          "reports": []
+        }
+      },
+      "result_contract": {
+        "expected": [],
+        "recorded": [],
+        "missing": [],
+        "satisfied": true
+      },
+      "memory_depth": {},
+      "gaps": [],
+      "ready": [],
+      "next": "Plan complete \u2014 export plan.md and present the answer."
+    },
+    "public_value": {
+      "schema_version": "sonaloop.plan-assessment-view.v1",
+      "view": "assessment",
+      "value": {
+        "project_id": "rproject_f8d783f034eae5c4",
+        "goal": "A bounded question",
+        "complete": true,
+        "tasks_complete": true,
+        "url": "http://127.0.0.1:8787/jobs/rproject_f8d783f034eae5c4",
+        "recommendation": "complete",
+        "coverage": {
+          "evidence_by_kind": [
+            {
+              "kind": "frame",
+              "count": 1
+            }
+          ],
+          "artifacts": 0,
+          "sessions": 0,
+          "personas_touched": 0,
+          "tasks_done": 1,
+          "tasks_total": 1
+        },
+        "tasks_by_bucket": [
+          {
+            "bucket": "analyze",
+            "done": 1,
+            "total": 1
+          }
+        ],
+        "open_gates": [],
+        "open_questions": [],
+        "saturation": {
+          "act_done": 0,
+          "councils": 0,
+          "syntheses": 0,
+          "hint": "complete"
+        },
+        "novelty": {
+          "artifact_kinds": [],
+          "distinct_kinds": 0,
+          "has_interactive_model": false,
+          "hint": "no artifacts yet"
+        },
+        "finish": {
+          "organized": true,
+          "concluded": true,
+          "handed_off": true,
+          "finished": true,
+          "gaps": [],
+          "report_handoff": {
+            "exists": false,
+            "complete": false,
+            "handed_off": false,
+            "latest_report_id": "",
+            "latest_complete": false,
+            "lead_missing": false,
+            "completed_report_ids": [],
+            "incomplete_report_ids": [],
+            "stale_report_ids": [],
+            "latest_stale": false,
+            "required_source_ids": [],
+            "reports": []
+          }
+        },
+        "result_contract": {
+          "expected": [],
+          "recorded": [],
+          "missing": [],
+          "satisfied": true
+        },
+        "memory_depth": {},
+        "gaps": [],
+        "ready": [],
+        "next": "Plan complete \u2014 export plan.md and present the answer."
+      }
+    },
+    "state": "ready"
+  }
+]

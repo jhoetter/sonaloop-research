@@ -1761,8 +1761,8 @@
       "tool": "record_hmw_reframe",
       "family": "note_ideation",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared actual Product Note attribution, HMW questions and Council ideation bodies display the unchanged native results. Getter and writer retain their different fields; ranks, empty/null attribution, supplied voices and citations remain explicit. No HMW/Persona lookup, added status, summary re-execution or idempotency inference.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_ideation.py",
         "symbol": "record_hmw_reframe",
@@ -1778,8 +1778,8 @@
       "tool": "record_ideas",
       "family": "note_ideation",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared actual Product Note attribution, HMW questions and Council ideation bodies display the unchanged native results. Getter and writer retain their different fields; ranks, empty/null attribution, supplied voices and citations remain explicit. No HMW/Persona lookup, added status, summary re-execution or idempotency inference.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_ideation.py",
         "symbol": "record_ideas",
@@ -1795,8 +1795,8 @@
       "tool": "list_ideas",
       "family": "note_ideation",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared actual Product Note attribution, HMW questions and Council ideation bodies display the unchanged native results. Getter and writer retain their different fields; ranks, empty/null attribution, supplied voices and citations remain explicit. No HMW/Persona lookup, added status, summary re-execution or idempotency inference.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_ideation.py",
         "symbol": "list_ideas",
@@ -1812,8 +1812,8 @@
       "tool": "record_ideation_summary",
       "family": "note_ideation",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared actual Product Note attribution, HMW questions and Council ideation bodies display the unchanged native results. Getter and writer retain their different fields; ranks, empty/null attribution, supplied voices and citations remain explicit. No HMW/Persona lookup, added status, summary re-execution or idempotency inference.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_ideation.py",
         "symbol": "record_ideation_summary",
@@ -1829,8 +1829,8 @@
       "tool": "get_ideation",
       "family": "note_ideation",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared actual Product Note attribution, HMW questions and Council ideation bodies display the unchanged native results. Getter and writer retain their different fields; ranks, empty/null attribution, supplied voices and citations remain explicit. No HMW/Persona lookup, added status, summary re-execution or idempotency inference.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_ideation.py",
         "symbol": "get_ideation",
@@ -2863,8 +2863,8 @@
       "tool": "export_plan_md",
       "family": "plan_run",
       "treatment": "export",
-      "reason": "Family document preview/download using native returned export, no automatic arbitrary path/URL fetch or rerun.",
-      "status": "planned",
+      "reason": "Shared Product Plan inspector displays the supplied computed assessment or exact exported Markdown. Complete/tasks_complete/finish remain distinct; native read services run only in the explicitly opened Product page, never during passive projection. Native MCP output and authority are unchanged.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "export_plan_md",
@@ -3203,8 +3203,8 @@
       "tool": "assess_project",
       "family": "plan_run",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared Product Plan inspector displays the supplied computed assessment or exact exported Markdown. Complete/tasks_complete/finish remain distinct; native read services run only in the explicitly opened Product page, never during passive projection. Native MCP output and authority are unchanged.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "assess_project",
@@ -3321,9 +3321,9 @@
     {
       "tool": "inject_work",
       "family": "plan_run",
-      "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "treatment": "execution_only",
+      "reason": "Native critic-work execution returns only injected:true, without an effect identity, count or replay marker. Isolated native tests show repeated task injections can create more work while repeated question injections can deduplicate despite the same boolean. A visual effect card would require extra reads or invented records; retain the unchanged native acknowledgement and inspect the separately available Plan/Questions when requested.",
+      "status": "not_applicable",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "inject_work",
@@ -3866,7 +3866,7 @@
       "tool": "delete_synthesis",
       "family": "synthesis",
       "treatment": "action_confirmation",
-      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "reason": "Use this family\u2019s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
       "status": "planned",
       "native": {
         "module": "sonaloop/mcp_server/_tools_research.py",
@@ -3883,7 +3883,7 @@
       "tool": "delete_council",
       "family": "council",
       "treatment": "action_confirmation",
-      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "reason": "Use this family\u2019s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
       "status": "planned",
       "native": {
         "module": "sonaloop/mcp_server/_tools_research.py",
@@ -3917,7 +3917,7 @@
       "tool": "delete_persona",
       "family": "persona",
       "treatment": "action_confirmation",
-      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "reason": "Use this family\u2019s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
       "status": "planned",
       "native": {
         "module": "sonaloop/mcp_server/_tools_research.py",
@@ -4224,7 +4224,7 @@
       "tool": "delete_note",
       "family": "note_ideation",
       "treatment": "action_confirmation",
-      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
+      "reason": "Use this family\u2019s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
       "status": "planned",
       "native": {
         "module": "sonaloop/mcp_server/_tools_sections.py",

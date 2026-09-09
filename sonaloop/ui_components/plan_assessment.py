@@ -64,7 +64,8 @@ def render_view(value):
     h, _, _ = _kit()
     assessment = value["view"] == "assessment"
     body = assessment_content(value["value"]) if assessment else document_content(value["value"]["markdown"])
-    return h("article", {"class_": "sl-research-card"}, h("h2", {}, t("rpa_title" if assessment else "rpa_document")), body), (
+    title = t("rpa_title") if assessment else t("rpa_document")
+    return h("article", {"class_": "sl-research-card"}, h("h2", {}, title), body), (
         "ready" if assessment or value["value"]["markdown"] else "empty")
 
 

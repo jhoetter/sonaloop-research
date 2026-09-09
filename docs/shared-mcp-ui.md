@@ -171,6 +171,40 @@ and both supported declaration spellings are retained in local details.
 and integrity requirements. Its Project result supplies neither the reseeded
 tasks nor a Run completion verdict; rendering does not reseed or read a Plan.
 
+**Computed Plan assessment and supplied document** share the explicit Product
+Plan inspector. After Project access and Plan checks, that page reads each
+native assessment/export once and leaves stored data unchanged. The closed
+`sonaloop.plan-assessment-view.v1` keeps recommendation, gaps and ready guidance
+visible; completion, coverage, open gates, report handoff and other diagnostics
+remain in local details. `complete`, `tasks_complete` and `finish.finished` are
+separate native facts, not a reconstructed Health or Run verdict. Dynamic
+count maps become named rows without recomputing counts. The Markdown view uses
+the exact supplied export, including decisions, citations and supersession;
+it invents no file location or download. Neither passive view performs reads,
+gate evaluation or writes. Unsupported native extensions keep the Product Plan
+with an explicit unavailable-inspection notice.
+
+`inject_work` intentionally keeps its unchanged execution acknowledgement.
+Its result is only `{injected:true}`: identical retries can create additional
+Tasks or deduplicate Questions depending on the native branch. The boolean
+therefore proves no effect ID, count or idempotency. A separate visual effect
+would require an additional requested Plan/Question read, not an inferred card.
+
+**HMW questions and attributed ideas** reuse the existing Note and Council
+inspectors. Note content adds supplied Persona/HMW/cluster attribution in local
+details; Council ideation shares the recorded problem, HMW questions, idea pool
+and ordered shortlist with rationales. HMW records have no invented question
+status. The idea writer supplies HMW question text while its getter does not;
+the full Council writer supplies actual voices and findings while its flat
+ideation getter does not. These different native shapes stay different.
+Summary metadata, zero/false/null values and references remain in named closed
+details, without resolving Persona, HMW or citation references. Known native
+summary dispatch fields are state/checkpoint/provenance, with no bearer token;
+unexpected future execution context fails the passive view instead of being
+silently filtered. Authored nested text remains intact. Repeating record_ideas
+can create new Note IDs; repeating a keyed summary retains its Council ID but
+updates the recorded ideation timestamp. Viewing the result repeats neither.
+
 **Recorded Product Understanding** uses the actual Product capability grouping
 and observation body. Its closed `sonaloop.product-understanding-view.v1`
 presentation maps scalar target, inventory and verification attributes to

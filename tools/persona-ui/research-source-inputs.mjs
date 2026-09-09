@@ -19,6 +19,8 @@ export const commonSourceInputs = [
   'sonaloop/ui_components/coverage.py', 'sonaloop/ui_components/coverage.json',
   'sonaloop/ui_components/component_props.py', 'sonaloop/ui_components/library.py',
   'sonaloop/ui_components/statements.py',
+  // Note content can carry authored idea attribution; all consumers share it.
+  'sonaloop/ui_components/ideation.py', 'sonaloop/ui_components/projects_rows.py',
   // Canonical product wiring and shared semantic helpers. These remain explicit
   // shared identities even when a particular scenario uses only part of a file.
   'sonaloop/web/pages/_ctx.py', 'sonaloop/web/_html.py', 'sonaloop/web/_i18n.py',
@@ -28,6 +30,8 @@ export const commonSourceInputs = [
 ];
 
 export const familySourceInputs = {
+  ideation: ["sonaloop/ui_components/councils.py", "sonaloop/web/pages/library.py", "sonaloop/web/pages/councils.py", "tools/persona-ui/fixtures/ideation.json"],
+  assessment: ["sonaloop/ui_components/plan_assessment.py", "sonaloop/ui_components/plan_assessment_rows.py", "sonaloop/ui_components/project_health.py", "sonaloop/ui_components/projects_rows.py", "sonaloop/web/pages/projects.py", "tools/persona-ui/fixtures/assessment.json"],
   understanding: ["sonaloop/ui_components/product_understanding.py", "sonaloop/ui_components/product_understanding_rows.py", "sonaloop/ui_components/projects_rows.py", "sonaloop/web/pages/projects.py", "sonaloop/web/pages/councils.py", "sonaloop/web/pages/syntheses.py", "tools/persona-ui/fixtures/understanding.json"],
   researchplan: ["sonaloop/ui_components/research_plan.py", "sonaloop/ui_components/research_plan_rows.py", "sonaloop/ui_components/projects_rows.py", "sonaloop/web/_graph.py", "sonaloop/web/_plan_fw.py", "sonaloop/web/pages/projects.py", "tools/persona-ui/fixtures/researchplan.json"],
   catalog: ["sonaloop/ui_components/persona_catalog.py", "sonaloop/ui_components/persona_catalog_rows.py", "sonaloop/ui_components/projects_rows.py", "sonaloop/web/pages/personas.py", "sonaloop/web/pages/_catalog_results.py", "tools/persona-ui/fixtures/catalog.json"],

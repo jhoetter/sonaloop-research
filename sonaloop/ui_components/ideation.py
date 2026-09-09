@@ -93,8 +93,8 @@ def attribution_content(value):
         if key in value and value[key] is not None:
             _text(value, key)
     h, _, _ = _kit()
-    labels = {"persona_id": "rid_persona", "hmw_ref": "rid_hmw_ref", "cluster": "rid_cluster"}
-    pairs = [(t(label), "null" if value[key] is None else value[key]) for key, label in labels.items() if key in value]
+    labels = {"persona_id": t("rid_persona"), "hmw_ref": t("rid_hmw_ref"), "cluster": t("rid_cluster")}
+    pairs = [(label, "null" if value[key] is None else value[key]) for key, label in labels.items() if key in value]
     return disclosure(t("rid_attribution"),
         h("p", {}, value["hmw_question"]) if "hmw_question" in value else None,
         fields(pairs)) if pairs or "hmw_question" in value else ""
