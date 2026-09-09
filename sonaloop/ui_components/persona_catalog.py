@@ -12,8 +12,10 @@ def _card(label, *content):
 
 def _notes(value):
     texts(value, optional=("note", "hint"))
-    return _kit()[1]([rows.prose(value[key]) for key in ("note", "hint") if key in value],
-                    rows.text_list(value["notes"]) if "notes" in value else None)
+    return _kit()[1](rows.text_list(value["notes"]) if "notes" in value else None,
+        disclosure(t("rpx_record_details"),
+            _kit()[1]([rows.prose(value[key]) for key in ("note", "hint") if key in value]))
+            if any(key in value for key in ("note", "hint")) else None)
 
 
 def search(value):
@@ -27,7 +29,7 @@ def search(value):
     summary = None
     if value["facet_summary"] is not None:
         record(value["facet_summary"])
-        summary = rows.section(t("rcat_coverage"), _kit()[1]([
+        summary = disclosure(t("rcat_coverage"), _kit()[1]([
             rows.section(key, rows.counts(counts)) for key, counts in value["facet_summary"].items()]))
     metadata = fields([(key, value[key]) for key in ("source", "limit", "next_cursor") if key in value])
     if "manifest" in value:
@@ -62,7 +64,7 @@ def recommendations(value):
     texts(value, ("pull_command",))
     return _card(t("rcat_recommendations"), rows.prose(t("rcat_recommendation_notice")),
         collection([rows.recommendation_row(item) for item in items], empty=t("rcat_no_entries")),
-        rows.section(t("rcat_coverage"), rows.facet_values(value.get("coverage"))),
+        disclosure(t("rcat_coverage"), rows.facet_values(value.get("coverage"))),
         rows.section(t("rcat_warnings"), rows.text_list(value.get("warnings"))),
         disclosure(t("rcat_spec"), spec_body, rows.prose(value["pull_command"]))), "ready" if items else "empty"
 
@@ -90,7 +92,7 @@ def pulled(value):
             if "skipped_locally_modified" in value else None,
         rows.section(t("rcat_skipped_premium"), rows.skipped_rows(value["skipped_premium"]))
             if "skipped_premium" in value else None,
-        rows.section(t("rcat_import_counts"), rows.counts(value["counts"])) if "counts" in value else None,
+        disclosure(t("rcat_import_counts"), rows.counts(value["counts"])) if "counts" in value else None,
         _notes(value), disclosure(t("rpx_record_details"),
             fields([(key, value[key]) for key in ("source", "repo", "ref", "in_dir", "embeddings") if key in value]),
             rows.section("personas", rows.text_list(value["personas"])))), "ready"

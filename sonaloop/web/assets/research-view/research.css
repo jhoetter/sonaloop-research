@@ -31,3 +31,5 @@
  .sl-research-disclosure{margin:14px 0;border-top:1px solid var(--line,#d5ddd8);padding-top:12px}.sl-research-disclosure>summary{cursor:pointer;font-weight:600;line-height:1.5}.sl-research-disclosure>summary:focus-visible{outline:2px solid var(--accent,#377e5d);outline-offset:4px;border-radius:3px}.sl-research-disclosure[open]>summary{margin-bottom:14px}
 
 .sl-research-preparation-badges{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.sl-research-preparation-badge{display:inline-block;padding:3px 8px;border:1px solid var(--line,#d5ddd8);border-radius:6px;font-size:12px}.sl-research-preparation-section{margin-top:16px}.sl-research-readiness>div:first-child{display:flex;align-items:baseline;flex-wrap:wrap;gap:12px}
+
+.sl-research-catalog-name,.sl-research-catalog-slug{display:block}.sl-research-catalog-slug{margin-top:4px;font-size:12px;font-weight:400;color:var(--muted,#596a60)}

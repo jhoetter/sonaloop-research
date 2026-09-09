@@ -58,8 +58,9 @@ def catalog_identity_content(entry, *, passive=False):
     h, _, _ = _kit()
     return h("span", {"class_": "title" + (" sl-research-catalog-identity" if passive else "")},
         h("span", {"class_": "sl-catalog-row-title"},
-          h("span", {}, entry.get("display_name") or entry["slug"]),
-          h("span", {"class_": "sl-catalog-slug"}, entry["slug"])),
+          h("span", {"class_": "sl-research-catalog-name"} if passive else {},
+            entry.get("display_name") or entry["slug"]),
+          h("span", {"class_": "sl-catalog-slug" + (" sl-research-catalog-slug" if passive else "")}, entry["slug"])),
         h("span", {"class_": "muted small"}, f' · {entry.get("role") or "—"}'))
 
 
@@ -125,7 +126,8 @@ def recommendation_row(value):
         fields(((t("rcat_score"), value["score"]), (t("rcat_base_score"), value["base_score"]),
                 (t("rcat_diversity_bonus"), value["diversity_bonus"]))),
         section(t("rcat_rationale"), text_list(value.get("rationale"))),
-        disclosure(t("rpx_record_details"), fields((("slug", value["slug"]), ("seeded", value["seeded"]))),
+        disclosure(t("rpx_record_details"),
+            fields((("slug", value["slug"]), ("seeded", value["seeded"]))),
             facet_values(value.get("facets"))))
 
 

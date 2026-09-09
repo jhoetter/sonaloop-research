@@ -22,6 +22,38 @@ test('Catalog cards retain actual rankings, native status and import outcomes wi
       if (item.scenario === 'catalog-recommend-ranked') assert.ok(full.includes('They do not import personas or establish research coverage.'));
       if (item.scenario === 'catalog-search-first') assert.ok(full.includes('· …'));
       if (item.scenario === 'catalog-search-last') assert.ok(!full.includes('· …'));
+      if (item.tool === 'catalog_search' && item.result.structuredContent.data.items.length) {
+        const identity = session.root.locator('.sl-research-catalog-identity').first();
+        const name = await identity.locator('.sl-research-catalog-name').boundingBox();
+        const slug = await identity.locator('.sl-research-catalog-slug').boundingBox();
+        assert.ok(name && slug && slug.y >= name.y + name.height, 'Slug occupies its own line below the name');
+        assert.ok(await identity.locator('.sl-research-catalog-slug').evaluate(node =>
+          Number.parseFloat(getComputedStyle(node).fontSize) < Number.parseFloat(getComputedStyle(node.parentElement).fontSize)));
+      }
+      if (['catalog-search-local', 'catalog-recommend-ranked', 'catalog-pull-mixed'].includes(item.scenario)) {
+        const value = item.result.structuredContent.data;
+        const label = item.tool === 'catalog_pull' ? 'Reported import counts' : 'Reported facet coverage';
+        const group = session.root.locator('details').filter({ has: session.frame.locator('summary', { hasText: label }) });
+        assert.equal(await group.count(), 1);
+        assert.equal(await group.getAttribute('open'), null);
+        const keys = item.tool === 'catalog_pull' ? Object.keys(value.counts)
+          : Object.keys(value.facet_summary || value.coverage);
+        for (const key of keys) assert.ok((await group.textContent()).includes(key));
+        if (item.tool === 'catalog_pull') {
+          for (const row of value.skipped_premium || [])
+            assert.ok(await session.root.locator('li', { hasText: row.reason }).isVisible());
+          for (const key of ['note', 'hint']) if (value[key]) {
+            const note = session.root.locator('p').filter({ hasText: value[key] });
+            assert.ok(await note.count()); assert.equal(await note.first().isVisible(), false);
+          }
+        }
+        if (item.tool === 'catalog_recommend') {
+          for (const warning of value.warnings)
+            assert.ok(await session.root.locator('li', { hasText: warning }).isVisible());
+          for (const row of value.personas) for (const reason of row.rationale)
+            assert.ok(await session.root.locator('li', { hasText: reason }).first().isVisible());
+        }
+      }
       const disclosure = session.root.locator('details').first();
       if (await disclosure.count()) {
         await disclosure.locator(':scope > summary').focus(); await session.page.keyboard.press('Enter');
