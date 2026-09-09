@@ -241,12 +241,34 @@ execution or human acceptance.
 ## Public Component examples
 
 `sonaloop/ui_components/declarations/*.json` contains customer-owned
-`sonaloop.customer-component.v1` declarations for the passive families. Their
+`sonaloop.customer-component.v1` declarations. For the passive SSR families, the
 public entry point is `component_props.render_component_props(component_id,
 props)`. `props.name` selects an existing pure family projection;
 `props.value` supplies its authored view-model DTO. The helper calls the same
 `Surface.render` used after native MCP envelope validation. It never calls the
 named MCP tool, opens a Store or adds action permission.
+
+Persona uses its existing shared browser view instead of the Python renderer.
+`persona-view/persona-public-props.js` exposes
+`createPersonaFromProps(root, {value, locale})` and `validatePersonaProps(props)`.
+The example is a complete authored `sonaloop.persona-surface.v1` value with read-only
+capabilities and a missing portrait; the existing `validateSurface` contract still
+validates the DTO. The wrapper accepts no action, transport or media callback.
+Changing example fields updates only the local view. It creates no Persona and
+grants no native editing or image-generation permission. A missing portrait in an
+otherwise valid Persona remains a ready card, not an empty Persona record.
+
+The Persona descriptor binds that JSON entry point and its synthetic fixture in
+the Persona build manifest. Its public scenario is
+`persona-component-readonly-placeholder`. Browser checks compare the actual
+shared-view DOM with the same props passed through the unchanged packaged MCP
+App and a simulated `get_persona_surface` response. The App's automatic refresh is
+answered by that fixture; no native tool or image provider is invoked. Export with
+`node tools/persona-ui/test/persona-scenario-browser.mjs --public-component <output>`
+after `node tools/persona-ui/build.mjs`. These are new fixture renders, not renamed
+screenshots from an earlier release. Focus, loading and error still require their
+own declared scenario evidence; the readonly example covers success and disabled
+editing. This JSON example does not attest the live adapter's mutation workflow.
 
 One explicit public DTO mapping handles a reserved JavaScript property name:
 `register_remote_prototype` uses `{artifact, note?}` as its public `value`, while
@@ -268,7 +290,8 @@ become a native operation. Each scenario ID and state matches the customer raste
 exporter's actual fixture. These associations are declared by the customer;
 external registries must keep them separate from independently attested pixels.
 
-The declared axis values are `default`, `responsive` and `light`. Responsive
+The passive SSR axis values are `default`, `responsive` and `light`; the public
+Persona example declares its actual `readonly` variant. Responsive
 means the same CSS adapts to the host width; no unimplemented size prop is implied.
 Ready and empty examples are supplied. Loading/error are applicable App transport
 states with missing public-DTO scenario coverage; they are not invented renderer

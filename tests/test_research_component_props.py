@@ -7,12 +7,14 @@ import pytest
 from jsonschema import Draft202012Validator
 
 from sonaloop.ui_components.component_props import render_component_props, public_component_value
+from sonaloop.ui_components.registry import SURFACES
 
 ROOT = Path(__file__).parents[1]
 DIRECTORY = ROOT / "sonaloop/ui_components/declarations"
+PASSIVE_DECLARATIONS = [DIRECTORY / f"{family}.json" for family in sorted({surface.family for surface in SURFACES.values()})]
 
 
-@pytest.mark.parametrize("path", sorted(DIRECTORY.glob("*.json")), ids=lambda path: path.stem)
+@pytest.mark.parametrize("path", PASSIVE_DECLARATIONS, ids=lambda path: path.stem)
 def test_public_scenarios_validate_and_render_without_native_authority(path, monkeypatch):
     from sonaloop.storage import Store
     from sonaloop import services
