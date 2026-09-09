@@ -4,7 +4,7 @@ from __future__ import annotations
 from .library import _kit, collection
 
 
-def h2h_result_html(result: dict) -> str:
+def h2h_result_html(result: dict, *, passive: bool = False) -> str:
     """The deterministic head-to-head verdict: the overall preference + margin headline, the per-option
     vote tally, and the segment-splits (who-prefers-what) table. The server computes these; the prose
     verdict lives in the exec_summary above. UI language is German by default (match the surrounding UI)."""
@@ -28,7 +28,8 @@ def h2h_result_html(result: dict) -> str:
         opt_rows.append(h("tr", {"style": ("font-weight:600" if is_win else "")},
                           h("td", {}, f"{o['label']} — {o.get('title', '')}"),
                           h("td", {}, str(o.get("votes", 0)))))
-    opt_table = h("table", {"class_": "h2h-table"}, *opt_rows)
+    table_class = "h2h-table sl-research-format-table" if passive else "h2h-table"
+    opt_table = h("table", {"class_": table_class}, *opt_rows)
 
     # Segment-splits: who prefers what, broken down by persona segment/archetype.
     splits = result.get("segment_splits", [])
@@ -46,11 +47,11 @@ def h2h_result_html(result: dict) -> str:
             cells.append(h("td", {}, (f"{prefers} — {title_by.get(prefers, '')}" if prefers else t("h2h_tie"))))
             seg_rows.append(h("tr", {}, *cells))
         seg_html = fragment(h("h3", {"style": "margin:14px 0 6px"}, t("h2h_segments")),
-                            h("table", {"class_": "h2h-table"}, *seg_rows))
+                            h("table", {"class_": table_class}, *seg_rows))
     return str(fragment(headline, opt_table, seg_html))
 
 
-def red_team_result_html(rt: dict) -> str:
+def red_team_result_html(rt: dict, *, passive: bool = False) -> str:
     """The deterministic red-team verdict: the case-against headline (blocker themes + worst severity), the
     per-theme blocker table (how many personas raise each blocker + severity), and — when the run captured
     both directions — a compact case-for table beside it. The server computes these; the prose verdict lives
@@ -78,7 +79,8 @@ def red_team_result_html(rt: dict) -> str:
                       h("td", {}, th.get("theme", "")),
                       h("td", {}, str(th.get("count", 0))),
                       h("td", {}, t("rt_sev_" + sev) if sev else "")))
-    against_table = h("table", {"class_": "h2h-table"}, *rows)
+    table_class = "h2h-table sl-research-format-table" if passive else "h2h-table"
+    against_table = h("table", {"class_": table_class}, *rows)
 
     # The optional case FOR, beside the case against (both-directions run).
     for_html = ""
@@ -88,7 +90,7 @@ def red_team_result_html(rt: dict) -> str:
         for th in case_for["themes"]:
             fr.append(h("tr", {}, h("td", {}, th.get("theme", "")), h("td", {}, str(th.get("count", 0)))))
         for_html = fragment(h("h3", {"style": "margin:14px 0 6px"}, t("rt_case_for")),
-                            h("table", {"class_": "h2h-table"}, *fr))
+                            h("table", {"class_": table_class}, *fr))
     return str(fragment(headline, against_table, for_html))
 
 
@@ -142,17 +144,20 @@ def _full_record(value):
     return value
 
 
-def council(value):
+def council(value, *, format_content=None):
     """Actual record_council/get_council data, without reads or inferred voices."""
     from ..web._i18n import t
     from ..web._render import render_claim_posture_notice, render_findings, render_stance
     h, fragment, raw = _kit()
     record = _full_record(value)
-    special = []
-    if record.get("head_to_head"):
+    special = [format_content] if format_content is not None else []
+    if format_content is None and record.get("head_to_head"):
         special.append(raw(h2h_result_html(record["head_to_head"]["result"])))
-    if record.get("red_team"):
+    if format_content is None and record.get("red_team"):
         special.append(raw(red_team_result_html(record["red_team"])))
+    if format_content is None and record.get("price_ladder"):
+        from .council_formats import price_ladder_content
+        special.append(price_ladder_content(record["price_ladder"]))
     votes = []
     for vote in record.get("votes") or []:
         if not isinstance(vote, dict):
