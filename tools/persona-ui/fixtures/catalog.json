@@ -1,0 +1,743 @@
+[
+  {
+    "scenario": "catalog-search-first",
+    "tool": "catalog_search",
+    "input": {
+      "limit": 1
+    },
+    "value": {
+      "items": [
+        {
+          "slug": "ada-catalog",
+          "display_name": "Ada Catalog",
+          "role": "Owner",
+          "has_avatar": false,
+          "facets": {
+            "tier": [
+              "free"
+            ]
+          }
+        }
+      ],
+      "total": 3,
+      "has_more": true,
+      "next_cursor": "eyJrIjogImFkYS1jYXRhbG9nIiwgImYiOiAiMjcyOTZkZjc4MCJ9",
+      "source": "jhoetter/sonaloop-data@main",
+      "facet_summary": null,
+      "manifest": {
+        "generated_at": "2026-06-10T00:00:00+00:00",
+        "schema_version": 4
+      },
+      "notes": [
+        "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install)."
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-search-last",
+    "tool": "catalog_search",
+    "input": {
+      "cursor": "eyJrIjogImFkYS1jYXRhbG9nIiwgImYiOiAiMjcyOTZkZjc4MCJ9"
+    },
+    "value": {
+      "items": [
+        {
+          "slug": "bert-premium",
+          "display_name": "Bert Premium",
+          "role": "Owner",
+          "has_avatar": false,
+          "facets": {
+            "tier": [
+              "premium"
+            ]
+          },
+          "tier": "premium"
+        },
+        {
+          "slug": "cora-catalog",
+          "display_name": "Cora Catalog",
+          "role": "Owner",
+          "has_avatar": false,
+          "facets": {
+            "tier": [
+              "free"
+            ]
+          }
+        }
+      ],
+      "total": 3,
+      "has_more": false,
+      "source": "jhoetter/sonaloop-data@main",
+      "facet_summary": null,
+      "manifest": {
+        "generated_at": "2026-06-10T00:00:00+00:00",
+        "schema_version": 4
+      },
+      "notes": [
+        "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install)."
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-search-empty",
+    "tool": "catalog_search",
+    "input": {
+      "query": "no-matching-persona"
+    },
+    "value": {
+      "items": [],
+      "total": 0,
+      "has_more": false,
+      "source": "jhoetter/sonaloop-data@main",
+      "facet_summary": null,
+      "manifest": {
+        "generated_at": "2026-06-10T00:00:00+00:00",
+        "schema_version": 4
+      },
+      "notes": [
+        "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install)."
+      ]
+    },
+    "state": "empty"
+  },
+  {
+    "scenario": "catalog-search-tier",
+    "tool": "catalog_search",
+    "input": {
+      "facets": {
+        "tier": [
+          "premium"
+        ]
+      }
+    },
+    "value": {
+      "items": [
+        {
+          "slug": "bert-premium",
+          "display_name": "Bert Premium",
+          "role": "Owner",
+          "has_avatar": false,
+          "facets": {
+            "tier": [
+              "premium"
+            ]
+          },
+          "tier": "premium"
+        }
+      ],
+      "total": 1,
+      "has_more": false,
+      "source": "jhoetter/sonaloop-data@main",
+      "facet_summary": {
+        "tier": {
+          "premium": 1
+        }
+      },
+      "manifest": {
+        "generated_at": "2026-06-10T00:00:00+00:00",
+        "schema_version": 4
+      },
+      "notes": [
+        "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install)."
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-recommend-unavailable",
+    "tool": "catalog_recommend",
+    "input": {
+      "spec": {
+        "keywords": [
+          "checklist"
+        ],
+        "n": 2
+      }
+    },
+    "value": {
+      "skipped": true,
+      "note": "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install)."
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-status-empty",
+    "tool": "catalog_status",
+    "input": {},
+    "value": {
+      "items": [],
+      "counts": {},
+      "source": null,
+      "notes": [
+        "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install).",
+        "no catalog-pulled personas in this store — catalog_pull brings some in"
+      ]
+    },
+    "state": "empty"
+  },
+  {
+    "scenario": "catalog-pull-mixed",
+    "tool": "catalog_pull",
+    "input": {
+      "persona_slugs": [
+        "ada-catalog",
+        "bert-premium",
+        "cora-catalog"
+      ]
+    },
+    "value": {
+      "in_dir": "sonaloop-catalog-k35rb_qa",
+      "counts": {
+        "personas": 2,
+        "experience_events": 0,
+        "calendar_events": 0,
+        "entities": 0,
+        "facts": 0,
+        "threads": 0,
+        "plans": 0,
+        "digests": 0,
+        "avatars": 0
+      },
+      "embeddings": "skipped",
+      "personas": [
+        "ada-catalog",
+        "cora-catalog"
+      ],
+      "repo": "jhoetter/sonaloop-data",
+      "ref": "main",
+      "source": "built-in remote fallback",
+      "note": "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install).",
+      "skipped_premium": [
+        {
+          "slug": "bert-premium",
+          "tier": "premium",
+          "reason": "premium persona — sign in at https://app.sonaloop.com, copy your catalog token from the Workspace page, and set SONALOOP_CATALOG_TOKEN"
+        }
+      ],
+      "landed": [
+        {
+          "slug": "ada-catalog",
+          "id": "persona_20d7f6f96510b5b0",
+          "display_name": "Ada Catalog",
+          "provenance": {
+            "source": "sonaloop-data",
+            "manifest_generated_at": "2026-06-10T00:00:00+00:00",
+            "schema_version": 4,
+            "pulled_at": "2026-09-09T06:53:31.479270+00:00",
+            "repo": "jhoetter/sonaloop-data",
+            "ref": "main",
+            "base_url": "https://data.sonaloop.com",
+            "slug": "ada-catalog"
+          }
+        },
+        {
+          "slug": "cora-catalog",
+          "id": "persona_2beecca078849f4b",
+          "display_name": "Cora Catalog",
+          "provenance": {
+            "source": "sonaloop-data",
+            "manifest_generated_at": "2026-06-10T00:00:00+00:00",
+            "schema_version": 4,
+            "pulled_at": "2026-09-09T06:53:31.479270+00:00",
+            "repo": "jhoetter/sonaloop-data",
+            "ref": "main",
+            "base_url": "https://data.sonaloop.com",
+            "slug": "cora-catalog"
+          }
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-pull-repeated",
+    "tool": "catalog_pull",
+    "input": {
+      "persona_slugs": [
+        "ada-catalog"
+      ]
+    },
+    "value": {
+      "in_dir": "sonaloop-catalog-jcbcdg4s",
+      "counts": {
+        "personas": 1,
+        "experience_events": 0,
+        "calendar_events": 0,
+        "entities": 0,
+        "facts": 0,
+        "threads": 0,
+        "plans": 0,
+        "digests": 0,
+        "avatars": 0
+      },
+      "embeddings": "skipped",
+      "personas": [
+        "ada-catalog"
+      ],
+      "repo": "jhoetter/sonaloop-data",
+      "ref": "main",
+      "source": "built-in remote fallback",
+      "note": "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install).",
+      "landed": [
+        {
+          "slug": "ada-catalog",
+          "id": "persona_20d7f6f96510b5b0",
+          "display_name": "Ada Catalog",
+          "provenance": {
+            "source": "sonaloop-data",
+            "manifest_generated_at": "2026-06-10T00:00:00+00:00",
+            "schema_version": 4,
+            "pulled_at": "2026-09-09T06:53:31.486817+00:00",
+            "repo": "jhoetter/sonaloop-data",
+            "ref": "main",
+            "base_url": "https://data.sonaloop.com",
+            "slug": "ada-catalog"
+          }
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-status-current",
+    "tool": "catalog_status",
+    "input": {},
+    "value": {
+      "items": [
+        {
+          "slug": "ada-catalog",
+          "id": "persona_20d7f6f96510b5b0",
+          "status": "up_to_date",
+          "pulled_at": "2026-09-09T06:53:31.486817+00:00",
+          "ref": "main",
+          "pack": null,
+          "local_updated_at": "2026-09-09T06:53:31.024795+00:00",
+          "catalog_updated_at": "2026-09-09T06:53:31.024795+00:00"
+        },
+        {
+          "slug": "cora-catalog",
+          "id": "persona_2beecca078849f4b",
+          "status": "up_to_date",
+          "pulled_at": "2026-09-09T06:53:31.479270+00:00",
+          "ref": "main",
+          "pack": null,
+          "local_updated_at": "2026-09-09T06:53:31.029322+00:00",
+          "catalog_updated_at": "2026-09-09T06:53:31.029322+00:00"
+        }
+      ],
+      "counts": {
+        "up_to_date": 2
+      },
+      "source": "jhoetter/sonaloop-data@main",
+      "hint": "catalog_pull refreshes 'behind' personas; locally_modified/diverged need catalog_pull(force=True) to overwrite",
+      "notes": [
+        "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install)."
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-status-local",
+    "tool": "catalog_status",
+    "input": {},
+    "value": {
+      "items": [
+        {
+          "slug": "ada-catalog",
+          "id": "persona_20d7f6f96510b5b0",
+          "status": "locally_modified",
+          "pulled_at": "2026-09-09T06:53:31.486817+00:00",
+          "ref": "main",
+          "pack": null,
+          "local_updated_at": "2999-01-01T00:00:00+00:00",
+          "catalog_updated_at": "2026-09-09T06:53:31.024795+00:00"
+        },
+        {
+          "slug": "cora-catalog",
+          "id": "persona_2beecca078849f4b",
+          "status": "up_to_date",
+          "pulled_at": "2026-09-09T06:53:31.479270+00:00",
+          "ref": "main",
+          "pack": null,
+          "local_updated_at": "2026-09-09T06:53:31.029322+00:00",
+          "catalog_updated_at": "2026-09-09T06:53:31.029322+00:00"
+        }
+      ],
+      "counts": {
+        "locally_modified": 1,
+        "up_to_date": 1
+      },
+      "source": "jhoetter/sonaloop-data@main",
+      "hint": "catalog_pull refreshes 'behind' personas; locally_modified/diverged need catalog_pull(force=True) to overwrite",
+      "notes": [
+        "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install)."
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-pull-preserved",
+    "tool": "catalog_pull",
+    "input": {
+      "persona_slugs": [
+        "ada-catalog"
+      ]
+    },
+    "value": {
+      "personas": [],
+      "landed": [],
+      "skipped_locally_modified": [
+        {
+          "slug": "ada-catalog",
+          "reason": "modified locally at 2999-01-01T00:00:00+00:00 (last pulled 2026-09-09T06:53:31.486817+00:00)"
+        }
+      ],
+      "note": "nothing pulled — every selected persona was modified locally after its last pull; skipped personas were modified locally after their last pull — catalog_pull(force=True) overwrites them; catalog_status shows the drift"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-status-diverged-behind",
+    "tool": "catalog_status",
+    "input": {},
+    "value": {
+      "items": [
+        {
+          "slug": "ada-catalog",
+          "id": "persona_20d7f6f96510b5b0",
+          "status": "diverged",
+          "pulled_at": "2026-09-09T06:53:31.486817+00:00",
+          "ref": "main",
+          "pack": null,
+          "local_updated_at": "2999-01-01T00:00:00+00:00",
+          "catalog_updated_at": "2999-01-01T00:00:00+00:00"
+        },
+        {
+          "slug": "cora-catalog",
+          "id": "persona_2beecca078849f4b",
+          "status": "behind",
+          "pulled_at": "2026-09-09T06:53:31.479270+00:00",
+          "ref": "main",
+          "pack": null,
+          "local_updated_at": "2026-09-09T06:53:31.029322+00:00",
+          "catalog_updated_at": "2999-01-01T00:00:00+00:00"
+        }
+      ],
+      "counts": {
+        "diverged": 1,
+        "behind": 1
+      },
+      "source": "jhoetter/sonaloop-data@main",
+      "hint": "catalog_pull refreshes 'behind' personas; locally_modified/diverged need catalog_pull(force=True) to overwrite",
+      "notes": [
+        "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install)."
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-status-coarse",
+    "tool": "catalog_status",
+    "input": {},
+    "value": {
+      "items": [
+        {
+          "slug": "ada-catalog",
+          "id": "persona_20d7f6f96510b5b0",
+          "status": "diverged",
+          "pulled_at": "2026-09-09T06:53:31.486817+00:00",
+          "ref": "main",
+          "pack": null,
+          "local_updated_at": "2999-01-01T00:00:00+00:00",
+          "catalog_updated_at": "2999-01-01T00:00:00+00:00"
+        },
+        {
+          "slug": "cora-catalog",
+          "id": "persona_2beecca078849f4b",
+          "status": "possibly_behind",
+          "pulled_at": "2026-09-09T06:53:31.479270+00:00",
+          "ref": "main",
+          "pack": null,
+          "local_updated_at": "2026-09-09T06:53:31.029322+00:00",
+          "catalog_updated_at": null
+        }
+      ],
+      "counts": {
+        "diverged": 1,
+        "possibly_behind": 1
+      },
+      "source": "jhoetter/sonaloop-data@main",
+      "hint": "catalog_pull refreshes 'behind' personas; locally_modified/diverged need catalog_pull(force=True) to overwrite",
+      "notes": [
+        "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install).",
+        "the catalog index has no per-persona updated_at at this ref — 'possibly_behind' means the manifest was regenerated since the pull; the persona itself may be unchanged"
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-status-removed",
+    "tool": "catalog_status",
+    "input": {},
+    "value": {
+      "items": [
+        {
+          "slug": "ada-catalog",
+          "id": "persona_20d7f6f96510b5b0",
+          "status": "diverged",
+          "pulled_at": "2026-09-09T06:53:31.486817+00:00",
+          "ref": "main",
+          "pack": null,
+          "local_updated_at": "2999-01-01T00:00:00+00:00",
+          "catalog_updated_at": "2999-01-01T00:00:00+00:00"
+        },
+        {
+          "slug": "cora-catalog",
+          "id": "persona_2beecca078849f4b",
+          "status": "removed_upstream",
+          "pulled_at": "2026-09-09T06:53:31.479270+00:00",
+          "ref": "main",
+          "pack": null,
+          "local_updated_at": "2026-09-09T06:53:31.029322+00:00",
+          "catalog_updated_at": null
+        }
+      ],
+      "counts": {
+        "diverged": 1,
+        "removed_upstream": 1
+      },
+      "source": "jhoetter/sonaloop-data@main",
+      "hint": "catalog_pull refreshes 'behind' personas; locally_modified/diverged need catalog_pull(force=True) to overwrite",
+      "notes": [
+        "The sonaloop-data package is not installed — catalog_search, catalog_status and catalog_pull keep working against the published catalog (data.sonaloop.com; override with SONALOOP_CATALOG_BASE_URL), but facet filtering, recommendation and local-checkout pulls need it: `uv add sonaloop-data` (or pip install)."
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-recommend-ranked",
+    "tool": "catalog_recommend",
+    "input": {
+      "spec": {
+        "keywords": [
+          "checklist"
+        ],
+        "n": 2,
+        "min_coverage": 3
+      }
+    },
+    "value": {
+      "spec": {
+        "keywords": [
+          "checklist"
+        ],
+        "facets": {},
+        "n": 2,
+        "min_coverage": 3
+      },
+      "personas": [
+        {
+          "slug": "ada-catalog",
+          "display_name": "Ada Catalog",
+          "score": 2,
+          "base_score": 2,
+          "diversity_bonus": 0,
+          "seeded": false,
+          "facets": {
+            "lebensphase": [],
+            "einstellung": [],
+            "role_family": [
+              "weitere"
+            ],
+            "seniority": [
+              "unbestimmt"
+            ],
+            "decision_power": [
+              "unbestimmt"
+            ],
+            "age_band": [],
+            "region": [
+              "region"
+            ],
+            "has_avatar": [
+              "no"
+            ],
+            "tier": [
+              "free"
+            ]
+          },
+          "rationale": [
+            "keyword 'checklist' in goals"
+          ]
+        },
+        {
+          "slug": "bert-premium",
+          "display_name": "Bert Premium",
+          "score": 0,
+          "base_score": 0,
+          "diversity_bonus": 0,
+          "seeded": false,
+          "facets": {
+            "lebensphase": [],
+            "einstellung": [],
+            "role_family": [
+              "weitere"
+            ],
+            "seniority": [
+              "unbestimmt"
+            ],
+            "decision_power": [
+              "unbestimmt"
+            ],
+            "age_band": [],
+            "region": [
+              "region"
+            ],
+            "has_avatar": [
+              "no"
+            ],
+            "tier": [
+              "free"
+            ]
+          },
+          "rationale": [
+            "no direct match; picked for segment coverage"
+          ]
+        }
+      ],
+      "coverage": {
+        "age_band": [],
+        "decision_power": [
+          "unbestimmt"
+        ],
+        "einstellung": [],
+        "has_avatar": [
+          "no"
+        ],
+        "lebensphase": [],
+        "region": [
+          "region"
+        ],
+        "role_family": [
+          "weitere"
+        ],
+        "seniority": [
+          "unbestimmt"
+        ],
+        "tier": [
+          "free"
+        ]
+      },
+      "warnings": [
+        "only 1 of the 2 picks match the spec — 1 are coverage fill (no keyword/facet match)",
+        "all selected personas share region=region — the set has no spread on this axis",
+        "all selected personas share role_family=weitere — the set has no spread on this axis",
+        "set size n=2 is below the job's minimum persona coverage (3)"
+      ],
+      "pull_command": "sonaloop-data pull --db sonaloop.db --personas ada-catalog,bert-premium"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "catalog-search-local",
+    "tool": "catalog_search",
+    "input": {
+      "facets": {
+        "tier": [
+          "free"
+        ]
+      }
+    },
+    "value": {
+      "items": [
+        {
+          "slug": "ada-catalog",
+          "display_name": "Ada Catalog",
+          "role": "Owner",
+          "has_avatar": false,
+          "facets": {
+            "lebensphase": [],
+            "einstellung": [],
+            "role_family": [
+              "weitere"
+            ],
+            "seniority": [
+              "unbestimmt"
+            ],
+            "decision_power": [
+              "unbestimmt"
+            ],
+            "age_band": [],
+            "region": [
+              "region"
+            ],
+            "has_avatar": [
+              "no"
+            ],
+            "tier": [
+              "free"
+            ]
+          }
+        },
+        {
+          "slug": "bert-premium",
+          "display_name": "Bert Premium",
+          "role": "Owner",
+          "has_avatar": false,
+          "facets": {
+            "lebensphase": [],
+            "einstellung": [],
+            "role_family": [
+              "weitere"
+            ],
+            "seniority": [
+              "unbestimmt"
+            ],
+            "decision_power": [
+              "unbestimmt"
+            ],
+            "age_band": [],
+            "region": [
+              "region"
+            ],
+            "has_avatar": [
+              "no"
+            ],
+            "tier": [
+              "free"
+            ]
+          }
+        }
+      ],
+      "total": 2,
+      "has_more": false,
+      "source": "local-catalog",
+      "facet_summary": {
+        "age_band": {},
+        "decision_power": {
+          "unbestimmt": 2
+        },
+        "einstellung": {},
+        "has_avatar": {
+          "no": 2
+        },
+        "lebensphase": {},
+        "region": {
+          "region": 2
+        },
+        "role_family": {
+          "weitere": 2
+        },
+        "seniority": {
+          "unbestimmt": 2
+        },
+        "tier": {
+          "free": 2
+        }
+      }
+    },
+    "state": "ready"
+  }
+]

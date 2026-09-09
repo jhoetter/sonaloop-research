@@ -721,7 +721,9 @@ def test_catalog_tools_registered_and_enveloped(monkeypatch):
     server = build_server()
     names = {t.name for t in asyncio.run(server.list_tools())}
     assert {"catalog_search", "catalog_recommend", "catalog_pull", "catalog_status"} <= names
-    _, env = asyncio.run(server.call_tool("catalog_search", {"limit": 2}))
+    result = asyncio.run(server.call_tool("catalog_search", {"limit": 2}))
+    env = result.structuredContent
+    assert not result.isError and json.loads(result.content[0].text) == env
     assert env["ok"] is True and env["data"]["total"] == 3 and len(env["data"]["items"]) == 2
     assert env["next_recommended_tool"]["name"] == "catalog_pull"       # the browse->pull DAG
 

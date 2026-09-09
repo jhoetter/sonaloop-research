@@ -12,6 +12,8 @@ from ._persona_preparation import readiness_html, capabilities_html, register_pe
 from ._persona_profiles import register_persona_profiles
 from ._persona_records import register_persona_records
 from ._persona_chats import register_persona_chats
+from ._catalog_results import register_catalog_results
+from ...ui_components import persona_catalog_rows
 from ._cohort_results import register_cohort_results
 from ._calendar import _calendar_tabs, _period_calendar_html
 from .sessions import _sessions_section
@@ -288,14 +290,9 @@ def _catalog_row(entry: dict, store: Store, local: dict[str, dict], status_by_sl
                    h("input", {"type": "hidden", "name": "slug", "value": slug}),
                    h("button", {"class_": "sl-btn sl-btn--primary", "type": "submit"}, t("catalog_add")))
 
-    title = h("span", {"class_": "sl-catalog-row-title"},
-              h("span", {}, entry.get("display_name") or slug),
-              h("span", {"class_": "sl-catalog-slug"}, slug))
-    return h("div", {"class_": "row"},
-             _catalog_avatar(entry),
-             h("span", {"class_": "title"}, title,
-               h("span", {"class_": "muted small"}, f' · {entry.get("role") or "—"}')),
-             h("span", {"class_": "right"}, fragment(*(meta + [action]))))
+    return persona_catalog_rows.catalog_row(entry, prepared={
+        "avatar": _catalog_avatar(entry), "meta": meta, "action": action})
+
 
 
 def _catalog_parse_facets(params) -> dict[str, list[str]]:
@@ -388,6 +385,9 @@ def _catalog_page(store: Store, *, q: str = "", cursor: str | None = None,
         store, title=t("catalog_h"), lead=t("catalog_lead"), rows=rows,
         empty_icon="personas", empty_msg=t("catalog_empty"), active="personas",
         pre=fragment(_catalog_notice(status),
+                     h("p", {}, h("a", {"href": "/personas/catalog/status"}, t("rcat_status")), " · ",
+                       h("a", {"href": "/personas/catalog/recommendations" +
+                         (f"?keyword={quote(q)}" if q else "")}, t("rcat_recommendations"))),
                      raw(_list_filter_box("/personas/catalog", q)),
                      raw(_catalog_facets_html(data, q, facets))),
         count=data.get("total", len(rows)), after=after)
@@ -399,6 +399,7 @@ def register_personas(app) -> None:
     register_persona_profiles(app)
     register_persona_records(app)
     register_persona_chats(app)
+    register_catalog_results(app)
     register_cohort_results(app)
     @app.get("/personas", response_class=HTMLResponse)
     def personas_list(page: int = Query(default=1, ge=1), q: str = Query(default="")) -> str:
@@ -640,9 +641,7 @@ def register_personas(app) -> None:
         cat_prov = (p.get("provenance") or {}).get("catalog")
         eyebrow_pills = ()
         if cat_prov:
-            tip = " · ".join(x for x in [cat_prov.get("ref"), cat_prov.get("pulled_at")] if x)
-            eyebrow_pills = (raw(_label(t("persona_from_catalog"), "var(--accent)", "soft",
-                                        True, tip or None)),)
+            eyebrow_pills = (raw(persona_catalog_rows.provenance_badge(cat_prov)),)
         main = h("div", {"data-persona-surface-section": True},
             detail_eyebrow(t("persona"), eyebrow_pills) if eyebrow_pills else "",
             persona_view_mount(p["id"]),

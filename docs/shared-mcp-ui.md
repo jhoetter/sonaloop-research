@@ -119,6 +119,27 @@ paths, URLs and supplied prose remain literal; rendering never loads or verifies
 them. The Product checks active-workspace Persona ownership before reading the
 three histories. No new persistence or execution authority is introduced.
 
+**Persona catalog and import provenance** shares the existing Product title/role
+row and original Catalog-origin badge/tooltip. The Product still prepares its
+avatar, local status and CSRF action controls; passive cards receive only the
+native result. Search keeps native totals, pagination, facet counts and explicit
+ignored-filter notes. Recommendations show actual reported scores, selection
+reasons, facet coverage and warnings; they do not establish research coverage.
+When the optional local catalog package is unavailable, its native explanation
+remains visible. The two explicit Product links read status or recommendations;
+opening these pages never imports a Persona.
+
+Import outcomes retain actual landed identities/provenance, reported processing
+counts and skipped local/premium profiles. A repeated import is not described as
+net growth. The same provenance body uses `p.provenance.catalog` in the Product
+and `catalog_pull.landed[].provenance` in the result, without reconstructing an
+original invocation from later state. The existing import POST and redirect are
+unchanged. Catalog/source/avatar metadata is literal; passive rendering does not
+fetch profile files, portraits, credentials or remote resources. Product native
+reads retain their existing catalog access rules. The optional real algorithm
+qualification supplies synthetic profiles through a private test transport and
+pins that external source separately; it is not a live catalog or provider run.
+
 **Run journals and outcomes** reuse a read-only, project-owned Product inspector.
 `start_run` and `run_journal` retain supplied steps, references, dispatch lifecycle,
 critic verdicts, timestamps and replay markers. `resume_project_run` is a

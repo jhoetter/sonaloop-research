@@ -28,6 +28,7 @@ export const commonSourceInputs = [
 ];
 
 export const familySourceInputs = {
+  catalog: ["sonaloop/ui_components/persona_catalog.py", "sonaloop/ui_components/persona_catalog_rows.py", "sonaloop/ui_components/projects_rows.py", "sonaloop/web/pages/personas.py", "sonaloop/web/pages/_catalog_results.py", "tools/persona-ui/fixtures/catalog.json"],
   chats: ["sonaloop/ui_components/chats.py", "sonaloop/ui_components/chat_rows.py", "sonaloop/ui_components/chat_proposals.py", "sonaloop/ui_components/projects_rows.py", "sonaloop/web/pages/personas.py", "sonaloop/web/pages/_persona_chats.py", "tools/persona-ui/fixtures/chats.json"],
   records: ['sonaloop/ui_components/persona_records.py', 'sonaloop/ui_components/persona_record_rows.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/web/pages/personas.py', 'sonaloop/web/pages/_persona_records.py', 'tools/persona-ui/fixtures/records.json'],
   profiles: ['sonaloop/ui_components/persona_profiles.py', 'sonaloop/ui_components/persona_profile_rows.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/web/pages/personas.py', 'sonaloop/web/pages/_persona_profiles.py', 'sonaloop/web/_routes_lists.py', 'tools/persona-ui/fixtures/profiles.json'],

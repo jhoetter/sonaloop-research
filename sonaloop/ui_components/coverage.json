@@ -231,8 +231,8 @@
       "tool": "catalog_search",
       "family": "persona_catalog",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared existing Product Catalog identity/origin bodies and explicit read-only native status/recommendation inspectors; actual landed provenance, processed counts, drift/premium skips and supplied scores remain distinct. No profile/portrait fetch during rendering, no repeated import, and optional-package unavailability stays explicit.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_catalog.py",
         "symbol": "catalog_search",
@@ -248,8 +248,8 @@
       "tool": "catalog_recommend",
       "family": "persona_catalog",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared existing Product Catalog identity/origin bodies and explicit read-only native status/recommendation inspectors; actual landed provenance, processed counts, drift/premium skips and supplied scores remain distinct. No profile/portrait fetch during rendering, no repeated import, and optional-package unavailability stays explicit.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_catalog.py",
         "symbol": "catalog_recommend",
@@ -265,8 +265,8 @@
       "tool": "catalog_status",
       "family": "persona_catalog",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared existing Product Catalog identity/origin bodies and explicit read-only native status/recommendation inspectors; actual landed provenance, processed counts, drift/premium skips and supplied scores remain distinct. No profile/portrait fetch during rendering, no repeated import, and optional-package unavailability stays explicit.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_catalog.py",
         "symbol": "catalog_status",
@@ -282,8 +282,8 @@
       "tool": "catalog_pull",
       "family": "persona_catalog",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared existing Product Catalog identity/origin bodies and explicit read-only native status/recommendation inspectors; actual landed provenance, processed counts, drift/premium skips and supplied scores remain distinct. No profile/portrait fetch during rendering, no repeated import, and optional-package unavailability stays explicit.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_catalog.py",
         "symbol": "catalog_pull",
