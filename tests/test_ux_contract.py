@@ -62,7 +62,7 @@ ALLOWED_CLASS_TOKENS = {
     # generic text/layout utilities (web_assets.py "generic" block)
     "muted", "small", "lead", "h1", "h1cnt", "page", "right", "rows", "row",
     "cnt", "pill", "pills", "sec", "title", "sub", "avatar",
-    "lbl", "lbl-soft", "ihint", "identity", "cap-row", "rico",
+    "lbl", "lbl-soft", "ihint", "identity", "rico",
     # project page: outline chrome (the spatial graph view + its toolbar/panel retired)
     "proj", "proj-head", "protoframe",
     # hypothesis/decision cards (.hyp co-located in pages/hypotheses.py)
