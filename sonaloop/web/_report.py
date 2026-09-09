@@ -114,7 +114,7 @@ def _resolve_figure(f: dict, store, *, project_id: str = "") -> dict | None:
 def _figure_html(fig: dict) -> str:
     inner = raw(fig["html"]) if fig.get("html") else h(
         "img", {"src": fig["url"], "alt": fig.get("caption", ""), "loading": "lazy"})
-    cls = "rp-fig" + (" rp-fig--asset" if fig.get("kind") == "asset" else "")
+    cls = "rp-fig" + (" rp-fig--asset" if fig.get("kind") == "asset" else "") + (" sl-research-figure" if fig.get("passive") else "")
     return h("figure", {"class_": cls}, inner,
              h("figcaption", {}, fig["caption"]) if fig.get("caption") else "")
 
@@ -147,33 +147,33 @@ def _figure_run(figs: list[dict]) -> str:
     return fragment(*out)
 
 
-def _prose_run(md_text: str) -> str:
+def _prose_run(md_text: str, *, passive: bool = False) -> str:
     """One uninterrupted prose run, dosed through ui.clamp at the SECTION threshold (ux-contract
     §3.6d): a normal section reads naturally, a genuinely long one collapses to 5 lines with an
     in-place expand. Callouts/figures never clamp — they ARE the structure between the runs."""
     from . import ui
-    return ui.clamp(raw(_md(md_text)), threshold=ui.SECTION_CLAMP)
+    return raw(_md(md_text)) if passive else ui.clamp(raw(_md(md_text)), threshold=ui.SECTION_CLAMP)
 
 
-def _segment(md_text: str) -> str:
+def _segment(md_text: str, *, passive: bool = False) -> str:
     """A markdown segment with :::callout::: blocks lifted into styled boxes."""
     out, pos = [], 0
     for m in _DIRECTIVE.finditer(md_text):
         pre = md_text[pos:m.start()].strip()
         if pre:
-            out.append(_prose_run(pre))
+            out.append(_prose_run(pre, passive=passive))
         icon, cls = _CALLOUT.get(m.group(1).lower(), ("dot", "insight"))
-        out.append(h("div", {"class_": f"rp-call rp-{cls}"},
-                     h("div", {"class_": "rp-call-ic"}, raw(_icon(icon))),
+        out.append(h("div", {"class_": f"rp-call rp-{cls}" + (" sl-research-callout" if passive else "")},
+                     None if passive else h("div", {"class_": "rp-call-ic"}, raw(_icon(icon))),
                      h("div", {"class_": "rp-call-body"}, raw(_md(m.group(2).strip())))))
         pos = m.end()
     rest = md_text[pos:].strip()
     if rest:
-        out.append(_prose_run(rest))
+        out.append(_prose_run(rest, passive=passive))
     return fragment(*out)
 
 
-def _body(md_text: str, figs: list) -> str:
+def _body(md_text: str, figs: list, *, passive: bool = False) -> str:
     """Render a section body: markdown + callouts, with inline ![[fig:N]] placeholders resolved to
     figures; any unreferenced figures append at the end."""
     out, used = [], set()
@@ -181,12 +181,16 @@ def _body(md_text: str, figs: list) -> str:
     for k, part in enumerate(parts):
         if k % 2 == 0:
             if part.strip():
-                out.append(_segment(part))
+                out.append(_segment(part, passive=passive))
         else:
             i = int(part) - 1
             if 0 <= i < len(figs):
-                out.append(_figure_html(figs[i])); used.add(i)
-    remaining = [fg for i, fg in enumerate(figs) if i not in used]
+                if figs[i] is not None:
+                    out.append(_figure_html(figs[i]))
+                used.add(i)
+            elif passive:
+                out.append(h("code", {"class_": "sl-research-figure-reference"}, f"![[fig:{part}]]"))
+    remaining = [fg for i, fg in enumerate(figs) if i not in used and fg is not None]
     if remaining:
         out.append(_figure_run(remaining))
     return fragment(*out)
@@ -216,141 +220,81 @@ def _stakeholder_markdown(value: str, *, max_chars: int = 1400, max_blocks: int 
     return "\n\n".join(kept)
 
 
-def render_report(report: dict, store, *, with_toc: bool = False,
-                  audience: str = "detailed"):
-    """Report-grade render of ANY synthesis (spec/unified-synthesis-report.md §3 — one renderer):
-    project scope → narrative sections + figures; convergence scope → the structured analysis
-    (verdict card → charts → findings → 2×2, voices) in the SAME report shell (cover + report
-    typography). `with_toc=True` additionally returns the [(anchor_id, label)] section list so
-    the detail page can hang the scrollspy rail (`_page_rail`) beside the document (§3.6c)."""
-    if audience not in {"detailed", "stakeholder"}:
-        raise ValueError("report audience must be 'detailed' or 'stakeholder'")
+def render_report(report: dict, store=None, *, with_toc: bool = False,
+                  audience: str = "detailed", passive: bool = False):
+    """Prepare Store/media-dependent context, then use the shared report body."""
+    from ..ui_components.reports import ReportParts, report_body
+    from ._synthesis import _synthesis_html
+    if audience not in {"detailed", "stakeholder"} or (passive and audience != "detailed"):
+        raise ValueError("report audience must be detailed or stakeholder (product only)")
     stakeholder = audience == "stakeholder"
     if stakeholder and report.get("scope") == "project" and report.get("presentation_plan"):
         from ._delivery_report import render_delivery_story
-        article, delivery_toc = render_delivery_story(report, store)
-        return (article, delivery_toc) if with_toc else article
-    de = content_language() == "de"
-    _t = report.get("title", "")           # the default title ends in " — Report"; custom titles show as-is
-    project_title = _t[:-len(" — Report")] if _t.endswith(" — Report") else _t
-
-    # Detail-header attribution (ux-contract §10 W11): when the report's DATA carries voices
-    # (statements), their personas lead the cover meta line as the one avatar-group anatomy.
-    vpids = [p for p in dict.fromkeys(st.get("persona_id", "")
-                                      for st in report.get("statements") or []) if p]
-    crew = ui.avatar_group((store.get_persona(p) for p in vpids[:4]), total=len(vpids), size=22)
-
-    # G2: the lifecycle pill beside the cover eyebrow — the same words as the report rows
-    # (the convergence meta line dropped its status TEXT: one encoding, the pill).
-    status_pill = raw(synthesis_status_pill(report.get("status", "done")))
-
-    if report.get("scope") != "project":
-        # a convergence synthesis, rendered in the unified report shell.
-        from ._synthesis import _synthesis_html
-        meta_parts = [x for x in [
-            (f'{len(report.get("council_ids", []))} {t("councils")}'
-             if report.get("council_ids") else ""),
-            ui.local_date(report.get("created_at") or "")] if x]
-        meta_line = fragment(*(fragment(" · " if i else "", value)
-                               for i, value in enumerate(meta_parts)))
-        cover = h("header", {"class_": "rp-cover"},
-                  h("div", {"class_": "rp-eyebrow"}, t("synthesis_kind"), status_pill),
-                  raw(_cover_title(project_title)),
-                  h("div", {"class_": "rp-metaline"}, crew if crew else None, h("span", {}, meta_line)))
-        body, toc = _synthesis_html(store, report, embed=True)
-        article = h("article", {"class_": "report report-syn"}, cover, raw(body))
+        article, toc = render_delivery_story(report, store)
         return (article, toc) if with_toc else article
-
-    rtitle = _ref_titler(report, store)
-    sections = report.get("sections", [])
-    n_studies = len({x for sec in sections for x in sec.get("source_study_ids", [])})
-    # The cover meta line is part of the printable DOCUMENT (PDF export reuses this markup),
-    # so the whole line follows the content language — `t()` would mix the UI language into
-    # an authored German report ("6 sections · 5 Studien", ux-audit P5 finding).
-    n_sec = len(sections)
-    sections_word = (("Abschnitt" if n_sec == 1 else "Abschnitte") if de
-                     else ("section" if n_sec == 1 else "sections"))
-    studies_word = (("Studie" if n_studies == 1 else "Studien") if de
-                    else ("study" if n_studies == 1 else "studies"))
-    meta_parts = [f"{n_sec} {sections_word}", f"{n_studies} {studies_word}",
-                  ui.local_date(report.get("created_at") or "")]
-    meta_line = fragment(*(fragment(" · " if i else "", value)
-                           for i, value in enumerate(meta_parts)))
-
-    cover = h("header", {"class_": "rp-cover"},
-              h("div", {"class_": "rp-eyebrow"}, t("synthesis_kind"), status_pill),
-              raw(_cover_title(project_title)),
-              h("div", {"class_": "rp-metaline"}, crew if crew else None, h("span", {}, meta_line)),
-              (h("p", {"class_": "rp-lead"}, raw(_md(report["lead"])))
-               if report.get("lead") else ""))
-
-    limitations = ""
-    if report.get("limitations"):
-        limitations = h(
-            "section", {"class_": "rp-limitations", "role": "note"},
-            h("h2", {}, "Limitationen" if de else "Limitations"),
-            h("ul", {}, *[
-                h("li", {}, h("code", {}, row.get("original_status") or
-                              t("cohort_status_overridden")),
-                  " — ", row.get("rationale") or "")
-                for row in report.get("limitations") or []
-            ]),
-        )
-
-    toc = h("nav", {"class_": "rp-toc"}, h("div", {"class_": "rp-toc-h"}, t("toc")),
-            h("ol", {}, *[h("li", {}, h("a", {"href": f"#rp-s{i}"}, sec["heading"]))
-                          for i, sec in enumerate(sections, 1)]))
-
-    secs = []
-    stakeholder_context_html = ""
-    if stakeholder:
-        from ._delivery_report import stakeholder_context
-        stakeholder_context_html = stakeholder_context(report, store)
-    for i, sec in enumerate(sections, 1):
-        figs = [rf for rf in (_resolve_figure(f, store, project_id=report.get("project_id") or "")
-                              for f in (sec.get("figures") or [])) if rf]
+    pids = list(dict.fromkeys(st.get("persona_id", "") for st in report.get("statements") or []))
+    pids = [pid for pid in pids if pid]
+    if passive:
+        crew = h("span", {"class_": "sl-research-participants"}, ", ".join(pids)) if pids else ""
+    else:
+        crew = ui.avatar_group((store.get_persona(pid) for pid in pids[:4]), total=len(pids), size=22)
+    if report.get("scope") != "project":
+        prepared = ReportParts(crew=crew, convergence=_synthesis_html(store, report, embed=True, passive=passive))
+    else:
+        refs = list(dict.fromkeys(ref for section in report.get("sections", [])
+            for ref in [*section.get("source_study_ids", []),
+                        *(citation.get("study_id") for citation in section.get("citations", [])),
+                        *(citation.get("council_id") for citation in section.get("citations", []))] if ref))
+        if passive:
+            node_titles = {node["study_id"]: node.get("title") or "" for node in (report.get("graph_snapshot") or {}).get("nodes", [])}
+            titles = {ref: f"{node_titles[ref]} — {ref}" if node_titles.get(ref) else ref for ref in refs}
+            figures = [[_passive_figure(figure, i) for i, figure in enumerate(section.get("figures") or [], 1)]
+                       for section in report.get("sections", [])]
+        else:
+            title = _ref_titler(report, store)
+            titles = {ref: title(ref) for ref in refs}
+            # Keep empty slots so ![[fig:N]] always addresses the original figure.
+            figures = [[_resolve_figure(figure, store, project_id=report.get("project_id") or "")
+                        for figure in section.get("figures") or []] for section in report.get("sections", [])]
+        context, ending = "", ""
         if stakeholder:
-            # A/B stimuli are one comparison and must travel together.  More than
-            # two figures still belongs in the detailed evidence report.
-            figs = figs[:2]
-        section_md = (_stakeholder_markdown(sec.get("markdown", ""))
-                      if stakeholder else sec.get("markdown", ""))
-        body_html = (_body(section_md, figs) if section_md
-                     # plain <em>, not markdown syntax — this string is never md-rendered
-                     else h("p", {"class_": "muted"},
-                            h("em", {}, f"({'noch nicht verfasst' if de else 'not yet authored'})")))
-        cites = ""
-        if sec.get("citations") and not stakeholder:
-            rows = []
-            for n, c in enumerate(sec["citations"], 1):
-                council = h("span", {"class_": "rp-cite-src"}, f" · {rtitle(c['council_id'])}") if c.get("council_id") else ""
-                quote = h("span", {"class_": "rp-cite-q"}, f"„{c['quote']}“") if c.get("quote") else ""
-                rows.append(h("li", {}, h("span", {"class_": "rp-cite-n"}, str(n)),
-                              h("span", {}, h("b", {}, rtitle(c["study_id"])), council, " ", quote)))
-            cites = h("div", {"class_": "rp-cites"}, h("div", {"class_": "rp-cites-h"}, t("citations")),
-                      h("ol", {}, *rows))
-        src = ""
-        if sec.get("source_study_ids"):
-            src_text = ((f'{len(sec["source_study_ids"])} Quellen · Details in Sonaloop')
-                        if de else
-                        (f'{len(sec["source_study_ids"])} sources · Details in Sonaloop'))
-            if not stakeholder:
-                src_text = (("Quellen: " if de else "Sources: ")
-                            + ", ".join(rtitle(x) for x in sec["source_study_ids"]))
-            src = h("div", {"class_": "rp-src"}, src_text)
-        secs.append(h("section", {"class_": "rp-sec", "id": f"rp-s{i}"},
-                      h("h2", {}, h("span", {"class_": "rp-num"}, f"{i:02d}"), sec["heading"]),
-                      body_html, cites, src))
-    stakeholder_end = ""
-    if stakeholder:
-        from ._delivery_report import stakeholder_disclaimer
-        stakeholder_end = stakeholder_disclaimer()
-    article = h("article", {"class_": "report" + (" report--stakeholder" if stakeholder else "")},
-                cover, limitations, "" if stakeholder else toc, stakeholder_context_html,
-                *secs, stakeholder_end)
-    if with_toc:
-        return article, [(f"rp-s{i}", sec["heading"]) for i, sec in enumerate(sections, 1)]
-    return article
+            from ._delivery_report import stakeholder_context, stakeholder_disclaimer
+            context, ending = stakeholder_context(report, store), stakeholder_disclaimer()
+        prepared = ReportParts(crew=crew, ref_titles=titles, figures=figures,
+                               convergence=_synthesis_html(None, report, embed=True, passive=True)
+                               if passive and any(report.get(key) for key in ("statements", "findings", "gesamtbild", "positionierung", "arc_narrative",
+                                   "references", "citations", "prompts", "goal", "start_input", "next_council_question", "stop_reason")) else ("", []),
+                               stakeholder_context=context, stakeholder_end=ending)
+    return report_body(report, prepared, with_toc=with_toc, audience=audience, passive=passive)
+
+
+def _passive_figure(figure: dict, index: int):
+    """Show supplied figure identities and scalar series without resolving pixels.
+
+    Complex chart payloads remain in the canonical tool result. This projection
+    never guesses an axis, scale, distribution or source-derived chart value.
+    """
+    identity = figure.get("id")
+    label = (f"{figure.get('kind') or 'figure'}:{identity}" if identity else
+             f"![[fig:{index}]] · {figure.get('kind') or 'figure'}")
+    metadata = []
+    if isinstance(figure.get("source_id"), str) and figure["source_id"]:
+        metadata.append(h("p", {}, t("asset_source"), ": ", h("code", {}, figure["source_id"])))
+    if isinstance(figure.get("of"), str) and figure["of"]:
+        metadata.append(h("p", {}, t("report_chart_type"), ": ", h("code", {}, figure["of"])))
+    series = figure.get("series")
+    scalar_series = (figure.get("kind") == "chart" and isinstance(series, list) and bool(series)
+                     and all(isinstance(row, dict) and isinstance(row.get("label"), str)
+                             and type(row.get("value")) in (str, int, float) for row in series))
+    if scalar_series:
+        metadata.append(h("table", {},
+            h("thead", {}, h("tr", {}, h("th", {"scope": "col"}, t("report_series_h")),
+                             h("th", {"scope": "col"}, t("report_value_h")))),
+            h("tbody", {}, *(h("tr", {}, h("th", {"scope": "row"}, row["label"]),
+                                   h("td", {}, str(row["value"]))) for row in series))))
+    return {"html": h("div", {"class_": "sl-research-figure-reference"}, h("code", {}, label),
+                      h("p", {}, t("report_figure_reference_only")), *metadata),
+            "caption": figure.get("caption", ""), "passive": True}
 
 
 register_css(r"""

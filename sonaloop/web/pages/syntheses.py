@@ -68,6 +68,8 @@ def register_syntheses(app) -> None:
         if proj:
             crumbs.append((proj["title"], f"/jobs/{proj['id']}"))
         crumbs.append((short_title, None))
+        # The product adapter resolves crew, citations and figures before the
+        # shared report body runs. Dynamic project health below stays on this page.
         # One renderer, plus the section list → the right-edge scrollspy rail (§3.6c): the
         # report's structure stays navigable even when the clamped prose sections are short.
         report_html, toc = render_report(syn, store, with_toc=True)

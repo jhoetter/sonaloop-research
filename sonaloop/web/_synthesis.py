@@ -405,45 +405,7 @@ def _persona_voices_html(store: Store, pid: str) -> str:
 # --------------------------- synthesis report --------------------------- #
 
 
-def _synthesis_html(store: Store, syn: dict, *, embed: bool = False):
-    # embed=True omits the bespoke syn-head so the content can sit inside the unified report shell
-    # (rp-cover + report typography) — spec/unified-synthesis-report.md §3 (one renderer).
-    done = syn.get("status", "done") == "done"
-    sec = []  # (id, short_label, html)
-
-    def _block(bid, label, inner):                            # the shared section wrapper
-        return h("div", {"class_": "block", "id": bid}, h("h2", {"class_": "bh"}, label), inner)
-
-    syn_sessions = [store.get_council_session(cid) for cid in syn.get("council_ids", [])]
-    # 1) Structure before prose (ux-contract §3.6): the derived verdict/POV card opens the report,
-    # the sentiment + stance charts row follows — only THEN the authored prose (clamped).
-    if (verdict := _verdict_card(syn)):
-        sec.append(("verdict", t("verdict_h"), verdict))
-    if (charts := _charts_row(syn_sessions)):
-        sec.append(("charts", t("sentiment_block"), _block("charts", t("sentiment_block"), charts)))
-    # 2) Executive Summary — the unified Question → Answer lead (shared with the council 'finding'),
-    # fed by the shared study view-model so council/synthesis never branch on field names. Long
-    # authored bodies clamp at the section threshold (C6) — depth stays, dosed. When the verdict
-    # card above already consumed the opening sentences, the section starts from the first
-    # NON-consumed sentence (round-3 H1: one screen never repeats prose verbatim); when the card
-    # consumed EVERYTHING, the honest fallback is no echo block at all — the verdict IS the summary.
-    if syn.get("gesamtbild"):
-        vm = study_head(syn, is_synthesis=True)
-        answer_md = vm["answer_md"]
-        if verdict:
-            lead, rest = _verdict_split(syn)           # the SAME splitter the card rendered from
-            if lead:
-                answer_md = rest
-        if answer_md.strip():
-            sec.append(("exec", t("summary"), _study_lead(
-                ui.clamp(raw(_md(answer_md)), threshold=ui.SECTION_CLAMP),
-                vm["answer_label"], question=vm["question"], qlabel=t("question"))))
-    # 2) Cited evidence — councils are DECOUPLED: this synthesis is a standalone answer that may
-    # CITE councils (or none). The reference rows are the ONE place the cited councils are named
-    # (Round 5 finish: the per-council breakdown rows named the same councils a second time —
-    # merged). With >1 cited councils each row carries that council's thin stance strip: N
-    # DIFFERENT distributions side by side are a comparison, not the §11 T5 re-encoding (a
-    # single cited council's strip WOULD re-encode the chain bars above, so it stays bare).
+def _cited_councils(syn_sessions):
     belege = None
     cited = [c for c in syn_sessions if c]
     # a comparison needs >1 councils WITH stance data: when only one carries any, its lone
@@ -475,94 +437,69 @@ def _synthesis_html(store: Store, syn: dict, *, embed: bool = False):
                       t("councils_overview"), " ", h("span", {"class_": "cnt"}, str(len(ref_rows)))),
                     h("p", {"class_": "muted small", "style": "margin:6px 0 10px"}, t("evidence_decoupled_note")),
                     h("div", {"class_": "ref-list"}, fragment(*ref_rows))))
-    # Finding LIST sections (key_problems/pain_solvers/open_questions/shortlist) now render through the
-    # ONE finding renderer — id + label from finding_kinds.json, prose via _prose (spec/unified-…).
-    _findings = _A.synthesis_findings(syn)
+    return belege
 
-    def _fsec(kind, label, toc=None):        # id from data (finding_kinds.json); label = static i18n
-        items = [f for f in _findings if f.get("kind") == kind]
-        if not items:
-            return None
-        sid = _A.finding_kind(kind)["id"]
-        return (sid, toc or label, _block(sid, label, render_findings(items, store=store)))
 
-    rec_items = _A.synthesis_recommendations(syn)         # [(text, effort, value)] from recommendation findings
-    if rec_items:
-        chart = _effort_impact(rec_items)
-        if chart:
-            body = raw(chart)  # hover popovers replace the list
-        else:
-            rows = "".join(_rec_row_n(i, txt, a, n) for i, (txt, a, n) in enumerate(rec_items, 1))
-            body = h("div", {"class_": "reclist"}, raw(rows))
-        sec.append(("empfehlungen", t("recommendations"), _block("empfehlungen", t("recommendations"), body)))
-    if syn.get("positionierung"):
-        sec.append(("positionierung", t("positioning"),
-                    _block("positionierung", t("positioning"),
-                           h("div", {"class_": "sl-prose sm"},
-                             ui.clamp(raw(_md(syn["positionierung"])), threshold=ui.SECTION_CLAMP)))))
-    # Structured convergence blocks (GAP-3): a methodology's key problems / affinity clusters /
-    # down-select ranking + shortlist render as first-class answer content when present (data-driven —
-    # labels via i18n, content free-text; no methodology value hardcoded).
-    if (s := _fsec("key_problem", t("key_problems"))):
-        sec.append(s)
-    if (s := _fsec("cluster", t("affinity_clusters"))):
-        sec.append(s)
-    if (s := _fsec("ranking", t("ranking"))):
-        sec.append(s)
-    if (s := _fsec("shortlist", t("shortlist"))):
-        sec.append(s)
-    # Voices (Stimmen) — the synthesis' OWN per-persona statements (verdict + shift + quoted
-    # evidence; spec/unified-artifact-schema). These are cross-council ANALYSIS, not a re-hosted
-    # transcript (spec/artifact-cross-references.md): each row is the persona's distilled key
-    # argument, with the verbatim council quotes expandable underneath (§3.6e).
+def _synthesis_head(syn, store):
+    done = syn.get("status", "done") == "done"
+    cs = _A.synthesis_sentiment_counts(syn, store)        # aggregated over the REAL council voices
+    smeta = " · ".join(f"{cs[k]} {k}" for k in ("positiv", "bedingt", "neutral", "skeptisch", "ablehnend") if cs.get(k))
+    mchips = [_label(t("completed") if done else t("running"), "var(--green)" if done else "var(--amber)")]
+    mchips.append(h("span", {"class_": "mchip"}, f'{len(syn.get("council_ids", []))} {t("councils")}'))
+    if syn.get("iterations"):
+        mchips.append(h("span", {"class_": "mchip"}, f'{syn["iterations"]} {t("iterations")}'))
+    if smeta:
+        mchips.append(h("span", {"class_": "mchip"}, raw(t("voices_meta", s=_esc(smeta)))))
+    mchips.append(h("span", {"class_": "mchip"}, ui.local_date(syn["created_at"])))
+    head = h("header", {"class_": "syn-head"},
+             h("h1", {"title": syn["title"]}, raw(_icon("syntheses")), syn["title"]),
+             h("div", {"class_": "syn-meta"}, fragment(*mchips)))
+
+    return head
+
+
+def _synthesis_html(store: Store, syn: dict, *, embed: bool = False, passive: bool = False):
+    """Resolve product context before entering the shared, Store-free body."""
+    from ..ui_components.syntheses import SynthesisParts, synthesis_body
+    from ._render import render_ref, render_prompt
+    findings = _A.synthesis_findings(syn)
+    kinds = list(dict.fromkeys(f.get("kind") or "finding" for f in findings))
+    groups = {kind: (f"finding-{i}" if passive else _A.finding_kind(kind)["id"],
+                      render_findings([f for f in findings if (f.get("kind") or "finding") == kind],
+                                      store=None if passive else store, passive=passive))
+              for i, kind in enumerate(kinds)}
     voices = _A.synthesis_statements(syn)
-    if voices:
-        sec.append(("stimmen", t("voices"),
-                    _block("stimmen", t("voices"),
-                           raw(render_statements(voices, store, clamp_at=ui.TURN_CLAMP,
-                                                 expand_quotes=True)))))
-    # The per-persona sentiment BREAKDOWN across the chain — the aggregate charts already opened
-    # the page (charts row) and the per-council comparison rides the cited-council rows below,
-    # so overview=False keeps this block duplication-free.
-    sent = _sentiment_section(store, syn_sessions, sid="sentiment", title=t("sentiment_over_chain"),
-                              chain=True, overview=False)
-    if sent:
-        sec.append(("sentiment-detail", t("sentiment_over_chain"),
-                    h("div", {"class_": "block", "id": "sentiment-detail"}, raw(sent))))
-    # supporting analysis (omit when empty — an empty section reads as a broken box)
-    if (s := _fsec("segment", t("segments"))):
-        sec.append(s)
-    if (s := _fsec("pain_solver", t("validated_pain_solvers"))):
-        sec.append(s)
-    if (s := _fsec("open_question", t("open_questions_next_study"), toc=t("open_questions"))):
-        sec.append(s)
-    if belege:                       # cited evidence (councils) — demoted, near the end
-        sec.append(belege)
-    # arc (collapsed) — only when there is a narrative; an empty <details> reads as a broken box
-    if (syn.get("arc_narrative") or "").strip():
-        sec.append(("bogen", t("course"),
-                    h("details", {"class_": "block", "id": "bogen"},
-                      h("summary", {"class_": "bh", "style": "cursor:pointer"}, t("arc_course")),
-                      h("div", {"class_": "sl-prose sm"}, raw(_md(_srcchips(syn["arc_narrative"])))))))
-
-    # ---- slim meta strip (replaces the old Eigenschaften rail) — omitted when embedded in the report shell
-    head = ""
-    if not embed:
-        cs = _A.synthesis_sentiment_counts(syn, store)        # aggregated over the REAL council voices
-        smeta = " · ".join(f"{cs[k]} {k}" for k in ("positiv", "bedingt", "neutral", "skeptisch", "ablehnend") if cs.get(k))
-        mchips = [_label(t("completed") if done else t("running"), "var(--green)" if done else "var(--amber)")]
-        mchips.append(h("span", {"class_": "mchip"}, f'{len(syn.get("council_ids", []))} {t("councils")}'))
-        if syn.get("iterations"):
-            mchips.append(h("span", {"class_": "mchip"}, f'{syn["iterations"]} {t("iterations")}'))
-        if smeta:
-            mchips.append(h("span", {"class_": "mchip"}, raw(t("voices_meta", s=_esc(smeta)))))
-        mchips.append(h("span", {"class_": "mchip"}, ui.local_date(syn["created_at"])))
-        head = h("header", {"class_": "syn-head"},
-                 h("h1", {"title": syn["title"]}, raw(_icon("syntheses")), syn["title"]),
-                 h("div", {"class_": "syn-meta"}, fragment(*mchips)))
-
-    main = head + raw("".join(str(html) for _, _, html in sec))   # section htmls are all trusted (h() Safe or built strings)
-    # Unified detail shell: the caller wraps this content in _doc (content column + Properties/Relations
-    # aside) and renders the section minimap via _page_rail(toc) — same as every other detail page.
-    toc = [(sid, lbl) for sid, lbl, _ in sec]
-    return h("div", {"class_": "sl-syn-main"}, raw(main)), toc
+    if passive:
+        # These native provenance fields predate the unified Ref primitive.
+        # Project their actual ids without resolving or dropping the source.
+        refs = [raw(render_ref({**ref, "kind": "council", "id": ref["council_id"]}, passive=True))
+                for ref in syn.get("references") or []]
+        refs += [raw(render_ref({**ref, "id": ref["ref"]}, passive=True)) for ref in syn.get("citations") or []]
+        cited = [raw(render_ref({"kind": "council", "id": cid}, passive=True)) for cid in syn.get("council_ids") or []]
+        council_block = (("belege", t("councils"), h("div", {"class_": "sl-research-report-block"},
+                          h("h2", {}, t("councils")), cited)) if cited else None)
+        prompts = syn.get("prompts") or []
+        answered = {(voice.get("about") or {}).get("id") for voice in voices}
+        unpaired = ([] if voices and len(prompts) == 1 else
+                    [prompt for prompt in prompts if not voices or prompt.get("id") not in answered])
+        parts = SynthesisParts(findings=groups, councils=council_block,
+            recommendations=groups.get("recommendation", ("", ""))[1], references=fragment(refs),
+            prompts=fragment(raw(render_prompt(prompt, passive=True)) for prompt in unpaired),
+            voices=render_statements(voices, passive=True, group_by="prompt" if syn.get("prompts") else "persona",
+                                     prompts=syn.get("prompts"), expand_quotes=True) if voices else "",
+            head=h("h2", {}, syn.get("title", "")))
+    else:
+        sessions = [store.get_council_session(cid) for cid in syn.get("council_ids", [])]
+        recommendations = ""
+        if recs := _A.synthesis_recommendations(syn):
+            if chart := _effort_impact(recs):
+                recommendations = raw(chart)
+            else:
+                recommendations = h("div", {"class_": "reclist"}, raw("".join(
+                    _rec_row_n(i, text, effort, value) for i, (text, effort, value) in enumerate(recs, 1))))
+        parts = SynthesisParts(findings=groups, charts=_charts_row(sessions), councils=_cited_councils(sessions),
+            recommendations=recommendations,
+            voices=render_statements(voices, store, clamp_at=ui.TURN_CLAMP, expand_quotes=True) if voices else "",
+            sentiment=_sentiment_section(store, sessions, sid="sentiment", title=t("sentiment_over_chain"), chain=True, overview=False),
+            head="" if embed else _synthesis_head(syn, store))
+    return synthesis_body(syn, parts, embed=embed, passive=passive)
