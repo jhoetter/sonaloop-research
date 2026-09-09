@@ -66,18 +66,71 @@ def node_content(value):
                 h("p", {}, value.get("created_at", "")), extras))
 
 
-def questions_content(value):
+def question_content(value, *, prepared_text=None, passive=True):
+    """One recorded question; Product prepares its optional long-text control.
+
+    Native presentation requires a supplied status. HMW reframe rows have their
+    own body and cannot become open-question records by rendering them here.
+    """
+    if passive and prepared_text is not None:
+        raise ValueError("Passive questions cannot accept prepared Product HTML")
+    identity(value, "id"); texts(value, ("text", "status"), ("created_at", "project_id"))
+    if value.get("study_id") is not None:
+        texts(value, ("study_id",))
     h, _, _ = _kit()
-    rows = records(value)
+    return h("div", {"class_": "sl-research-question-content"},
+        h("div", {"class_": "sl-prose"}, prepared_text if prepared_text is not None else h("p", {}, value["text"])),
+        disclosure(t("rpx_record_details"), fields((key, "null" if value[key] is None else value[key])
+            for key in ("id", "status", "project_id", "study_id", "created_at") if key in value)))
+
+
+def questions_content(value, *, heading="h3"):
+    h, _, _ = _kit()
+    if heading not in {"h2", "h3"}:
+        raise ValueError("Expected a question group heading")
     cards = []
-    for row in rows:
-        identity(row, "id"); texts(row, ("text", "status"), ("created_at", "project_id"))
-        if row.get("study_id") is not None:
-            texts(row, ("study_id",))
-        cards.append(h("li", {}, h("p", {}, row["text"]), disclosure(t("rpx_record_details"), fields(
-            (key, row[key]) for key in ("id", "status", "project_id", "study_id", "created_at") if key in row))))
-    return h("div", {}, h("h3", {}, t("open_questions_h")),
+    for row in records(value):
+        body = question_content(row)
+        # The Product inspector already has its status pill outside this body.
+        # Native groups show the same supplied status beside each question.
+        status = {"open": t("oq_status_open"), "resolved": t("oq_status_resolved")}.get(row["status"], row["status"])
+        cards.append(h("li", {}, h("p", {"class_": "sl-research-status"}, status), body))
+    return h("div", {}, h(heading, {}, t("open_questions_h")),
              h("ul", {}, cards) if cards else h("p", {"class_": "sl-research-empty"}, t("rpg_no_questions")))
+
+
+def _native_questions(value):
+    rows = records(value)
+    for row in rows:
+        # The six fields are the actual OpenQuestion DTO. Unknown shapes must
+        # retain the ordinary native result instead of silently dropping fields.
+        if set(row) != {"id", "text", "status", "project_id", "study_id", "created_at"}:
+            raise ValueError("Expected the complete native OpenQuestion record")
+        identity(row, "project_id")
+    return rows
+
+
+def recorded_questions(value):
+    record(value)
+    if set(value) != {"open_questions"}:
+        raise ValueError("Expected the native recorded-questions envelope")
+    rows = _native_questions(value["open_questions"])
+    h, _, _ = _kit()
+    return h("article", {"class_": "sl-research-card"}, questions_content(rows, heading="h2")), "ready" if rows else "empty"
+
+
+def frontier(value):
+    record(value); identity(value, "project_id")
+    if set(value) != {"project_id", "open_questions", "open_question_count", "notes"}:
+        raise ValueError("Expected the native research frontier")
+    rows = _native_questions(value["open_questions"])
+    count(value["open_question_count"]); strings(value["notes"])
+    h, _, _ = _kit()
+    return h("article", {"class_": "sl-research-card"}, h("h2", {}, t("rq_frontier")),
+        fields(((t("rq_open_count"), value["open_question_count"]),)), questions_content(rows),
+        h("section", {}, h("h3", {}, t("rq_notes")), h("ul", {}, [h("li", {}, note) for note in value["notes"]]))
+            if value["notes"] else None,
+        disclosure(t("rpx_record_details"), fields((("project_id", value["project_id"]),)))), "ready" if rows else "empty"
 
 
 def _edges(value):

@@ -543,9 +543,14 @@ def register_library(app) -> None:
         status = oq.get("status", "open")
         status_labels = {"open": t("oq_status_open"), "resolved": t("oq_status_resolved")}
         status_label = status_labels.get(status, status)
-        body = ui.section(t("open_question_kind"),
-                          h("div", {"class_": "sl-prose"}, ui.clamp(oq.get("text", ""), threshold=ui.SECTION_CLAMP)),
-                          id="sec-question")
+        from ...ui_components.project_graph import question_content
+        prepared_text = ui.clamp(oq.get("text", ""), threshold=ui.SECTION_CLAMP)
+        try:
+            content = question_content(oq, prepared_text=prepared_text, passive=False)
+        except (ValueError, TypeError, KeyError):
+            # Preserve the original inspector for an unsupported legacy row.
+            content = h("div", {"class_": "sl-prose"}, prepared_text)
+        body = ui.section(t("open_question_kind"), content, id="sec-question")
         return detail_page(
             store, title=title, active="projects",
             crumbs=[(t("projects"), "/jobs"), (proj["title"], f'/jobs/{proj["id"]}'),
