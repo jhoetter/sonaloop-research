@@ -15,6 +15,7 @@ from .._html import register_css
 from .._keymap import sibling_attrs, sibling_urls
 from .._persona_view import persona_view_mount
 from ... import artifacts as _artifacts
+from ...ui_components import calendar as calendar_view, plans as plan_view
 
 
 _PERSONA_CREATE_FIELDS = (
@@ -649,25 +650,42 @@ def register_personas(app) -> None:
         readiness = services.persona_readiness(p["id"], store=store)
         state = services.get_current_state(p["id"], store=store)
         selected_date = date_value or (data["daily_summaries"][-1]["date"] if data["daily_summaries"] else date.today().isoformat())
-        view = view if view in {"week", "month", "year"} else "month"
+        view = view if view in {"day", "week", "month", "year"} else "month"
         period = services.get_calendar_period(p["id"], selected_date, view, store)
+        day_calendar = services.get_calendar(p["id"], selected_date, store=store) if view == "day" else None
+        # Resolve recorded plans before presentation. No authoring or implicit simulation.
+        recorded_plans = [services.get_day_plan(p["id"], selected_date, store=store),
+                          services.get_period_plan(p["id"], view, selected_date, store=store) if view != "day" else None]
+        try:
+            plan_body = plan_view.plans([plan for plan in recorded_plans if plan is not None])[0]
+        except (ValueError, TypeError, KeyError):
+            plan_body = h("p", {"class_": "muted"}, t("rc_unavailable"))
+        try:
+            state_body = calendar_view.current_state_content(state)
+        except (ValueError, TypeError, KeyError):
+            state_body = h("p", {"class_": "muted"}, t("rc_unavailable"))
         # _avatar_src guards against avatar records whose image file is missing on this
         # machine (snapshots carry the record, not always the binary) — initials, not a
         # broken <img> frame.
         portrait_src = _avatar_src(p)
         avatar = (h("img", {"class_": "avatar", "src": portrait_src, "alt": ""})
                   if portrait_src else h("div", {}, _avatar(p, 120)))
-        has_sim = bool(data["daily_summaries"]) or bool(period.get("days"))
+        has_sim = bool(data["daily_summaries"]) or bool(period.get("days")) or bool((day_calendar or {}).get("blocks"))
         voices = _persona_voices_html(store, p["id"])
         # This persona's recorded usability sessions — each row deep-links into the replay view.
         usess = services.list_usability_sessions(persona_id=p["id"], store=store)
         sessions_html = _sessions_section(store, usess)
         rel_rows = fragment(*(h("p", {}, h("strong", {}, r["name"]), " ",
                               h("span", {"class_": "muted"}, f'— {r["type"]}: {r["friction"]}')) for r in p["relationships"]))
+        try:
+            calendar_body = (calendar_view.calendar(day_calendar)[0] if day_calendar is not None
+                             else _period_calendar_html(p["id"], selected_date, view, period))
+        except (ValueError, TypeError, KeyError):
+            calendar_body = h("p", {"class_": "muted"}, t("rc_unavailable"))
         cal_section = h("div", {"class_": "sec", "id": "cal"}, h("h2", {}, t("calendar")),
-            (fragment(raw(_calendar_tabs(p["id"], selected_date, view, period)),
-                      raw(_period_calendar_html(p["id"], selected_date, view, period)))
-             if has_sim else h("p", {"class_": "muted"}, t("no_days_yet"))))
+            (fragment(raw(_calendar_tabs(p["id"], selected_date, view, period)), calendar_body)
+             if has_sim else h("p", {"class_": "muted"}, t("no_days_yet"))),
+            h("div", {"class_": "sec", "id": "cal-plans"}, h("h2", {}, t("rc_plans")), plan_body))
         # Catalog provenance is a first-class signal: a persona pulled from sonaloop-data
         # carries its lived days + memory, so mark it so it reads differently from a
         # locally-authored profile. The pulled_at/ref ride the tooltip.
@@ -683,13 +701,7 @@ def register_personas(app) -> None:
             h("div", {"data-persona-surface-fallback": True}, _hero(p["display_name"], sub=f'{p["role"]["title"]} · {p["company_context"]["industry"]}',
                   top=detail_eyebrow(t("persona"), eyebrow_pills))),
             h("div", {"class_": "identity"}, h("div", {"data-persona-surface-fallback": True}, avatar), h("div", {},
-              h("div", {"class_": "sl-card"}, h("h3", {}, t("current_state")),
-                h("p", {}, h("strong", {}, state["current_activity"])),
-                h("p", {"class_": "muted small"}, " · ".join(x for x in [
-                    state.get("current_tool"), state.get("collaboration_mode"),
-                    (state["mood"] if state.get("mood") not in (None, "unknown") else None)] if x) or "—"),
-                (h("p", {"class_": "thought"}, state["current_thought"])
-                 if state.get("current_thought") not in (None, "", "unknown") else "")))),
+              state_body)),
             raw(_persona_readiness_html(readiness)),
             # the simulated LIFE (the calendar) is this persona's signature — surface it right after the
             # snapshot, before the analysis voices.
@@ -745,26 +757,16 @@ def register_personas(app) -> None:
         except KeyError:
             return _layout(t("not_found"), _empty_state(t("activity_not_found"), t("runtime_maybe_cleared"), icon="overview"), store, active="personas")
         p = data["persona"]; a = data["activity"]
-        alone_label = t("alone")
-        conv = [h("div", {"class_": "quote"}, h("strong", {}, c.get("speaker", "")), h("br"), c.get("text", ""))
-                for c in a.get("conversation", [])]
+        try:
+            body = calendar_view.activity_content(a)
+            props = _properties_html(calendar_view.activity_properties(a, persona=h("a", {
+                "class_": "sl-breadcrumb__link", "href": f'/personas/{a["persona_id"]}'},
+                p["display_name"] if p else a["persona_id"])), aside=True)
+        except (ValueError, TypeError, KeyError):
+            body = h("p", {"class_": "muted"}, t("rc_unavailable"))
+            props = None
         main = fragment(
-            _hero(a["task"], sub=f'{a["timestamp"]} · {a["event_type"]} · {a.get("collaboration_mode","unknown")}'),
-            h("div", {"class_": "grid two"},
-              h("div", {"class_": "sl-card"}, h("h3", {}, t("what_happened")), h("p", {}, a.get("what_happened", a["summary"]))),
-              h("div", {"class_": "sl-card"}, h("h3", {}, t("thought")), h("p", {"class_": "thought"}, a.get("persona_thought", "—")))),
-            h("div", {"class_": "sec"}, h("h2", {}, t("conversation")),
-              fragment(*conv) if conv else h("p", {"class_": "muted"}, t("none_f"))),
-            h("div", {"class_": "grid"},
-              h("div", {"class_": "sl-card"}, h("h3", {}, t("actions")), raw(_pills(a.get("actions_done", [])) or "—")),
-              h("div", {"class_": "sl-card"}, h("h3", {}, t("artifacts")), raw(_pills(a.get("artifacts_touched", [])) or "—")),
-              h("div", {"class_": "sl-card"}, h("h3", {}, t("open_loops")), raw(_pills(a.get("open_loops", [])) or "—"))))
-        props = _properties_html([
-            ("personas", t("persona"), h("a", {"class_": "sl-breadcrumb__link", "href": f'/personas/{p["id"]}'}, p["display_name"])),
-            ("square", t("tool"), a["tool"]),
-            ("dot", t("mood"), a["impact"]["mood"]),
-            ("personas", t("participants"), _pills(a.get("participants", []) or [alone_label])),
-            ("check", t("decision"), a.get("decision") or ""),
-        ], aside=True)
+            _hero(a["task"], sub=f'{a["timestamp"]} · {a["event_type"]} · {a.get("collaboration_mode", "unknown")}'), body)
+        p = p or {"id": a["persona_id"], "display_name": a["persona_id"]}
         return _layout(a["task"], _doc(main, rail=props), store,
                        crumbs=[(t("personas"), "/personas"), (p["display_name"], f'/personas/{p["id"]}'), (a["task"][:46], None)], active="personas")
