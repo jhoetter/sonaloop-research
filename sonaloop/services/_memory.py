@@ -118,6 +118,9 @@ def get_timeline(persona_id: str, start: str | None = None, end: str | None = No
     persona = _require_persona(store, persona_id)
     pid = persona["id"]
     if entity_id:
+        entity = store.get_entity(entity_id)
+        if not entity or entity["persona_id"] != pid:
+            raise KeyError(f"Unknown entity for persona: {entity_id}")
         facts = store.list_entity_facts(entity_id)
     else:
         facts = store.list_persona_facts(pid)

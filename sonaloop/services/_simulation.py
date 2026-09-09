@@ -334,7 +334,10 @@ def simulate_day(
     emit_lifecycle_event("day.recorded", {"persona_id": persona["id"], "date": day.isoformat(),  # noqa: F821 (bound)
                                           "events": len(experience)}, store)
     return SimulationResult(
-        persona=persona,
+        # Persistence above must retain NativePersona's guarded snapshot. The
+        # public return is plain JSON; dataclasses.asdict cannot reconstruct
+        # NativePersona because its constructor requires that snapshot.
+        persona=dict(persona),
         date=day.isoformat(),
         calendar_events=calendar,
         experience_events=experience,

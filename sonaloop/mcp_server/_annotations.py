@@ -10,8 +10,8 @@ it in exact sync with the registered surface (a bare new tool fails CI).
 Classification rules (be correct over fast — a wrong readOnlyHint=True on a
 writing tool is the worst outcome, the cloud entitlement gate trusts these):
 - R: pure read — touches no store row and writes no file.
-- W: ordinary write/upsert (incl. exports that WRITE files, e.g. export_survey,
-  and `get_persona_memory`, which renders MEMORY.md to disk).
+- W: ordinary write/upsert (incl. exports that WRITE files, e.g. export_survey
+  and export_persona_memory). get_persona_memory is a pure rendered projection.
 - D: genuinely destructive (delete_*/remove_*/drop_*/unregister_* — data loss).
 - open_world=True: the tool itself talks to the outside world — catalog HTTP,
   live URL capture, avatar provider API, webhook delivery, browser sessions.
@@ -380,7 +380,7 @@ TOOL_ANNOTATIONS: dict[str, dict[str, Any]] = {
     "get_calendar_period": R("Get calendar period"),
     "get_activity": R("Get activity"),
     "summarize_persona_period": R("Summarize persona period"),
-    "extract_pain_points": R("Extract pain points"),
+    "extract_pain_points": W("Extract pain points"),  # persists observation upserts
 
     # ---- substrate (_tools_substrate) ----
     "substrate_schema": R("Get substrate schema"),

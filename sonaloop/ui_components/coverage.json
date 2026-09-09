@@ -4794,7 +4794,7 @@
         "calls": [
           "services.extract_pain_points"
         ],
-        "annotation": "R",
+        "annotation": "W",
         "operation_id": false
       }
     },
