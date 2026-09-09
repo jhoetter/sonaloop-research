@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from ...ui_components import projects as project_ui
 from ...ui_components import product_understanding as understanding_ui
+from ...ui_components import plan_assessment as assessment_ui
 
 from fastapi import Request
 from fastapi.responses import RedirectResponse
@@ -167,6 +168,28 @@ def _project_lineage_html(project: dict, store) -> str:
         prepared_refs[key] = (h("a", {"href": f"/jobs/{pid}"}, target.get("title") or pid)
                               if target else h("code", {}, pid))
     return project_ui.lineage_content(project, prepared_refs=prepared_refs, heading_icon=raw(_icon("link")))
+
+
+def _plan_inspection_html(project_id: str, store) -> str:
+    """Read the explicit Plan inspector's additional supplied views once.
+
+    The route has already checked Project access. Neither inspection runs a
+    task or changes persisted status; presentation cannot perform these reads.
+    A native read/shape failure keeps the existing base Plan inspectable.
+    """
+    from ...ui_components.projects_rows import disclosure
+    blocks = []
+    for label, read, render in (
+        ("rpa_title", services.assess_project,
+         lambda value: assessment_ui.assessment_content(assessment_ui.assessment_view(value)["value"])),
+        ("rpa_document", services.export_plan_md, assessment_ui.document_content),
+    ):
+        try:
+            content = render(read(project_id, store=store))
+        except Exception:
+            content = h("p", {"class_": "muted small"}, t("rpa_unavailable"))
+        blocks.append(disclosure(t(label), content))
+    return h("div", {"class_": "page"}, fragment(blocks))
 
 
 def _project_icon_details_html(project: dict) -> str:
@@ -491,7 +514,7 @@ def register_projects(app) -> None:
         if not plan:
             body = h("div", {"class_": "page"}, raw(_empty_state(t("plan_h"), t("no_plan_yet"), icon="plan")))
         else:
-            body = _plan_html(plan, store)
+            body = fragment(_plan_html(plan, store), _plan_inspection_html(project_id, store))
         return _layout(f'{proj["title"]} — {t("plan_h")}', body, store,
                        crumbs=[(t("projects"), "/jobs"), (proj["title"], f"/jobs/{project_id}"), (t("plan_h"), None)],
                        active="projects")
