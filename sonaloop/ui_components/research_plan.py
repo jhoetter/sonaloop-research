@@ -101,6 +101,27 @@ def unparked_view(value):
     return _view("unparked", _pick(value, rows.PARKING))
 
 
+def iteration_view(value):
+    out = _pick(value, rows.ITERATION)
+    if type(value) is not dict or "cloned" not in value:
+        raise ValueError("Expected native iteration record and returned clones")
+    out["cloned"] = _list(value["cloned"], _task)
+    return _view("iteration", out)
+
+
+def iteration_content(value):
+    """Returned clones describe this invocation; stored history carries IDs only."""
+    h, fragment, _ = _kit()
+    ids = [task["id"] for task in value["cloned"]]
+    if ids != value["tasks"] or len(ids) != len(set(ids)) or value["entry"] not in ids:
+        raise ValueError("Iteration record and supplied clones disagree")
+    return fragment(rows.prose(value["note"]), fields(((t("rplan_round"), value["round"]),)),
+        rows.prose(t("rplan_iteration_notice")),
+        disclosure(t("rpx_record_details"), rows.iteration_content(value)),
+        h("section", {}, h("h3", {}, t("rplan_cloned_tasks")),
+            fragment([task_content(task) for task in value["cloned"]])))
+
+
 def task_content(value, *, titles=None, prepared=None, passive=True, last=False, recorded_details=True):
     """The original Product task row, plus shared full recorded details."""
     if passive and (prepared is not None or not recorded_details):
@@ -199,6 +220,8 @@ def render_view(view):
         title, body = t("rplan_judgment"), rows.judgment_content(value, heading=False)
     elif kind == "progress":
         title, body = t("rplan_progress_record"), rows.progress_content(value, heading=False)
+    elif kind == "iteration":
+        title, body = t("rplan_iteration"), iteration_content(value)
     else:
         title = t("rplan_park_record") if kind == "parked" else t("rplan_unpark_record")
         body = rows.parking_content(value)
@@ -228,3 +251,7 @@ def parked(value):
 
 def unparked(value):
     return render_view(unparked_view(value))
+
+
+def iteration(value):
+    return render_view(iteration_view(value))

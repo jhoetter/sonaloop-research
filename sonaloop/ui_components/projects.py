@@ -35,6 +35,27 @@ def started(value):
         h("details", {}, h("summary", {}, t("rpj_icon")), icon_content(value["icon"])) if "icon" in value else None), "ready"
 
 
+def methodology(value):
+    """The returned Project binding, not an inferred plan or run result."""
+    h, _, _ = _kit()
+    _project(value)
+    rows.identity(value, "methodology")
+    integrity = value.get("integrity")
+    if integrity is not None:
+        rows.record(integrity)
+        for key, item in integrity.items():
+            if key == "schema" and type(item) is str:
+                continue
+            if key not in {"product_understanding_required", "cohort_preflight_required",
+                           "stimulus_required", "claim_posture_required"} or type(item) is not bool:
+                raise ValueError("Unsupported native Project integrity field")
+    return _card(t("rpj_methodology_bound"),
+        rows.fields(((t("methodology_h"), value["methodology"]),)),
+        project_body(value, level="h3", description=True, passive=True),
+        h("p", {"class_": "sl-research-meta"}, t("rpj_methodology_notice")),
+        rows.disclosure(t("rpj_integrity"), rows.fields(integrity.items())) if integrity is not None else None), "ready"
+
+
 def queried(value):
     h, _, _ = _kit()
     rows.record(value)

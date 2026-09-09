@@ -34,7 +34,11 @@ DISPATCH = obj({"state": TEXT, "checkpointed": BOOLEAN}, {
 FRAME = obj({"questions": STRINGS, "hypotheses": STRINGS, "memory_refs": STRINGS})
 REQUIRES = obj({"min_inputs": {"anyOf": [INTEGER, NULL]}, "gate_tag": TEXT,
                 "artifact_tags": STRINGS, "session_of_tags": STRINGS})
-PRESENTATION = obj({}, {key: STRINGS for key in ("forms", "formats", "library")})
+FORM_DECLARATION = {"anyOf": [TEXT, obj({"primitive": TEXT, "form": TEXT}, {"id": TEXT}),
+                             obj({"primitive": TEXT, "id": TEXT}, {"form": TEXT})]}
+REGISTERED_FORM = obj({key: TEXT for key in ("primitive", "form", "primitive_label", "form_label", "label", "description")})
+PRESENTATION = obj({}, {"forms": array(FORM_DECLARATION), "registered_forms": array(REGISTERED_FORM),
+                       "formats": STRINGS, "library": STRINGS})
 TASK = obj({**{key: TEXT for key in ("id", "title", "intent", "phase_intent", "plan_note", "bucket",
     "capability", "expected_output_kind", "step", "status", "loop_back")},
     "consumes": STRINGS, "produces": array(REFERENCE), "requires": REQUIRES,
@@ -49,6 +53,7 @@ PROGRESS = obj({"task_id": TEXT, "goal": TEXT, "delta": TEXT, "rationale": TEXT,
 PARKING = obj({"task_id": TEXT, "refs": STRINGS, "reason": TEXT, "created_at": TEXT})
 ITERATION = obj({"task_id": TEXT, "loop_back": TEXT, "round": INTEGER, "note": TEXT,
                  "entry": TEXT, "tasks": STRINGS, "created_at": TEXT})
+ITERATED = obj({**ITERATION["properties"], "cloned": array(TASK)})
 INTEGRITY = obj({}, {"schema": TEXT, **{key: BOOLEAN for key in
     ("product_understanding_required", "cohort_preflight_required", "stimulus_required", "claim_posture_required")}})
 PLAN = obj({"project_id": TEXT, "tasks": array(TASK)}, {
@@ -56,7 +61,7 @@ PLAN = obj({"project_id": TEXT, "tasks": array(TASK)}, {
     "integrity": INTEGRITY, "judgments": array(JUDGMENT), "progress": array(PROGRESS),
     "parked_refs": array(PARKING), "unparked_refs": array(PARKING), "iterations": array(ITERATION)})
 VALUES = {"plan": {"anyOf": [PLAN, NULL]}, "task": TASK, "judgment": JUDGMENT,
-          "progress": PROGRESS, "parked": PARKING, "unparked": PARKING}
+          "progress": PROGRESS, "parked": PARKING, "unparked": PARKING, "iteration": ITERATED}
 
 
 def public_schema(view):
@@ -155,6 +160,22 @@ def parking_content(value):
             ("created_at", value["created_at"])))))
 
 
+def presentation_content(value):
+    h, fragment, _ = _kit()
+    content = []
+    for key, items in value.items():
+        if key == "registered_forms":
+            content.append(section(key, fragment([section(row["label"], prose(row["description"]),
+                selected(row, ("primitive", "form", "primitive_label", "form_label"))) for row in items])
+                if items else prose(t("rplan_no_entries"))))
+        elif key == "forms" and any(type(item) is dict for item in items):
+            content.append(section(key, h("ul", {}, [h("li", {}, fields(item.items())
+                if type(item) is dict else item) for item in items])))
+        else:
+            content.append(section(key, texts(items)))
+    return section(t("rplan_tags"), fragment(content))
+
+
 def task_details(value):
     h, fragment, _ = _kit()
     content = [selected(value, ("id", "bucket", "status", "expected_output_kind", "step", "loop_back")),
@@ -163,10 +184,15 @@ def task_details(value):
         section("produces", texts([f'{ref["kind"]}:{ref["id"]}' for ref in value["produces"]])),
         section("requires", selected(value["requires"], ("min_inputs", "gate_tag")),
                 *[section(key, texts(value["requires"][key])) for key in ("artifact_tags", "session_of_tags")]),
-        section(t("rplan_tags"), fragment([section(key, texts(items)) for key, items in value["presentation"].items()]))
-            if value["presentation"] else None]
+        presentation_content(value["presentation"]) if value["presentation"] else None]
     return disclosure(t("rplan_task_details"), fragment(content)), (
         frame_content(value["frame"]) if value["frame"] is not None else "")
+
+
+def iteration_content(value):
+    """The persisted iteration record, without reconstructing its task clones."""
+    return _kit()[1](selected(value, ("task_id", "loop_back", "round", "entry", "created_at")),
+                     prose(value["note"]), texts(value["tasks"]))
 
 
 def history_content(value):
@@ -179,8 +205,7 @@ def history_content(value):
             body.append(section(label, fragment([render(row) for row in value[key]])
                                 if value[key] else prose(t("rplan_no_entries"))))
     if "iterations" in value:
-        records = [fragment(selected(row, ("task_id", "loop_back", "round", "entry", "created_at")),
-                            prose(row["note"]), texts(row["tasks"])) for row in value["iterations"]]
+        records = [iteration_content(row) for row in value["iterations"]]
         body.append(section(t("rplan_iterations"), fragment(records) if records else prose(t("rplan_no_entries"))))
     if "integrity" in value:
         body.append(section("integrity", fields(value["integrity"].items()) if value["integrity"]
