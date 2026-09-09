@@ -24,6 +24,7 @@ from ..run_activity import is_inactive_for
 from ..storage import Store
 from ._i18n import t
 from ._html import h, raw, fragment
+from ..ui_components import project_health as health_ui
 
 _RUN_STATES_CACHE: contextvars.ContextVar[dict[str, list[dict[str, Any]]] | None] = \
     contextvars.ContextVar("sonaloop_run_states_cache", default=None)
@@ -164,9 +165,7 @@ def collect_run_attention_states(store: Store | None = None,
 
 
 def _action_call(action: dict[str, Any]) -> str:
-    args = ", ".join(f"{key}={value!r}" for key, value in (action.get("arguments") or {}).items()
-                     if value != "")
-    return f"{action.get('tool')}({args})" if action.get("tool") else ""
+    return health_ui.action_call(action)
 
 
 def collect_run_states(store: Store | None = None) -> dict[str, list[dict[str, Any]]]:
@@ -220,96 +219,23 @@ def collect_run_states(store: Store | None = None) -> dict[str, list[dict[str, A
 
 
 def run_diagnostics_html(run_state: dict[str, Any]) -> str:
-    """Progressive disclosure for support-grade run details.
-
-    The project canvas and normal run summary deliberately contain no invariant
-    prose, tool calls or trace identifiers. Those exact values remain available
-    here for operators and support after the reader opens the disclosure.
-    """
-    unmet = run_state.get("unmet_invariant") or {}
-    last = run_state.get("last_successful_operation") or {}
+    """Prepare existing product copy/link controls before the shared disclosure."""
     action = run_state.get("safe_next_action") or {}
     call = _action_call(action)
-    trace = run_state.get("trace") or {}
-    support_ref = str(trace.get("support_ref") or "")
-    limitation = str(trace.get("limitation") or "")
-    ready_source = run_state.get("next_ready")
-    if ready_source is None:
-        ready_source = (run_state.get("tasks") or {}).get("next_ready")
-    next_ready = [str(step) for step in (ready_source or []) if str(step)]
-    project_title = str(run_state.get("title") or "").strip()
-    issues = []
-    for row in run_state.get("integrity_findings") or []:
-        content = (
-            h("a", {"href": row["target"]}, row.get("message") or row.get("code") or "—")
-            if row.get("target") else row.get("message") or row.get("code") or "—"
-        )
-        issues.append(h("li", {"data-integrity-code": row.get("code", "")}, content))
-    if not any((unmet, last, action, support_ref, limitation, next_ready, issues)):
-        return ""
-    action_value = (
-        fragment(
-            h("code", {}, call), " ",
+    prepared = {"issues": {}}
+    if call:
+        prepared["action"] = fragment(h("code", {}, call), " ",
             h("button", {"type": "button", "class_": "run-copy", "data-copy": call,
-                         "data-copied": t("copied"), "aria-label": t("copy_btn")},
-              t("copy_btn")),
-        )
-        if call else action.get("reason") or "—"
-    )
-    trace_value = fragment(
-        h("code", {}, support_ref) if support_ref else None,
-        h("span", {"class_": "muted small"},
-          (" · " if support_ref and limitation else ""), t("health_external_limit"), ": ",
-          limitation) if limitation else None,
-    )
-    summary_attrs = ({"aria_label": t("health_diagnostics_for", title=project_title)}
-                     if project_title else {})
-    return h(
-        "details", {"class_": "sl-run-diagnostics", "data-run-diagnostics": True},
-        h("summary", summary_attrs, t("health_diagnostics")),
-        h("p", {"class_": "muted small sl-run-diagnostics-help"}, t("health_diagnostics_help")),
-        h("dl", {"class_": "sl-run-diagnostics-grid"},
-          h("dt", {}, t("health_unmet")),
-          h("dd", {}, unmet.get("message") or t("health_no_issues")),
-          h("dt", {}, t("health_last_success")),
-          h("dd", {}, h("code", {}, last.get("key") or last.get("kind") or "—"),
-            (f' · {last.get("summary")}' if last.get("summary") else "")),
-          h("dt", {}, t("health_safe_next")),
-          h("dd", {}, action_value),
-          h("dt", {}, t("health_trace")),
-          h("dd", {}, trace_value or "—"),
-          (fragment(
-            h("dt", {}, t("health_next_ready")),
-            h("dd", {}, h("ul", {"class_": "sl-run-diagnostics-tasks"},
-              fragment(*(h("li", {}, h("code", {}, step)) for step in next_ready)))))
-           if next_ready else None),
-          (fragment(
-            h("dt", {"class_": "sl-run-diagnostics-issues"}, t("health_findings")),
-            h("dd", {"class_": "sl-run-diagnostics-issues"},
-              h("ul", {}, fragment(*issues)))) if issues else None)))
+                         "data-copied": t("copied"), "aria-label": t("copy_btn")}, t("copy_btn")))
+    for index, row in enumerate(run_state.get("integrity_findings") or []):
+        if row.get("target"):
+            prepared["issues"][index] = h("a", {"href": row["target"]},
+                row.get("message") or row.get("code") or "—")
+    return health_ui.diagnostics_content(run_state, prepared=prepared)
 
 
 def run_attention_text(run_state: dict[str, Any]) -> str:
-    """One human recovery sentence for the visible run state."""
-    if run_state.get("state") == "waiting" \
-            or run_state.get("driver_state") == "waiting_on_preflight":
-        gate = str((run_state.get("preflight") or {}).get("gate") or "")
-        return (t("health_attention_preflight_product")
-                if gate == "product_understanding"
-                else t("health_attention_preflight_selection")
-                if gate == "cohort_selection"
-                else t("health_attention_preflight_cohort"))
-    if run_state.get("state") == "unverified":
-        return t("health_attention_unverified")
-    if run_state.get("state") == "expired":
-        return t("health_attention_expired")
-    if run_state.get("state") == "stalled":
-        if run_state.get("driver_state") == "not_started":
-            return t("health_attention_not_started")
-        if run_state.get("driver_state") == "stopped":
-            return t("health_attention_stopped")
-        return t("health_attention_stalled")
-    return ""
+    return health_ui.attention_text(run_state)
 
 
 def project_run_chip(project_id: str, store: Store,
