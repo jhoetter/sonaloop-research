@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from ...ui_components import projects as project_ui
+from ...ui_components import product_understanding as understanding_ui
 
 from fastapi import Request
 from fastapi.responses import RedirectResponse
@@ -98,18 +99,25 @@ def _product_understanding_html(project: dict, store=None,
     context_before, _, context_after = context_text.partition(time_marker)
     context = fragment(context_before, observed_at, context_after)
     from .._render import render_ref
-    def capability_row(row: dict, *, show_status: bool = True):
+    prepared_capabilities = {}
+    for index, row in enumerate(capabilities):
         status = str(row.get("status") or "unknown")
-        return h(
-            "li", {"class_": "sl-pu-claim"},
-            (raw(_label(status_labels.get(status, status), "var(--muted)"))
-             if show_status else None),
-            row.get("claim", ""),
-            (h("div", {"class_": "sl-claim-sources"},
-               fragment(*(raw(render_ref(ref, store))
-                          for ref in row.get("evidence_refs") or [])))
-             if row.get("evidence_refs") else None),
-        )
+        prepared_capabilities[index] = {
+            "status": raw(_label(status_labels.get(status, status), "var(--muted)")),
+            "references": fragment(*(raw(render_ref(ref, store))
+                                     for ref in row.get("evidence_refs") or [])),
+        }
+    try:
+        shared_value = understanding_ui.stored_view(current)["value"]
+        recorded_details = True
+    except ValueError:
+        # Native stored extension fields remain readable through the original
+        # Product base body; public presentation never changes its validator.
+        shared_value, recorded_details = current, False
+    content = understanding_ui.record_content(
+        shared_value, passive=False, recorded_details=recorded_details,
+        prepared={"context": context, "capabilities": prepared_capabilities},
+    )
 
     known_capabilities = [
         row for row in capabilities if str(row.get("status") or "unknown") != "unknown"
@@ -143,20 +151,7 @@ def _product_understanding_html(project: dict, store=None,
              if verified_absences else None),
             (raw(_label(t("pu_conflicts_n", n=conflicts), "var(--red)"))
              if conflicts else None))),
-        h("div", {"class_": "sl-integrity-body"},
-          h("p", {"class_": "sl-integrity-context"}, context),
-          (h("details", {"class_": "sl-integrity-nested"},
-             h("summary", {}, t("pu_evidenced_n", n=len(known_capabilities))),
-             h("ul", {"class_": "sl-integrity-list"},
-               fragment(*(capability_row(row) for row in known_capabilities))))
-           if known_capabilities else None),
-          (h("details", {"class_": "sl-integrity-nested"},
-             h("summary", {}, t("pu_open_areas_n", n=len(unknown_capabilities))),
-             h("ul", {"class_": "sl-integrity-list"},
-               fragment(*(capability_row(row, show_status=False)
-                          for row in unknown_capabilities))))
-           if unknown_capabilities else None),
-        ),
+        content,
     )
 
 
