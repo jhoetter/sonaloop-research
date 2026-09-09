@@ -42,10 +42,10 @@ def assessment_content(value):
     gates = [rows.section(gate["title"], rows.texts(gate["unmet"]),
         disclosure(t("rpx_record_details"), fields((("task", gate["task"]),)))) for gate in value["open_gates"]]
     return h("div", {"class_": "sl-research-plan-assessment"}, rows.prose(value["goal"]),
-        fields(((t("rpa_recommendation"), value["recommendation"]),)), rows.prose(t("rpa_notice")),
-        disclosure(t("rpa_completion"), rows.selected(value, ("complete", "tasks_complete"))),
+        fields(((t("rpa_recommendation"), rows.recommendation_label(value["recommendation"])),)),
+        disclosure(t("rpa_completion"), rows.prose(t("rpa_notice")), rows.selected(value, ("complete", "tasks_complete"))),
         rows.section(t("rpa_gaps"), rows.texts(value["gaps"])),
-        rows.section(t("rpa_ready"), rows.texts(value["ready"])),
+        disclosure(t("rpa_ready"), rows.texts(value["ready"])),
         disclosure(t("rpa_open_gates"), fragment(gates) if gates else rows.prose(t("rpa_no_entries"))),
         disclosure(t("rpa_open_questions"), rows.texts(value["open_questions"])), rows.assessment_details(value))
 
@@ -54,9 +54,9 @@ def document_content(markdown):
     """The exact supplied export through the existing escaped Product Markdown body."""
     rows.check({"markdown": markdown}, rows.DOCUMENT)
     h, _, _ = _kit()
-    return h("div", {"class_": "sl-research-plan-document"}, rows.prose(t("rpa_document_notice")),
+    return h("div", {"class_": "sl-research-plan-document"},
         note_content({"text": markdown}) if markdown else rows.prose(t("rpa_no_entries")),
-        disclosure(t("rpa_source"), h("pre", {}, markdown)))
+        disclosure(t("rpa_source"), rows.prose(t("rpa_document_notice")), h("pre", {}, markdown)))
 
 
 def render_view(value):

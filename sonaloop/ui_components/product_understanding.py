@@ -123,9 +123,7 @@ def record_content(value, *, prepared=None, passive=True, recorded_details=True)
             h("summary", {}, title), claims))
     return h("div", {"class_": "sl-integrity-body"},
         h("p", {"class_": "sl-integrity-context"}, context),
-        rows.prose(t("rpu_target_notice")) if passive else None,
-        fields(((t("rpu_replay"), value["idempotent_replay"]),)) if "idempotent_replay" in value else None,
-        fragment(content), rows.recorded_details(value) if recorded_details else rows.prose(t("rpu_details_unavailable")))
+        fragment(content), rows.recorded_details(value, passive=passive) if recorded_details else rows.prose(t("rpu_details_unavailable")))
 
 
 def render_view(value):

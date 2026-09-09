@@ -22,13 +22,17 @@ test('Computed Plan assessment and supplied Markdown preserve every value with l
       if (item.tool === 'assess_project') {
         if (value.goal) assert.ok(await session.root.getByText(value.goal, { exact: true }).isVisible());
         else assert.equal(await session.root.locator(".sl-research-plan-assessment > p").first().textContent(), "");
-        assert.ok(await session.root.getByText(value.recommendation, { exact: true }).first().isVisible());
+        const labels = { frame: 'Frame the questions', act: 'Continue research', converge: 'Consolidate findings', finish: 'Prepare the handoff', complete: 'Plan complete', blocked: 'Blocked' };
+        assert.ok(await session.root.getByText(labels[value.recommendation], { exact: true }).isVisible());
+        assert.equal(await session.root.getByText(value.recommendation, { exact: true }).first().isVisible(), false);
+        assert.equal(await session.root.getByText('Computed plan assessment. Run status is tracked separately.', { exact: true }).isVisible(), false);
         assert.ok(text.includes(String(value.complete)) && text.includes(String(value.tasks_complete)));
         assert.ok(!text.includes('engine_finished'));
         for (const gap of value.gaps) assert.ok(text.includes(gap));
         if (item.scenario === 'assessment-stale-handoff') assert.ok(text.includes('latest_stale') && text.includes('synthetic-report'));
       } else {
         assert.equal(await session.root.locator('pre').textContent(), value.markdown, 'Exact original Markdown is inspectable');
+        assert.equal(await session.root.getByText('Exported plan with decisions and sources.', { exact: true }).isVisible(), false);
         assert.ok(await session.root.locator('.md').count() || await session.root.getByText('Research plan', { exact: false }).count());
         if (item.scenario === 'assessment-document-decisions') assert.ok(text.includes('superseded by:') && text.includes('The state remained unclear.'));
       }

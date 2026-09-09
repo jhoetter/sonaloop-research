@@ -93,7 +93,7 @@ def test_methodology_renders_returned_project_without_claiming_plan_tasks(exampl
     actual_plan = native.get_plan(second["value"]["id"], store=store)
     markup, _ = projects.methodology(first["value"])
     assert "reaction_test" in markup and "dschool_micro" not in markup
-    assert "does not include tasks" in markup and "bound to the project" in markup
+    assert "Tasks are available in the research plan" in markup and "Methodology saved" in markup
     assert all(task["id"] not in markup for task in actual_plan["tasks"])
     assert projects.project_body(first["value"], level="h3", description=True, passive=True) in markup
     integrity = first["value"]["integrity"]
@@ -118,7 +118,7 @@ def test_iteration_record_and_real_clones_are_separate_from_stored_history(examp
         markup, _ = ui.iteration(value)
         shared = rows.iteration_content(plan["iterations"][index])
         assert shared in markup and shared in rows.history_content(ui.plan_view(plan)["value"])
-        assert "another round" in markup and "repeat the call" in markup
+        assert "Tasks from this round. Calling iteration again can create another round." in markup
         assert "__r" + str(value["round"]) in markup
         assert ui.render_view(public)[0] == markup
     # Later task state does not rewrite a retained invocation's returned clones.

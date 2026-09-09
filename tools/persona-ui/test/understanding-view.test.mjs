@@ -21,18 +21,23 @@ test('Product Understanding and methodology show native meaning with local detai
       assert.ok(await session.frame.locator('html').evaluate(node => node.scrollWidth <= innerWidth));
       const data = item.result.structuredContent.data;
       if (item.tool === 'set_project_methodology') {
-        assert.ok(complete.includes(data.methodology) && complete.includes('does not include tasks'));
+        assert.ok(complete.includes(data.methodology) && complete.includes('Tasks are available in the research plan'));
         assert.ok(await session.root.getByText(data.methodology, { exact: true }).first().isVisible());
+        assert.equal(await session.root.getByText('Project after the methodology change. Tasks are available in the research plan.', { exact: true }).isVisible(), false);
       } else {
         assert.ok(!complete.includes('operation_id') && !complete.includes('operation_fingerprint'));
         assert.ok(!complete.includes('dispatch_token'));
         for (const claim of data.capabilities) assert.ok(complete.includes(claim.claim));
         if (item.scenario.includes('bounded')) {
           assert.ok(complete.includes('served_to_host') && complete.includes(data.stimulus_manifest.manifest_digest));
-          assert.ok(complete.includes('does not fetch URLs'));
+          assert.ok(complete.includes('Addresses are shown as references'));
+          assert.equal(await session.root.getByText('Product details from this record. Addresses are shown as references.', { exact: true }).isVisible(), false);
           assert.ok(!(await session.root.locator('details').filter({ hasText: data.stimulus_manifest.manifest_digest }).first().getAttribute('open')));
         }
-        if ('idempotent_replay' in data) assert.ok(complete.includes(String(data.idempotent_replay)));
+        if ('idempotent_replay' in data) {
+          assert.ok(complete.includes(String(data.idempotent_replay)));
+          assert.equal(await session.root.getByText('Existing record reused', { exact: true }).isVisible(), false);
+        }
         if ('history' in data) for (const row of data.history) assert.ok(complete.includes(row.id));
       }
       const first = session.root.locator('details').first();

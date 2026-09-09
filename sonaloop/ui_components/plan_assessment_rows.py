@@ -130,6 +130,11 @@ def contract_content(value):
             if value[key] else prose(t("rpa_no_entries"))) for key in ("expected", "recorded", "missing")])
 
 
+def recommendation_label(value):
+    known = {"frame", "act", "converge", "finish", "complete", "blocked"}
+    return t("rpa_recommendation_" + value) if value in known else value
+
+
 def assessment_details(value):
     from .project_health import _handoff
     h, fragment, _ = _kit()
@@ -150,4 +155,4 @@ def assessment_details(value):
         disclosure(t("rpa_run_state"), prose(value["run_state"]["note"]),
             selected(value["run_state"], ("active_run", "tasks_done", "tasks_total"))) if "run_state" in value else None,
         disclosure(t("rpa_next"), prose(value["next"])),
-        disclosure(t("rpx_record_details"), selected(value, ("project_id", "url"))))
+        disclosure(t("rpx_record_details"), selected(value, ("project_id", "url", "recommendation"))))

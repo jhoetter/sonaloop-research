@@ -131,12 +131,14 @@ def inventory_content(value):
         if value[key] else prose(t("rpu_no_entries"))) for key in ("routes", "flows", "states")])
 
 
-def recorded_details(value):
+def recorded_details(value, *, passive=False):
     h, fragment, _ = _kit()
-    content = [disclosure(t("rpu_target_details"), attributes(value["target"]["attributes"])),
+    content = [disclosure(t("rpu_target_details"), prose(t("rpu_target_notice")) if passive else None,
+        attributes(value["target"]["attributes"])),
         inventory_content(value), disclosure(t("rpu_references"), references(value["evidence_refs"])),
         disclosure(t("rpx_record_details"), selected(value, ("schema", "id", "version", "project_id", "revision",
-            "observed_at", "created_at", "supersedes", "project_url")))]
+            "observed_at", "created_at", "supersedes", "project_url")),
+            fields(((t("rpu_replay"), value["idempotent_replay"]),)) if "idempotent_replay" in value else None)]
     if "stimulus_manifest" in value:
         content.append(disclosure(t("rpu_stimulus"), fields(value["stimulus_manifest"].items())))
     if "coverage_checklist" in value:

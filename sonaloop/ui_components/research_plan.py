@@ -116,8 +116,7 @@ def iteration_content(value):
     if ids != value["tasks"] or len(ids) != len(set(ids)) or value["entry"] not in ids:
         raise ValueError("Iteration record and supplied clones disagree")
     return fragment(rows.prose(value["note"]), fields(((t("rplan_round"), value["round"]),)),
-        rows.prose(t("rplan_iteration_notice")),
-        disclosure(t("rpx_record_details"), rows.iteration_content(value)),
+        disclosure(t("rpx_record_details"), rows.prose(t("rplan_iteration_notice")), rows.iteration_content(value)),
         h("section", {}, h("h3", {}, t("rplan_cloned_tasks")),
             fragment([task_content(task) for task in value["cloned"]])))
 

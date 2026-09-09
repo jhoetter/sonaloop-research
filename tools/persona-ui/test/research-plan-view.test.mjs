@@ -27,6 +27,7 @@ test('Research Plan cards retain task and judgment semantics with only local dis
       if (item.tool === 'iterate_task') {
         const native = item.result.structuredContent.data;
         assert.ok(complete.includes(String(native.round)) && complete.includes('another round'));
+        assert.equal(await session.root.getByText('Tasks from this round. Calling iteration again can create another round.', { exact: true }).isVisible(), false);
         for (const task of native.cloned) assert.ok(complete.includes(task.title) && complete.includes(task.id));
         assert.ok(!complete.includes('deduplicated'));
       }

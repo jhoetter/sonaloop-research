@@ -52,7 +52,7 @@ def methodology(value):
     return _card(t("rpj_methodology_bound"),
         rows.fields(((t("methodology_h"), value["methodology"]),)),
         project_body(value, level="h3", description=True, passive=True),
-        h("p", {"class_": "sl-research-meta"}, t("rpj_methodology_notice")),
+        rows.disclosure(t("rpx_record_details"), h("p", {"class_": "sl-research-meta"}, t("rpj_methodology_notice"))),
         rows.disclosure(t("rpj_integrity"), rows.fields(integrity.items())) if integrity is not None else None), "ready"
 
 
