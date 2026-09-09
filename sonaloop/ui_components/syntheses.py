@@ -179,8 +179,10 @@ def synthesis_body(syn: dict, prepared: SynthesisParts, *, embed: bool = False, 
     if prepared.prompts:
         sec.append(("prompts", t("question"), raw(prepared.prompts)))
     if prepared.sentiment:
+        # The prepared analytics section owns its heading; keep the original
+        # product wrapper so embedding it does not repeat that title.
         sec.append(("sentiment-detail", t("sentiment_over_chain"),
-                    _block("sentiment-detail", t("sentiment_over_chain"), raw(prepared.sentiment))))
+                    h("div", {"class_": "block", "id": "sentiment-detail"}, raw(prepared.sentiment))))
     # supporting analysis (omit when empty — an empty section reads as a broken box)
     if (s := _fsec("segment", t("segments"))):
         sec.append(s)

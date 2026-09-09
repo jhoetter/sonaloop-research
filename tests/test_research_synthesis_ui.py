@@ -186,6 +186,34 @@ def test_actual_product_route_uses_shared_body_and_preserves_controls(scope, sto
         assert 'class="sl-clamp"' in page.text and '<details class="block" id="bogen">' in page.text
 
 
+def test_product_sentiment_breakdown_keeps_its_single_owned_heading(store, monkeypatch):
+    from starlette.testclient import TestClient
+    from sonaloop.models import CouncilSession
+    from sonaloop.web._html import h
+    from sonaloop.web._i18n import t
+    value = record()
+    council = CouncilSession(id="source_one", prompt="Keep the owner visible?", persona_ids=["persona_fixture"],
+        selection_reason="Synthetic source", proposal="Keep the owner visible", summary="One supplied vote",
+        created_at=value["created_at"], votes=[{"persona_id": "persona_fixture",
+            "stance": {"value": 1, "label": "conditional"}, "reason": "Only during the pilot"}]).to_dict()
+    store.insert_council_session(council)
+    store.upsert_synthesis(value)
+    prepared_sections = []
+    original = _synthesis._sentiment_section
+    def capture(*args, **kwargs):
+        section = original(*args, **kwargs)
+        prepared_sections.append(section)
+        return section
+    monkeypatch.setattr(_synthesis, "_sentiment_section", capture)
+    page = TestClient(web.create_app()).get(f'/syntheses/{value["id"]}')
+    assert page.status_code == 200 and len(prepared_sections) == 1 and prepared_sections[0]
+    assert '<div class="block" id="sentiment-detail">' + prepared_sections[0] in page.text
+    title = t("sentiment_over_chain")
+    assert page.text.count(h("h2", {}, title)) == 1
+    assert h("h2", {"class_": "bh"}, title) not in page.text
+    assert 'class="prow"' in prepared_sections[0], "Exercise the real per-persona breakdown"
+
+
 def test_empty_list_and_missing_voices_do_not_invent_research():
     html, state = syntheses.syntheses([])
     assert state == "empty" and "sl-research-empty" in html
