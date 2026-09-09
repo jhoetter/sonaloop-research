@@ -18,3 +18,5 @@
 .sl-research-card .sl-research-calendar-week,.sl-research-card .sl-research-calendar-month{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}.sl-research-card .sl-research-calendar-day{padding:12px;border:1px solid var(--line,#d5ddd8);border-radius:8px}.sl-research-card .sl-research-calendar-event{margin-top:10px;white-space:normal}.sl-research-card .sl-research-meta{font-size:12px;color:var(--muted,#596a60);overflow-wrap:anywhere}.sl-research-card .sl-research-activity{margin-top:16px}.sl-research-card .sl-research-plan>div{margin-top:14px}
 
 .sl-research-card .sl-research-calendar-pills{display:flex;flex-wrap:wrap;gap:.35rem}
+
+@media(max-width:520px){.sl-research-card .sl-research-fields{grid-template-columns:minmax(0,1fr);gap:2px}.sl-research-card .sl-research-fields dt:not(:first-child){margin-top:8px}}

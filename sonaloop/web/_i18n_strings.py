@@ -8,6 +8,7 @@ from __future__ import annotations
 
 STRINGS: dict[str, dict[str, str]] = {
     "de": {
+        "rc_collaboration_mode": "Zusammenarbeit",
         "tab_day": "Tag",
         "rc_plans": "Gespeicherte Pläne",
         "rc_plans_empty": "Für diesen Zeitraum ist kein Plan gespeichert.",
@@ -629,6 +630,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "cal_mon_long": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember",
     },
     "en": {
+        "rc_collaboration_mode": "Collaboration mode",
         "tab_day": "Day",
         "rc_plans": "Recorded plans",
         "rc_plans_empty": "No plan is recorded for this period.",

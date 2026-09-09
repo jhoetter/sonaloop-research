@@ -384,6 +384,9 @@ for (const scenario of ['plans-put-day-plan', 'plans-get-day-plan', 'plans-put-p
           for (const value of ['I will carry the pending issue.', 'Keep the issue visible.', 'note:note_fixture#line:2', 'A supplied source description.', 'disputed', 'simulated_episode', 'Recorded confidence']) assert.ok(text.includes(value), value);
           assert.equal(await session.root.locator('dt').filter({ hasText: /^Recorded confidence$/ }).locator('xpath=following-sibling::dd[1]').innerText(), '0');
           if (fixture.tool === 'get_calendar') assert.ok(text.includes('Planned review') && text.includes('Calendar block without a recorded activity'));
+          for (const label of await session.root.locator('dt').filter({ hasText: /^(Participants|energy_delta)$/ }).all())
+            assert.equal(await label.evaluate(node => { const range = document.createRange(); range.selectNodeContents(node); return range.getClientRects().length; }), 1,
+              'Nested mobile definition labels remain whole readable words');
         }
         assert.equal(await session.root.locator('a,img,iframe,button').count(), 0);
       } else if (scenario.startsWith('prototypes-') && scenario !== 'prototypes-empty') {

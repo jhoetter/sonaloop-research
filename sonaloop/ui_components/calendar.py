@@ -381,7 +381,7 @@ def calendar(value):
             h("p", {"class_": "sl-research-meta"}, event["id"], " · ", event["persona_id"], " · ", event["created_at"]),
             _fields([(t("tool"), event["location_or_tool"]), (t("rc_intent"), event["intent"]),
                      (t("rc_outcome"), event["outcome"]), (t("participants"), " · ".join(participants)),
-                     (t("thought"), block.get("persona_thought")), (t("current_state"), block.get("collaboration_mode"))]),
+                     (t("thought"), block.get("persona_thought")), (t("rc_collaboration_mode"), block.get("collaboration_mode"))]),
             _section(t("open_loops"), loops), h("p", {}, t("rc_recorded_activity") if episode is not None else t("rc_planned_only")),
             activity({"persona": value["persona"], "activity": episode})[0] if episode is not None else None))
     return h("article", {"class_": "sl-research-card"}, h("h2", {}, t("calendar")),

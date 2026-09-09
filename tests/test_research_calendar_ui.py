@@ -159,6 +159,7 @@ def test_current_state_and_planned_calendar_block_make_no_completion_claim(recor
     assert "Calendar block without a recorded activity" in html
     assert html.count('class="sl-research-activity"') == 1
     assert "Planned review" in html and "Confirm ownership" in html and "Owner confirmed" in html
+    assert "Collaboration mode" in html and ">pair<" in html
 
 
 @pytest.mark.parametrize("view", ["day", "week", "month", "year"])
