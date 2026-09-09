@@ -137,6 +137,7 @@ def audit(event, args):
         raise RuntimeError("Fixture renderer attempted runtime access: " + event)
 sys.addaudithook(audit)
 from sonaloop.ui_components.registry import render_tool, SURFACES
+from sonaloop.ui_components.component_props import render_component_props
 from sonaloop.ui_components.library import note_content
 from sonaloop.ui_components.discovery import project_heading, search_hit_content
 from sonaloop.web._render import render_ref
@@ -286,6 +287,8 @@ for scenario, family, tool, arguments, data in specs:
     assert set(arguments) <= names and required <= set(arguments), (scenario, "Invalid native fixture arguments")
     envelope = data if tool in {"search", "fetch"} else {"tool": tool, "data": data}
     html, state = render_tool(tool, envelope)
+    public_html, public_state = render_component_props(SURFACES[tool].component_id, {"name": tool, "value": data})
+    assert str(public_html) == str(html) and public_state == state, "Public props and native projection diverged"
     output.append(dict(scenario=scenario, family=family, tool=tool, input=arguments, native=envelope,
                        html=str(html), state=state, note_content=str(note_content(note)),
                        project_heading=str(project_heading(project, level="h2")),

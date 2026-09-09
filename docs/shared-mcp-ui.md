@@ -187,3 +187,38 @@ Run `tests/test_research_ui.py` for native/schema/product compatibility and
 `tests/test_mcp_ui_coverage.py` for inventory consistency. Browser fixture receipts
 identify their synthetic data explicitly and cannot establish customer runtime
 execution or human acceptance.
+
+## Public Component examples
+
+`sonaloop/ui_components/declarations/*.json` contains customer-owned
+`sonaloop.customer-component.v1` declarations for the passive families. Their
+public entry point is `component_props.render_component_props(component_id,
+props)`. `props.name` selects an existing pure family projection;
+`props.value` supplies its authored view-model DTO. The helper calls the same
+`Surface.render` used after native MCP envelope validation. It never calls the
+named MCP tool, opens a Store or adds action permission.
+
+The checked examples are synthetic public content. They contain no private
+presentation HTML, native envelope, credentials, dispatch metadata or runtime
+record copy. Their bounded JSON Schemas describe supported authored example
+shapes, rather than replacing the native business input/output schemas. Deep
+compound fields retain type-only checks within the public schema depth budget;
+the existing projection checks its required fields when rendering. Editing
+a public string prop changes the shared renderer's content; invalid props do not
+become a native operation. Each scenario ID and state matches the customer raster
+exporter's actual fixture. These associations are declared by the customer;
+external registries must keep them separate from independently attested pixels.
+
+The declared axis values are `default`, `responsive` and `light`. Responsive
+means the same CSS adapts to the host width; no unimplemented size prop is implied.
+Ready and empty examples are supplied. Loading/error are applicable App transport
+states with missing public-DTO scenario coverage; they are not invented renderer
+props. Focus and disabled states do not apply to passive cards without controls.
+Keyboard and screen-reader review remain explicitly `not_reviewed`.
+
+Regenerate with `node tools/persona-ui/build-component-declarations.mjs`, then
+`node tools/persona-ui/build-research.mjs`; the build binds declarations, generator,
+public entry point and synthetic fixture source. The exporter checks every public
+example against its corresponding pure native-result projection. Third-party
+registration supplies its own workspace/source/revision/render identifiers;
+those identities never enter these customer declarations.

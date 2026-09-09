@@ -49,6 +49,22 @@ test('all built resources bind the passive manifest, source and declared tools',
   assert.equal(new Set(declarations.map(item => item.tool)).size, declarations.length);
 });
 
+test('customer declarations name exact authored props, fixture scenarios and resource states', async () => {
+  for (const family of new Set(fixtures.map(item => item.family))) {
+    const declaration = JSON.parse(await readFile(resolve(repo, `sonaloop/ui_components/declarations/${family}.json`)));
+    const { manifest } = await loadAsset(family);
+    for (const scenario of declaration.scenarios) {
+      const fixture = fixtures.find(item => item.family === family && item.scenario === scenario.id);
+      assert.ok(fixture, `${family}/${scenario.id}`);
+      assert.equal(scenario.state, fixture.state);
+      assert.ok(manifest.states.includes(scenario.state));
+      assert.deepEqual(scenario.props, { name: fixture.tool,
+        value: ['search', 'fetch'].includes(fixture.tool) ? fixture.native : fixture.native.data });
+      assert.equal(JSON.stringify(scenario.props).includes('"_meta"'), false);
+    }
+  }
+});
+
 test('pure sanitizer preserves semantics while stripping active nodes, attributes and navigation', async () => {
   const page = await browser.newPage();
   const requests = [], errors = [];
@@ -281,6 +297,11 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
           for (const value of ['Only observed during the pilot.', 'council:fixture', 'The owner is clear.', 'asset:asset_fixture',
             'A recorded reference; no image pixels supplied.', 'Synthetic component example.']) assert.ok(text.includes(value), value);
           assert.equal(await session.root.locator('.sl-research-figure').count(), 1);
+          assert.equal(await session.root.locator('.sl-research-report-citations ol').evaluate(node => getComputedStyle(node).listStyleType), 'none',
+            'Authored citation numbers do not acquire duplicate browser numbering');
+          const citation = session.root.locator('.sl-research-report-citations li > span');
+          const number = await citation.nth(0).boundingBox(), source = await citation.nth(1).boundingBox();
+          assert.ok(source.x >= number.x + number.width + 7, 'Citation number and source stay visibly separate');
           assert.equal(await session.root.locator('section.sl-research-report-section figure figcaption').count(), 1,
             'The passive bridge preserves report and figure document semantics');
         } else {
