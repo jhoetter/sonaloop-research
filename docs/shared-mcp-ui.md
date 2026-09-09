@@ -174,8 +174,9 @@ tasks nor a Run completion verdict; rendering does not reseed or read a Plan.
 **Computed Plan assessment and supplied document** share the explicit Product
 Plan inspector. After Project access and Plan checks, that page reads each
 native assessment/export once and leaves stored data unchanged. The closed
-`sonaloop.plan-assessment-view.v1` keeps recommendation, gaps and ready guidance
-visible; completion, coverage, open gates, report handoff and other diagnostics
+`sonaloop.plan-assessment-view.v1` keeps recommendation and gaps
+visible in reader-facing language; the exact native recommendation and ready-task IDs,
+completion, coverage, open gates, report handoff and other diagnostics
 remain in local details. `complete`, `tasks_complete` and `finish.finished` are
 separate native facts, not a reconstructed Health or Run verdict. Dynamic
 count maps become named rows without recomputing counts. The Markdown view uses
@@ -189,6 +190,16 @@ Its result is only `{injected:true}`: identical retries can create additional
 Tasks or deduplicate Questions depending on the native branch. The boolean
 therefore proves no effect ID, count or idempotency. A separate visual effect
 would require an additional requested Plan/Question read, not an inferred card.
+
+**Research questions** share the existing question inspector and Project graph
+body. The writer keeps every returned row, including repeated rows with the
+same ID; the native store may contain only one record for that identity. The
+frontier retains its supplied count and notes, which distinguish an empty result
+from confirmed resolution. Known statuses use the Product's readable labels;
+the exact status, IDs, timestamps and null/empty study references remain in local
+details. The Product prepares its existing long-text control outside the pure
+body. Unsupported historical rows retain their original text. Neither surface
+looks up a question or turns an HMW reframe into a status-bearing record.
 
 **HMW questions and attributed ideas** reuse the existing Note and Council
 inspectors. Note content adds supplied Persona/HMW/cluster attribution in local
@@ -213,6 +224,8 @@ rationale, zero attempts and false flags remain visible or in local details.
 The native outputs, validation and persistence are unchanged. Only known
 operation/correlation aliases are omitted from public presentation; this is
 not a generic recursive key filter or a claim that those aliases are bearers.
+Routine record/replay metadata and address descriptions stay inside closed
+details, while the observed capability and revision remain the main content.
 
 The manifest recorder retains the exact stimulus binding, coverage checklist
 and bounded observation scope. `served_to_host` does not mean an image was

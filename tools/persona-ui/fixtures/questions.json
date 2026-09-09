@@ -1,0 +1,562 @@
+[
+  {
+    "scenario": "questions-frontier-unrecorded",
+    "tool": "get_research_frontier",
+    "input": {
+      "project_id": "rproject_a8288221eea56b87"
+    },
+    "value": {
+      "project_id": "rproject_a8288221eea56b87",
+      "open_questions": [],
+      "open_question_count": 0,
+      "notes": [
+        "no open questions tracked — the frontier looks closed (or unrecorded)."
+      ]
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "project_id": "rproject_a8288221eea56b87",
+        "open_questions": [],
+        "open_question_count": 0,
+        "notes": [
+          "no open questions tracked — the frontier looks closed (or unrecorded)."
+        ]
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "get_research_frontier",
+        "latency_ms": 1.4,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_b3bb90cd4613ba9139e3de1d"
+      }
+    },
+    "public_value": {
+      "project_id": "rproject_a8288221eea56b87",
+      "open_questions": [],
+      "open_question_count": 0,
+      "notes": [
+        "no open questions tracked — the frontier looks closed (or unrecorded)."
+      ]
+    },
+    "state": "empty"
+  },
+  {
+    "scenario": "questions-duplicates-and-blank",
+    "tool": "record_open_questions",
+    "input": {
+      "project_id": "rproject_a8288221eea56b87",
+      "questions": [
+        "Who owns the handover?",
+        "\t ",
+        "Who owns the handover?",
+        "What context is missing?"
+      ]
+    },
+    "value": {
+      "open_questions": [
+        {
+          "id": "oq_4cb08063db3e3d26",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        },
+        {
+          "id": "oq_4cb08063db3e3d26",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        },
+        {
+          "id": "oq_dcc6f5ee3e733d1a",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "What context is missing?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        }
+      ]
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "open_questions": [
+          {
+            "id": "oq_4cb08063db3e3d26",
+            "project_id": "rproject_a8288221eea56b87",
+            "study_id": null,
+            "text": "Who owns the handover?",
+            "status": "open",
+            "created_at": "2026-09-09T09:09:05.495023+00:00"
+          },
+          {
+            "id": "oq_4cb08063db3e3d26",
+            "project_id": "rproject_a8288221eea56b87",
+            "study_id": null,
+            "text": "Who owns the handover?",
+            "status": "open",
+            "created_at": "2026-09-09T09:09:05.495023+00:00"
+          },
+          {
+            "id": "oq_dcc6f5ee3e733d1a",
+            "project_id": "rproject_a8288221eea56b87",
+            "study_id": null,
+            "text": "What context is missing?",
+            "status": "open",
+            "created_at": "2026-09-09T09:09:05.495023+00:00"
+          }
+        ]
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "record_open_questions",
+        "latency_ms": 1.1,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_b3bb90cd4613ba9139e3de1d"
+      }
+    },
+    "public_value": {
+      "open_questions": [
+        {
+          "id": "oq_4cb08063db3e3d26",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        },
+        {
+          "id": "oq_4cb08063db3e3d26",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        },
+        {
+          "id": "oq_dcc6f5ee3e733d1a",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "What context is missing?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "questions-frontier-open",
+    "tool": "get_research_frontier",
+    "input": {
+      "project_id": "rproject_a8288221eea56b87"
+    },
+    "value": {
+      "project_id": "rproject_a8288221eea56b87",
+      "open_questions": [
+        {
+          "id": "oq_4cb08063db3e3d26",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        },
+        {
+          "id": "oq_dcc6f5ee3e733d1a",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "What context is missing?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        }
+      ],
+      "open_question_count": 2,
+      "notes": []
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "project_id": "rproject_a8288221eea56b87",
+        "open_questions": [
+          {
+            "id": "oq_4cb08063db3e3d26",
+            "project_id": "rproject_a8288221eea56b87",
+            "study_id": null,
+            "text": "Who owns the handover?",
+            "status": "open",
+            "created_at": "2026-09-09T09:09:05.495023+00:00"
+          },
+          {
+            "id": "oq_dcc6f5ee3e733d1a",
+            "project_id": "rproject_a8288221eea56b87",
+            "study_id": null,
+            "text": "What context is missing?",
+            "status": "open",
+            "created_at": "2026-09-09T09:09:05.495023+00:00"
+          }
+        ],
+        "open_question_count": 2,
+        "notes": []
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "get_research_frontier",
+        "latency_ms": 0.9,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_b3bb90cd4613ba9139e3de1d"
+      }
+    },
+    "public_value": {
+      "project_id": "rproject_a8288221eea56b87",
+      "open_questions": [
+        {
+          "id": "oq_4cb08063db3e3d26",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        },
+        {
+          "id": "oq_dcc6f5ee3e733d1a",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "What context is missing?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        }
+      ],
+      "open_question_count": 2,
+      "notes": []
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "questions-retry-study",
+    "tool": "record_open_questions",
+    "input": {
+      "project_id": "rproject_a8288221eea56b87",
+      "questions": [
+        "Who owns the handover?"
+      ],
+      "study_id": "council:literal-source"
+    },
+    "value": {
+      "open_questions": [
+        {
+          "id": "oq_4cb08063db3e3d26",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": "council:literal-source",
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.497029+00:00"
+        }
+      ]
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "open_questions": [
+          {
+            "id": "oq_4cb08063db3e3d26",
+            "project_id": "rproject_a8288221eea56b87",
+            "study_id": "council:literal-source",
+            "text": "Who owns the handover?",
+            "status": "open",
+            "created_at": "2026-09-09T09:09:05.497029+00:00"
+          }
+        ]
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "record_open_questions",
+        "latency_ms": 0.9,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_b3bb90cd4613ba9139e3de1d"
+      }
+    },
+    "public_value": {
+      "open_questions": [
+        {
+          "id": "oq_4cb08063db3e3d26",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": "council:literal-source",
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.497029+00:00"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "questions-empty",
+    "tool": "record_open_questions",
+    "input": {
+      "project_id": "rproject_a8288221eea56b87",
+      "questions": [
+        "",
+        " \n "
+      ]
+    },
+    "value": {
+      "open_questions": []
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "open_questions": []
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "record_open_questions",
+        "latency_ms": 0.8,
+        "server_version": "0.2.0",
+        "schema_version": 5
+      }
+    },
+    "public_value": {
+      "open_questions": []
+    },
+    "state": "empty"
+  },
+  {
+    "scenario": "questions-frontier-answer-excluded",
+    "tool": "get_research_frontier",
+    "input": {
+      "project_id": "rproject_a8288221eea56b87"
+    },
+    "value": {
+      "project_id": "rproject_a8288221eea56b87",
+      "open_questions": [
+        {
+          "id": "oq_dcc6f5ee3e733d1a",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "What context is missing?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        }
+      ],
+      "open_question_count": 1,
+      "notes": []
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "project_id": "rproject_a8288221eea56b87",
+        "open_questions": [
+          {
+            "id": "oq_dcc6f5ee3e733d1a",
+            "project_id": "rproject_a8288221eea56b87",
+            "study_id": null,
+            "text": "What context is missing?",
+            "status": "open",
+            "created_at": "2026-09-09T09:09:05.495023+00:00"
+          }
+        ],
+        "open_question_count": 1,
+        "notes": []
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "get_research_frontier",
+        "latency_ms": 0.8,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_b3bb90cd4613ba9139e3de1d"
+      }
+    },
+    "public_value": {
+      "project_id": "rproject_a8288221eea56b87",
+      "open_questions": [
+        {
+          "id": "oq_dcc6f5ee3e733d1a",
+          "project_id": "rproject_a8288221eea56b87",
+          "study_id": null,
+          "text": "What context is missing?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.495023+00:00"
+        }
+      ],
+      "open_question_count": 1,
+      "notes": []
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "questions-other-project",
+    "tool": "record_open_questions",
+    "input": {
+      "project_id": "rproject_1985e71feb944942",
+      "questions": [
+        "Who owns the handover?"
+      ],
+      "study_id": ""
+    },
+    "value": {
+      "open_questions": [
+        {
+          "id": "oq_a9add1800fa31cb3",
+          "project_id": "rproject_1985e71feb944942",
+          "study_id": "",
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.500250+00:00"
+        }
+      ]
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "open_questions": [
+          {
+            "id": "oq_a9add1800fa31cb3",
+            "project_id": "rproject_1985e71feb944942",
+            "study_id": "",
+            "text": "Who owns the handover?",
+            "status": "open",
+            "created_at": "2026-09-09T09:09:05.500250+00:00"
+          }
+        ]
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "record_open_questions",
+        "latency_ms": 0.9,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_71764a4cf6eadf9cf883f51f"
+      }
+    },
+    "public_value": {
+      "open_questions": [
+        {
+          "id": "oq_a9add1800fa31cb3",
+          "project_id": "rproject_1985e71feb944942",
+          "study_id": "",
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.500250+00:00"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "questions-frontier-other-project",
+    "tool": "get_research_frontier",
+    "input": {
+      "project_id": "rproject_1985e71feb944942"
+    },
+    "value": {
+      "project_id": "rproject_1985e71feb944942",
+      "open_questions": [
+        {
+          "id": "oq_a9add1800fa31cb3",
+          "project_id": "rproject_1985e71feb944942",
+          "study_id": "",
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.500250+00:00"
+        }
+      ],
+      "open_question_count": 1,
+      "notes": []
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "project_id": "rproject_1985e71feb944942",
+        "open_questions": [
+          {
+            "id": "oq_a9add1800fa31cb3",
+            "project_id": "rproject_1985e71feb944942",
+            "study_id": "",
+            "text": "Who owns the handover?",
+            "status": "open",
+            "created_at": "2026-09-09T09:09:05.500250+00:00"
+          }
+        ],
+        "open_question_count": 1,
+        "notes": []
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "get_research_frontier",
+        "latency_ms": 0.9,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_71764a4cf6eadf9cf883f51f"
+      }
+    },
+    "public_value": {
+      "project_id": "rproject_1985e71feb944942",
+      "open_questions": [
+        {
+          "id": "oq_a9add1800fa31cb3",
+          "project_id": "rproject_1985e71feb944942",
+          "study_id": "",
+          "text": "Who owns the handover?",
+          "status": "open",
+          "created_at": "2026-09-09T09:09:05.500250+00:00"
+        }
+      ],
+      "open_question_count": 1,
+      "notes": []
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "questions-frontier-resolved",
+    "tool": "get_research_frontier",
+    "input": {
+      "project_id": "rproject_a8288221eea56b87"
+    },
+    "value": {
+      "project_id": "rproject_a8288221eea56b87",
+      "open_questions": [],
+      "open_question_count": 0,
+      "notes": [
+        "no open questions tracked — the frontier looks closed (or unrecorded)."
+      ]
+    },
+    "envelope": {
+      "ok": true,
+      "data": {
+        "project_id": "rproject_a8288221eea56b87",
+        "open_questions": [],
+        "open_question_count": 0,
+        "notes": [
+          "no open questions tracked — the frontier looks closed (or unrecorded)."
+        ]
+      },
+      "next_recommended_tool": null,
+      "_meta": {
+        "tool": "get_research_frontier",
+        "latency_ms": 0.9,
+        "server_version": "0.2.0",
+        "schema_version": 5,
+        "workflow_trace_id": "sltrace_b3bb90cd4613ba9139e3de1d"
+      }
+    },
+    "public_value": {
+      "project_id": "rproject_a8288221eea56b87",
+      "open_questions": [],
+      "open_question_count": 0,
+      "notes": [
+        "no open questions tracked — the frontier looks closed (or unrecorded)."
+      ]
+    },
+    "state": "empty"
+  }
+]

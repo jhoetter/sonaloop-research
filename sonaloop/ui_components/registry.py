@@ -71,6 +71,8 @@ def _members(value):
 
 
 SURFACES = {
+    "record_open_questions": Surface("questions", project_graph.recorded_questions),
+    "get_research_frontier": Surface("questions", project_graph.frontier),
     "record_hmw_reframe": Surface("ideation", ideation.reframe),
     "record_ideas": Surface("ideation", ideation.ideas),
     "list_ideas": Surface("ideation", ideation.ideas),

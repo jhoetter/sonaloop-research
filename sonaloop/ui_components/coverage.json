@@ -3730,8 +3730,8 @@
       "tool": "record_open_questions",
       "family": "note_ideation",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Actual OpenQuestion text/status and complete identity metadata share the existing scoped Product question inspector and graph body. Writer duplicate rows stay duplicate even when they share an ID; frontier keeps supplied count and notes without resolving records or inferring completeness. Empty output retains its exact native meaning.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_research.py",
         "symbol": "record_open_questions",
@@ -3747,8 +3747,8 @@
       "tool": "get_research_frontier",
       "family": "note_ideation",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Actual OpenQuestion text/status and complete identity metadata share the existing scoped Product question inspector and graph body. Writer duplicate rows stay duplicate even when they share an ID; frontier keeps supplied count and notes without resolving records or inferring completeness. Empty output retains its exact native meaning.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_research.py",
         "symbol": "get_research_frontier",

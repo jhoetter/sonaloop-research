@@ -30,6 +30,7 @@ export const commonSourceInputs = [
 ];
 
 export const familySourceInputs = {
+  questions: ["sonaloop/ui_components/project_graph.py", "sonaloop/web/pages/library.py", "tools/persona-ui/fixtures/questions.json"],
   ideation: ["sonaloop/ui_components/councils.py", "sonaloop/web/pages/library.py", "sonaloop/web/pages/councils.py", "tools/persona-ui/fixtures/ideation.json"],
   assessment: ["sonaloop/ui_components/plan_assessment.py", "sonaloop/ui_components/plan_assessment_rows.py", "sonaloop/ui_components/project_health.py", "sonaloop/ui_components/projects_rows.py", "sonaloop/web/pages/projects.py", "tools/persona-ui/fixtures/assessment.json"],
   understanding: ["sonaloop/ui_components/product_understanding.py", "sonaloop/ui_components/product_understanding_rows.py", "sonaloop/ui_components/projects_rows.py", "sonaloop/web/pages/projects.py", "sonaloop/web/pages/councils.py", "sonaloop/web/pages/syntheses.py", "tools/persona-ui/fixtures/understanding.json"],
