@@ -28,4 +28,4 @@
 
 .sl-research-graph-row{display:grid;gap:6px}.sl-research-graph-row .sl-research-outline-title{font-weight:600}.sl-research-graph-row .sl-research-outline-time,.sl-research-graph-personas{color:var(--muted)}
 
-@media(min-width:800px){.sl-research-health{column-count:2;column-gap:24px}.sl-research-health>h2,.sl-research-health>.sl-research-fields,.sl-research-health>.sl-research-prose{column-span:all}.sl-research-health>.sl-research-fields{row-gap:3px}.sl-research-health-section{break-inside:avoid}.sl-research-health-diagnostics{display:block;break-inside:avoid}.sl-research-study-findings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.sl-research-study-findings>*{min-width:0}}
+ .sl-research-disclosure{margin:14px 0;border-top:1px solid var(--line,#d5ddd8);padding-top:12px}.sl-research-disclosure>summary{cursor:pointer;font-weight:600;line-height:1.5}.sl-research-disclosure>summary:focus-visible{outline:2px solid var(--accent,#377e5d);outline-offset:4px;border-radius:3px}.sl-research-disclosure[open]>summary{margin-bottom:14px}

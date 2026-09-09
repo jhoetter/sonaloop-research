@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from .library import _kit, collection
 from .projects import _project, project_body
-from .projects_rows import record, texts, fields, t
+from .projects_rows import record, texts, fields, disclosure, t
 from .project_graph import records, counts, questions_content
 from .council_formats import query_council_card
 from .predictions import predictions_content
@@ -48,8 +48,8 @@ def study(value):
             raise ValueError("Expected explicit nullable native result: " + key)
     return h("article", {"class_": "sl-research-card sl-research-study-result"},
         h("h2", {}, t("rpr_study")), project_body(project, level="h3", passive=True),
-        h("p", {"class_": "sl-research-meta"}, t("rpr_study_scope")), counts(value.get("counts")),
-        _run_state(value["run_state"]),
+        disclosure(t("rpx_inventory"), h("p", {"class_": "sl-research-meta"}, t("rpr_study_scope")),
+            counts(value.get("counts")), _run_state(value["run_state"])),
         health(value["project_health"])[0] if value["project_health"] is not None else _unavailable(t("rph_health")),
         h("div", {"class_": "sl-research-study-findings"},
             h("section", {}, h("h3", {}, t("councils")), collection(councils, empty=t("no_councils"))),

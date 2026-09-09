@@ -76,10 +76,11 @@ for (const [family, name] of Object.entries(labels)) {
   // need room for the union array, its branch and the branch's type value.
   if (jsonDepth(propsSchema) > 12) propsSchema = boundSchema(authoredSchema, 0, 8);
   assert.ok(jsonDepth(propsSchema) <= 12, 'Public schema still exceeds its traversal budget');
+  const disclosures = ['projects', 'runs'].includes(family);
   const requiredStates = ['focus', 'loading', 'disabled', 'empty', 'error', 'success'].map(state => ({ state,
-    disposition: ['focus', 'disabled'].includes(state) ? 'not_applicable' : 'applicable',
+    disposition: state === 'disabled' || state === 'focus' && !disclosures ? 'not_applicable' : 'applicable',
     scenarioIds: scenarios.filter(item => item.state === ({ empty: 'empty', success: 'ready' }[state] || '')).map(item => item.id),
-    reason: state === 'focus' ? 'This passive result surface has no focusable controls or actions.'
+    reason: state === 'focus' ? disclosures ? 'Local native disclosure summaries are keyboard focusable; automated keyboard checks exist, but no public focus-state raster is supplied.' : 'This passive result surface has no focusable controls or actions.'
       : state === 'disabled' ? 'This passive result surface grants no actions to disable.'
       : ['loading', 'error'].includes(state) ? 'The App supports this transport state; a public DTO scenario and matching raster are not supplied in this declaration.'
       : 'Examples use authored synthetic view-model values and the shared customer renderer.' }));
@@ -87,7 +88,7 @@ for (const [family, name] of Object.entries(labels)) {
     description: 'Shared Research product and passive MCP result content. Public examples are synthetic; they prove no customer runtime execution or research finding.',
     propsSchema, axes: { variants: ['default'], sizes: ['responsive'], themes: ['light'] }, scenarios, requiredStates,
     accessibility: { keyboard: 'not_reviewed', screenReader: 'not_reviewed',
-      notes: 'Passive semantic headings, text, lists and tables; no action controls. Automated checks preserve passive semantics and bounded table header scopes. No human keyboard or screen-reader acceptance is claimed.' } };
+      notes: (disclosures ? 'Native details disclosures start closed and toggle locally without tools or network. ' : '') + 'Passive semantic headings, text, lists and tables; no action controls. Automated checks preserve passive semantics and bounded table header scopes. No human keyboard or screen-reader acceptance is claimed.' } };
   assert.ok(Buffer.byteLength(canonical(propsSchema)) <= 24576);
   assert.ok(Buffer.byteLength(canonical(declaration)) <= 98304);
   await writeFile(resolve(directory, `${family}.json`), `${canonical(declaration)}\n`);

@@ -144,7 +144,7 @@ def test_waiting_has_exact_native_call_and_required_paths(recorded, store):
     assert action["kind"] == "complete_preflight" and action["required_input_paths"]
     for path in action["required_input_paths"]:
         assert path in markup
-    assert html_module.escape(project_health.action_call(action, keep_empty=True)) in markup
+    assert html_module.escape(project_health.action_call(action, keep_empty=True, redact_grants=True)) in markup
     # Native legacy active runs may have an empty operation id. Keep that exact
     # value in passive recommendations; preserve the old product call display.
     active = services.project_health(recorded["running"]["id"], store=store)
@@ -152,6 +152,21 @@ def test_waiting_has_exact_native_call_and_required_paths(recorded, store):
     passive = html_module.unescape(project_health.health(active)[0])
     assert "operation_id=''" in passive and "Subsequent returned step" in passive
     assert "operation_id=" not in project_health.action_call(active["safe_next_action"])
+
+
+def test_passive_health_redacts_grants_without_mutating_native_or_product_calls(recorded, store):
+    value = services.project_health(recorded["waiting"]["id"], store=store)
+    secret = "synthetic-dispatch-grant-do-not-render"
+    value["safe_next_action"]["arguments"]["dispatch_token"] = secret
+    value["safe_next_action"]["arguments"]["nested"] = {"approval_token": secret, "ordinary": "Preserve this"}
+    value["preflight"]["next_call"]["arguments"]["dispatch_token"] = secret
+    value["preflight"]["action"]["next_call"]["arguments"]["dispatch_token"] = secret
+    before = deepcopy(value)
+    markup, _ = project_health.health(value)
+    assert secret not in markup and "host-managed execution grant" in markup and "Preserve this" in markup
+    assert secret in project_health.action_call(value["safe_next_action"])
+    assert value == before
+    assert 'class="sl-research-disclosure"' in markup and '<details open' not in markup
 
 
 def test_native_preflight_qualifications_and_open_target_metadata_are_visible(recorded, store):

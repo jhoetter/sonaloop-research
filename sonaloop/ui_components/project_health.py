@@ -8,8 +8,18 @@ from . import projects_rows as rows
 from .projects_rows import t
 
 
-def action_call(action, *, keep_empty=False):
-    args = ", ".join(f"{key}={value!r}" for key, value in (action.get("arguments") or {}).items()
+def _display_argument(value, key=""):
+    if key in {"dispatch_token", "approval_token", "access_token", "refresh_token"}:
+        return "<" + t("rph_host_grant") + ">"
+    if isinstance(value, dict):
+        return {key: _display_argument(item, key) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_display_argument(item) for item in value]
+    return value
+
+
+def action_call(action, *, keep_empty=False, redact_grants=False):
+    args = ", ".join(f"{key}={(_display_argument(value, key) if redact_grants else value)!r}" for key, value in (action.get("arguments") or {}).items()
                      if keep_empty or value != "")
     return f"{action.get('tool')}({args})" if action.get("tool") else ""
 
@@ -41,7 +51,7 @@ def diagnostics_content(run_state, *, prepared=None, passive=False):
     unmet = run_state.get("unmet_invariant") or {}
     last = run_state.get("last_successful_operation") or {}
     action = run_state.get("safe_next_action") or {}
-    call = action_call(action, keep_empty=passive)
+    call = action_call(action, keep_empty=passive, redact_grants=passive)
     trace = run_state.get("trace") or {}
     support_ref = str(trace.get("support_ref") or "")
     limitation = str(trace.get("limitation") or "")
@@ -63,7 +73,7 @@ def diagnostics_content(run_state, *, prepared=None, passive=False):
         h("span", {"class_": "muted small"}, (" · " if support_ref and limitation else ""),
           t("health_external_limit"), ": ", limitation) if limitation else None)
     summary_attrs = {"aria_label": t("health_diagnostics_for", title=project_title)} if project_title else {}
-    return h("details", {"class_": "sl-run-diagnostics" + (" sl-research-health-diagnostics" if passive else ""),
+    return h("details", {"class_": "sl-run-diagnostics" + (" sl-research-health-diagnostics sl-research-disclosure" if passive else ""),
                          "data-run-diagnostics": True},
         h("summary", summary_attrs, t("health_diagnostics")),
         h("p", {"class_": "muted small sl-run-diagnostics-help"}, t("health_diagnostics_help")),
@@ -132,7 +142,7 @@ def _action_details(value):
     return fragment(h("p", {"class_": "sl-research-meta"}, t("rph_recommendation")),
         rows.fields([(key, value[key]) for key in ("kind", "reason") if key in value]),
         _string_list(t("rph_required_paths"), value["required_input_paths"]) if "required_input_paths" in value else None,
-        h("p", {}, t("rph_then"), ": ", h("code", {}, action_call(value["then"], keep_empty=True)))
+        h("p", {}, t("rph_then"), ": ", h("code", {}, action_call(value["then"], keep_empty=True, redact_grants=True)))
         if "then" in value else None)
 
 
@@ -152,7 +162,7 @@ def _native_metadata(value):
     h, _, _ = _kit()
     _json(value)
     if isinstance(value, dict):
-        return rows.fields((key, _native_metadata(item)) for key, item in value.items()) if value else h("span", {}, "{}")
+        return rows.fields((key, _native_metadata(_display_argument(item, key))) for key, item in value.items()) if value else h("span", {}, "{}")
     if isinstance(value, list):
         return h("ul", {}, [h("li", {}, _native_metadata(item)) for item in value]) if value else h("span", {}, "[]")
     return h("span", {}, "null" if value is None else str(value).lower() if type(value) is bool else value)
@@ -173,7 +183,7 @@ def _preflight(value):
         ("state", "gate", "kind", "task_id", "code", "status") if key in value]),
         h("p", {"class_": "sl-research-prose"}, value["message"]) if "message" in value else None,
         _string_list(t("rph_listed_tools"), value["allowed_tools"]) if "allowed_tools" in value else None,
-        h("p", {}, h("code", {}, action_call(call, keep_empty=True))) if call else None,
+        h("p", {}, h("code", {}, action_call(call, keep_empty=True, redact_grants=True))) if call else None,
         _action_details(call) if call else None,
         _section("action", _native_metadata({key: item for key, item in value["action"].items()
             if key not in value or item != value[key]})) if value.get("action") else None)
@@ -259,8 +269,7 @@ def health(value):
         _counts(receipt, ("cursor", "step_idx"))
         if "deduplicated" in receipt:
             _bools(receipt, ("deduplicated",))
-    return h("article", {"class_": "sl-research-card sl-research-health"}, h("h2", {}, t("rph_health")),
-        rows.fields((("project_id", value["project_id"]), ("schema", value["schema"]), (t("status_h"), value["state"]),
+    details = h("div", {"class_": "sl-research-health-details"}, rows.fields((("project_id", value["project_id"]), ("schema", value["schema"]), (t("status_h"), value["state"]),
             (t("rph_driver"), value["driver_state"]), (t("rph_lifecycle"), value["lifecycle"]),
             (t("rph_engine_finished"), value["engine_finished"]), (t("rph_persisted_run"), value["persisted_run_status"]),
             (t("rph_unverified"), value["unverified_output"]), (t("run_last_activity"), value["last_activity"]),
@@ -283,4 +292,9 @@ def health(value):
             ("workflow_trace_id", "local_journal", "external_host_visibility")]), rows.fields(trace["cloud_trace_query"].items())),
         _section(t("rph_recovery"), rows.fields([(key, recovery[key]) for key in recovery_keys]),
             _section(t("rph_retry"), rows.fields([(key, receipt[key]) for key in
-                ("run_id", "key", "cursor", "step_idx", "deduplicated") if key in receipt])) if receipt else None)), "ready"
+                ("run_id", "key", "cursor", "step_idx", "deduplicated") if key in receipt])) if receipt else None))
+    return h("article", {"class_": "sl-research-card sl-research-health"}, h("h2", {}, t("rph_health")),
+        rows.fields(((t("status_h"), value["state"]), (t("rph_engine_finished"), value["engine_finished"]))),
+        h("p", {"class_": "sl-research-prose"}, attention_text(value)) if attention_text(value) else None,
+        h("p", {}, t("rph_recommendation")),
+        rows.disclosure(t("rpx_diagnostics"), details)), "ready"

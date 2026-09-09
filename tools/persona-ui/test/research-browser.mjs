@@ -424,6 +424,8 @@ export async function exportScenarios(outputParent = process.env.RESEARCH_SCENAR
         if (fixture.state === 'unavailable') await session.root.getByText('This view is unavailable.', { exact: false }).waitFor();
         else await session.rendered();
         await session.assertPassive();
+        const disclosureCount = await session.root.locator('details.sl-research-disclosure').count();
+        assert.equal(await session.root.locator('details[open]').count(), 0, 'Capture records default closed disclosures');
         assert.ok(await session.frame.locator('html').evaluate(node => node.scrollWidth <= innerWidth), 'No horizontal overflow');
         await session.frame.locator('body').evaluate(async () => { await document.fonts.ready; await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))); });
         const box = await session.root.boundingBox();
@@ -451,6 +453,7 @@ export async function exportScenarios(outputParent = process.env.RESEARCH_SCENAR
           image: { mediaType: 'image/png', sha256: sha(png), bytes: png.length, ...dimensions },
           files: { image: 'view.png', manifest: 'manifest.json', resource: 'resource.html', input: 'input.json', result: 'result.json', renderer: 'renderer.mjs', bridge: 'host.bundle.js' },
           checks: { protocol: 'MCP Apps AppBridge', passive: true, nativeToolCalls: 0, providerCalls: 0,
+            ...(disclosureCount ? { disclosures: { count: disclosureCount, open: 0, content: 'retained_in_dom' } } : {}),
             runtimeVerification: 'not_asserted', humanAcceptance: 'not_asserted' } };
         await Promise.all([
           writeFile(resolve(directory, 'view.png'), png), writeFile(resolve(directory, 'manifest.json'), asset.manifestBytes),

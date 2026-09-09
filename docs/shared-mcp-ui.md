@@ -232,10 +232,14 @@ and the full supplied Product target remain visible as escaped native data. It g
 no tool execution. Ready-to-display never means the engine finished, and unknown
 external host connectivity is not rewritten as a disconnected host. Its synthetic
 finished-state fixture is a prepared journal-boundary test, not evidence that a
-real research run passed finish gates. Desktop diagnostics use two reading columns;
-long Health and combined Study fixtures are captured at their recorded 960px
-viewport. Mobile tests retain and scroll all text; these desktop rasters do not
-claim a mobile capture of the same long scenario.
+real research run passed finish gates. Project, graph and health cards keep meaningful titles, status and results visible.
+Native details disclosures initially close record IDs, inventory grids and
+diagnostics. Enter and Space toggle them locally, without MCP or network calls.
+All technical fields remain in the DOM and unchanged native result; execution
+grants are redacted from passive presentation only. Existing Product copy actions
+keep their native arguments. The fixture raster records its default closed state
+in `checks.disclosures`; it does not claim that hidden detail text is visible in
+the PNG. Mobile tests also open and close the same native disclosure.
 
 Prediction aggregates show recorded estimates rather than observed behavior.
 Counts count prediction records, not unique people; supplied likelihood means are
@@ -288,7 +292,10 @@ all native text blocks joined by one newline. This metadata is private to a host
 and App; hosts must keep it out of model context. A malformed or oversized
 projection preserves the successful native output without a card or retry.
 
-The App verifies component, schema, state, size and native-text digest. It then
+The App verifies component, schema, state, size and native-text digest.
+Only explicitly marked customer disclosure details and their direct summaries
+remain locally interactive. The sanitizer discards supplied open/group/handler
+attributes, so every new result starts closed; other action controls stay removed. It then
 copies a narrow semantic element/class allowlist into a new document fragment;
 it strips scripts, event handlers, styles, images, forms and navigation.
 Count bars use an HTML `meter` with a strictly validated 0–1 value and accessible

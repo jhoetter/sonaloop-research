@@ -17,7 +17,12 @@ export async function acceptPresentation(result, component) {
     if (node.nodeType !== Node.ELEMENT_NODE) return;
     const tag = node.tagName.toUpperCase();
     if (['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'SVG', 'MATH', 'TEMPLATE', 'IMG', 'VIDEO', 'AUDIO', 'FORM', 'INPUT', 'BUTTON'].includes(tag)) return;
-    const element = document.createElement(tags.has(tag) ? tag.toLowerCase() : 'span');
+    // Only the customer-owned local disclosure primitive is interactive. Its
+    // open/handlers/URLs are never copied; each new result starts closed.
+    const disclosure = tag === 'DETAILS' && node.classList.contains('sl-research-disclosure');
+    const summary = tag === 'SUMMARY' && node.parentElement?.tagName === 'DETAILS'
+      && node.parentElement.classList.contains('sl-research-disclosure');
+    const element = document.createElement(tags.has(tag) || disclosure || summary ? tag.toLowerCase() : 'span');
     if (tag === 'TH' && ['row', 'col'].includes(node.getAttribute('scope')))
       element.setAttribute('scope', node.getAttribute('scope'));
     if (tag === 'METER') {

@@ -514,3 +514,22 @@ test('a slow earlier result cannot replace a newer result after digest validatio
     await session.assertPassive();
   } finally { await session.page.close(); }
 });
+
+test('only the explicit native disclosure primitive survives and always starts closed', async () => {
+  const session = await openApp(browser);
+  try {
+    await session.send(toolResult('<details class="sl-research-disclosure" open onclick="window.compromised=true" name="cross-card"><summary tabindex="4" onclick="window.compromised=true">Local details</summary><p>Retained information</p></details><details open><summary>Legacy details</summary><p>Still flat</p></details>'));
+    await session.rendered();
+    assert.equal(await session.root.locator('details').count(), 1);
+    assert.equal(await session.root.locator('summary').count(), 1);
+    const details = session.root.locator('details');
+    assert.deepEqual(await details.evaluate(node => Array.from(node.attributes, x => x.name)), ['class']);
+    assert.equal(await details.locator('summary').evaluate(node => node.attributes.length), 0);
+    assert.ok((await session.root.textContent()).includes('Retained information'));
+    assert.ok(!(await session.root.innerText()).includes('Retained information'));
+    await details.locator('summary').click();
+    assert.ok((await session.root.innerText()).includes('Retained information'));
+    assert.equal(await session.frame.locator('body').evaluate(() => window.compromised), undefined);
+    await session.assertPassive();
+  } finally { await session.page.close(); }
+});

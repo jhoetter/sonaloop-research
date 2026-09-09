@@ -50,6 +50,12 @@ def fields(pairs):
         for label, value in pairs])
 
 
+def disclosure(label, *content):
+    """Native local disclosure only; no action, script or tool authority."""
+    h, _, _ = _kit()
+    return h("details", {"class_": "sl-research-disclosure"}, h("summary", {}, label), *content)
+
+
 def project_heading(project, *, icon=None, level="h1"):
     h, fragment, _ = _kit()
     if level not in ("h1", "h2", "h3"):
@@ -105,7 +111,8 @@ def project_body(project, *, icon=None, level="h1", description=False, prepared=
     return fragment(project_heading(project, icon=icon, level=level),
         h("p", {"class_": "muted"}, project["description"]) if description and project.get("description") else None,
         prepared.get("experience_header"), prepared.get("creator"), prepared.get("cohort"),
-        archive_notice(project), prepared.get("lineage") if "lineage" in prepared else lineage_content(project), details)
+        archive_notice(project), prepared.get("lineage") if "lineage" in prepared else lineage_content(project),
+        disclosure(t("rpx_record_details"), details) if details else None)
 
 
 def icon_content(spec):

@@ -6,7 +6,7 @@ rows use only supplied native values, never the Product's enriched graph.
 from __future__ import annotations
 
 from .library import _kit, collection, section_card
-from .projects_rows import record, texts, identity, strings, count, fields, project_heading, t
+from .projects_rows import record, texts, identity, strings, count, fields, project_heading, disclosure, t
 
 
 def outline_cells(title, *, lead=None, relations=None, crew=None, timestamp=None, passive=False):
@@ -51,7 +51,7 @@ def node_content(value):
     crew = h("span", {"class_": "sl-research-graph-personas"}, "; ".join(
         (person.get("display_name") or person["id"]) + " · " + person["id"] for person in people)) if people else None
     cells = outline_cells(value["title"], lead=h("span", {}, value.get("kind_label") or value.get("kind", "")),
-        crew=crew, timestamp=value.get("created_at", ""), passive=True)
+        crew=None, timestamp=None, passive=True)
     extras = []
     for key in ("sentiment", "stance_counts"):
         if key in value:
@@ -60,7 +60,10 @@ def node_content(value):
         if key in value:
             extras.append(h("p", {}, key, ": ", ", ".join(strings(value[key]))))
     return h("article", {"class_": "sl-research-card sl-research-graph-node"},
-             h("div", {"class_": "sl-research-graph-row"}, fragment(cells)), fields(pairs), extras)
+             h("div", {"class_": "sl-research-graph-row"}, fragment(cells)),
+             h("p", {"class_": "sl-research-status"}, value.get("status", "")),
+             disclosure(t("rpx_record_details"), crew, fields(pairs),
+                h("p", {}, value.get("created_at", "")), extras))
 
 
 def questions_content(value):
@@ -71,8 +74,8 @@ def questions_content(value):
         identity(row, "id"); texts(row, ("text", "status"), ("created_at", "project_id"))
         if row.get("study_id") is not None:
             texts(row, ("study_id",))
-        cards.append(h("li", {}, h("p", {}, row["text"]), fields(
-            (key, row[key]) for key in ("id", "status", "project_id", "study_id", "created_at") if key in row)))
+        cards.append(h("li", {}, h("p", {}, row["text"]), disclosure(t("rpx_record_details"), fields(
+            (key, row[key]) for key in ("id", "status", "project_id", "study_id", "created_at") if key in row))))
     return h("div", {}, h("h3", {}, t("open_questions_h")),
              h("ul", {}, cards) if cards else h("p", {"class_": "sl-research-empty"}, t("rpg_no_questions")))
 
@@ -121,9 +124,10 @@ def graph(value):
         reports.append(h("article", {"class_": "sl-research-card"}, h("h3", {}, row["title"]), fields(pairs)))
     order = strings(value.get("build_order", []))
     return h("article", {"class_": "sl-research-card sl-research-graph"},
-        project_heading(project, level="h2"), fields((("project_id", project["id"]),)),
-        h("p", {"class_": "sl-research-meta"}, t("rpg_scope")), counts(value.get("counts")),
-        collection(groups, empty=t("rpg_no_nodes")), _edges(value.get("edges")),
+        project_heading(project, level="h2"),
+        disclosure(t("rpx_inventory"), fields((("project_id", project["id"]),)),
+            h("p", {"class_": "sl-research-meta"}, t("rpg_scope")), counts(value.get("counts"))),
+        collection(groups, empty=t("rpg_no_nodes")), disclosure(t("relations"), _edges(value.get("edges"))),
         questions_content(value.get("open_questions")),
-        h("div", {}, h("h3", {}, t("rpg_build_order")), h("ol", {}, [h("li", {}, x) for x in order])),
+        disclosure(t("rpg_build_order"), h("ol", {}, [h("li", {}, x) for x in order])),
         sections, attachments, reports), "ready"

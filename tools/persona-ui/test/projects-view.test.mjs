@@ -64,7 +64,7 @@ for (const item of cases) test(`Project App preserves native ${item.scenario}`, 
 });
 
 for (const name of ['runs-health-waiting', 'projects-get-study-result', 'projects-get-study-result-empty'])
-  test(`Full desktop diagnostic framing preserves ${name}`, async () => {
+  test(`Default closed disclosures retain complete ${name}`, async () => {
     const fixture = fixtures.find(value => value.scenario === name);
     assert.ok(fixture);
     const session = await openApp(browser, { family: fixture.family, viewport: { width: 960, height: 4096 } });
@@ -72,12 +72,34 @@ for (const name of ['runs-health-waiting', 'projects-get-study-result', 'project
       await session.send(fixture.result, fixture.input); await session.rendered(); await session.assertPassive();
       const box = await session.root.boundingBox();
       assert.ok(box && box.y + box.height <= 4096, `Full native card height ${box?.height}`);
-      const grid = await session.root.locator('.sl-research-health').first().evaluate(node => getComputedStyle(node).columnCount);
-      assert.equal(grid, '2', 'Desktop health uses two complete columns');
+      assert.ok(await session.root.locator('details.sl-research-disclosure').count());
+      assert.equal(await session.root.locator('details[open]').count(), 0, 'Fixture default stays closed');
       if (name === 'runs-health-waiting') {
         const text = await session.root.textContent();
         for (const qualifier of ['target_identity_only', 'server_fetch_authorizedfalse', 'stimulus_missingtrue', 'cohort_too_smalltrue'])
           assert.ok(text.includes(qualifier));
       }
+    } finally { await session.page.close(); }
+  });
+
+for (const name of ['runs-health-waiting', 'projects-get-project-graph', 'projects-get-study-result'])
+  test(`Keyboard disclosure in ${name} is local and never grants execution`, async () => {
+    const fixture = fixtures.find(value => value.scenario === name);
+    const session = await openApp(browser, { family: fixture.family, viewport: { width: 390, height: 844 } });
+    try {
+      await session.send(fixture.result, fixture.input); await session.rendered();
+      const allText = await session.root.textContent();
+      const details = session.root.locator('details.sl-research-disclosure').first(), summary = details.locator(':scope > summary');
+      assert.equal(await details.getAttribute('open'), null);
+      await session.page.keyboard.press('Tab');
+      assert.ok(await summary.evaluate(node => node === document.activeElement));
+      assert.notEqual(await summary.evaluate(node => getComputedStyle(node).outlineStyle), 'none');
+      await session.page.keyboard.press('Enter');
+      assert.notEqual(await details.getAttribute('open'), null);
+      assert.equal(await session.root.textContent(), allText);
+      await session.page.keyboard.press('Space');
+      assert.equal(await details.getAttribute('open'), null);
+      await session.assertPassive();
+      assert.ok(await session.frame.locator('html').evaluate(node => node.scrollWidth <= innerWidth));
     } finally { await session.page.close(); }
   });

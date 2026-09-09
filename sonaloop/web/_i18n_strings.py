@@ -8,6 +8,10 @@ from __future__ import annotations
 
 STRINGS: dict[str, dict[str, str]] = {
     "de": {
+        "rpx_record_details": "Datensatzdetails",
+        "rpx_inventory": "Inventar und Quellenumfang",
+        "rpx_diagnostics": "Ablaufdiagnose und technische Details",
+        "rph_host_grant": "vom Host verwaltete Ausführungsberechtigung",
         "rpr_projection_unavailable": "Dieses native Ergebnis kann nicht vollständig dargestellt werden.",
         "rpg_no_questions": "Keine Datensätze zu offenen Fragen geliefert.",
         "rpg_no_edges": "Keine Beziehungen geliefert.",
@@ -775,6 +779,10 @@ STRINGS: dict[str, dict[str, str]] = {
         "cal_mon_long": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember",
     },
     "en": {
+        "rpx_record_details": "Record details",
+        "rpx_inventory": "Inventory and source scope",
+        "rpx_diagnostics": "Run diagnostics and technical details",
+        "rph_host_grant": "host-managed execution grant",
         "rpr_projection_unavailable": "This native result cannot be displayed completely.",
         "rpg_no_questions": "No open-question records supplied.",
         "rpg_no_edges": "No relationships supplied.",
