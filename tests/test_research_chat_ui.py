@@ -292,7 +292,7 @@ def test_product_missing_persona_does_not_query_or_create_chat(monkeypatch):
 
 def test_real_registered_product_route(examples):
     value = case(examples, "chats-history")
-    response = TestClient(web.app).get(f'/personas/{value["persona_id"]}/chats/{value["id"]}')
+    response = TestClient(web.create_app()).get(f'/personas/{value["persona_id"]}/chats/{value["id"]}')
     assert response.status_code == 200 and chats.chat_content(value) in response.text
 
 

@@ -8,7 +8,7 @@ from .library import collection, note_card, section_card
 from . import references, assets, prototypes, calendar, plans, bets, councils, council_formats, discovery, surveys, syntheses, sessions, session_funnels
 from . import persona_preparation
 from . import cohort, cohort_preflight, persona_profiles
-from . import persona_records
+from . import persona_records, chats, chat_proposals
 from . import memory, memory_outcomes, projects, project_graph, project_results, predictions, project_health
 
 SCHEMA = "sonaloop.research-presentation.v1"
@@ -71,6 +71,14 @@ def _members(value):
 
 
 SURFACES = {
+    "chat_with_persona": Surface("chats", chats.opened),
+    "record_chat_turn": Surface("chats", chats.recorded),
+    "get_chat": Surface("chats", chats.chat),
+    "list_chats": Surface("chats", chats.chats),
+    "record_memory_proposal": Surface("chats", chat_proposals.proposal),
+    "review_memory_proposal": Surface("chats", chat_proposals.proposal),
+    "get_memory_proposal": Surface("chats", chat_proposals.proposal),
+    "list_memory_proposals": Surface("chats", chat_proposals.proposals),
     "record_persona_revision": Surface("records", persona_records.revision),
     "list_persona_revisions": Surface("records", persona_records.revisions),
     "record_persona_voice_check": Surface("records", persona_records.voice_check),

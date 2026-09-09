@@ -11,6 +11,7 @@ from ._ctx import *  # noqa: F401,F403  (shared render toolkit)
 from ._persona_preparation import readiness_html, capabilities_html, register_persona_preparation
 from ._persona_profiles import register_persona_profiles
 from ._persona_records import register_persona_records
+from ._persona_chats import register_persona_chats
 from ._cohort_results import register_cohort_results
 from ._calendar import _calendar_tabs, _period_calendar_html
 from .sessions import _sessions_section
@@ -397,6 +398,7 @@ def register_personas(app) -> None:
     register_persona_preparation(app)
     register_persona_profiles(app)
     register_persona_records(app)
+    register_persona_chats(app)
     register_cohort_results(app)
     @app.get("/personas", response_class=HTMLResponse)
     def personas_list(page: int = Query(default=1, ge=1), q: str = Query(default="")) -> str:
@@ -652,7 +654,8 @@ def register_personas(app) -> None:
             h("p", {}, h("a", {"href": f'/personas/{p["id"]}/preparation'}, t("rpp_preparation"))),
             h("p", {}, h("a", {"href": f'/personas/{p["id"]}/profile'}, t("rpf_profile_history")), " · ",
                 h("a", {"href": f'/personas/{p["id"]}/soul'}, t("rpf_soul")), " · ",
-                h("a", {"href": f'/personas/{p["id"]}/records'}, t("rprec_records"))),
+                h("a", {"href": f'/personas/{p["id"]}/records'}, t("rprec_records")), " · ",
+                h("a", {"href": f'/personas/{p["id"]}/chats'}, t("rchat_chats"))),
             # the simulated LIFE (the calendar) is this persona's signature — surface it right after the
             # snapshot, before the analysis voices.
             cal_section,

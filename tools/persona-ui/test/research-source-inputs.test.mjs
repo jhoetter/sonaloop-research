@@ -31,7 +31,7 @@ test('owned and shared source mutations change exact families without editing th
     ['sonaloop/ui_components/plans.py', ['plans']],
     ['sonaloop/ui_components/memory.py', ['memory', 'preparation']],
     ['sonaloop/ui_components/project_graph.py', ['projects']],
-    ['sonaloop/ui_components/projects_rows.py', ['projects', 'search', 'runs', 'preparation', 'profiles', 'cohorts', 'records']],
+    ['sonaloop/ui_components/projects_rows.py', ['projects', 'search', 'runs', 'preparation', 'profiles', 'cohorts', 'records', 'chats']],
     ['sonaloop/ui_components/project_health.py', ['projects', 'runs']],
     ['sonaloop/ui_components/memory_rows.py', ['memory', 'preparation']],
     ['sonaloop/ui_components/memory_outcomes.py', ['memory']],

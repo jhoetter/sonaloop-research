@@ -97,7 +97,7 @@ def test_every_registered_surface_has_a_real_projection_and_resource(name):
     elif name in {case["tool"] for case in json.loads((Path(__file__).parents[1] / "tools/persona-ui/fixtures/projects.json").read_text())}:
         cases = json.loads((Path(__file__).parents[1] / "tools/persona-ui/fixtures/projects.json").read_text())
         data = next(case["value"] for case in cases if case["tool"] == name)
-    elif SURFACES[name].family in {"preparation", "profiles", "cohorts", "records"}:
+    elif SURFACES[name].family in {"preparation", "profiles", "cohorts", "records", "chats"}:
         cases = json.loads((Path(__file__).parents[1] / f"tools/persona-ui/fixtures/{SURFACES[name].family}.json").read_text())
         data = next(case["value"] for case in cases if case["tool"] == name)
     elif name == "project_health":

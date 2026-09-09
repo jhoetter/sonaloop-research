@@ -28,6 +28,7 @@ export const commonSourceInputs = [
 ];
 
 export const familySourceInputs = {
+  chats: ["sonaloop/ui_components/chats.py", "sonaloop/ui_components/chat_rows.py", "sonaloop/ui_components/chat_proposals.py", "sonaloop/ui_components/projects_rows.py", "sonaloop/web/pages/personas.py", "sonaloop/web/pages/_persona_chats.py", "tools/persona-ui/fixtures/chats.json"],
   records: ['sonaloop/ui_components/persona_records.py', 'sonaloop/ui_components/persona_record_rows.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/web/pages/personas.py', 'sonaloop/web/pages/_persona_records.py', 'tools/persona-ui/fixtures/records.json'],
   profiles: ['sonaloop/ui_components/persona_profiles.py', 'sonaloop/ui_components/persona_profile_rows.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/web/pages/personas.py', 'sonaloop/web/pages/_persona_profiles.py', 'sonaloop/web/_routes_lists.py', 'tools/persona-ui/fixtures/profiles.json'],
   cohorts: ['sonaloop/ui_components/cohort.py', 'sonaloop/ui_components/cohort_rows.py', 'sonaloop/ui_components/cohort_preflight.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/web/_cohort_integrity_view.py', 'sonaloop/web/pages/_cohort_results.py', 'sonaloop/web/pages/personas.py', 'sonaloop/web/pages/projects.py', 'tools/persona-ui/fixtures/cohorts.json'],

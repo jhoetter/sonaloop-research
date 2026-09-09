@@ -265,6 +265,13 @@ def test_existing_product_integrity_uses_prepared_shared_body_and_unchanged_stru
     assert "<dt>status</dt><dd>pass</dd>" in cohort_preflight.preflight(value)[0]
 
 
+def test_passive_integrity_summary_keeps_words_separate_without_product_block_css(examples):
+    from sonaloop.ui_components.cohort_rows import t
+    markup = cohort_preflight.preflight(case(examples, "cohort-preflight-pass"))[0]
+    assert f'{t("cohort_integrity_h")}</strong> <span' in markup
+    assert '</span></span> <span class="sl-research-cohort-content">' in markup
+
+
 def test_readonly_product_routes_show_stored_reports_and_actual_project_values(examples, store, monkeypatch):
     from sonaloop.web.pages import _cohort_results as product
     app = FastAPI()

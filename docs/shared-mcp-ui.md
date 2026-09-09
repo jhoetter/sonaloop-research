@@ -119,6 +119,25 @@ paths, URLs and supplied prose remain literal; rendering never loads or verifies
 them. The Product checks active-workspace Persona ownership before reading the
 three histories. No new persistence or execution authority is introduced.
 
+**Persona conversations and continuity proposals** shares stored chat, exchange,
+summary and proposal bodies with read-only Persona-scoped Product inspectors.
+`chat_with_persona` prepares a new reply and can open an empty chat; its supplied
+message is not a saved exchange. `record_chat_turn` returns the actual saved count
+and timestamp, not the authored text. Only `get_chat` supplies complete stored
+turns. List pages retain their native offset and continuation state; the summary
+is the last user message, not an invented Persona reply. Full authoring context
+remains in a closed disclosure, with no recomputation or new model call.
+
+Continuity proposals preserve their actual pending/approved/rejected state,
+review reason, selected turn indices and supplied references. They do not modify
+identity, facts or lived memory. The native record operation can replace a prior
+reviewed proposal with a new pending record; this UI does not claim immutable
+reviews or change that service contract. Supplied reference indices can remain
+unresolved, and rendering does not verify their targets. Product inspectors first
+check the active Persona, then chat and proposal ownership; they expose no create,
+reply or review mutation. This persisted Research conversation is separate from
+the optional agent host's process-local conversational session.
+
 Notes, Sections, Projects, Search, Hypotheses, Decisions, Councils, Surveys,
 Syntheses/Reports, Sessions, Files, Prototypes, Plans, Calendars, Memory and captured URL References
 have passive MCP resources registered on
