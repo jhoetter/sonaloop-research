@@ -47,6 +47,8 @@ test('all built resources bind the passive manifest, source and declared tools',
       assert.ok(tools.some(item => item.tool === fixture.tool));
   }
   assert.equal(new Set(declarations.map(item => item.tool)).size, declarations.length);
+  assert.deepEqual(new Set(fixtures.map(item => item.tool)), new Set(declarations.map(item => item.tool)),
+    'Every supported tool has its own authored result fixture; no raster is relabelled');
 });
 
 test('customer declarations name exact authored props, fixture scenarios and resource states', async () => {
@@ -191,7 +193,9 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
   'surveys-instrument', 'surveys-ready', 'surveys-comparison', 'surveys-repeated-choice', 'surveys-text', 'surveys-empty', 'surveys-imported',
   'councils-voices', 'councils-input', 'councils-list', 'councils-empty',
   'syntheses-convergence', 'syntheses-report', 'syntheses-outline', 'syntheses-empty',
-  'sessions-completed', 'sessions-dropped', 'sessions-salience', 'sessions-prototype', 'sessions-funnel', 'sessions-funnel-empty', 'sessions-empty'])
+  'sessions-completed', 'sessions-dropped', 'sessions-salience', 'sessions-prototype', 'sessions-funnel', 'sessions-funnel-empty', 'sessions-empty',
+  'notes-created', 'notes-data', 'sections-created', 'sections-updated', 'sections-added', 'sections-removed', 'sections-members-set',
+  'hypotheses-result-recorded', 'surveys-detail', 'syntheses-recorded', 'sessions-flow-funnel', 'councils-recorded'])
   test(`actual packaged MCP Apps bridge renders shared native ${scenario} HTML`, async () => {
     const fixture = fixtures.find(item => item.scenario === scenario);
     const height = ['sessions', 'syntheses'].includes(fixture.family) ? 1800 : 844;
@@ -200,7 +204,7 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
       await session.send(fixture.result, fixture.input);
       await session.rendered();
       await session.assertPassive();
-      if (scenario === 'notes-ready') {
+      if (['notes-ready', 'notes-created', 'notes-data'].includes(scenario)) {
         const nativeFragment = await session.root.evaluate((_, html) => {
           const doc = new DOMParser().parseFromString(html, 'text/html');
           return doc.body.firstElementChild.innerHTML;
@@ -211,8 +215,9 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
         assert.equal(await session.root.locator('.sl-research-member').count(), 2);
         assert.equal(await session.root.locator('.sl-research-link').count(), 2);
         assert.ok((await session.root.innerText()).includes('Open questions remain visible'));
-      } else if (scenario === 'sections-detail') {
-        assert.deepEqual(await session.root.locator('.sl-research-references li').allTextContents(), ['note:note_fixture', 'note:note_second']);
+      } else if (['sections-detail', 'sections-created', 'sections-updated', 'sections-added', 'sections-removed', 'sections-members-set'].includes(scenario)) {
+        assert.deepEqual(await session.root.locator('.sl-research-references li').allTextContents(), fixture.native.data.member_ids);
+        assert.equal(await session.root.getByRole('heading', { name: fixture.native.data.title, exact: true }).count(), 1);
         assert.equal(await session.root.locator('.sl-research-member').count(), 0, 'Unresolved references never acquire fabricated titles');
       } else if (scenario === 'projects-ready' || scenario === 'projects-detail') {
         const nativeHeading = await session.root.evaluate(root => root.querySelector('h2').outerHTML + root.querySelector('.lead').outerHTML);
@@ -229,7 +234,7 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
         assert.equal(await session.root.getByRole('heading', { name: 'A named owner reduces handover time' }).count(), 1);
         const text = await session.root.innerText();
         assert.ok(text.includes('minutes → 4 ±1 · Confidence 80%'));
-        if (scenario === 'hypotheses-observed') {
+        if (['hypotheses-observed', 'hypotheses-result-recorded'].includes(scenario)) {
           assert.ok(text.includes('4.5') && text.includes('The pilot falls within the predicted range.'));
           assert.ok(text.includes('Synthetic observation, not research evidence'));
         }
@@ -246,12 +251,13 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
         }
       } else if (scenario.startsWith('surveys-') && scenario !== 'surveys-empty') {
         const text = await session.root.innerText();
-        if (scenario === 'surveys-instrument') {
+        if (['surveys-instrument', 'surveys-detail'].includes(scenario)) {
           assert.ok(text.includes('Named owner') && text.includes('Longer email'));
           assert.ok(!text.includes('0 responses'));
           assert.equal(await session.root.locator('meter').count(), 0);
         } else if (scenario === 'surveys-ready') {
           assert.deepEqual(await session.root.locator('meter').evaluateAll(nodes => nodes.map(node => node.value)), [0.666666666667, 0.333333333333]);
+            if (scenario === 'sessions-flow-funnel') for (const value of ['Handover flow', 'Choose the next handover action', 'Dropped at step 0: 1', 'persona_fixture']) assert.ok(text.includes(value), value);
           assert.ok(text.includes('3 responses'));
         } else if (scenario === 'surveys-comparison') {
           assert.ok(text.includes('Council prediction (2)') && text.includes('Real answers (3)'));
@@ -269,13 +275,15 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
       } else if (scenario.startsWith('councils-') && scenario !== 'councils-empty') {
         const text = await session.root.innerText();
         assert.ok(text.includes('What interrupts the handover?'));
-        if (scenario === 'councils-voices') {
+        if (['councils-voices', 'councils-recorded'].includes(scenario)) {
           assert.equal(await session.root.locator('.sl-research-statement').count(), 1);
           const labels = session.root.locator('.sl-research-statement-body > .sl-research-statement-head > span');
-          assert.equal(await labels.count(), 2);
-          const stanceBox = await labels.nth(0).boundingBox(), postureBox = await labels.nth(1).boundingBox();
-          assert.ok(postureBox.x >= stanceBox.x + stanceBox.width + 4 || postureBox.y >= stanceBox.y + stanceBox.height,
-            'Each recorded stance and claim label remains visually separated');
+          assert.equal(await labels.count(), scenario === 'councils-recorded' ? 1 : 2);
+          if (scenario === 'councils-voices') {
+            const stanceBox = await labels.nth(0).boundingBox(), postureBox = await labels.nth(1).boundingBox();
+            assert.ok(postureBox.x >= stanceBox.x + stanceBox.width + 4 || postureBox.y >= stanceBox.y + stanceBox.height,
+              'Each recorded stance and claim label remains visually separated');
+          }
           for (const value of ['persona_fixture', 'Where is ownership unclear?', 'cannot identify the owner', '-1 · skeptical', 'Synthetic fixture, not observed research']) assert.ok(text.includes(value), value);
         } else if (scenario === 'councils-input') {
           assert.ok(text.includes('Show the current owner before the next shift begins.'));
@@ -290,7 +298,7 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
         const text = await session.root.innerText();
         assert.equal(await session.root.locator('.sl-research-report-cover').count(), 1);
         assert.equal(await session.root.locator('details,summary,pre').count(), 0);
-        if (scenario === 'syntheses-convergence') {
+        if (['syntheses-convergence', 'syntheses-recorded'].includes(scenario)) {
           assert.ok(text.includes('A named owner makes the handover easier.'));
           assert.ok(text.includes('Keep the current owner visible.'));
         } else if (scenario === 'syntheses-report') {
@@ -312,11 +320,12 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
         }
       } else if (scenario.startsWith('sessions-') && scenario !== 'sessions-empty') {
         const text = await session.root.innerText();
-        if (scenario.startsWith('sessions-funnel')) {
+        if (scenario.includes('funnel')) {
           assert.ok(text.includes(scenario.endsWith('-empty') ? 'Completed: 0 / 0' : 'Completed: 2 / 3'));
-          if (scenario === 'sessions-funnel') {
+          if (['sessions-funnel', 'sessions-flow-funnel'].includes(scenario)) {
             assert.ok(text.includes('3 entered · 1 dropped') && text.includes('The next action was missing'));
             assert.deepEqual(await session.root.locator('meter').evaluateAll(nodes => nodes.map(node => node.value)), [0.666666666667, 0.333333333333]);
+            if (scenario === 'sessions-flow-funnel') for (const value of ['Handover flow', 'Choose the next handover action', 'Dropped at step 0: 1', 'persona_fixture']) assert.ok(text.includes(value), value);
           } else assert.equal(await session.root.locator('meter').count(), 0);
         } else {
           assert.ok(text.includes('Owner panel'));

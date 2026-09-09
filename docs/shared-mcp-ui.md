@@ -222,3 +222,28 @@ public entry point and synthetic fixture source. The exporter checks every publi
 example against its corresponding pure native-result projection. Third-party
 registration supplies its own workspace/source/revision/render identifiers;
 those identities never enter these customer declarations.
+
+## Component source ownership
+
+`tools/persona-ui/research-source-inputs.mjs` explicitly lists shared presentation
+and integration inputs plus each family's renderer/product adapters and its own
+public declaration. Each build remains below the existing 64-file source limit;
+a missing, unknown or over-budget source set fails before resource files are
+written. Adding a family requires an explicit ownership entry and review of its
+real shared helper calls, not a directory-wide inclusion of unrelated renderers.
+
+Shared files deliberately affect all consumers. For example, Session funnels use
+Survey `count_row`, while product Session and Council charts use helpers from
+`web/_synthesis.py`. Shared statements live in `ui_components/statements.py`;
+that does not make the complete Council renderer an input of every statement
+consumer. Synthesis product figures additionally bind `charts_catalogue.py` and
+`_charts.py`, and its grouping binds `suggestions/finding_kinds.json`. Notes and Sections retain the product Library adapter; Search binds
+both the server route and command-palette adapter.
+
+These are selected presentation and integration source hashes. They do not claim
+a complete transitive Python installation or environment attestation. The exact
+customer release pins the whole repository, the dependency lockfile and bundled
+resource digest bind browser dependencies, and execution/raster receipts retain
+their separate runtime and synthetic-data boundaries. Mutation tests show which
+shared and family-owned source changes alter each Component identity without
+modifying actual source files during testing.

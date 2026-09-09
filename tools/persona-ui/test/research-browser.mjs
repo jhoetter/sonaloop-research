@@ -187,6 +187,9 @@ council = {"id": "council_fixture", "prompt": "What interrupts the handover?", "
                            "refs": [{"kind": "external", "text": "Synthetic fixture, not observed research"}]}],
            "prompts": [{"id": "q0", "kind": "question", "text": "Where is ownership unclear?"}],
            "exec_summary": "Keep the current owner visible.", "votes": [], "findings": []}
+# An ordinary non-Reaction writer fixture does not opt into governed claim posture.
+# The distinct legacy getter below retains its supplied posture as a read projection.
+council_recorded = {**council, "statements": [{**council["statements"][0], "meta": {}}]}
 council_input = {**council, "prompts": [], "exec_summary": "",
                  "statements": [{"persona_id": "persona_fixture", "text": "This change helps during onboarding.",
                      "meta": {"input": "Show the current owner before the next shift begins.", "grounded": False,
@@ -264,6 +267,21 @@ specs = [
     ("sessions-funnel", "sessions", "get_session_funnel", {"subject_kind": "flow", "subject_id_or_url": "flow_fixture"}, funnel),
     ("sessions-funnel-empty", "sessions", "get_session_funnel", {"subject_kind": "flow", "subject_id_or_url": "flow_fixture"}, {**funnel, "sessions": 0, "completed": 0, "rows": []}),
     ("sessions-empty", "sessions", "list_usability_sessions", {"project_id": "project_fixture"}, {"sessions": []}),
+    ("notes-created", "notes", "create_note", {"project_id": "project_fixture", "title": note["title"], "text": note["text"]}, {**note, "kind": "note"}),
+    ("notes-data", "notes", "set_note_data", {"note_id": "note_fixture", "patch": {"prototype_id": "prototype_fixture"}}, {**note, "kind": "note", "data": {"prototype_id": "prototype_fixture"}}),
+    ("sections-created", "sections", "create_section", {"project_id": "project_fixture", "title": section["title"], "note": section["note"], "member_ids": section["member_ids"]}, section),
+    ("sections-updated", "sections", "update_section", {"section_id": "section_fixture", "patch": {"title": "Revised handover group"}}, {**section, "title": "Revised handover group"}),
+    ("sections-added", "sections", "add_to_section", {"section_id": "section_fixture", "node_ids": ["note:note_third"]}, {**section, "member_ids": [*section["member_ids"], "note:note_third"]}),
+    ("sections-removed", "sections", "remove_from_section", {"section_id": "section_fixture", "node_ids": ["note:note_second"]}, {**section, "member_ids": ["note:note_fixture"]}),
+    ("sections-members-set", "sections", "set_section_members", {"section_id": "section_fixture", "node_ids": ["note:note_second"]}, {**section, "member_ids": ["note:note_second"]}),
+    ("hypotheses-result-recorded", "hypotheses", "record_hypothesis_result", {"hypothesis_id": "hyp_fixture", **resolved["result"]}, {"hypothesis": resolved}),
+    ("surveys-detail", "surveys", "get_survey", {"survey_id": "survey_fixture"}, survey),
+    ("syntheses-recorded", "syntheses", "record_synthesis", {"title": synthesis["title"], "start_input": synthesis["start_input"], "payload": {key: synthesis[key] for key in ("gesamtbild", "positionierung", "findings")}}, synthesis),
+    ("sessions-flow-funnel", "sessions", "flow_funnel", {"project_id": "project_fixture", "flow_id": "flow_fixture"}, {**funnel,
+        "rows": [{**funnel["rows"][0], "caption": "Choose the next handover action", "personas": ["persona_fixture"]}],
+        "flow": {"id": "flow_fixture", "title": "Handover flow", "steps": 1},
+        "biggest_dropoff": {"step": 0, "caption": "Choose the next handover action", "dropped": 1, "reasons": funnel["rows"][0]["drop_reasons"]}}),
+    ("councils-recorded", "councils", "record_council", {"project_id": "project_fixture", **{key: council_recorded[key] for key in ("prompt", "persona_ids", "statements", "prompts", "exec_summary")}}, council_recorded),
     ("councils-voices", "councils", "get_council", {"session_id": "council_fixture"}, council),
     ("councils-input", "councils", "get_council", {"session_id": "council_fixture"}, council_input),
     ("councils-list", "councils", "list_councils", {"limit": 25}, council_list),
