@@ -409,7 +409,7 @@ export async function exportScenarios(outputParent = process.env.RESEARCH_SCENAR
     result: { isError: true, content: [{ type: 'text', text: 'Synthetic native tool failure; no operation was invoked.' }] } };
   const scenarios = [...fixtures, failed].map(fixture => ({ fixture, viewport:
     fixture.family === 'runs' || fixture.tool === 'get_study_result' ? { width: 960, height: 4096 }
-      : { width: 390, height: ['memory', 'sessions', 'syntheses', 'councils', 'prototypes', 'calendar', 'projects'].includes(fixture.family) ? 3800 : 844 } }));
+      : { width: 390, height: ['memory', 'sessions', 'syntheses', 'councils', 'prototypes', 'calendar', 'projects', 'cohorts', 'profiles', 'records'].includes(fixture.family) ? 3800 : 844 } }));
   scenarios.unshift({ fixture: noteFixture, viewport: { width: 960, height: 900 } });
   const rendererBytes = await readFile(fileURLToPath(import.meta.url)), bundle = await hostBundle();
   const { stdout: commit } = await execFile('git', ['rev-parse', 'HEAD'], { cwd: repo });
