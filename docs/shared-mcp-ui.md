@@ -129,7 +129,9 @@ contain more entries than resolved persona voices, so both native quantities rem
 visible. Writer results retain their full Council voices and claim-posture notices;
 flattened getters do not invent a transcript. Offset-based Council queries keep their
 integer statement/vote/question counts separate from cursor-based list summaries.
-Native free-text direction values such as `both` remain literal labels in passive
+An unrenderable optional/legacy format keeps the product detail and transcript
+readable with a local format notice; the MCP wrapper retains its unchanged native
+output without a card. Native free-text direction values such as `both` remain literal labels in passive
 findings; they do not become a normalized numeric stance.
 
 Survey instruments share the product question body and distinguish an unknown

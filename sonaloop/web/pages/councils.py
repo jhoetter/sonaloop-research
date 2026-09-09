@@ -25,6 +25,14 @@ register_css(r"""
 """)
 
 
+def _format_content(value, renderer):
+    """A legacy or unrenderable optional format never hides the stored transcript."""
+    try:
+        return renderer(value)
+    except (ValueError, TypeError, KeyError):
+        return h("p", {"class_": "muted sl-research-format-unavailable"}, t("cf_format_unavailable"))
+
+
 def register_councils(app) -> None:
     @app.get("/councils", response_class=HTMLResponse)
     def councils(project: str = Query(default=""), status: str = Query(default=""),
@@ -61,13 +69,13 @@ def register_councils(app) -> None:
         # Head-to-Head Format: a council carrying a deterministic X-vs-Y aggregate (preference + margin +
         # segment-splits). When present we surface the verdict block above the voices.
         is_h2h = services.is_head_to_head(session)
-        h2h_html = (head_to_head_content(session["head_to_head"]) if is_h2h else "")
+        h2h_html = (_format_content(session["head_to_head"], head_to_head_content) if is_h2h else "")
         # Red-Team Format: a council carrying a deterministic case-against (blocker themes + severity). When
         # present we surface the verdict block above the voices.
         is_rt = services.is_red_team(session)
-        rt_html = (red_team_content(session["red_team"]) if is_rt else "")
+        rt_html = (_format_content(session["red_team"], red_team_content) if is_rt else "")
         is_price = services.is_price_ladder(session)
-        price_html = (price_ladder_content(session["price_ladder"]) if is_price else "")
+        price_html = (_format_content(session["price_ladder"], price_ladder_content) if is_price else "")
         # The Voices section carries the framing for EVERY mode: each persona card is grouped under the
         # prompt it answers — the discovery QUESTIONS or the evaluation/decision PROPOSAL (rendered as
         # Markdown via render_prompt) — so "what was asked" always sits right above the cards. One

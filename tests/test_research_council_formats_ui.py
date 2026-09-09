@@ -290,3 +290,20 @@ def test_eight_actual_fastmcp_tools_preserve_schemas_and_exact_native_outputs(st
     example_path = tmp_path / "native-council-format-examples.json"
     example_path.write_text(json.dumps(examples, indent=2))
     print("Native synthetic examples:", example_path)
+
+
+def test_product_unrenderable_native_optional_field_preserves_page_and_transcript(store):
+    from starlette.testclient import TestClient
+    project = services.create_research_project("Native compatibility", "Optional preference values", store=store)
+    # The existing native list[dict] contract retains this optional value. The UI
+    # must not turn a successful native record into a broken product detail page.
+    value = services.record_head_to_head(project["id"], "A native format with an unknown optional shape", persona_ids=["unresolved"],
+        options=["One", "Two"], preferences=[{"persona_id": "unresolved", "choice": "A", "reason": {"future": "detail"}}],
+        statements=[{"persona_id": "unresolved", "text": "The stored transcript remains readable."}], store=store)
+    assert value["head_to_head"]["preferences"][0]["reason"] == {"future": "detail"}
+    with pytest.raises(ValueError):
+        formats.head_to_head_write(value)
+    response = TestClient(web.create_app()).get("/councils/" + value["id"])
+    assert response.status_code == 200
+    assert "This stored format cannot be displayed in full." in response.text
+    assert "The stored transcript remains readable." in response.text
