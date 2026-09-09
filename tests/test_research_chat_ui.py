@@ -230,6 +230,15 @@ def test_empty_views_have_explicit_results_and_no_empty_sections(examples):
             assert state == "empty"
 
 
+def test_native_first_and_last_pages_expose_continuation(examples):
+    first = case(examples, "chats-list-page")
+    last = case(examples, "chats-list-next")
+    assert first["next_offset"] == 1 and last["next_offset"] is None
+    assert 'data-total="2">1 / 2 · …</p>' in chats.chats(first)[0]
+    assert 'data-total="2">1 / 2</p>' in chats.chats(last)[0]
+    assert ' · …</p>' not in chats.chats(last)[0]
+
+
 def product_client(monkeypatch):
     from sonaloop.web.pages import _persona_chats as product
     app = FastAPI()

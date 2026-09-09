@@ -60,6 +60,6 @@ def chats(value):
         count(value["next_offset"])
     _, fragment, _ = _kit()
     return fragment(collection([card(t("rchat_chat"), summary_content(item)) for item in items],
-        empty=t("rchat_no_chats"), total=value["total"]),
+        empty=t("rchat_no_chats"), total=value["total"], has_more=value["next_offset"] is not None),
         disclosure(t("rpx_record_details"), fields([(key, value[key]) for key in
             ("substrate_version", "total", "limit", "offset", "next_offset")]))), "ready" if items else "empty"
