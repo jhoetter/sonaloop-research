@@ -349,6 +349,8 @@ for case in json.loads(Path("tools/persona-ui/fixtures/council-formats.json").re
 for case in json.loads(Path("tools/persona-ui/fixtures/calendar-plans.json").read_text())["cases"]:
     family = "plans" if case["tool"] in {"put_day_plan", "get_day_plan", "put_period_plan", "get_period_plan", "list_period_plans"} else "calendar"
     specs.append((family + "-" + case["scenario"].replace("_", "-"), family, case["tool"], case["input"], case["value"]))
+for case in json.loads(Path("tools/persona-ui/fixtures/preparation.json").read_text()):
+    specs.append(("preparation-" + case["scenario"].replace("_", "-"), "preparation", case["tool"], case["input"], case["value"]))
 for case in json.loads(Path("tools/persona-ui/fixtures/project-health.json").read_text()):
     specs.append(("runs-" + case["scenario"].replace("_", "-"), "runs", case["tool"], case["input"], case["value"]))
 for case in json.loads(Path("tools/persona-ui/fixtures/projects.json").read_text()):

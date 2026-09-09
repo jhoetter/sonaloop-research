@@ -6,6 +6,7 @@ from typing import Callable
 
 from .library import collection, note_card, section_card
 from . import references, assets, prototypes, calendar, plans, bets, councils, council_formats, discovery, surveys, syntheses, sessions, session_funnels
+from . import persona_preparation
 from . import memory, memory_outcomes, projects, project_graph, project_results, predictions, project_health
 
 SCHEMA = "sonaloop.research-presentation.v1"
@@ -68,6 +69,16 @@ def _members(value):
 
 
 SURFACES = {
+    "persona_readiness": Surface("preparation", persona_preparation.readiness),
+    "persona_task_readiness": Surface("preparation", persona_preparation.task_readiness),
+    "prepare_persona_for_task": Surface("preparation", persona_preparation.snapshot),
+    "get_persona_context_snapshot": Surface("preparation", persona_preparation.snapshot),
+    "list_persona_context_snapshots": Surface("preparation", persona_preparation.snapshots),
+    "begin_persona_build": Surface("preparation", persona_preparation.build),
+    "get_persona_build": Surface("preparation", persona_preparation.build),
+    "list_persona_builds": Surface("preparation", persona_preparation.builds),
+    "persona_build_step": Surface("preparation", persona_preparation.build),
+
     "get_project_graph": Surface("projects", project_graph.graph),
     "get_study_result": Surface("projects", project_results.study),
     "aggregate_predictions": Surface("projects", predictions.predictions),

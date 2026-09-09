@@ -8,6 +8,7 @@ from fastapi import Request
 from fastapi.responses import Response
 
 from ._ctx import *  # noqa: F401,F403  (shared render toolkit)
+from ._persona_preparation import readiness_html, capabilities_html, register_persona_preparation
 from ._calendar import _calendar_tabs, _period_calendar_html
 from .sessions import _sessions_section
 from .._html import register_css
@@ -76,27 +77,7 @@ def _persona_create_form(store: Store, values: dict | None = None,
 
 
 def _persona_readiness_html(readiness: dict) -> str:
-    label = t("persona_ready") if readiness["level"] == "ready" else (
-        t("persona_developing") if readiness["level"] == "developing" else t("persona_thin"))
-    counts = readiness["counts"]
-    return h(
-        "section", {"class_": "sec sl-persona-readiness", "id": "readiness"},
-        h("div", {"class_": "sl-persona-readiness__head"},
-          h("h2", {}, t("persona_readiness")),
-          raw(_label(f'{label} · {readiness["score"]}/100',
-                     "var(--green)" if readiness["level"] == "ready" else "var(--amber)"))),
-        h("p", {"class_": "muted"}, t("persona_memory_warning"))
-        if readiness["level"] != "ready" else None,
-        h("div", {"class_": "sl-persona-readiness__counts"},
-          _label(f'{counts["events"]} {t("memory_events_short")}'),
-          _label(f'{counts["facts"]} {t("memory_facts_short")}'),
-          _label(f'{counts["daily_summaries"]} {t("memory_days_short")}'),
-          _label(f'{counts["grounded_claims"]} {t("memory_grounded_short")}'),
-          _label(f'{counts["digests"]} {t("memory_digests_short")}'),
-          _label(t("memory_critic_ok") if (readiness.get("critic") or {}).get("green")
-                 else t("memory_critic_missing"),
-                 "var(--green)" if (readiness.get("critic") or {}).get("green")
-                 else "var(--muted)")))
+    return readiness_html(readiness)
 
 # Memory panel — a temporal knowledge graph (entities + fact timelines, superseded facts struck).
 register_css(r"""
@@ -173,26 +154,7 @@ def _cap_provenance_label(prov: str) -> str:                # explicit t() calls
 
 
 def _capabilities_html(caps: dict) -> str:
-    """The capability profile card: rung badges (which session fidelities are on/off), the
-    tech-comfort chip (data-driven label/color/hint via tech_comfort.json), devices, accessibility
-    notes — with the derived-vs-authored provenance marked."""
-    rungs = caps.get("rungs") or {}
-    rung_labels = [("see", t("cap_rung_see")), ("walk", t("cap_rung_walk")),
-                   ("drive", t("cap_rung_drive")), ("login", t("cap_rung_login"))]
-    badges = [raw(_label(lbl, "var(--green)" if rungs.get(k) else "var(--muted)",
-                         "soft" if rungs.get(k) else "outline", title=f"rungs.{k}"))
-              for k, lbl in rung_labels]
-    meta = _artifacts.tech_comfort_meta(caps.get("tech_comfort"))
-    chip = raw(_label(f'{t("cap_tech_comfort")}: {t(meta["label_key"])} · {caps.get("tech_comfort", "—")}/5',
-                      meta["color"], title=meta["hint"]))
-    prov = h("span", {"class_": "muted small"}, _cap_provenance_label(caps.get("provenance") or ""))
-    return h("div", {"class_": "sec", "id": "caps"},
-             h("h2", {}, t("capabilities_h")),
-             h("div", {"class_": "cap-row"}, fragment(*badges), chip, prov),
-             h("p", {"class_": "muted small"},
-               f'{t("cap_devices")}: {", ".join(caps.get("devices") or []) or "—"}'),
-             (h("p", {}, h("strong", {}, t("cap_accessibility")), ": ", caps["accessibility"])
-              if caps.get("accessibility") else None))
+    return capabilities_html(caps)
 
 
 def _mem_kind_label(kind: str) -> str:
@@ -428,6 +390,7 @@ def _catalog_page(store: Store, *, q: str = "", cursor: str | None = None,
 
 
 def register_personas(app) -> None:
+    register_persona_preparation(app)
     @app.get("/personas", response_class=HTMLResponse)
     def personas_list(page: int = Query(default=1, ge=1), q: str = Query(default="")) -> str:
         # Paginated per the shared convention (docs/pagination.md): ?page=N rides the URL
@@ -679,6 +642,7 @@ def register_personas(app) -> None:
             h("div", {"class_": "identity"}, h("div", {"data-persona-surface-fallback": True}, avatar), h("div", {},
               state_body)),
             raw(_persona_readiness_html(readiness)),
+            h("p", {}, h("a", {"href": f'/personas/{p["id"]}/preparation'}, t("rpp_preparation"))),
             # the simulated LIFE (the calendar) is this persona's signature — surface it right after the
             # snapshot, before the analysis voices.
             cal_section,

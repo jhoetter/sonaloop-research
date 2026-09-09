@@ -1,0 +1,1221 @@
+[
+  {
+    "scenario": "preparation-builds-empty",
+    "tool": "list_persona_builds",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7"
+    },
+    "value": [],
+    "state": "empty"
+  },
+  {
+    "scenario": "preparation-snapshots-empty",
+    "tool": "list_persona_context_snapshots",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7"
+    },
+    "value": [],
+    "state": "empty"
+  },
+  {
+    "scenario": "preparation-persona-readiness",
+    "tool": "persona_readiness",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7"
+    },
+    "value": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "level": "thin",
+      "score": 22,
+      "memory_level": "thin",
+      "counts": {
+        "events": 0,
+        "facts": 0,
+        "evidence": 0,
+        "grounded_claims": 0,
+        "grounding_corpora": 0,
+        "daily_summaries": 0,
+        "reflections": 0,
+        "digests": 0,
+        "blocking_anomalies": 0
+      },
+      "dimensions": {
+        "profile": 18,
+        "grounding": 0,
+        "memory": 0,
+        "continuity": 0,
+        "capabilities": 4
+      },
+      "critic": null,
+      "gaps": [
+        "profile_specificity",
+        "claim_level_grounding",
+        "lived_events",
+        "durable_facts",
+        "calendar_continuity",
+        "period_digest",
+        "authored_capabilities",
+        "semantic_critic"
+      ],
+      "next_action": "deepen_profile"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-persona-task-readiness",
+    "tool": "persona_task_readiness",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "task": "Review a transfer",
+      "as_of": "2026-06-02",
+      "required_capability": "login"
+    },
+    "value": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "project_id": null,
+      "as_of": "2026-06-02",
+      "level": "not_ready",
+      "ready": false,
+      "global_readiness": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "level": "thin",
+        "score": 22,
+        "memory_level": "thin",
+        "counts": {
+          "events": 0,
+          "facts": 0,
+          "evidence": 0,
+          "grounded_claims": 0,
+          "grounding_corpora": 0,
+          "daily_summaries": 0,
+          "reflections": 0,
+          "digests": 0,
+          "blocking_anomalies": 0
+        },
+        "dimensions": {
+          "profile": 18,
+          "grounding": 0,
+          "memory": 0,
+          "continuity": 0,
+          "capabilities": 4
+        },
+        "critic": null,
+        "gaps": [
+          "profile_specificity",
+          "claim_level_grounding",
+          "lived_events",
+          "durable_facts",
+          "calendar_continuity",
+          "period_digest",
+          "authored_capabilities",
+          "semantic_critic"
+        ],
+        "next_action": "deepen_profile"
+      },
+      "task_signals": {
+        "memory_hits": 0,
+        "grounding_hits": 0
+      },
+      "capability": {
+        "required": "login",
+        "ok": false,
+        "profile": {
+          "rungs": {
+            "see": true,
+            "walk": true,
+            "drive": true,
+            "login": false
+          },
+          "tech_comfort": 3,
+          "devices": [
+            "desktop",
+            "mobile"
+          ],
+          "accessibility": "",
+          "provenance": "derived"
+        }
+      },
+      "project_cohort_member": true,
+      "limitations": [
+        "global_readiness:thin",
+        "no_task_relevant_lived_memory",
+        "no_task_relevant_independent_grounding",
+        "capability_rung_unavailable:login"
+      ],
+      "refs": [],
+      "recall": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "query": "Review a transfer",
+        "as_of": "2026-06-02",
+        "semantic_enabled": false,
+        "k": 10,
+        "hits": []
+      },
+      "grounding_hits": [],
+      "next_action": "deepen_profile"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-prepare-persona-for-task",
+    "tool": "prepare_persona_for_task",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "task": "Review a transfer",
+      "as_of": "2026-06-02",
+      "required_capability": "login",
+      "recent_events": 0
+    },
+    "value": {
+      "id": "pctx_e3816a6503d1e1ef68bf",
+      "schema": "sonaloop.persona_context_snapshot.v1",
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "persona_version": "2026-09-09T04:20:50.573675+00:00",
+      "project_id": null,
+      "task": "Review a transfer",
+      "as_of": "2026-06-02",
+      "memory_cutoff": "2026-06-02",
+      "embedding_space": "none",
+      "required_capability": "login",
+      "readiness": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "project_id": null,
+        "as_of": "2026-06-02",
+        "level": "not_ready",
+        "ready": false,
+        "global_readiness": {
+          "persona_id": "persona_5ca3935ec78e1cc7",
+          "level": "thin",
+          "score": 22,
+          "memory_level": "thin",
+          "counts": {
+            "events": 0,
+            "facts": 0,
+            "evidence": 0,
+            "grounded_claims": 0,
+            "grounding_corpora": 0,
+            "daily_summaries": 0,
+            "reflections": 0,
+            "digests": 0,
+            "blocking_anomalies": 0
+          },
+          "dimensions": {
+            "profile": 18,
+            "grounding": 0,
+            "memory": 0,
+            "continuity": 0,
+            "capabilities": 4
+          },
+          "critic": null,
+          "gaps": [
+            "profile_specificity",
+            "claim_level_grounding",
+            "lived_events",
+            "durable_facts",
+            "calendar_continuity",
+            "period_digest",
+            "authored_capabilities",
+            "semantic_critic"
+          ],
+          "next_action": "deepen_profile"
+        },
+        "task_signals": {
+          "memory_hits": 0,
+          "grounding_hits": 0
+        },
+        "capability": {
+          "required": "login",
+          "ok": false,
+          "profile": {
+            "rungs": {
+              "see": true,
+              "walk": true,
+              "drive": true,
+              "login": false
+            },
+            "tech_comfort": 3,
+            "devices": [
+              "desktop",
+              "mobile"
+            ],
+            "accessibility": "",
+            "provenance": "derived"
+          }
+        },
+        "project_cohort_member": true,
+        "limitations": [
+          "global_readiness:thin",
+          "no_task_relevant_lived_memory",
+          "no_task_relevant_independent_grounding",
+          "capability_rung_unavailable:login"
+        ],
+        "refs": [],
+        "recall": {
+          "persona_id": "persona_5ca3935ec78e1cc7",
+          "query": "Review a transfer",
+          "as_of": "2026-06-02",
+          "semantic_enabled": false,
+          "k": 10,
+          "hits": []
+        },
+        "grounding_hits": [],
+        "next_action": "deepen_profile"
+      },
+      "loaded_refs": [],
+      "agent_context": "# Persona Subagent Context\n\nYou must act from the perspective of this synthetic customer persona.\n\n## Required Source\nThe following SOUL.md has been loaded from `inline:persona/persona_5ca3935ec78e1cc7@2026-06-02`. Treat it as the\nauthoritative persona identity and simulation rules.\n\n---\n\n# Preparation fixture\n\n## Identity\nPreparation fixture is a synthetic customer persona derived from:\n\n> Preparation fixture — source description\n\nThis is not a real person. Treat all non-evidence-backed details as simulation assumptions.\n\n## Work Context\n- Role: Owner\n- Company context: industry (small people)\n- Tools: CAD, E-Mail\n- Operating model: solo\n\n## Inner Operating System\n- Working style: pragmatic\n- Communication style: direct\n- Risk tolerance: medium\n- Decision filter: it saves real time\n\n## Capabilities\n- Session rungs (fidelities this persona can be simulated at): see=yes · walk=yes · drive=yes · login=no\n- Tech comfort: 3/5 (comfortable) — navigates common patterns confidently; slows down and reads only when something surprises\n- Devices: desktop, mobile\n- Accessibility: none noted\n- Profile provenance: derived\n\n## Daily Reality\n- Not simulated yet.\n\n## Frictions\n- Preparation fixture pain alpha\n- Preparation fixture pain beta\n\n## Motivations\n- Preparation fixture goal\n\n## Relationships\n- Client (customer): slow replies\n\n## Voice\nSpeak as a practical customer under real delivery pressure. Refer to concrete calendar moments, tools, handoffs, meetings, and open loops. Do not sound like a generic market research respondent.\n\n## Simulation Rules\n- Stay within the work context above unless new evidence is attached.\n- Do not steer this persona toward BIM, AI, automation, or any product direction unless the source description, recent events, or explicit task context supports it.\n- Treat inferred goals, tools, and pains as hypotheses, not facts; prefer ordinary daily work over vendor-friendly narratives.\n- Prefer mundane repeated friction over dramatic invented events.\n- Distinguish meetings, solo focus work, interruptions, admin, decisions, and follow-up.\n- Preserve unresolved loops across days.\n- Mark uncertainty instead of pretending inferred details are known.\n\n## Current State\nNo simulated day has been run yet.\n\n## Recent Work Signals\n- None yet.\n\n## Recent Reflections\n- None yet.\n\n## Grown Identity (Revisions)\n- None; core identity unchanged.\n\n\n---\n\n## Current State\n{\n  \"persona_id\": \"persona_5ca3935ec78e1cc7\",\n  \"display_name\": \"Preparation fixture\",\n  \"at_time\": \"2026-06-02T23:59\",\n  \"current_activity\": \"not simulated yet\",\n  \"current_tool\": null,\n  \"collaboration_mode\": null,\n  \"mood\": \"unknown\",\n  \"current_thought\": \"unknown\",\n  \"blocked_by\": [],\n  \"likely_next\": [\n    \"Preparation fixture goal\"\n  ],\n  \"synthetic_notice\": \"State is simulated unless backed by attached evidence.\"\n}\n\n## Recent Lived Events\n- No simulated events yet.\n\n## Active Projects (memory)\n- (keine erfassten Projekte)\n\n## Open Loops (memory)\n- (keine offenen Fäden)\n\n## Relevant Memory (recalled for this task — background, use only if it fits)\n- (nichts spezifisch Relevantes gefunden)\n\n## Task\nReview a transfer\n\n## Operating Rules\n- Stay grounded in SOUL.md, recent events, and the persona's project memory.\n- Speak from the persona's lived work context, not as a generic consultant.\n- Memory is background: refer to past projects/loops only when the question\n  genuinely calls for it — do not recite memories unprompted.\n- When uncertain, say what is inferred or synthetic.\n- Cite concrete calendar moments, tools, people, projects, and open loops when relevant.\n\n\n\nPERSONA VOICE BOUNDARY — keep the participant and the researcher separate:\n• Persona-voice fields (`monologue`, persona `statement.text`, reaction `quote`/`reason`) contain what THIS person would naturally think or say in that moment. Write concrete first-person language at the persona's demonstrated vocabulary, confidence and sentence rhythm; ordinary, partial or uncertain speech is better than an unnaturally polished diagnosis.\n• The persona is not a UX researcher. Never leak moderator language, method labels or an analyst's conclusion into their mouth unless SOUL/memory/source material demonstrates that this person uses the exact term naturally. Phrases such as 'findability problem', 'top tasks', 'progressive disclosure', 'information architecture' or 'cognitive load' normally belong in analysis, not a participant quote. Do not merely translate such jargon into first person.\n• Observer fields (`action`, `state`, focus label) state only what was visibly done or noticed. Researcher fields (`friction.note`, outcome summary, findings) may interpret the evidence, but must not be presented as verbatim persona speech.\n• Before persisting, perform an attribution check on every persona-voice field: could this wording plausibly come from the loaded persona without knowing the research method? If not, rewrite it from their immediate goal, worry and next action. Keep the analytical interpretation outside the quote.\n",
+      "recent_event_ids": [],
+      "soul_path": "inline:persona/persona_5ca3935ec78e1cc7@2026-06-02",
+      "context_sha256": "e3816a6503d1e1ef68bf1da11d10d7f552c417185e2279158b51d2f61382ef9c",
+      "created_at": "2026-09-09T04:20:50.957964+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-get-persona-context-snapshot",
+    "tool": "get_persona_context_snapshot",
+    "input": {
+      "snapshot_id": "pctx_e3816a6503d1e1ef68bf"
+    },
+    "value": {
+      "id": "pctx_e3816a6503d1e1ef68bf",
+      "schema": "sonaloop.persona_context_snapshot.v1",
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "persona_version": "2026-09-09T04:20:50.573675+00:00",
+      "project_id": null,
+      "task": "Review a transfer",
+      "as_of": "2026-06-02",
+      "memory_cutoff": "2026-06-02",
+      "embedding_space": "none",
+      "required_capability": "login",
+      "readiness": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "project_id": null,
+        "as_of": "2026-06-02",
+        "level": "not_ready",
+        "ready": false,
+        "global_readiness": {
+          "persona_id": "persona_5ca3935ec78e1cc7",
+          "level": "thin",
+          "score": 22,
+          "memory_level": "thin",
+          "counts": {
+            "events": 0,
+            "facts": 0,
+            "evidence": 0,
+            "grounded_claims": 0,
+            "grounding_corpora": 0,
+            "daily_summaries": 0,
+            "reflections": 0,
+            "digests": 0,
+            "blocking_anomalies": 0
+          },
+          "dimensions": {
+            "profile": 18,
+            "grounding": 0,
+            "memory": 0,
+            "continuity": 0,
+            "capabilities": 4
+          },
+          "critic": null,
+          "gaps": [
+            "profile_specificity",
+            "claim_level_grounding",
+            "lived_events",
+            "durable_facts",
+            "calendar_continuity",
+            "period_digest",
+            "authored_capabilities",
+            "semantic_critic"
+          ],
+          "next_action": "deepen_profile"
+        },
+        "task_signals": {
+          "memory_hits": 0,
+          "grounding_hits": 0
+        },
+        "capability": {
+          "required": "login",
+          "ok": false,
+          "profile": {
+            "rungs": {
+              "see": true,
+              "walk": true,
+              "drive": true,
+              "login": false
+            },
+            "tech_comfort": 3,
+            "devices": [
+              "desktop",
+              "mobile"
+            ],
+            "accessibility": "",
+            "provenance": "derived"
+          }
+        },
+        "project_cohort_member": true,
+        "limitations": [
+          "global_readiness:thin",
+          "no_task_relevant_lived_memory",
+          "no_task_relevant_independent_grounding",
+          "capability_rung_unavailable:login"
+        ],
+        "refs": [],
+        "recall": {
+          "persona_id": "persona_5ca3935ec78e1cc7",
+          "query": "Review a transfer",
+          "as_of": "2026-06-02",
+          "semantic_enabled": false,
+          "k": 10,
+          "hits": []
+        },
+        "grounding_hits": [],
+        "next_action": "deepen_profile"
+      },
+      "loaded_refs": [],
+      "agent_context": "# Persona Subagent Context\n\nYou must act from the perspective of this synthetic customer persona.\n\n## Required Source\nThe following SOUL.md has been loaded from `inline:persona/persona_5ca3935ec78e1cc7@2026-06-02`. Treat it as the\nauthoritative persona identity and simulation rules.\n\n---\n\n# Preparation fixture\n\n## Identity\nPreparation fixture is a synthetic customer persona derived from:\n\n> Preparation fixture — source description\n\nThis is not a real person. Treat all non-evidence-backed details as simulation assumptions.\n\n## Work Context\n- Role: Owner\n- Company context: industry (small people)\n- Tools: CAD, E-Mail\n- Operating model: solo\n\n## Inner Operating System\n- Working style: pragmatic\n- Communication style: direct\n- Risk tolerance: medium\n- Decision filter: it saves real time\n\n## Capabilities\n- Session rungs (fidelities this persona can be simulated at): see=yes · walk=yes · drive=yes · login=no\n- Tech comfort: 3/5 (comfortable) — navigates common patterns confidently; slows down and reads only when something surprises\n- Devices: desktop, mobile\n- Accessibility: none noted\n- Profile provenance: derived\n\n## Daily Reality\n- Not simulated yet.\n\n## Frictions\n- Preparation fixture pain alpha\n- Preparation fixture pain beta\n\n## Motivations\n- Preparation fixture goal\n\n## Relationships\n- Client (customer): slow replies\n\n## Voice\nSpeak as a practical customer under real delivery pressure. Refer to concrete calendar moments, tools, handoffs, meetings, and open loops. Do not sound like a generic market research respondent.\n\n## Simulation Rules\n- Stay within the work context above unless new evidence is attached.\n- Do not steer this persona toward BIM, AI, automation, or any product direction unless the source description, recent events, or explicit task context supports it.\n- Treat inferred goals, tools, and pains as hypotheses, not facts; prefer ordinary daily work over vendor-friendly narratives.\n- Prefer mundane repeated friction over dramatic invented events.\n- Distinguish meetings, solo focus work, interruptions, admin, decisions, and follow-up.\n- Preserve unresolved loops across days.\n- Mark uncertainty instead of pretending inferred details are known.\n\n## Current State\nNo simulated day has been run yet.\n\n## Recent Work Signals\n- None yet.\n\n## Recent Reflections\n- None yet.\n\n## Grown Identity (Revisions)\n- None; core identity unchanged.\n\n\n---\n\n## Current State\n{\n  \"persona_id\": \"persona_5ca3935ec78e1cc7\",\n  \"display_name\": \"Preparation fixture\",\n  \"at_time\": \"2026-06-02T23:59\",\n  \"current_activity\": \"not simulated yet\",\n  \"current_tool\": null,\n  \"collaboration_mode\": null,\n  \"mood\": \"unknown\",\n  \"current_thought\": \"unknown\",\n  \"blocked_by\": [],\n  \"likely_next\": [\n    \"Preparation fixture goal\"\n  ],\n  \"synthetic_notice\": \"State is simulated unless backed by attached evidence.\"\n}\n\n## Recent Lived Events\n- No simulated events yet.\n\n## Active Projects (memory)\n- (keine erfassten Projekte)\n\n## Open Loops (memory)\n- (keine offenen Fäden)\n\n## Relevant Memory (recalled for this task — background, use only if it fits)\n- (nichts spezifisch Relevantes gefunden)\n\n## Task\nReview a transfer\n\n## Operating Rules\n- Stay grounded in SOUL.md, recent events, and the persona's project memory.\n- Speak from the persona's lived work context, not as a generic consultant.\n- Memory is background: refer to past projects/loops only when the question\n  genuinely calls for it — do not recite memories unprompted.\n- When uncertain, say what is inferred or synthetic.\n- Cite concrete calendar moments, tools, people, projects, and open loops when relevant.\n\n\n\nPERSONA VOICE BOUNDARY — keep the participant and the researcher separate:\n• Persona-voice fields (`monologue`, persona `statement.text`, reaction `quote`/`reason`) contain what THIS person would naturally think or say in that moment. Write concrete first-person language at the persona's demonstrated vocabulary, confidence and sentence rhythm; ordinary, partial or uncertain speech is better than an unnaturally polished diagnosis.\n• The persona is not a UX researcher. Never leak moderator language, method labels or an analyst's conclusion into their mouth unless SOUL/memory/source material demonstrates that this person uses the exact term naturally. Phrases such as 'findability problem', 'top tasks', 'progressive disclosure', 'information architecture' or 'cognitive load' normally belong in analysis, not a participant quote. Do not merely translate such jargon into first person.\n• Observer fields (`action`, `state`, focus label) state only what was visibly done or noticed. Researcher fields (`friction.note`, outcome summary, findings) may interpret the evidence, but must not be presented as verbatim persona speech.\n• Before persisting, perform an attribution check on every persona-voice field: could this wording plausibly come from the loaded persona without knowing the research method? If not, rewrite it from their immediate goal, worry and next action. Keep the analytical interpretation outside the quote.\n",
+      "recent_event_ids": [],
+      "soul_path": "inline:persona/persona_5ca3935ec78e1cc7@2026-06-02",
+      "context_sha256": "e3816a6503d1e1ef68bf1da11d10d7f552c417185e2279158b51d2f61382ef9c",
+      "created_at": "2026-09-09T04:20:50.957964+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-list-persona-context-snapshots",
+    "tool": "list_persona_context_snapshots",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7"
+    },
+    "value": [
+      {
+        "id": "pctx_e3816a6503d1e1ef68bf",
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "persona_version": "2026-09-09T04:20:50.573675+00:00",
+        "project_id": null,
+        "as_of": "2026-06-02",
+        "memory_cutoff": "2026-06-02",
+        "required_capability": "login",
+        "context_sha256": "e3816a6503d1e1ef68bf1da11d10d7f552c417185e2279158b51d2f61382ef9c",
+        "created_at": "2026-09-09T04:20:50.957964+00:00",
+        "readiness_level": "not_ready"
+      }
+    ],
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-begin-persona-build",
+    "tool": "begin_persona_build",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "operation_id": "preparation-fixture",
+      "days": 7
+    },
+    "value": {
+      "schema": "sonaloop.persona_build.v1",
+      "build_id": "pbuild_17a3c11aabe313b6d955",
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "operation_id": "preparation-fixture",
+      "status": "active",
+      "cursor": 0,
+      "journal": [],
+      "window": {
+        "start": "2026-05-27",
+        "end": "2026-06-02",
+        "days": 7
+      },
+      "created_at": "2026-09-09T04:20:50.964078+00:00",
+      "updated_at": "2026-09-09T04:20:50.964078+00:00",
+      "created": true,
+      "dispatch": {
+        "kind": "profile",
+        "tool": "preview_persona_update",
+        "purpose": "author a concrete profile patch, preview it, then update_persona",
+        "params": {
+          "persona_id": "persona_5ca3935ec78e1cc7"
+        }
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-build-resumed",
+    "tool": "begin_persona_build",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "operation_id": "preparation-fixture",
+      "days": 7
+    },
+    "value": {
+      "schema": "sonaloop.persona_build.v1",
+      "build_id": "pbuild_17a3c11aabe313b6d955",
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "operation_id": "preparation-fixture",
+      "status": "active",
+      "cursor": 0,
+      "journal": [],
+      "window": {
+        "start": "2026-05-27",
+        "end": "2026-06-02",
+        "days": 7
+      },
+      "created_at": "2026-09-09T04:20:50.964078+00:00",
+      "updated_at": "2026-09-09T04:20:50.964078+00:00",
+      "created": false,
+      "dispatch": {
+        "kind": "profile",
+        "tool": "preview_persona_update",
+        "purpose": "author a concrete profile patch, preview it, then update_persona",
+        "params": {
+          "persona_id": "persona_5ca3935ec78e1cc7"
+        }
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-persona-build-step",
+    "tool": "persona_build_step",
+    "input": {
+      "build_id": "pbuild_17a3c11aabe313b6d955"
+    },
+    "value": {
+      "schema": "sonaloop.persona_build.v1",
+      "build_id": "pbuild_17a3c11aabe313b6d955",
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "operation_id": "preparation-fixture",
+      "status": "active",
+      "cursor": 1,
+      "journal": [
+        {
+          "cursor": 0,
+          "dispatch_key": "1a4fb8ceab50c290",
+          "kind": "profile",
+          "tool": "preview_persona_update",
+          "at": "2026-09-09T04:20:50.967956+00:00"
+        }
+      ],
+      "window": {
+        "start": "2026-05-27",
+        "end": "2026-06-02",
+        "days": 7
+      },
+      "created_at": "2026-09-09T04:20:50.964078+00:00",
+      "updated_at": "2026-09-09T04:20:50.967965+00:00",
+      "dispatch": {
+        "kind": "profile",
+        "tool": "preview_persona_update",
+        "purpose": "author a concrete profile patch, preview it, then update_persona",
+        "params": {
+          "persona_id": "persona_5ca3935ec78e1cc7"
+        }
+      },
+      "readiness": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "level": "thin",
+        "score": 22,
+        "memory_level": "thin",
+        "counts": {
+          "events": 0,
+          "facts": 0,
+          "evidence": 0,
+          "grounded_claims": 0,
+          "grounding_corpora": 0,
+          "daily_summaries": 0,
+          "reflections": 0,
+          "digests": 0,
+          "blocking_anomalies": 0
+        },
+        "dimensions": {
+          "profile": 18,
+          "grounding": 0,
+          "memory": 0,
+          "continuity": 0,
+          "capabilities": 4
+        },
+        "critic": null,
+        "gaps": [
+          "profile_specificity",
+          "claim_level_grounding",
+          "lived_events",
+          "durable_facts",
+          "calendar_continuity",
+          "period_digest",
+          "authored_capabilities",
+          "semantic_critic"
+        ],
+        "next_action": "deepen_profile"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-get-persona-build",
+    "tool": "get_persona_build",
+    "input": {
+      "build_id": "pbuild_17a3c11aabe313b6d955"
+    },
+    "value": {
+      "schema": "sonaloop.persona_build.v1",
+      "build_id": "pbuild_17a3c11aabe313b6d955",
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "operation_id": "preparation-fixture",
+      "status": "active",
+      "cursor": 1,
+      "journal": [
+        {
+          "cursor": 0,
+          "dispatch_key": "1a4fb8ceab50c290",
+          "kind": "profile",
+          "tool": "preview_persona_update",
+          "at": "2026-09-09T04:20:50.967956+00:00"
+        }
+      ],
+      "window": {
+        "start": "2026-05-27",
+        "end": "2026-06-02",
+        "days": 7
+      },
+      "created_at": "2026-09-09T04:20:50.964078+00:00",
+      "updated_at": "2026-09-09T04:20:50.967965+00:00",
+      "dispatch": {
+        "kind": "profile",
+        "tool": "preview_persona_update",
+        "purpose": "author a concrete profile patch, preview it, then update_persona",
+        "params": {
+          "persona_id": "persona_5ca3935ec78e1cc7"
+        }
+      },
+      "readiness": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "level": "thin",
+        "score": 22,
+        "memory_level": "thin",
+        "counts": {
+          "events": 0,
+          "facts": 0,
+          "evidence": 0,
+          "grounded_claims": 0,
+          "grounding_corpora": 0,
+          "daily_summaries": 0,
+          "reflections": 0,
+          "digests": 0,
+          "blocking_anomalies": 0
+        },
+        "dimensions": {
+          "profile": 18,
+          "grounding": 0,
+          "memory": 0,
+          "continuity": 0,
+          "capabilities": 4
+        },
+        "critic": null,
+        "gaps": [
+          "profile_specificity",
+          "claim_level_grounding",
+          "lived_events",
+          "durable_facts",
+          "calendar_continuity",
+          "period_digest",
+          "authored_capabilities",
+          "semantic_critic"
+        ],
+        "next_action": "deepen_profile"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-list-persona-builds",
+    "tool": "list_persona_builds",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7"
+    },
+    "value": [
+      {
+        "schema": "sonaloop.persona_build.v1",
+        "build_id": "pbuild_17a3c11aabe313b6d955",
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "operation_id": "preparation-fixture",
+        "status": "active",
+        "cursor": 1,
+        "journal": [
+          {
+            "cursor": 0,
+            "dispatch_key": "1a4fb8ceab50c290",
+            "kind": "profile",
+            "tool": "preview_persona_update",
+            "at": "2026-09-09T04:20:50.967956+00:00"
+          }
+        ],
+        "window": {
+          "start": "2026-05-27",
+          "end": "2026-06-02",
+          "days": 7
+        },
+        "created_at": "2026-09-09T04:20:50.964078+00:00",
+        "updated_at": "2026-09-09T04:20:50.967965+00:00"
+      }
+    ],
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-structurally-ready",
+    "tool": "persona_readiness",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7"
+    },
+    "value": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "level": "ready",
+      "score": 83,
+      "memory_level": "deep",
+      "counts": {
+        "events": 8,
+        "facts": 4,
+        "evidence": 1,
+        "grounded_claims": 1,
+        "grounding_corpora": 1,
+        "daily_summaries": 3,
+        "reflections": 1,
+        "digests": 1,
+        "blocking_anomalies": 0
+      },
+      "dimensions": {
+        "profile": 22,
+        "grounding": 11,
+        "memory": 28,
+        "continuity": 12,
+        "capabilities": 10
+      },
+      "critic": {
+        "green": true,
+        "created_at": "2026-09-09T04:20:50.964078+00:00",
+        "low_dimensions": []
+      },
+      "gaps": [],
+      "next_action": "ready_for_research"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-task-ready",
+    "tool": "persona_task_readiness",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "task": "Review a transfer",
+      "as_of": "2026-06-02",
+      "required_capability": "walk"
+    },
+    "value": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "project_id": null,
+      "as_of": "2026-06-02",
+      "level": "ready",
+      "ready": true,
+      "global_readiness": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "level": "ready",
+        "score": 83,
+        "memory_level": "deep",
+        "counts": {
+          "events": 8,
+          "facts": 4,
+          "evidence": 1,
+          "grounded_claims": 1,
+          "grounding_corpora": 1,
+          "daily_summaries": 3,
+          "reflections": 1,
+          "digests": 1,
+          "blocking_anomalies": 0
+        },
+        "dimensions": {
+          "profile": 22,
+          "grounding": 11,
+          "memory": 28,
+          "continuity": 12,
+          "capabilities": 10
+        },
+        "critic": {
+          "green": true,
+          "created_at": "2026-09-09T04:20:50.964078+00:00",
+          "low_dimensions": []
+        },
+        "gaps": [],
+        "next_action": "ready_for_research"
+      },
+      "task_signals": {
+        "memory_hits": 4,
+        "grounding_hits": 1
+      },
+      "capability": {
+        "required": "walk",
+        "ok": true,
+        "profile": {
+          "rungs": {
+            "see": true,
+            "walk": true,
+            "drive": false,
+            "login": false
+          },
+          "tech_comfort": 3,
+          "devices": [
+            "mobile"
+          ],
+          "accessibility": "",
+          "provenance": "authored"
+        }
+      },
+      "project_cohort_member": true,
+      "limitations": [],
+      "refs": [
+        {
+          "kind": "memory",
+          "id": "prep-fact-0",
+          "score": 0.5466
+        },
+        {
+          "kind": "memory",
+          "id": "prep-fact-1",
+          "score": 0.4216
+        },
+        {
+          "kind": "memory",
+          "id": "prep-fact-2",
+          "score": 0.4216
+        },
+        {
+          "kind": "memory",
+          "id": "prep-fact-3",
+          "score": 0.4216
+        },
+        {
+          "kind": "evidence",
+          "id": "chunk_df013315e6dc4960",
+          "score": 2
+        }
+      ],
+      "recall": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "query": "Review a transfer",
+        "as_of": "2026-06-02",
+        "semantic_enabled": false,
+        "k": 10,
+        "hits": [
+          {
+            "obj_type": "fact",
+            "obj_id": "prep-fact-0",
+            "when": "2026-06-01",
+            "score": 0.5466,
+            "semantic": 0.0,
+            "keyword": 1.0,
+            "recency": 0.9772,
+            "importance": 1.0,
+            "source_kind": "simulated_episode",
+            "source_refs": [
+              {
+                "kind": "event",
+                "id": "prep-event-0"
+              }
+            ],
+            "confidence": 0,
+            "review_status": "unreviewed",
+            "text": "Review: Transfer confirmation requires review"
+          },
+          {
+            "obj_type": "fact",
+            "obj_id": "prep-fact-1",
+            "when": "2026-06-01",
+            "score": 0.4216,
+            "semantic": 0.0,
+            "keyword": 0.5,
+            "recency": 0.9772,
+            "importance": 1.0,
+            "source_kind": "simulated_episode",
+            "source_refs": [
+              {
+                "kind": "event",
+                "id": "prep-event-1"
+              }
+            ],
+            "confidence": 0,
+            "review_status": "unreviewed",
+            "text": "Review: Routine fact 1"
+          },
+          {
+            "obj_type": "fact",
+            "obj_id": "prep-fact-2",
+            "when": "2026-06-01",
+            "score": 0.4216,
+            "semantic": 0.0,
+            "keyword": 0.5,
+            "recency": 0.9772,
+            "importance": 1.0,
+            "source_kind": "simulated_episode",
+            "source_refs": [
+              {
+                "kind": "event",
+                "id": "prep-event-2"
+              }
+            ],
+            "confidence": 0,
+            "review_status": "unreviewed",
+            "text": "Review: Routine fact 2"
+          },
+          {
+            "obj_type": "fact",
+            "obj_id": "prep-fact-3",
+            "when": "2026-06-01",
+            "score": 0.4216,
+            "semantic": 0.0,
+            "keyword": 0.5,
+            "recency": 0.9772,
+            "importance": 1.0,
+            "source_kind": "simulated_episode",
+            "source_refs": [
+              {
+                "kind": "event",
+                "id": "prep-event-3"
+              }
+            ],
+            "confidence": 0,
+            "review_status": "unreviewed",
+            "text": "Review: Routine fact 3"
+          }
+        ]
+      },
+      "grounding_hits": [
+        {
+          "id": "chunk_df013315e6dc4960",
+          "corpus_id": "corpus_5f3de360deeebe13",
+          "idx": 0,
+          "text": "Transfer review requires confirmation details before approval.",
+          "score": 2
+        }
+      ],
+      "next_action": "prepare_persona_for_task"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-task-capability-blocked",
+    "tool": "persona_task_readiness",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "task": "Review a transfer",
+      "as_of": "2026-06-02",
+      "required_capability": "login"
+    },
+    "value": {
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "project_id": null,
+      "as_of": "2026-06-02",
+      "level": "not_ready",
+      "ready": false,
+      "global_readiness": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "level": "ready",
+        "score": 83,
+        "memory_level": "deep",
+        "counts": {
+          "events": 8,
+          "facts": 4,
+          "evidence": 1,
+          "grounded_claims": 1,
+          "grounding_corpora": 1,
+          "daily_summaries": 3,
+          "reflections": 1,
+          "digests": 1,
+          "blocking_anomalies": 0
+        },
+        "dimensions": {
+          "profile": 22,
+          "grounding": 11,
+          "memory": 28,
+          "continuity": 12,
+          "capabilities": 10
+        },
+        "critic": {
+          "green": true,
+          "created_at": "2026-09-09T04:20:50.964078+00:00",
+          "low_dimensions": []
+        },
+        "gaps": [],
+        "next_action": "ready_for_research"
+      },
+      "task_signals": {
+        "memory_hits": 4,
+        "grounding_hits": 1
+      },
+      "capability": {
+        "required": "login",
+        "ok": false,
+        "profile": {
+          "rungs": {
+            "see": true,
+            "walk": true,
+            "drive": false,
+            "login": false
+          },
+          "tech_comfort": 3,
+          "devices": [
+            "mobile"
+          ],
+          "accessibility": "",
+          "provenance": "authored"
+        }
+      },
+      "project_cohort_member": true,
+      "limitations": [
+        "capability_rung_unavailable:login"
+      ],
+      "refs": [
+        {
+          "kind": "memory",
+          "id": "prep-fact-0",
+          "score": 0.5466
+        },
+        {
+          "kind": "memory",
+          "id": "prep-fact-1",
+          "score": 0.4216
+        },
+        {
+          "kind": "memory",
+          "id": "prep-fact-2",
+          "score": 0.4216
+        },
+        {
+          "kind": "memory",
+          "id": "prep-fact-3",
+          "score": 0.4216
+        },
+        {
+          "kind": "evidence",
+          "id": "chunk_df013315e6dc4960",
+          "score": 2
+        }
+      ],
+      "recall": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "query": "Review a transfer",
+        "as_of": "2026-06-02",
+        "semantic_enabled": false,
+        "k": 10,
+        "hits": [
+          {
+            "obj_type": "fact",
+            "obj_id": "prep-fact-0",
+            "when": "2026-06-01",
+            "score": 0.5466,
+            "semantic": 0.0,
+            "keyword": 1.0,
+            "recency": 0.9772,
+            "importance": 1.0,
+            "source_kind": "simulated_episode",
+            "source_refs": [
+              {
+                "kind": "event",
+                "id": "prep-event-0"
+              }
+            ],
+            "confidence": 0,
+            "review_status": "unreviewed",
+            "text": "Review: Transfer confirmation requires review"
+          },
+          {
+            "obj_type": "fact",
+            "obj_id": "prep-fact-1",
+            "when": "2026-06-01",
+            "score": 0.4216,
+            "semantic": 0.0,
+            "keyword": 0.5,
+            "recency": 0.9772,
+            "importance": 1.0,
+            "source_kind": "simulated_episode",
+            "source_refs": [
+              {
+                "kind": "event",
+                "id": "prep-event-1"
+              }
+            ],
+            "confidence": 0,
+            "review_status": "unreviewed",
+            "text": "Review: Routine fact 1"
+          },
+          {
+            "obj_type": "fact",
+            "obj_id": "prep-fact-2",
+            "when": "2026-06-01",
+            "score": 0.4216,
+            "semantic": 0.0,
+            "keyword": 0.5,
+            "recency": 0.9772,
+            "importance": 1.0,
+            "source_kind": "simulated_episode",
+            "source_refs": [
+              {
+                "kind": "event",
+                "id": "prep-event-2"
+              }
+            ],
+            "confidence": 0,
+            "review_status": "unreviewed",
+            "text": "Review: Routine fact 2"
+          },
+          {
+            "obj_type": "fact",
+            "obj_id": "prep-fact-3",
+            "when": "2026-06-01",
+            "score": 0.4216,
+            "semantic": 0.0,
+            "keyword": 0.5,
+            "recency": 0.9772,
+            "importance": 1.0,
+            "source_kind": "simulated_episode",
+            "source_refs": [
+              {
+                "kind": "event",
+                "id": "prep-event-3"
+              }
+            ],
+            "confidence": 0,
+            "review_status": "unreviewed",
+            "text": "Review: Routine fact 3"
+          }
+        ]
+      },
+      "grounding_hits": [
+        {
+          "id": "chunk_df013315e6dc4960",
+          "corpus_id": "corpus_5f3de360deeebe13",
+          "idx": 0,
+          "text": "Transfer review requires confirmation details before approval.",
+          "score": 2
+        }
+      ],
+      "next_action": "ready_for_research"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-build-complete",
+    "tool": "persona_build_step",
+    "input": {
+      "build_id": "pbuild_17a3c11aabe313b6d955"
+    },
+    "value": {
+      "schema": "sonaloop.persona_build.v1",
+      "build_id": "pbuild_17a3c11aabe313b6d955",
+      "persona_id": "persona_5ca3935ec78e1cc7",
+      "operation_id": "preparation-fixture",
+      "status": "complete",
+      "cursor": 2,
+      "journal": [
+        {
+          "cursor": 0,
+          "dispatch_key": "1a4fb8ceab50c290",
+          "kind": "profile",
+          "tool": "preview_persona_update",
+          "at": "2026-09-09T04:20:50.967956+00:00"
+        },
+        {
+          "cursor": 1,
+          "dispatch_key": "a307e4ed6909e09e",
+          "kind": "done",
+          "tool": "prepare_persona_for_task",
+          "at": "2026-09-09T04:20:50.993307+00:00"
+        }
+      ],
+      "window": {
+        "start": "2026-05-27",
+        "end": "2026-06-02",
+        "days": 7
+      },
+      "created_at": "2026-09-09T04:20:50.964078+00:00",
+      "updated_at": "2026-09-09T04:20:50.993320+00:00",
+      "completed_at": "2026-09-09T04:20:50.993317+00:00",
+      "dispatch": {
+        "kind": "done",
+        "tool": "prepare_persona_for_task",
+        "purpose": "persona baseline passed; prepare a frozen task-specific context",
+        "params": {
+          "persona_id": "persona_5ca3935ec78e1cc7"
+        }
+      },
+      "readiness": {
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "level": "ready",
+        "score": 83,
+        "memory_level": "deep",
+        "counts": {
+          "events": 8,
+          "facts": 4,
+          "evidence": 1,
+          "grounded_claims": 1,
+          "grounding_corpora": 1,
+          "daily_summaries": 3,
+          "reflections": 1,
+          "digests": 1,
+          "blocking_anomalies": 0
+        },
+        "dimensions": {
+          "profile": 22,
+          "grounding": 11,
+          "memory": 28,
+          "continuity": 12,
+          "capabilities": 10
+        },
+        "critic": {
+          "green": true,
+          "created_at": "2026-09-09T04:20:50.964078+00:00",
+          "low_dimensions": []
+        },
+        "gaps": [],
+        "next_action": "ready_for_research"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "preparation-build-history-complete",
+    "tool": "list_persona_builds",
+    "input": {
+      "persona_id": "persona_5ca3935ec78e1cc7"
+    },
+    "value": [
+      {
+        "schema": "sonaloop.persona_build.v1",
+        "build_id": "pbuild_17a3c11aabe313b6d955",
+        "persona_id": "persona_5ca3935ec78e1cc7",
+        "operation_id": "preparation-fixture",
+        "status": "complete",
+        "cursor": 2,
+        "journal": [
+          {
+            "cursor": 0,
+            "dispatch_key": "1a4fb8ceab50c290",
+            "kind": "profile",
+            "tool": "preview_persona_update",
+            "at": "2026-09-09T04:20:50.967956+00:00"
+          },
+          {
+            "cursor": 1,
+            "dispatch_key": "a307e4ed6909e09e",
+            "kind": "done",
+            "tool": "prepare_persona_for_task",
+            "at": "2026-09-09T04:20:50.993307+00:00"
+          }
+        ],
+        "window": {
+          "start": "2026-05-27",
+          "end": "2026-06-02",
+          "days": 7
+        },
+        "created_at": "2026-09-09T04:20:50.964078+00:00",
+        "updated_at": "2026-09-09T04:20:50.993320+00:00",
+        "completed_at": "2026-09-09T04:20:50.993317+00:00"
+      }
+    ],
+    "state": "ready"
+  }
+]

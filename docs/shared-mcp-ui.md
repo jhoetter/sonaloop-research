@@ -247,6 +247,20 @@ not recalculated, and null is distinct from zero. Native references may be cappe
 at five per group. Both the native prediction tool and the Product result page
 use the same body and preserve its source addresses without loading the sources.
 
+Persona preparation views reuse the existing Product readiness and capability
+bodies. The Persona page links to **Persona preparation**: its read-only history
+and detail pages load existing snapshots/builds, never prepare a context, start a
+build or execute a returned stage. Immutable contexts keep their supplied task,
+cutoff, references and full agent context in local disclosures. A ready score is
+structural readiness, not observed behavior; native false capability and null
+critic fields remain distinct. Durable build journals show literal status/cursor
+and the returned stage purpose; dispatch parameters/grants are excluded from
+presentation while native MCP output stays unchanged. The same journal body also
+presents `persona_build_step`, whose returned persisted progress is meaningful
+UI even though it is a writer. Its prior no-UI classification was re-evaluated;
+rendering the response does not run another step. Seeded ready/completed fixtures
+are synthetic native records, not proof that preceding authoring gates ran.
+
 Memory views share the Persona inspector's entity, fact, thread, recall and
 document bodies. Its collapsed whole-record overview uses the same digest and
 experience-summary content, independently of the search and historical-state
