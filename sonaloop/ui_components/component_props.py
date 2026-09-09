@@ -8,10 +8,15 @@ from __future__ import annotations
 import json
 
 from .registry import SURFACES
-from . import run_journal
+from . import run_journal, research_plan
 
 _RUN_PROJECTIONS = {"start_run": run_journal.journal_view, "run_journal": run_journal.journal_view,
                     "resume_project_run": run_journal.resumed_view, "finish_run": run_journal.finished_view}
+
+_PLAN_PROJECTIONS = {"get_plan": research_plan.plan_view, "add_task": research_plan.task_view,
+    "record_frame": research_plan.task_view, "link_evidence": research_plan.task_view,
+    "record_judgment": research_plan.judgment_view, "assess_progress": research_plan.progress_view,
+    "park_evidence": research_plan.parked_view, "unpark_evidence": research_plan.unparked_view}
 
 
 def public_component_value(name: str, value):
@@ -19,9 +24,12 @@ def public_component_value(name: str, value):
 
     The native remote-registration envelope uses the reserved JS key `prototype`.
     Public examples use `artifact` for that one envelope; Run results use their
-    explicit closed run-view.v1 projection. Dispatch/private context is not a
+    explicit closed run-view.v1 projection. Research Plans similarly use the
+    authored research-plan-view.v1 projection. Dispatch/private context is not a
     visual prop. Other projections preserve their existing authored DTO.
     """
+    if name in _PLAN_PROJECTIONS:
+        return _PLAN_PROJECTIONS[name](value)
     if name in _RUN_PROJECTIONS:
         return _RUN_PROJECTIONS[name](value)
     if name == "register_remote_prototype":
@@ -71,4 +79,12 @@ def render_component_props(component_id: str, props: dict):
         if not isinstance(value, dict) or value.get("view") != expected:
             raise ValueError("Run presentation does not belong to this projection")
         return run_journal.render_view(value)
+    if props["name"] in _PLAN_PROJECTIONS:
+        expected = {"get_plan": "plan", "add_task": "task", "record_frame": "task",
+                    "link_evidence": "task", "record_judgment": "judgment",
+                    "assess_progress": "progress", "park_evidence": "parked",
+                    "unpark_evidence": "unparked"}[props["name"]]
+        if not isinstance(value, dict) or value.get("view") != expected:
+            raise ValueError("Plan presentation does not belong to this projection")
+        return research_plan.render_view(value)
     return surface.render(value)

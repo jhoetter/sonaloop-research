@@ -1,0 +1,2024 @@
+[
+  {
+    "scenario": "researchplan-absent",
+    "tool": "get_plan",
+    "input": {
+      "project_id": "absent-plan"
+    },
+    "value": null,
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "plan",
+      "value": null
+    },
+    "state": "empty"
+  },
+  {
+    "scenario": "researchplan-initial",
+    "tool": "get_plan",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8"
+    },
+    "value": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "goal": "Understand the handover",
+      "methodology": "",
+      "tasks": [
+        {
+          "id": "frame__root",
+          "title": "Frame the inquiry",
+          "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+          "phase_intent": "",
+          "plan_note": "",
+          "bucket": "analyze",
+          "capability": "frame",
+          "expected_output_kind": "",
+          "step": "",
+          "consumes": [],
+          "status": "todo",
+          "produces": [],
+          "requires": {
+            "min_inputs": null,
+            "gate_tag": "",
+            "artifact_tags": [],
+            "session_of_tags": []
+          },
+          "loop_back": "",
+          "presentation": {},
+          "frame": null
+        }
+      ],
+      "created_at": "2026-09-09T07:17:21.663355+00:00",
+      "updated_at": "2026-09-09T07:17:21.663380+00:00"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "plan",
+      "value": {
+        "project_id": "rproject_eefe72ec8be889b8",
+        "tasks": [
+          {
+            "id": "frame__root",
+            "title": "Frame the inquiry",
+            "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+            "phase_intent": "",
+            "plan_note": "",
+            "bucket": "analyze",
+            "capability": "frame",
+            "expected_output_kind": "",
+            "step": "",
+            "status": "todo",
+            "loop_back": "",
+            "consumes": [],
+            "produces": [],
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "presentation": {},
+            "frame": null
+          }
+        ],
+        "goal": "Understand the handover",
+        "methodology": "",
+        "created_at": "2026-09-09T07:17:21.663355+00:00",
+        "updated_at": "2026-09-09T07:17:21.663380+00:00"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-frame",
+    "tool": "record_frame",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "task_id": "frame__root",
+      "questions": [
+        "Where is the handover unclear?"
+      ],
+      "hypotheses": [
+        "A missing reference may cause delay."
+      ],
+      "memory_refs": [
+        "memory:unresolved-source"
+      ]
+    },
+    "value": {
+      "id": "frame__root",
+      "title": "Frame the inquiry",
+      "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+      "phase_intent": "",
+      "plan_note": "",
+      "bucket": "analyze",
+      "capability": "frame",
+      "expected_output_kind": "",
+      "step": "",
+      "consumes": [],
+      "status": "done",
+      "produces": [
+        {
+          "kind": "frame",
+          "id": "frame__root"
+        }
+      ],
+      "requires": {
+        "min_inputs": null,
+        "gate_tag": "",
+        "artifact_tags": [],
+        "session_of_tags": []
+      },
+      "loop_back": "",
+      "presentation": {},
+      "frame": {
+        "questions": [
+          "Where is the handover unclear?"
+        ],
+        "hypotheses": [
+          "A missing reference may cause delay."
+        ],
+        "memory_refs": [
+          "memory:unresolved-source"
+        ]
+      },
+      "dispatch": {
+        "state": "legacy",
+        "checkpointed": false,
+        "provenance": "not governed by an active dispatch"
+      }
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "task",
+      "value": {
+        "id": "frame__root",
+        "title": "Frame the inquiry",
+        "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+        "phase_intent": "",
+        "plan_note": "",
+        "bucket": "analyze",
+        "capability": "frame",
+        "expected_output_kind": "",
+        "step": "",
+        "status": "done",
+        "loop_back": "",
+        "consumes": [],
+        "produces": [
+          {
+            "kind": "frame",
+            "id": "frame__root"
+          }
+        ],
+        "requires": {
+          "min_inputs": null,
+          "gate_tag": "",
+          "artifact_tags": [],
+          "session_of_tags": []
+        },
+        "presentation": {},
+        "frame": {
+          "questions": [
+            "Where is the handover unclear?"
+          ],
+          "hypotheses": [
+            "A missing reference may cause delay."
+          ],
+          "memory_refs": [
+            "memory:unresolved-source"
+          ]
+        },
+        "dispatch": {
+          "state": "legacy",
+          "checkpointed": false,
+          "provenance": "not governed by an active dispatch"
+        }
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-task",
+    "tool": "add_task",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "bucket": "act",
+      "capability": "explore",
+      "title": "Inspect handover",
+      "intent": "Retain the unresolved source.",
+      "consumes": [
+        "frame__root"
+      ],
+      "requires": {
+        "min_inputs": 0
+      },
+      "plan_note": "A bounded example."
+    },
+    "value": {
+      "id": "act__explore",
+      "title": "Inspect handover",
+      "intent": "Retain the unresolved source.",
+      "phase_intent": "",
+      "plan_note": "A bounded example.",
+      "bucket": "act",
+      "capability": "explore",
+      "expected_output_kind": "",
+      "step": "",
+      "consumes": [
+        "frame__root"
+      ],
+      "status": "todo",
+      "produces": [],
+      "requires": {
+        "min_inputs": 0,
+        "gate_tag": "",
+        "artifact_tags": [],
+        "session_of_tags": []
+      },
+      "loop_back": "",
+      "presentation": {},
+      "frame": null
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "task",
+      "value": {
+        "id": "act__explore",
+        "title": "Inspect handover",
+        "intent": "Retain the unresolved source.",
+        "phase_intent": "",
+        "plan_note": "A bounded example.",
+        "bucket": "act",
+        "capability": "explore",
+        "expected_output_kind": "",
+        "step": "",
+        "status": "todo",
+        "loop_back": "",
+        "consumes": [
+          "frame__root"
+        ],
+        "produces": [],
+        "requires": {
+          "min_inputs": 0,
+          "gate_tag": "",
+          "artifact_tags": [],
+          "session_of_tags": []
+        },
+        "presentation": {},
+        "frame": null
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-linked",
+    "tool": "link_evidence",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "task_id": "act__explore",
+      "kind": "source-kind",
+      "evidence_id": "unresolved-example"
+    },
+    "value": {
+      "id": "act__explore",
+      "title": "Inspect handover",
+      "intent": "Retain the unresolved source.",
+      "phase_intent": "",
+      "plan_note": "A bounded example.",
+      "bucket": "act",
+      "capability": "explore",
+      "expected_output_kind": "",
+      "step": "",
+      "consumes": [
+        "frame__root"
+      ],
+      "status": "todo",
+      "produces": [
+        {
+          "kind": "source-kind",
+          "id": "unresolved-example"
+        }
+      ],
+      "requires": {
+        "min_inputs": 0,
+        "gate_tag": "",
+        "artifact_tags": [],
+        "session_of_tags": []
+      },
+      "loop_back": "",
+      "presentation": {},
+      "frame": null
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "task",
+      "value": {
+        "id": "act__explore",
+        "title": "Inspect handover",
+        "intent": "Retain the unresolved source.",
+        "phase_intent": "",
+        "plan_note": "A bounded example.",
+        "bucket": "act",
+        "capability": "explore",
+        "expected_output_kind": "",
+        "step": "",
+        "status": "todo",
+        "loop_back": "",
+        "consumes": [
+          "frame__root"
+        ],
+        "produces": [
+          {
+            "kind": "source-kind",
+            "id": "unresolved-example"
+          }
+        ],
+        "requires": {
+          "min_inputs": 0,
+          "gate_tag": "",
+          "artifact_tags": [],
+          "session_of_tags": []
+        },
+        "presentation": {},
+        "frame": null
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-link-replayed",
+    "tool": "link_evidence",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "task_id": "act__explore",
+      "kind": "source-kind",
+      "evidence_id": "unresolved-example"
+    },
+    "value": {
+      "id": "act__explore",
+      "title": "Inspect handover",
+      "intent": "Retain the unresolved source.",
+      "phase_intent": "",
+      "plan_note": "A bounded example.",
+      "bucket": "act",
+      "capability": "explore",
+      "expected_output_kind": "",
+      "step": "",
+      "consumes": [
+        "frame__root"
+      ],
+      "status": "todo",
+      "produces": [
+        {
+          "kind": "source-kind",
+          "id": "unresolved-example"
+        }
+      ],
+      "requires": {
+        "min_inputs": 0,
+        "gate_tag": "",
+        "artifact_tags": [],
+        "session_of_tags": []
+      },
+      "loop_back": "",
+      "presentation": {},
+      "frame": null
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "task",
+      "value": {
+        "id": "act__explore",
+        "title": "Inspect handover",
+        "intent": "Retain the unresolved source.",
+        "phase_intent": "",
+        "plan_note": "A bounded example.",
+        "bucket": "act",
+        "capability": "explore",
+        "expected_output_kind": "",
+        "step": "",
+        "status": "todo",
+        "loop_back": "",
+        "consumes": [
+          "frame__root"
+        ],
+        "produces": [
+          {
+            "kind": "source-kind",
+            "id": "unresolved-example"
+          }
+        ],
+        "requires": {
+          "min_inputs": 0,
+          "gate_tag": "",
+          "artifact_tags": [],
+          "session_of_tags": []
+        },
+        "presentation": {},
+        "frame": null
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-judgment-false",
+    "tool": "record_judgment",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "task_id": "act__explore",
+      "gate_tag": "question-reviewed",
+      "decided": false,
+      "rationale": "The supplied source supports this bounded judgment.",
+      "evidence_refs": [
+        "source-kind:unresolved-example"
+      ]
+    },
+    "value": {
+      "task_id": "act__explore",
+      "gate_tag": "question-reviewed",
+      "decided": false,
+      "rationale": "The supplied source supports this bounded judgment.",
+      "evidence_refs": [
+        "source-kind:unresolved-example"
+      ],
+      "created_at": "2026-09-09T07:17:21.675965+00:00"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "judgment",
+      "value": {
+        "task_id": "act__explore",
+        "gate_tag": "question-reviewed",
+        "decided": false,
+        "rationale": "The supplied source supports this bounded judgment.",
+        "evidence_refs": [
+          "source-kind:unresolved-example"
+        ],
+        "created_at": "2026-09-09T07:17:21.675965+00:00"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-judgment-true",
+    "tool": "record_judgment",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "task_id": "act__explore",
+      "gate_tag": "question-reviewed",
+      "decided": true,
+      "rationale": "The supplied source supports this bounded judgment.",
+      "evidence_refs": [
+        "source-kind:unresolved-example"
+      ]
+    },
+    "value": {
+      "task_id": "act__explore",
+      "gate_tag": "question-reviewed",
+      "decided": true,
+      "rationale": "The supplied source supports this bounded judgment.",
+      "evidence_refs": [
+        "source-kind:unresolved-example"
+      ],
+      "created_at": "2026-09-09T07:17:21.677424+00:00"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "judgment",
+      "value": {
+        "task_id": "act__explore",
+        "gate_tag": "question-reviewed",
+        "decided": true,
+        "rationale": "The supplied source supports this bounded judgment.",
+        "evidence_refs": [
+          "source-kind:unresolved-example"
+        ],
+        "created_at": "2026-09-09T07:17:21.677424+00:00"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-progress",
+    "tool": "assess_progress",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "task_id": "act__explore",
+      "rationale": "The frame is recorded; questions remain.",
+      "evidence_refs": [
+        "source-kind:unresolved-example"
+      ],
+      "delta": "More precisely framed, still uncertain."
+    },
+    "value": {
+      "task_id": "act__explore",
+      "goal": "Understand the handover",
+      "delta": "More precisely framed, still uncertain.",
+      "rationale": "The frame is recorded; questions remain.",
+      "evidence_refs": [
+        "source-kind:unresolved-example"
+      ],
+      "coverage": {
+        "evidence_by_kind": {
+          "frame": 1,
+          "source-kind": 1
+        },
+        "artifacts": 0,
+        "sessions": 0,
+        "personas_touched": 0,
+        "tasks_done": 1,
+        "tasks_total": 2
+      },
+      "created_at": "2026-09-09T07:17:21.678982+00:00"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "progress",
+      "value": {
+        "task_id": "act__explore",
+        "goal": "Understand the handover",
+        "delta": "More precisely framed, still uncertain.",
+        "rationale": "The frame is recorded; questions remain.",
+        "evidence_refs": [
+          "source-kind:unresolved-example"
+        ],
+        "coverage": {
+          "evidence_by_kind": [
+            {
+              "kind": "frame",
+              "count": 1
+            },
+            {
+              "kind": "source-kind",
+              "count": 1
+            }
+          ],
+          "artifacts": 0,
+          "sessions": 0,
+          "personas_touched": 0,
+          "tasks_done": 1,
+          "tasks_total": 2
+        },
+        "created_at": "2026-09-09T07:17:21.678982+00:00"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-parked",
+    "tool": "park_evidence",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "refs": [
+        "source-kind:unresolved-example",
+        {
+          "kind": "note",
+          "id": "context"
+        }
+      ],
+      "reason": "Keep visible outside the gate.",
+      "task_id": "act__explore"
+    },
+    "value": {
+      "task_id": "act__explore",
+      "refs": [
+        "source-kind:unresolved-example",
+        "note:context"
+      ],
+      "reason": "Keep visible outside the gate.",
+      "created_at": "2026-09-09T07:17:21.680688+00:00"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "parked",
+      "value": {
+        "task_id": "act__explore",
+        "refs": [
+          "source-kind:unresolved-example",
+          "note:context"
+        ],
+        "reason": "Keep visible outside the gate.",
+        "created_at": "2026-09-09T07:17:21.680688+00:00"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-parking-replayed",
+    "tool": "park_evidence",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "refs": [
+        "source-kind:unresolved-example",
+        {
+          "kind": "note",
+          "id": "context"
+        }
+      ],
+      "reason": "Keep visible outside the gate.",
+      "task_id": "act__explore"
+    },
+    "value": {
+      "task_id": "act__explore",
+      "refs": [
+        "source-kind:unresolved-example",
+        "note:context"
+      ],
+      "reason": "Keep visible outside the gate.",
+      "created_at": "2026-09-09T07:17:21.681969+00:00"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "parked",
+      "value": {
+        "task_id": "act__explore",
+        "refs": [
+          "source-kind:unresolved-example",
+          "note:context"
+        ],
+        "reason": "Keep visible outside the gate.",
+        "created_at": "2026-09-09T07:17:21.681969+00:00"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-unparked",
+    "tool": "unpark_evidence",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "refs": [
+        "note:context"
+      ],
+      "reason": "Context is relevant again.",
+      "task_id": "act__explore"
+    },
+    "value": {
+      "task_id": "act__explore",
+      "refs": [
+        "note:context"
+      ],
+      "reason": "Context is relevant again.",
+      "created_at": "2026-09-09T07:17:21.683129+00:00"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "unparked",
+      "value": {
+        "task_id": "act__explore",
+        "refs": [
+          "note:context"
+        ],
+        "reason": "Context is relevant again.",
+        "created_at": "2026-09-09T07:17:21.683129+00:00"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-plan-parking",
+    "tool": "park_evidence",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "refs": [
+        "note:whole-plan"
+      ],
+      "reason": "Whole-plan parking."
+    },
+    "value": {
+      "task_id": "",
+      "refs": [
+        "note:whole-plan"
+      ],
+      "reason": "Whole-plan parking.",
+      "created_at": "2026-09-09T07:17:21.684477+00:00"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "parked",
+      "value": {
+        "task_id": "",
+        "refs": [
+          "note:whole-plan"
+        ],
+        "reason": "Whole-plan parking.",
+        "created_at": "2026-09-09T07:17:21.684477+00:00"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-history",
+    "tool": "get_plan",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8"
+    },
+    "value": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "goal": "Understand the handover",
+      "methodology": "",
+      "tasks": [
+        {
+          "id": "frame__root",
+          "title": "Frame the inquiry",
+          "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+          "phase_intent": "",
+          "plan_note": "",
+          "bucket": "analyze",
+          "capability": "frame",
+          "expected_output_kind": "",
+          "step": "",
+          "consumes": [],
+          "status": "done",
+          "produces": [
+            {
+              "kind": "frame",
+              "id": "frame__root"
+            }
+          ],
+          "requires": {
+            "min_inputs": null,
+            "gate_tag": "",
+            "artifact_tags": [],
+            "session_of_tags": []
+          },
+          "loop_back": "",
+          "presentation": {},
+          "frame": {
+            "questions": [
+              "Where is the handover unclear?"
+            ],
+            "hypotheses": [
+              "A missing reference may cause delay."
+            ],
+            "memory_refs": [
+              "memory:unresolved-source"
+            ]
+          }
+        },
+        {
+          "id": "act__explore",
+          "title": "Inspect handover",
+          "intent": "Retain the unresolved source.",
+          "phase_intent": "",
+          "plan_note": "A bounded example.",
+          "bucket": "act",
+          "capability": "explore",
+          "expected_output_kind": "",
+          "step": "",
+          "consumes": [
+            "frame__root"
+          ],
+          "status": "todo",
+          "produces": [
+            {
+              "kind": "source-kind",
+              "id": "unresolved-example"
+            }
+          ],
+          "requires": {
+            "min_inputs": 0,
+            "gate_tag": "",
+            "artifact_tags": [],
+            "session_of_tags": []
+          },
+          "loop_back": "",
+          "presentation": {},
+          "frame": null
+        }
+      ],
+      "created_at": "2026-09-09T07:17:21.663355+00:00",
+      "updated_at": "2026-09-09T07:17:21.684511+00:00",
+      "judgments": [
+        {
+          "task_id": "act__explore",
+          "gate_tag": "question-reviewed",
+          "decided": false,
+          "rationale": "The supplied source supports this bounded judgment.",
+          "evidence_refs": [
+            "source-kind:unresolved-example"
+          ],
+          "created_at": "2026-09-09T07:17:21.675965+00:00"
+        },
+        {
+          "task_id": "act__explore",
+          "gate_tag": "question-reviewed",
+          "decided": true,
+          "rationale": "The supplied source supports this bounded judgment.",
+          "evidence_refs": [
+            "source-kind:unresolved-example"
+          ],
+          "created_at": "2026-09-09T07:17:21.677424+00:00"
+        }
+      ],
+      "progress": [
+        {
+          "task_id": "act__explore",
+          "goal": "Understand the handover",
+          "delta": "More precisely framed, still uncertain.",
+          "rationale": "The frame is recorded; questions remain.",
+          "evidence_refs": [
+            "source-kind:unresolved-example"
+          ],
+          "coverage": {
+            "evidence_by_kind": {
+              "frame": 1,
+              "source-kind": 1
+            },
+            "artifacts": 0,
+            "sessions": 0,
+            "personas_touched": 0,
+            "tasks_done": 1,
+            "tasks_total": 2
+          },
+          "created_at": "2026-09-09T07:17:21.678982+00:00"
+        }
+      ],
+      "parked_refs": [
+        {
+          "task_id": "act__explore",
+          "refs": [
+            "source-kind:unresolved-example"
+          ],
+          "reason": "Keep visible outside the gate.",
+          "created_at": "2026-09-09T07:17:21.680688+00:00"
+        },
+        {
+          "task_id": "",
+          "refs": [
+            "note:whole-plan"
+          ],
+          "reason": "Whole-plan parking.",
+          "created_at": "2026-09-09T07:17:21.684477+00:00"
+        }
+      ],
+      "unparked_refs": [
+        {
+          "task_id": "act__explore",
+          "refs": [
+            "note:context"
+          ],
+          "reason": "Context is relevant again.",
+          "created_at": "2026-09-09T07:17:21.683129+00:00"
+        }
+      ]
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "plan",
+      "value": {
+        "project_id": "rproject_eefe72ec8be889b8",
+        "tasks": [
+          {
+            "id": "frame__root",
+            "title": "Frame the inquiry",
+            "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+            "phase_intent": "",
+            "plan_note": "",
+            "bucket": "analyze",
+            "capability": "frame",
+            "expected_output_kind": "",
+            "step": "",
+            "status": "done",
+            "loop_back": "",
+            "consumes": [],
+            "produces": [
+              {
+                "kind": "frame",
+                "id": "frame__root"
+              }
+            ],
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "presentation": {},
+            "frame": {
+              "questions": [
+                "Where is the handover unclear?"
+              ],
+              "hypotheses": [
+                "A missing reference may cause delay."
+              ],
+              "memory_refs": [
+                "memory:unresolved-source"
+              ]
+            }
+          },
+          {
+            "id": "act__explore",
+            "title": "Inspect handover",
+            "intent": "Retain the unresolved source.",
+            "phase_intent": "",
+            "plan_note": "A bounded example.",
+            "bucket": "act",
+            "capability": "explore",
+            "expected_output_kind": "",
+            "step": "",
+            "status": "todo",
+            "loop_back": "",
+            "consumes": [
+              "frame__root"
+            ],
+            "produces": [
+              {
+                "kind": "source-kind",
+                "id": "unresolved-example"
+              }
+            ],
+            "requires": {
+              "min_inputs": 0,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "presentation": {},
+            "frame": null
+          }
+        ],
+        "goal": "Understand the handover",
+        "methodology": "",
+        "created_at": "2026-09-09T07:17:21.663355+00:00",
+        "updated_at": "2026-09-09T07:17:21.684511+00:00",
+        "judgments": [
+          {
+            "task_id": "act__explore",
+            "gate_tag": "question-reviewed",
+            "decided": false,
+            "rationale": "The supplied source supports this bounded judgment.",
+            "evidence_refs": [
+              "source-kind:unresolved-example"
+            ],
+            "created_at": "2026-09-09T07:17:21.675965+00:00"
+          },
+          {
+            "task_id": "act__explore",
+            "gate_tag": "question-reviewed",
+            "decided": true,
+            "rationale": "The supplied source supports this bounded judgment.",
+            "evidence_refs": [
+              "source-kind:unresolved-example"
+            ],
+            "created_at": "2026-09-09T07:17:21.677424+00:00"
+          }
+        ],
+        "progress": [
+          {
+            "task_id": "act__explore",
+            "goal": "Understand the handover",
+            "delta": "More precisely framed, still uncertain.",
+            "rationale": "The frame is recorded; questions remain.",
+            "evidence_refs": [
+              "source-kind:unresolved-example"
+            ],
+            "coverage": {
+              "evidence_by_kind": [
+                {
+                  "kind": "frame",
+                  "count": 1
+                },
+                {
+                  "kind": "source-kind",
+                  "count": 1
+                }
+              ],
+              "artifacts": 0,
+              "sessions": 0,
+              "personas_touched": 0,
+              "tasks_done": 1,
+              "tasks_total": 2
+            },
+            "created_at": "2026-09-09T07:17:21.678982+00:00"
+          }
+        ],
+        "parked_refs": [
+          {
+            "task_id": "act__explore",
+            "refs": [
+              "source-kind:unresolved-example"
+            ],
+            "reason": "Keep visible outside the gate.",
+            "created_at": "2026-09-09T07:17:21.680688+00:00"
+          },
+          {
+            "task_id": "",
+            "refs": [
+              "note:whole-plan"
+            ],
+            "reason": "Whole-plan parking.",
+            "created_at": "2026-09-09T07:17:21.684477+00:00"
+          }
+        ],
+        "unparked_refs": [
+          {
+            "task_id": "act__explore",
+            "refs": [
+              "note:context"
+            ],
+            "reason": "Context is relevant again.",
+            "created_at": "2026-09-09T07:17:21.683129+00:00"
+          }
+        ]
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-open-tags",
+    "tool": "get_plan",
+    "input": {
+      "project_id": "rproject_eefe72ec8be889b8"
+    },
+    "value": {
+      "project_id": "rproject_eefe72ec8be889b8",
+      "goal": "Understand the handover",
+      "methodology": "",
+      "tasks": [
+        {
+          "id": "frame__root",
+          "title": "Frame the inquiry",
+          "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+          "phase_intent": "",
+          "plan_note": "",
+          "bucket": "analyze",
+          "capability": "frame",
+          "expected_output_kind": "",
+          "step": "",
+          "consumes": [],
+          "status": "done",
+          "produces": [
+            {
+              "kind": "frame",
+              "id": "frame__root"
+            }
+          ],
+          "requires": {
+            "min_inputs": null,
+            "gate_tag": "",
+            "artifact_tags": [],
+            "session_of_tags": []
+          },
+          "loop_back": "",
+          "presentation": {},
+          "frame": {
+            "questions": [
+              "Where is the handover unclear?"
+            ],
+            "hypotheses": [
+              "A missing reference may cause delay."
+            ],
+            "memory_refs": [
+              "memory:unresolved-source"
+            ]
+          }
+        },
+        {
+          "id": "act__explore",
+          "title": "Inspect handover",
+          "intent": "Retain the unresolved source.",
+          "phase_intent": "",
+          "plan_note": "A bounded example.",
+          "bucket": "act",
+          "capability": "explore",
+          "expected_output_kind": "",
+          "step": "",
+          "consumes": [
+            "frame__root"
+          ],
+          "status": "todo",
+          "produces": [
+            {
+              "kind": "source-kind",
+              "id": "unresolved-example"
+            }
+          ],
+          "requires": {
+            "min_inputs": 0,
+            "gate_tag": "",
+            "artifact_tags": [],
+            "session_of_tags": []
+          },
+          "loop_back": "",
+          "presentation": {},
+          "frame": null
+        },
+        {
+          "id": "custom",
+          "title": "An open-tag task",
+          "intent": "",
+          "phase_intent": "",
+          "plan_note": "",
+          "bucket": "ponder",
+          "capability": "",
+          "expected_output_kind": "",
+          "step": "",
+          "consumes": [],
+          "status": "awaiting-review",
+          "produces": [],
+          "requires": {
+            "min_inputs": -1,
+            "gate_tag": "",
+            "artifact_tags": [],
+            "session_of_tags": []
+          },
+          "loop_back": "",
+          "presentation": {
+            "forms": [
+              "free-form"
+            ],
+            "formats": [],
+            "library": [
+              "Notes"
+            ]
+          },
+          "frame": null
+        }
+      ],
+      "created_at": "2026-09-09T07:17:21.663355+00:00",
+      "updated_at": "2026-09-09T07:17:21.690096+00:00",
+      "judgments": [
+        {
+          "task_id": "act__explore",
+          "gate_tag": "question-reviewed",
+          "decided": false,
+          "rationale": "The supplied source supports this bounded judgment.",
+          "evidence_refs": [
+            "source-kind:unresolved-example"
+          ],
+          "created_at": "2026-09-09T07:17:21.675965+00:00"
+        },
+        {
+          "task_id": "act__explore",
+          "gate_tag": "question-reviewed",
+          "decided": true,
+          "rationale": "The supplied source supports this bounded judgment.",
+          "evidence_refs": [
+            "source-kind:unresolved-example"
+          ],
+          "created_at": "2026-09-09T07:17:21.677424+00:00"
+        }
+      ],
+      "progress": [
+        {
+          "task_id": "act__explore",
+          "goal": "Understand the handover",
+          "delta": "More precisely framed, still uncertain.",
+          "rationale": "The frame is recorded; questions remain.",
+          "evidence_refs": [
+            "source-kind:unresolved-example"
+          ],
+          "coverage": {
+            "evidence_by_kind": {
+              "frame": 1,
+              "source-kind": 1
+            },
+            "artifacts": 0,
+            "sessions": 0,
+            "personas_touched": 0,
+            "tasks_done": 1,
+            "tasks_total": 2
+          },
+          "created_at": "2026-09-09T07:17:21.678982+00:00"
+        }
+      ],
+      "parked_refs": [
+        {
+          "task_id": "act__explore",
+          "refs": [
+            "source-kind:unresolved-example"
+          ],
+          "reason": "Keep visible outside the gate.",
+          "created_at": "2026-09-09T07:17:21.680688+00:00"
+        },
+        {
+          "task_id": "",
+          "refs": [
+            "note:whole-plan"
+          ],
+          "reason": "Whole-plan parking.",
+          "created_at": "2026-09-09T07:17:21.684477+00:00"
+        }
+      ],
+      "unparked_refs": [
+        {
+          "task_id": "act__explore",
+          "refs": [
+            "note:context"
+          ],
+          "reason": "Context is relevant again.",
+          "created_at": "2026-09-09T07:17:21.683129+00:00"
+        }
+      ]
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "plan",
+      "value": {
+        "project_id": "rproject_eefe72ec8be889b8",
+        "tasks": [
+          {
+            "id": "frame__root",
+            "title": "Frame the inquiry",
+            "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+            "phase_intent": "",
+            "plan_note": "",
+            "bucket": "analyze",
+            "capability": "frame",
+            "expected_output_kind": "",
+            "step": "",
+            "status": "done",
+            "loop_back": "",
+            "consumes": [],
+            "produces": [
+              {
+                "kind": "frame",
+                "id": "frame__root"
+              }
+            ],
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "presentation": {},
+            "frame": {
+              "questions": [
+                "Where is the handover unclear?"
+              ],
+              "hypotheses": [
+                "A missing reference may cause delay."
+              ],
+              "memory_refs": [
+                "memory:unresolved-source"
+              ]
+            }
+          },
+          {
+            "id": "act__explore",
+            "title": "Inspect handover",
+            "intent": "Retain the unresolved source.",
+            "phase_intent": "",
+            "plan_note": "A bounded example.",
+            "bucket": "act",
+            "capability": "explore",
+            "expected_output_kind": "",
+            "step": "",
+            "status": "todo",
+            "loop_back": "",
+            "consumes": [
+              "frame__root"
+            ],
+            "produces": [
+              {
+                "kind": "source-kind",
+                "id": "unresolved-example"
+              }
+            ],
+            "requires": {
+              "min_inputs": 0,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "presentation": {},
+            "frame": null
+          },
+          {
+            "id": "custom",
+            "title": "An open-tag task",
+            "intent": "",
+            "phase_intent": "",
+            "plan_note": "",
+            "bucket": "ponder",
+            "capability": "",
+            "expected_output_kind": "",
+            "step": "",
+            "status": "awaiting-review",
+            "loop_back": "",
+            "consumes": [],
+            "produces": [],
+            "requires": {
+              "min_inputs": -1,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "presentation": {
+              "forms": [
+                "free-form"
+              ],
+              "formats": [],
+              "library": [
+                "Notes"
+              ]
+            },
+            "frame": null
+          }
+        ],
+        "goal": "Understand the handover",
+        "methodology": "",
+        "created_at": "2026-09-09T07:17:21.663355+00:00",
+        "updated_at": "2026-09-09T07:17:21.690096+00:00",
+        "judgments": [
+          {
+            "task_id": "act__explore",
+            "gate_tag": "question-reviewed",
+            "decided": false,
+            "rationale": "The supplied source supports this bounded judgment.",
+            "evidence_refs": [
+              "source-kind:unresolved-example"
+            ],
+            "created_at": "2026-09-09T07:17:21.675965+00:00"
+          },
+          {
+            "task_id": "act__explore",
+            "gate_tag": "question-reviewed",
+            "decided": true,
+            "rationale": "The supplied source supports this bounded judgment.",
+            "evidence_refs": [
+              "source-kind:unresolved-example"
+            ],
+            "created_at": "2026-09-09T07:17:21.677424+00:00"
+          }
+        ],
+        "progress": [
+          {
+            "task_id": "act__explore",
+            "goal": "Understand the handover",
+            "delta": "More precisely framed, still uncertain.",
+            "rationale": "The frame is recorded; questions remain.",
+            "evidence_refs": [
+              "source-kind:unresolved-example"
+            ],
+            "coverage": {
+              "evidence_by_kind": [
+                {
+                  "kind": "frame",
+                  "count": 1
+                },
+                {
+                  "kind": "source-kind",
+                  "count": 1
+                }
+              ],
+              "artifacts": 0,
+              "sessions": 0,
+              "personas_touched": 0,
+              "tasks_done": 1,
+              "tasks_total": 2
+            },
+            "created_at": "2026-09-09T07:17:21.678982+00:00"
+          }
+        ],
+        "parked_refs": [
+          {
+            "task_id": "act__explore",
+            "refs": [
+              "source-kind:unresolved-example"
+            ],
+            "reason": "Keep visible outside the gate.",
+            "created_at": "2026-09-09T07:17:21.680688+00:00"
+          },
+          {
+            "task_id": "",
+            "refs": [
+              "note:whole-plan"
+            ],
+            "reason": "Whole-plan parking.",
+            "created_at": "2026-09-09T07:17:21.684477+00:00"
+          }
+        ],
+        "unparked_refs": [
+          {
+            "task_id": "act__explore",
+            "refs": [
+              "note:context"
+            ],
+            "reason": "Context is relevant again.",
+            "created_at": "2026-09-09T07:17:21.683129+00:00"
+          }
+        ]
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-empty",
+    "tool": "get_plan",
+    "input": {
+      "project_id": "rproject_13a9e88d83dafbd3"
+    },
+    "value": {
+      "project_id": "rproject_13a9e88d83dafbd3",
+      "tasks": [],
+      "created_at": "2026-09-09T07:17:21.698691+00:00",
+      "updated_at": "2026-09-09T07:17:21.698698+00:00"
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "plan",
+      "value": {
+        "project_id": "rproject_13a9e88d83dafbd3",
+        "tasks": [],
+        "created_at": "2026-09-09T07:17:21.698691+00:00",
+        "updated_at": "2026-09-09T07:17:21.698698+00:00"
+      }
+    },
+    "state": "empty"
+  },
+  {
+    "scenario": "researchplan-governed-frame",
+    "tool": "record_frame",
+    "input": {
+      "project_id": "rproject_operation_bce0cca2127fb6e5",
+      "task_id": "frame__root",
+      "questions": [
+        "What remains unclear?"
+      ],
+      "memory_refs": [
+        "memory:governed-example"
+      ],
+      "dispatch_token": "dispatch_6b955f4039a4a336"
+    },
+    "value": {
+      "id": "frame__root",
+      "title": "Frame the inquiry",
+      "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+      "phase_intent": "",
+      "plan_note": "",
+      "bucket": "analyze",
+      "capability": "frame",
+      "expected_output_kind": "",
+      "step": "",
+      "consumes": [],
+      "status": "done",
+      "produces": [
+        {
+          "kind": "frame",
+          "id": "frame__root"
+        }
+      ],
+      "requires": {
+        "min_inputs": null,
+        "gate_tag": "",
+        "artifact_tags": [],
+        "session_of_tags": []
+      },
+      "loop_back": "",
+      "presentation": {},
+      "frame": {
+        "questions": [
+          "What remains unclear?"
+        ],
+        "hypotheses": [],
+        "memory_refs": [
+          "memory:governed-example"
+        ]
+      },
+      "dispatch": {
+        "state": "completed",
+        "checkpointed": true,
+        "task_id": "frame__root",
+        "receipt": {
+          "run_id": "run_operation_7888746fd724f481",
+          "cursor": 1,
+          "step_idx": 0,
+          "key": "run_operation_7888746fd724f481:frame__root",
+          "deduplicated": false
+        }
+      }
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "task",
+      "value": {
+        "id": "frame__root",
+        "title": "Frame the inquiry",
+        "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+        "phase_intent": "",
+        "plan_note": "",
+        "bucket": "analyze",
+        "capability": "frame",
+        "expected_output_kind": "",
+        "step": "",
+        "status": "done",
+        "loop_back": "",
+        "consumes": [],
+        "produces": [
+          {
+            "kind": "frame",
+            "id": "frame__root"
+          }
+        ],
+        "requires": {
+          "min_inputs": null,
+          "gate_tag": "",
+          "artifact_tags": [],
+          "session_of_tags": []
+        },
+        "presentation": {},
+        "frame": {
+          "questions": [
+            "What remains unclear?"
+          ],
+          "hypotheses": [],
+          "memory_refs": [
+            "memory:governed-example"
+          ]
+        },
+        "dispatch": {
+          "state": "completed",
+          "checkpointed": true,
+          "task_id": "frame__root",
+          "receipt": {
+            "run_id": "run_operation_7888746fd724f481",
+            "cursor": 1,
+            "step_idx": 0,
+            "deduplicated": false
+          }
+        }
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-frame-replayed",
+    "tool": "record_frame",
+    "input": {
+      "project_id": "rproject_operation_bce0cca2127fb6e5",
+      "task_id": "frame__root",
+      "questions": [
+        "What remains unclear?"
+      ],
+      "memory_refs": [
+        "memory:governed-example"
+      ],
+      "dispatch_token": "dispatch_6b955f4039a4a336"
+    },
+    "value": {
+      "id": "frame__root",
+      "title": "Frame the inquiry",
+      "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+      "phase_intent": "",
+      "plan_note": "",
+      "bucket": "analyze",
+      "capability": "frame",
+      "expected_output_kind": "",
+      "step": "",
+      "consumes": [],
+      "status": "done",
+      "produces": [
+        {
+          "kind": "frame",
+          "id": "frame__root"
+        }
+      ],
+      "requires": {
+        "min_inputs": null,
+        "gate_tag": "",
+        "artifact_tags": [],
+        "session_of_tags": []
+      },
+      "loop_back": "",
+      "presentation": {},
+      "frame": {
+        "questions": [
+          "What remains unclear?"
+        ],
+        "hypotheses": [],
+        "memory_refs": [
+          "memory:governed-example"
+        ]
+      },
+      "dispatch": {
+        "state": "completed",
+        "checkpointed": true,
+        "task_id": "frame__root",
+        "receipt": {
+          "run_id": "run_operation_7888746fd724f481",
+          "cursor": 1,
+          "step_idx": 0,
+          "key": "run_operation_7888746fd724f481:frame__root",
+          "deduplicated": true
+        },
+        "reconciled_existing_checkpoint": true
+      }
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "task",
+      "value": {
+        "id": "frame__root",
+        "title": "Frame the inquiry",
+        "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+        "phase_intent": "",
+        "plan_note": "",
+        "bucket": "analyze",
+        "capability": "frame",
+        "expected_output_kind": "",
+        "step": "",
+        "status": "done",
+        "loop_back": "",
+        "consumes": [],
+        "produces": [
+          {
+            "kind": "frame",
+            "id": "frame__root"
+          }
+        ],
+        "requires": {
+          "min_inputs": null,
+          "gate_tag": "",
+          "artifact_tags": [],
+          "session_of_tags": []
+        },
+        "presentation": {},
+        "frame": {
+          "questions": [
+            "What remains unclear?"
+          ],
+          "hypotheses": [],
+          "memory_refs": [
+            "memory:governed-example"
+          ]
+        },
+        "dispatch": {
+          "state": "completed",
+          "checkpointed": true,
+          "task_id": "frame__root",
+          "reconciled_existing_checkpoint": true,
+          "receipt": {
+            "run_id": "run_operation_7888746fd724f481",
+            "cursor": 1,
+            "step_idx": 0,
+            "deduplicated": true
+          }
+        }
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-governed-judgment",
+    "tool": "record_judgment",
+    "input": {
+      "project_id": "rproject_operation_bce0cca2127fb6e5",
+      "task_id": "verify__decide",
+      "gate_tag": "reviewed",
+      "decided": true,
+      "rationale": "The minimal frame was reviewed.",
+      "evidence_refs": [
+        "frame:frame__root"
+      ],
+      "dispatch_token": "dispatch_8e841deaff703aa6"
+    },
+    "value": {
+      "task_id": "verify__decide",
+      "gate_tag": "reviewed",
+      "decided": true,
+      "rationale": "The minimal frame was reviewed.",
+      "evidence_refs": [
+        "frame:frame__root"
+      ],
+      "created_at": "2026-09-09T07:17:21.716057+00:00",
+      "operation_id": "dispatch_8e841deaff703aa6",
+      "dispatch": {
+        "state": "linked",
+        "checkpointed": false,
+        "task_id": "verify__decide",
+        "needs": "This task was completed without produced evidence linked to the plan. Record the output, then call link_evidence(project_id, task_id, kind, evidence_id); if the output should deliberately not feed a gate, call park_evidence with a reason."
+      }
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "judgment",
+      "value": {
+        "task_id": "verify__decide",
+        "gate_tag": "reviewed",
+        "decided": true,
+        "rationale": "The minimal frame was reviewed.",
+        "evidence_refs": [
+          "frame:frame__root"
+        ],
+        "created_at": "2026-09-09T07:17:21.716057+00:00",
+        "dispatch": {
+          "state": "linked",
+          "checkpointed": false,
+          "task_id": "verify__decide",
+          "needs": "This task was completed without produced evidence linked to the plan. Record the output, then call link_evidence(project_id, task_id, kind, evidence_id); if the output should deliberately not feed a gate, call park_evidence with a reason."
+        }
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-judgment-replayed",
+    "tool": "record_judgment",
+    "input": {
+      "project_id": "rproject_operation_bce0cca2127fb6e5",
+      "task_id": "verify__decide",
+      "gate_tag": "reviewed",
+      "decided": true,
+      "rationale": "The minimal frame was reviewed.",
+      "evidence_refs": [
+        "frame:frame__root"
+      ],
+      "dispatch_token": "dispatch_8e841deaff703aa6"
+    },
+    "value": {
+      "task_id": "verify__decide",
+      "gate_tag": "reviewed",
+      "decided": true,
+      "rationale": "The minimal frame was reviewed.",
+      "evidence_refs": [
+        "frame:frame__root"
+      ],
+      "created_at": "2026-09-09T07:17:21.716057+00:00",
+      "operation_id": "dispatch_8e841deaff703aa6",
+      "dispatch": {
+        "state": "completed",
+        "checkpointed": true,
+        "task_id": "verify__decide",
+        "receipt": {
+          "run_id": "run_operation_7888746fd724f481",
+          "cursor": 2,
+          "step_idx": 1,
+          "key": "run_operation_7888746fd724f481:verify__decide",
+          "deduplicated": false
+        }
+      }
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "judgment",
+      "value": {
+        "task_id": "verify__decide",
+        "gate_tag": "reviewed",
+        "decided": true,
+        "rationale": "The minimal frame was reviewed.",
+        "evidence_refs": [
+          "frame:frame__root"
+        ],
+        "created_at": "2026-09-09T07:17:21.716057+00:00",
+        "dispatch": {
+          "state": "completed",
+          "checkpointed": true,
+          "task_id": "verify__decide",
+          "receipt": {
+            "run_id": "run_operation_7888746fd724f481",
+            "cursor": 2,
+            "step_idx": 1,
+            "deduplicated": false
+          }
+        }
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-judgment-checkpoint-replayed",
+    "tool": "record_judgment",
+    "input": {
+      "project_id": "rproject_operation_bce0cca2127fb6e5",
+      "task_id": "verify__decide",
+      "gate_tag": "reviewed",
+      "decided": true,
+      "rationale": "The minimal frame was reviewed.",
+      "evidence_refs": [
+        "frame:frame__root"
+      ],
+      "dispatch_token": "dispatch_8e841deaff703aa6"
+    },
+    "value": {
+      "task_id": "verify__decide",
+      "gate_tag": "reviewed",
+      "decided": true,
+      "rationale": "The minimal frame was reviewed.",
+      "evidence_refs": [
+        "frame:frame__root"
+      ],
+      "created_at": "2026-09-09T07:17:21.716057+00:00",
+      "operation_id": "dispatch_8e841deaff703aa6",
+      "dispatch": {
+        "state": "completed",
+        "checkpointed": true,
+        "task_id": "verify__decide",
+        "receipt": {
+          "run_id": "run_operation_7888746fd724f481",
+          "cursor": 2,
+          "step_idx": 1,
+          "key": "run_operation_7888746fd724f481:verify__decide",
+          "deduplicated": true
+        },
+        "reconciled_existing_checkpoint": true
+      }
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "judgment",
+      "value": {
+        "task_id": "verify__decide",
+        "gate_tag": "reviewed",
+        "decided": true,
+        "rationale": "The minimal frame was reviewed.",
+        "evidence_refs": [
+          "frame:frame__root"
+        ],
+        "created_at": "2026-09-09T07:17:21.716057+00:00",
+        "dispatch": {
+          "state": "completed",
+          "checkpointed": true,
+          "task_id": "verify__decide",
+          "reconciled_existing_checkpoint": true,
+          "receipt": {
+            "run_id": "run_operation_7888746fd724f481",
+            "cursor": 2,
+            "step_idx": 1,
+            "deduplicated": true
+          }
+        }
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "researchplan-governed-history",
+    "tool": "get_plan",
+    "input": {
+      "project_id": "rproject_operation_bce0cca2127fb6e5"
+    },
+    "value": {
+      "project_id": "rproject_operation_bce0cca2127fb6e5",
+      "goal": "Inspect the actual checkpoint",
+      "methodology": "",
+      "tasks": [
+        {
+          "id": "frame__root",
+          "title": "Frame the inquiry",
+          "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+          "phase_intent": "",
+          "plan_note": "",
+          "bucket": "analyze",
+          "capability": "frame",
+          "expected_output_kind": "",
+          "step": "",
+          "consumes": [],
+          "status": "done",
+          "produces": [
+            {
+              "kind": "frame",
+              "id": "frame__root"
+            }
+          ],
+          "requires": {
+            "min_inputs": null,
+            "gate_tag": "",
+            "artifact_tags": [],
+            "session_of_tags": []
+          },
+          "loop_back": "",
+          "presentation": {},
+          "frame": {
+            "questions": [
+              "What remains unclear?"
+            ],
+            "hypotheses": [],
+            "memory_refs": [
+              "memory:governed-example"
+            ]
+          }
+        },
+        {
+          "id": "verify__decide",
+          "title": "Review the frame",
+          "intent": "",
+          "phase_intent": "",
+          "plan_note": "",
+          "bucket": "verify",
+          "capability": "decide",
+          "expected_output_kind": "",
+          "step": "",
+          "consumes": [
+            "frame__root"
+          ],
+          "status": "done",
+          "produces": [],
+          "requires": {
+            "min_inputs": 0,
+            "gate_tag": "reviewed",
+            "artifact_tags": [],
+            "session_of_tags": []
+          },
+          "loop_back": "",
+          "presentation": {},
+          "frame": null
+        }
+      ],
+      "created_at": "2026-09-09T07:17:21.702646+00:00",
+      "updated_at": "2026-09-09T07:17:21.716314+00:00",
+      "judgments": [
+        {
+          "task_id": "verify__decide",
+          "gate_tag": "reviewed",
+          "decided": true,
+          "rationale": "The minimal frame was reviewed.",
+          "evidence_refs": [
+            "frame:frame__root"
+          ],
+          "created_at": "2026-09-09T07:17:21.716057+00:00",
+          "operation_id": "dispatch_8e841deaff703aa6"
+        }
+      ]
+    },
+    "public_value": {
+      "schema_version": "sonaloop.research-plan-view.v1",
+      "view": "plan",
+      "value": {
+        "project_id": "rproject_operation_bce0cca2127fb6e5",
+        "tasks": [
+          {
+            "id": "frame__root",
+            "title": "Frame the inquiry",
+            "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+            "phase_intent": "",
+            "plan_note": "",
+            "bucket": "analyze",
+            "capability": "frame",
+            "expected_output_kind": "",
+            "step": "",
+            "status": "done",
+            "loop_back": "",
+            "consumes": [],
+            "produces": [
+              {
+                "kind": "frame",
+                "id": "frame__root"
+              }
+            ],
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "presentation": {},
+            "frame": {
+              "questions": [
+                "What remains unclear?"
+              ],
+              "hypotheses": [],
+              "memory_refs": [
+                "memory:governed-example"
+              ]
+            }
+          },
+          {
+            "id": "verify__decide",
+            "title": "Review the frame",
+            "intent": "",
+            "phase_intent": "",
+            "plan_note": "",
+            "bucket": "verify",
+            "capability": "decide",
+            "expected_output_kind": "",
+            "step": "",
+            "status": "done",
+            "loop_back": "",
+            "consumes": [
+              "frame__root"
+            ],
+            "produces": [],
+            "requires": {
+              "min_inputs": 0,
+              "gate_tag": "reviewed",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "presentation": {},
+            "frame": null
+          }
+        ],
+        "goal": "Inspect the actual checkpoint",
+        "methodology": "",
+        "created_at": "2026-09-09T07:17:21.702646+00:00",
+        "updated_at": "2026-09-09T07:17:21.716314+00:00",
+        "judgments": [
+          {
+            "task_id": "verify__decide",
+            "gate_tag": "reviewed",
+            "decided": true,
+            "rationale": "The minimal frame was reviewed.",
+            "evidence_refs": [
+              "frame:frame__root"
+            ],
+            "created_at": "2026-09-09T07:17:21.716057+00:00"
+          }
+        ]
+      }
+    },
+    "state": "ready"
+  }
+]

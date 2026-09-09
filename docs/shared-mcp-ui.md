@@ -140,6 +140,27 @@ reads retain their existing catalog access rules. The optional real algorithm
 qualification supplies synthetic profiles through a private test transport and
 pins that external source separately; it is not a live catalog or provider run.
 
+**Research plans and recorded tasks** share the Product Plan header and task
+bodies. `get_plan` displays the supplied ordered tasks and recorded history;
+`add_task`, `record_frame` and `link_evidence` display their actual returned task.
+Judgment, progress and parked/unparked evidence results retain their real
+verdict, rationale, references, timestamps and counts. Free bucket/status text,
+zero counts, false verdicts and negative minimum-input requirements are not
+normalized. Plan task completion does not declare the research Run finished.
+No gate evaluation, evidence lookup or dispatch occurs while rendering.
+
+The eight native outputs map explicitly to the closed authored
+`sonaloop.research-plan-view.v1` public DTO. Dynamic evidence-kind counts become
+ordered `{kind,count}` rows; native output stays untouched. Native dispatch
+operation aliases and receipt keys are omitted execution context, not alleged
+authorization bearers. Public examples enter the renderer directly and never
+reconstruct a native result. A linked judgment and a subsequently checkpointed
+result remain different states; a replay label is shown only when actually
+returned. The Product prepares its existing evidence links, marks and framework
+outside the pure body. Native-valid older extension fields keep the Product's
+base header/tasks and a details-unavailable notice; unsupported public details
+fail closed instead of changing the business validator.
+
 **Run journals and outcomes** reuse a read-only, project-owned Product inspector.
 `start_run` and `run_journal` retain supplied steps, references, dispatch lifecycle,
 critic verdicts, timestamps and replay markers. `resume_project_run` is a
