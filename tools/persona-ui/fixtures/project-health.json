@@ -1,0 +1,1224 @@
+[
+  {
+    "scenario": "health-not-started",
+    "tool": "project_health",
+    "input": {
+      "project_id": "rproject_operation_6c0bda7b0ed37de1"
+    },
+    "value": {
+      "schema": "sonaloop.project_health.v2",
+      "project_id": "rproject_operation_6c0bda7b0ed37de1",
+      "state": "stalled",
+      "driver_state": "not_started",
+      "lifecycle": "active",
+      "engine_finished": false,
+      "persisted_run_status": "not_started",
+      "run_inventory": {
+        "active": 0,
+        "historical_finished": 0,
+        "total": 0
+      },
+      "unverified_output": false,
+      "activity_lifecycle": {
+        "state": "current",
+        "stale_after_hours": 6,
+        "expires_after_hours": 24,
+        "expires_at": "",
+        "resumable": false,
+        "note": ""
+      },
+      "last_activity": "2026-06-02T12:00:00+00:00",
+      "run_id": "",
+      "run_operation_id": "",
+      "project_operation_id": "health-ui:not-started",
+      "tasks": {
+        "done": 0,
+        "total": 1,
+        "next_ready": [
+          "frame__root"
+        ]
+      },
+      "last_successful_operation": {
+        "kind": "project_created",
+        "key": "health-ui:not-started",
+        "at": "2026-06-02T12:00:00+00:00"
+      },
+      "unmet_invariant": {
+        "code": "run_not_started",
+        "message": "Open plan work has not started a governed run yet.",
+        "severity": "blocking"
+      },
+      "integrity_findings": [
+        {
+          "code": "run_not_started",
+          "message": "Open plan work has not started a governed run yet.",
+          "severity": "blocking"
+        }
+      ],
+      "evidence": {
+        "posture_counts": {},
+        "source_counts": {},
+        "orphaned": 0
+      },
+      "report_handoff": {
+        "exists": false,
+        "complete": false,
+        "handed_off": false,
+        "latest_report_id": "",
+        "latest_complete": false,
+        "lead_missing": false,
+        "completed_report_ids": [],
+        "incomplete_report_ids": [],
+        "stale_report_ids": [],
+        "latest_stale": false,
+        "required_source_ids": [],
+        "reports": []
+      },
+      "product_understanding": {
+        "required": false,
+        "present": false,
+        "current_id": "",
+        "target": {},
+        "revision": "",
+        "observed_at": "",
+        "version": 0,
+        "capability_counts": {
+          "observed_present": 0,
+          "observed_absent": 0,
+          "inferred": 0,
+          "unknown": 0
+        },
+        "contradictory_capability_keys": []
+      },
+      "preflight": {
+        "state": "ready"
+      },
+      "safe_next_action": {
+        "kind": "start_governed_run",
+        "tool": "start_run",
+        "arguments": {
+          "project_id": "rproject_operation_6c0bda7b0ed37de1",
+          "operation_id": "recovery:71e5628c83ba57874f50f46df76654d826727d4a02b49ff0c6b95d416aa5bcf5"
+        },
+        "reason": "No existing run can be resumed; the stable create intent prevents duplicates."
+      },
+      "trace": {
+        "support_ref": "sltrace_296098793eb64a64bf665fff",
+        "workflow_trace_id": "sltrace_296098793eb64a64bf665fff",
+        "local_journal": "not_started",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_6c0bda7b0ed37de1",
+          "operation_id": "health-ui:not-started"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      },
+      "recovery_signals": {
+        "host_connection": "unknown",
+        "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+        "retry_result": "not_observed",
+        "retry_receipt": {},
+        "dispatch": "none_incomplete",
+        "evidence": "projected_complete",
+        "critic": "not_pending",
+        "audit": "not_projected_in_core",
+        "external_host_error": "unobservable"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "health-running",
+    "tool": "project_health",
+    "input": {
+      "project_id": "rproject_operation_4cc4671915d4599e"
+    },
+    "value": {
+      "schema": "sonaloop.project_health.v2",
+      "project_id": "rproject_operation_4cc4671915d4599e",
+      "state": "running",
+      "driver_state": "running",
+      "lifecycle": "active",
+      "engine_finished": false,
+      "persisted_run_status": "active",
+      "run_inventory": {
+        "active": 1,
+        "historical_finished": 0,
+        "total": 1
+      },
+      "unverified_output": false,
+      "activity_lifecycle": {
+        "state": "current",
+        "stale_after_hours": 6,
+        "expires_after_hours": 24,
+        "expires_at": "2026-06-03T12:00:00+00:00",
+        "resumable": true,
+        "note": ""
+      },
+      "last_activity": "2026-06-02T12:00:00+00:00",
+      "run_id": "run_operation_c7a126e3ca4ad906",
+      "run_operation_id": "health-run:running",
+      "project_operation_id": "health-ui:running",
+      "tasks": {
+        "done": 0,
+        "total": 1,
+        "next_ready": [
+          "frame__root"
+        ]
+      },
+      "last_successful_operation": {
+        "kind": "run_created",
+        "key": "health-run:running",
+        "at": "2026-06-02T12:00:00+00:00"
+      },
+      "unmet_invariant": null,
+      "integrity_findings": [],
+      "evidence": {
+        "posture_counts": {},
+        "source_counts": {},
+        "orphaned": 0
+      },
+      "report_handoff": {
+        "exists": false,
+        "complete": false,
+        "handed_off": false,
+        "latest_report_id": "",
+        "latest_complete": false,
+        "lead_missing": false,
+        "completed_report_ids": [],
+        "incomplete_report_ids": [],
+        "stale_report_ids": [],
+        "latest_stale": false,
+        "required_source_ids": [],
+        "reports": []
+      },
+      "product_understanding": {
+        "required": false,
+        "present": false,
+        "current_id": "",
+        "target": {},
+        "revision": "",
+        "observed_at": "",
+        "version": 0,
+        "capability_counts": {
+          "observed_present": 0,
+          "observed_absent": 0,
+          "inferred": 0,
+          "unknown": 0
+        },
+        "contradictory_capability_keys": []
+      },
+      "preflight": {
+        "state": "ready"
+      },
+      "safe_next_action": {
+        "kind": "resume_existing_run",
+        "tool": "resume_project_run",
+        "arguments": {
+          "project_id": "rproject_operation_4cc4671915d4599e",
+          "run_id": "run_operation_c7a126e3ca4ad906",
+          "operation_id": "health-run:running"
+        },
+        "then": {
+          "tool": "run_step",
+          "arguments": {
+            "run_id": "run_operation_c7a126e3ca4ad906"
+          }
+        },
+        "reason": "Retry the existing deterministic dispatch and journal. This action cannot mark the run finished."
+      },
+      "trace": {
+        "support_ref": "sltrace_eefeecadd277ef33b6baedfb",
+        "workflow_trace_id": "sltrace_eefeecadd277ef33b6baedfb",
+        "local_journal": "available",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_4cc4671915d4599e",
+          "run_id": "run_operation_c7a126e3ca4ad906",
+          "operation_id": "health-ui:running"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      },
+      "recovery_signals": {
+        "host_connection": "unknown",
+        "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+        "retry_result": "not_observed",
+        "retry_receipt": {},
+        "dispatch": "none_incomplete",
+        "evidence": "projected_complete",
+        "critic": "not_pending",
+        "audit": "not_projected_in_core",
+        "external_host_error": "unobservable"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "health-stalled",
+    "tool": "project_health",
+    "input": {
+      "project_id": "rproject_operation_43b47bae6a1d9ece"
+    },
+    "value": {
+      "schema": "sonaloop.project_health.v2",
+      "project_id": "rproject_operation_43b47bae6a1d9ece",
+      "state": "stalled",
+      "driver_state": "stalled",
+      "lifecycle": "active",
+      "engine_finished": false,
+      "persisted_run_status": "active",
+      "run_inventory": {
+        "active": 1,
+        "historical_finished": 0,
+        "total": 1
+      },
+      "unverified_output": false,
+      "activity_lifecycle": {
+        "state": "current",
+        "stale_after_hours": 6,
+        "expires_after_hours": 24,
+        "expires_at": "2026-06-03T04:00:00+00:00",
+        "resumable": true,
+        "note": ""
+      },
+      "last_activity": "2026-06-02T12:00:00+00:00",
+      "run_id": "run_operation_228e572971c3aeaf",
+      "run_operation_id": "health-run:stalled",
+      "project_operation_id": "health-ui:stalled",
+      "tasks": {
+        "done": 0,
+        "total": 1,
+        "next_ready": [
+          "frame__root"
+        ]
+      },
+      "last_successful_operation": {
+        "kind": "run_created",
+        "key": "health-run:stalled",
+        "at": "2026-06-02T12:00:00+00:00"
+      },
+      "unmet_invariant": {
+        "code": "driver_missing",
+        "message": "Open plan work has no recently active governed driver.",
+        "severity": "blocking"
+      },
+      "integrity_findings": [
+        {
+          "code": "driver_missing",
+          "message": "Open plan work has no recently active governed driver.",
+          "severity": "blocking"
+        }
+      ],
+      "evidence": {
+        "posture_counts": {},
+        "source_counts": {},
+        "orphaned": 0
+      },
+      "report_handoff": {
+        "exists": false,
+        "complete": false,
+        "handed_off": false,
+        "latest_report_id": "",
+        "latest_complete": false,
+        "lead_missing": false,
+        "completed_report_ids": [],
+        "incomplete_report_ids": [],
+        "stale_report_ids": [],
+        "latest_stale": false,
+        "required_source_ids": [],
+        "reports": []
+      },
+      "product_understanding": {
+        "required": false,
+        "present": false,
+        "current_id": "",
+        "target": {},
+        "revision": "",
+        "observed_at": "",
+        "version": 0,
+        "capability_counts": {
+          "observed_present": 0,
+          "observed_absent": 0,
+          "inferred": 0,
+          "unknown": 0
+        },
+        "contradictory_capability_keys": []
+      },
+      "preflight": {
+        "state": "ready"
+      },
+      "safe_next_action": {
+        "kind": "resume_existing_run",
+        "tool": "resume_project_run",
+        "arguments": {
+          "project_id": "rproject_operation_43b47bae6a1d9ece",
+          "run_id": "run_operation_228e572971c3aeaf",
+          "operation_id": "health-run:stalled"
+        },
+        "then": {
+          "tool": "run_step",
+          "arguments": {
+            "run_id": "run_operation_228e572971c3aeaf"
+          }
+        },
+        "reason": "Retry the existing deterministic dispatch and journal. This action cannot mark the run finished."
+      },
+      "trace": {
+        "support_ref": "sltrace_dcd1906e617b7df1896e4821",
+        "workflow_trace_id": "sltrace_dcd1906e617b7df1896e4821",
+        "local_journal": "available",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_43b47bae6a1d9ece",
+          "run_id": "run_operation_228e572971c3aeaf",
+          "operation_id": "health-ui:stalled"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      },
+      "recovery_signals": {
+        "host_connection": "unknown",
+        "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+        "retry_result": "not_observed",
+        "retry_receipt": {},
+        "dispatch": "none_incomplete",
+        "evidence": "projected_complete",
+        "critic": "not_pending",
+        "audit": "not_projected_in_core",
+        "external_host_error": "unobservable"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "health-expired",
+    "tool": "project_health",
+    "input": {
+      "project_id": "rproject_operation_a5bbc38fa05a3836"
+    },
+    "value": {
+      "schema": "sonaloop.project_health.v2",
+      "project_id": "rproject_operation_a5bbc38fa05a3836",
+      "state": "expired",
+      "driver_state": "expired",
+      "lifecycle": "active",
+      "engine_finished": false,
+      "persisted_run_status": "active",
+      "run_inventory": {
+        "active": 1,
+        "historical_finished": 0,
+        "total": 1
+      },
+      "unverified_output": false,
+      "activity_lifecycle": {
+        "state": "expired",
+        "stale_after_hours": 6,
+        "expires_after_hours": 24,
+        "expires_at": "2026-06-02T10:00:00+00:00",
+        "resumable": true,
+        "note": "Expiry is an inactivity projection only; the active journal remains resumable and no evidence is marked unverified."
+      },
+      "last_activity": "2026-06-02T12:00:00+00:00",
+      "run_id": "run_operation_cf70254772235dd4",
+      "run_operation_id": "health-run:expired",
+      "project_operation_id": "health-ui:expired",
+      "tasks": {
+        "done": 0,
+        "total": 1,
+        "next_ready": [
+          "frame__root"
+        ]
+      },
+      "last_successful_operation": {
+        "kind": "run_created",
+        "key": "health-run:expired",
+        "at": "2026-06-02T12:00:00+00:00"
+      },
+      "unmet_invariant": {
+        "code": "run_expired",
+        "message": "This unfinished run has had no recorded activity for more than 24 hours. Its journal is preserved and can be resumed safely.",
+        "severity": "attention"
+      },
+      "integrity_findings": [
+        {
+          "code": "run_expired",
+          "message": "This unfinished run has had no recorded activity for more than 24 hours. Its journal is preserved and can be resumed safely.",
+          "severity": "attention"
+        }
+      ],
+      "evidence": {
+        "posture_counts": {},
+        "source_counts": {},
+        "orphaned": 0
+      },
+      "report_handoff": {
+        "exists": false,
+        "complete": false,
+        "handed_off": false,
+        "latest_report_id": "",
+        "latest_complete": false,
+        "lead_missing": false,
+        "completed_report_ids": [],
+        "incomplete_report_ids": [],
+        "stale_report_ids": [],
+        "latest_stale": false,
+        "required_source_ids": [],
+        "reports": []
+      },
+      "product_understanding": {
+        "required": false,
+        "present": false,
+        "current_id": "",
+        "target": {},
+        "revision": "",
+        "observed_at": "",
+        "version": 0,
+        "capability_counts": {
+          "observed_present": 0,
+          "observed_absent": 0,
+          "inferred": 0,
+          "unknown": 0
+        },
+        "contradictory_capability_keys": []
+      },
+      "preflight": {
+        "state": "ready"
+      },
+      "safe_next_action": {
+        "kind": "resume_existing_run",
+        "tool": "resume_project_run",
+        "arguments": {
+          "project_id": "rproject_operation_a5bbc38fa05a3836",
+          "run_id": "run_operation_cf70254772235dd4",
+          "operation_id": "health-run:expired"
+        },
+        "then": {
+          "tool": "run_step",
+          "arguments": {
+            "run_id": "run_operation_cf70254772235dd4"
+          }
+        },
+        "reason": "Retry the existing deterministic dispatch and journal. This action cannot mark the run finished."
+      },
+      "trace": {
+        "support_ref": "sltrace_09f17c9f9d5e50985e90a58b",
+        "workflow_trace_id": "sltrace_09f17c9f9d5e50985e90a58b",
+        "local_journal": "available",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_a5bbc38fa05a3836",
+          "run_id": "run_operation_cf70254772235dd4",
+          "operation_id": "health-ui:expired"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      },
+      "recovery_signals": {
+        "host_connection": "unknown",
+        "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+        "retry_result": "not_observed",
+        "retry_receipt": {},
+        "dispatch": "none_incomplete",
+        "evidence": "projected_complete",
+        "critic": "not_pending",
+        "audit": "not_projected_in_core",
+        "external_host_error": "unobservable"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "health-waiting",
+    "tool": "project_health",
+    "input": {
+      "project_id": "rproject_operation_62e8f55bbe7fa426"
+    },
+    "value": {
+      "schema": "sonaloop.project_health.v2",
+      "project_id": "rproject_operation_62e8f55bbe7fa426",
+      "state": "waiting",
+      "driver_state": "waiting_on_preflight",
+      "lifecycle": "active",
+      "engine_finished": false,
+      "persisted_run_status": "active",
+      "run_inventory": {
+        "active": 1,
+        "historical_finished": 0,
+        "total": 1
+      },
+      "unverified_output": false,
+      "activity_lifecycle": {
+        "state": "current",
+        "stale_after_hours": 6,
+        "expires_after_hours": 24,
+        "expires_at": "2026-06-03T12:00:00+00:00",
+        "resumable": true,
+        "note": ""
+      },
+      "last_activity": "2026-06-02T12:00:00+00:00",
+      "run_id": "run_operation_698ca8f3a7de10f2",
+      "run_operation_id": "health-run:waiting",
+      "project_operation_id": "health-ui:waiting",
+      "tasks": {
+        "done": 0,
+        "total": 6,
+        "next_ready": [
+          "preflight__product_understanding"
+        ]
+      },
+      "last_successful_operation": {
+        "kind": "run_created",
+        "key": "health-run:waiting",
+        "at": "2026-06-02T12:00:00+00:00"
+      },
+      "unmet_invariant": {
+        "code": "REACTION_STIMULUS_REQUIRED",
+        "message": "The URL identifies the target but is not screenshot, route, state or observed-use evidence. Upload real screenshot bytes; Sonaloop will not fetch the URL.",
+        "severity": "blocking",
+        "target": "/jobs/rproject_operation_62e8f55bbe7fa426#product-understanding"
+      },
+      "integrity_findings": [
+        {
+          "code": "REACTION_STIMULUS_REQUIRED",
+          "message": "The URL identifies the target but is not screenshot, route, state or observed-use evidence. Upload real screenshot bytes; Sonaloop will not fetch the URL.",
+          "severity": "blocking",
+          "target": "/jobs/rproject_operation_62e8f55bbe7fa426#product-understanding"
+        },
+        {
+          "code": "dispatch_incomplete",
+          "message": "Dispatch preflight__product_understanding was issued but has no checkpoint.",
+          "severity": "blocking"
+        }
+      ],
+      "evidence": {
+        "posture_counts": {},
+        "source_counts": {},
+        "orphaned": 0
+      },
+      "report_handoff": {
+        "exists": false,
+        "complete": false,
+        "handed_off": false,
+        "latest_report_id": "",
+        "latest_complete": false,
+        "lead_missing": false,
+        "completed_report_ids": [],
+        "incomplete_report_ids": [],
+        "stale_report_ids": [],
+        "latest_stale": false,
+        "required_source_ids": [],
+        "reports": []
+      },
+      "product_understanding": {
+        "required": true,
+        "present": false,
+        "current_id": "",
+        "target": {},
+        "revision": "",
+        "observed_at": "",
+        "version": 0,
+        "capability_counts": {
+          "observed_present": 0,
+          "observed_absent": 0,
+          "inferred": 0,
+          "unknown": 0
+        },
+        "contradictory_capability_keys": []
+      },
+      "preflight": {
+        "state": "waiting",
+        "gate": "product_understanding",
+        "kind": "stimulus_required",
+        "task_id": "preflight__product_understanding",
+        "code": "REACTION_STIMULUS_REQUIRED",
+        "message": "The URL identifies the target but is not screenshot, route, state or observed-use evidence. Upload real screenshot bytes; Sonaloop will not fetch the URL.",
+        "allowed_tools": [
+          "admit_remote_screenshot"
+        ],
+        "next_call": {
+          "tool": "admit_remote_screenshot",
+          "arguments": {
+            "project_id": "rproject_operation_62e8f55bbe7fa426",
+            "run_id": "<run_step.run_id>",
+            "operation_id": "reaction-screen:7b21db187c2d371f7b46291b",
+            "content_base64": "<actual PNG/JPEG/WebP screenshot bytes>",
+            "filename": "<original .png/.jpg/.webp filename matching the bytes>",
+            "media_type": "<image/png|image/jpeg|image/webp matching the bytes>",
+            "captured_at": "<ISO-8601 capture time>",
+            "target_revision": "<release/hash or explicit unknown>",
+            "label": "<what this exact screen shows>",
+            "dispatch_token": "<run_step.dispatch_token>"
+          }
+        },
+        "action": {
+          "schema": "sonaloop.reaction_preflight_action.v1",
+          "project_id": "rproject_operation_62e8f55bbe7fa426",
+          "blocked": true,
+          "target": {
+            "url": "",
+            "role": "target_identity_only",
+            "is_evidence": false,
+            "server_fetch_authorized": false
+          },
+          "pending_blockers": {
+            "stimulus_missing": true,
+            "cohort_too_small": true
+          },
+          "kind": "stimulus_required",
+          "code": "REACTION_STIMULUS_REQUIRED",
+          "message": "The URL identifies the target but is not screenshot, route, state or observed-use evidence. Upload real screenshot bytes; Sonaloop will not fetch the URL.",
+          "allowed_tools": [
+            "admit_remote_screenshot"
+          ],
+          "next_call": {
+            "tool": "admit_remote_screenshot",
+            "arguments": {
+              "project_id": "rproject_operation_62e8f55bbe7fa426",
+              "run_id": "<run_step.run_id>",
+              "operation_id": "reaction-screen:7b21db187c2d371f7b46291b",
+              "content_base64": "<actual PNG/JPEG/WebP screenshot bytes>",
+              "filename": "<original .png/.jpg/.webp filename matching the bytes>",
+              "media_type": "<image/png|image/jpeg|image/webp matching the bytes>",
+              "captured_at": "<ISO-8601 capture time>",
+              "target_revision": "<release/hash or explicit unknown>",
+              "label": "<what this exact screen shows>",
+              "dispatch_token": "<run_step.dispatch_token>"
+            }
+          }
+        }
+      },
+      "safe_next_action": {
+        "kind": "complete_preflight",
+        "tool": "admit_remote_screenshot",
+        "arguments": {
+          "project_id": "rproject_operation_62e8f55bbe7fa426",
+          "run_id": "run_operation_698ca8f3a7de10f2",
+          "operation_id": "reaction-screen:7b21db187c2d371f7b46291b",
+          "content_base64": "<actual PNG/JPEG/WebP screenshot bytes>",
+          "filename": "<original .png/.jpg/.webp filename matching the bytes>",
+          "media_type": "<image/png|image/jpeg|image/webp matching the bytes>",
+          "captured_at": "<ISO-8601 capture time>",
+          "target_revision": "<release/hash or explicit unknown>",
+          "label": "<what this exact screen shows>",
+          "dispatch_token": "dispatch_a1c14564feb973fd"
+        },
+        "required_input_paths": [
+          "arguments.content_base64",
+          "arguments.filename",
+          "arguments.media_type",
+          "arguments.captured_at",
+          "arguments.target_revision",
+          "arguments.label"
+        ],
+        "reason": "The URL identifies the target but is not screenshot, route, state or observed-use evidence. Upload real screenshot bytes; Sonaloop will not fetch the URL."
+      },
+      "trace": {
+        "support_ref": "sltrace_2247e4c0e33bae2ec17def09",
+        "workflow_trace_id": "sltrace_2247e4c0e33bae2ec17def09",
+        "local_journal": "available",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_62e8f55bbe7fa426",
+          "run_id": "run_operation_698ca8f3a7de10f2",
+          "operation_id": "health-ui:waiting"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      },
+      "recovery_signals": {
+        "host_connection": "unknown",
+        "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+        "retry_result": "not_observed",
+        "retry_receipt": {},
+        "dispatch": "incomplete",
+        "evidence": "missing",
+        "critic": "not_pending",
+        "audit": "not_projected_in_core",
+        "external_host_error": "unobservable"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "health-unverified",
+    "tool": "project_health",
+    "input": {
+      "project_id": "rproject_operation_051815a349d31b71"
+    },
+    "value": {
+      "schema": "sonaloop.project_health.v2",
+      "project_id": "rproject_operation_051815a349d31b71",
+      "state": "unverified",
+      "driver_state": "not_engine_finished",
+      "lifecycle": "active",
+      "engine_finished": false,
+      "persisted_run_status": "not_started",
+      "run_inventory": {
+        "active": 0,
+        "historical_finished": 0,
+        "total": 0
+      },
+      "unverified_output": true,
+      "activity_lifecycle": {
+        "state": "current",
+        "stale_after_hours": 6,
+        "expires_after_hours": 24,
+        "expires_at": "",
+        "resumable": false,
+        "note": ""
+      },
+      "last_activity": "2026-06-02T12:00:00+00:00",
+      "run_id": "",
+      "run_operation_id": "",
+      "project_operation_id": "health-ui:unverified",
+      "tasks": {
+        "done": 1,
+        "total": 1,
+        "next_ready": []
+      },
+      "last_successful_operation": {
+        "kind": "project_created",
+        "key": "health-ui:unverified",
+        "at": "2026-06-02T12:00:00+00:00"
+      },
+      "unmet_invariant": {
+        "code": "critic_pending",
+        "message": "Completeness critic needs 2 trailing passes; 0 recorded.",
+        "severity": "blocking"
+      },
+      "integrity_findings": [
+        {
+          "code": "critic_pending",
+          "message": "Completeness critic needs 2 trailing passes; 0 recorded.",
+          "severity": "blocking"
+        }
+      ],
+      "evidence": {
+        "posture_counts": {},
+        "source_counts": {},
+        "orphaned": 0
+      },
+      "report_handoff": {
+        "exists": false,
+        "complete": false,
+        "handed_off": false,
+        "latest_report_id": "",
+        "latest_complete": false,
+        "lead_missing": false,
+        "completed_report_ids": [],
+        "incomplete_report_ids": [],
+        "stale_report_ids": [],
+        "latest_stale": false,
+        "required_source_ids": [],
+        "reports": []
+      },
+      "product_understanding": {
+        "required": false,
+        "present": false,
+        "current_id": "",
+        "target": {},
+        "revision": "",
+        "observed_at": "",
+        "version": 0,
+        "capability_counts": {
+          "observed_present": 0,
+          "observed_absent": 0,
+          "inferred": 0,
+          "unknown": 0
+        },
+        "contradictory_capability_keys": []
+      },
+      "preflight": {
+        "state": "ready"
+      },
+      "safe_next_action": {
+        "kind": "start_governed_run",
+        "tool": "start_run",
+        "arguments": {
+          "project_id": "rproject_operation_051815a349d31b71",
+          "operation_id": "recovery:774d3c908e2bb5fa5435e4d2e1729bad993d8c678a94577e6e048ca38c204ec5"
+        },
+        "reason": "No existing run can be resumed; the stable create intent prevents duplicates."
+      },
+      "trace": {
+        "support_ref": "sltrace_11d313994edcc1e0a3ea0db8",
+        "workflow_trace_id": "sltrace_11d313994edcc1e0a3ea0db8",
+        "local_journal": "not_started",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_051815a349d31b71",
+          "operation_id": "health-ui:unverified"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      },
+      "recovery_signals": {
+        "host_connection": "unknown",
+        "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+        "retry_result": "not_observed",
+        "retry_receipt": {},
+        "dispatch": "none_incomplete",
+        "evidence": "projected_complete",
+        "critic": "pending",
+        "audit": "not_projected_in_core",
+        "external_host_error": "unobservable"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "health-finished",
+    "tool": "project_health",
+    "input": {
+      "project_id": "rproject_operation_f5f91ba179cea615"
+    },
+    "value": {
+      "schema": "sonaloop.project_health.v2",
+      "project_id": "rproject_operation_f5f91ba179cea615",
+      "state": "finished",
+      "driver_state": "engine_finished",
+      "lifecycle": "active",
+      "engine_finished": true,
+      "persisted_run_status": "finished",
+      "run_inventory": {
+        "active": 0,
+        "historical_finished": 1,
+        "total": 1
+      },
+      "unverified_output": false,
+      "activity_lifecycle": {
+        "state": "current",
+        "stale_after_hours": 6,
+        "expires_after_hours": 24,
+        "expires_at": "",
+        "resumable": false,
+        "note": ""
+      },
+      "last_activity": "2026-06-02T12:00:00+00:00",
+      "run_id": "health-fixture-finished",
+      "run_operation_id": "",
+      "project_operation_id": "health-ui:finished",
+      "tasks": {
+        "done": 1,
+        "total": 1,
+        "next_ready": []
+      },
+      "last_successful_operation": {
+        "kind": "run_created",
+        "key": "health-ui:finished",
+        "at": "2026-06-02T12:00:00+00:00"
+      },
+      "unmet_invariant": null,
+      "integrity_findings": [],
+      "evidence": {
+        "posture_counts": {},
+        "source_counts": {},
+        "orphaned": 0
+      },
+      "report_handoff": {
+        "exists": false,
+        "complete": false,
+        "handed_off": false,
+        "latest_report_id": "",
+        "latest_complete": false,
+        "lead_missing": false,
+        "completed_report_ids": [],
+        "incomplete_report_ids": [],
+        "stale_report_ids": [],
+        "latest_stale": false,
+        "required_source_ids": [],
+        "reports": []
+      },
+      "product_understanding": {
+        "required": false,
+        "present": false,
+        "current_id": "",
+        "target": {},
+        "revision": "",
+        "observed_at": "",
+        "version": 0,
+        "capability_counts": {
+          "observed_present": 0,
+          "observed_absent": 0,
+          "inferred": 0,
+          "unknown": 0
+        },
+        "contradictory_capability_keys": []
+      },
+      "preflight": {
+        "state": "ready"
+      },
+      "safe_next_action": {
+        "kind": "inspect_evidence",
+        "tool": "project_health",
+        "arguments": {
+          "project_id": "rproject_operation_f5f91ba179cea615"
+        },
+        "reason": "The engine-finished journal is immutable; repair only explicit evidence findings."
+      },
+      "trace": {
+        "support_ref": "sltrace_2a53096c7d43293886bb23cf",
+        "workflow_trace_id": "sltrace_2a53096c7d43293886bb23cf",
+        "local_journal": "available",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_f5f91ba179cea615",
+          "run_id": "health-fixture-finished",
+          "operation_id": "health-ui:finished"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      },
+      "recovery_signals": {
+        "host_connection": "unknown",
+        "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+        "retry_result": "not_observed",
+        "retry_receipt": {},
+        "dispatch": "none_incomplete",
+        "evidence": "projected_complete",
+        "critic": "not_pending",
+        "audit": "not_projected_in_core",
+        "external_host_error": "unobservable"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "health-no-plan",
+    "tool": "project_health",
+    "input": {
+      "project_id": "rproject_operation_0a5d545a3cb86f66"
+    },
+    "value": {
+      "schema": "sonaloop.project_health.v2",
+      "project_id": "rproject_operation_0a5d545a3cb86f66",
+      "state": "stalled",
+      "driver_state": "not_started",
+      "lifecycle": "active",
+      "engine_finished": false,
+      "persisted_run_status": "not_started",
+      "run_inventory": {
+        "active": 0,
+        "historical_finished": 0,
+        "total": 0
+      },
+      "unverified_output": false,
+      "activity_lifecycle": {
+        "state": "current",
+        "stale_after_hours": 6,
+        "expires_after_hours": 24,
+        "expires_at": "",
+        "resumable": false,
+        "note": ""
+      },
+      "last_activity": "2026-06-02T12:00:00+00:00",
+      "run_id": "",
+      "run_operation_id": "",
+      "project_operation_id": "health-ui:no-plan",
+      "tasks": {
+        "done": 0,
+        "total": 0,
+        "next_ready": []
+      },
+      "last_successful_operation": {
+        "kind": "project_created",
+        "key": "health-ui:no-plan",
+        "at": "2026-06-02T12:00:00+00:00"
+      },
+      "unmet_invariant": {
+        "code": "run_not_started",
+        "message": "Open plan work has not started a governed run yet.",
+        "severity": "blocking"
+      },
+      "integrity_findings": [
+        {
+          "code": "run_not_started",
+          "message": "Open plan work has not started a governed run yet.",
+          "severity": "blocking"
+        }
+      ],
+      "evidence": {
+        "posture_counts": {},
+        "source_counts": {},
+        "orphaned": 0
+      },
+      "report_handoff": {
+        "exists": false,
+        "complete": false,
+        "handed_off": false,
+        "latest_report_id": "",
+        "latest_complete": false,
+        "lead_missing": false,
+        "completed_report_ids": [],
+        "incomplete_report_ids": [],
+        "stale_report_ids": [],
+        "latest_stale": false,
+        "required_source_ids": [],
+        "reports": []
+      },
+      "product_understanding": {
+        "required": false,
+        "present": false,
+        "current_id": "",
+        "target": {},
+        "revision": "",
+        "observed_at": "",
+        "version": 0,
+        "capability_counts": {
+          "observed_present": 0,
+          "observed_absent": 0,
+          "inferred": 0,
+          "unknown": 0
+        },
+        "contradictory_capability_keys": []
+      },
+      "preflight": {
+        "state": "ready"
+      },
+      "safe_next_action": {
+        "kind": "start_governed_run",
+        "tool": "start_run",
+        "arguments": {
+          "project_id": "rproject_operation_0a5d545a3cb86f66",
+          "operation_id": "recovery:890e6e8acfb16907a982c54c29b2f5659ae023906f71e5a5c528b9cc87c9caac"
+        },
+        "reason": "No existing run can be resumed; the stable create intent prevents duplicates."
+      },
+      "trace": {
+        "support_ref": "sltrace_a00dc6664ae56edf3d3d11e6",
+        "workflow_trace_id": "sltrace_a00dc6664ae56edf3d3d11e6",
+        "local_journal": "not_started",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_0a5d545a3cb86f66",
+          "operation_id": "health-ui:no-plan"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      },
+      "recovery_signals": {
+        "host_connection": "unknown",
+        "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+        "retry_result": "not_observed",
+        "retry_receipt": {},
+        "dispatch": "none_incomplete",
+        "evidence": "projected_complete",
+        "critic": "not_pending",
+        "audit": "not_projected_in_core",
+        "external_host_error": "unobservable"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "health-archived",
+    "tool": "project_health",
+    "input": {
+      "project_id": "rproject_operation_10d14f679fdce735"
+    },
+    "value": {
+      "schema": "sonaloop.project_health.v2",
+      "project_id": "rproject_operation_10d14f679fdce735",
+      "state": "archived",
+      "driver_state": "archived",
+      "lifecycle": "archived",
+      "engine_finished": false,
+      "persisted_run_status": "not_started",
+      "run_inventory": {
+        "active": 0,
+        "historical_finished": 0,
+        "total": 0
+      },
+      "unverified_output": false,
+      "activity_lifecycle": {
+        "state": "current",
+        "stale_after_hours": 6,
+        "expires_after_hours": 24,
+        "expires_at": "",
+        "resumable": false,
+        "note": ""
+      },
+      "last_activity": "2026-06-02T12:00:00+00:00",
+      "run_id": "",
+      "run_operation_id": "",
+      "project_operation_id": "health-ui:archived",
+      "tasks": {
+        "done": 0,
+        "total": 1,
+        "next_ready": [
+          "frame__root"
+        ]
+      },
+      "last_successful_operation": {
+        "kind": "project_created",
+        "key": "health-ui:archived",
+        "at": "2026-06-02T12:00:00+00:00"
+      },
+      "unmet_invariant": null,
+      "integrity_findings": [],
+      "evidence": {
+        "posture_counts": {},
+        "source_counts": {},
+        "orphaned": 0
+      },
+      "report_handoff": {
+        "exists": false,
+        "complete": false,
+        "handed_off": false,
+        "latest_report_id": "",
+        "latest_complete": false,
+        "lead_missing": false,
+        "completed_report_ids": [],
+        "incomplete_report_ids": [],
+        "stale_report_ids": [],
+        "latest_stale": false,
+        "required_source_ids": [],
+        "reports": []
+      },
+      "product_understanding": {
+        "required": false,
+        "present": false,
+        "current_id": "",
+        "target": {},
+        "revision": "",
+        "observed_at": "",
+        "version": 0,
+        "capability_counts": {
+          "observed_present": 0,
+          "observed_absent": 0,
+          "inferred": 0,
+          "unknown": 0
+        },
+        "contradictory_capability_keys": []
+      },
+      "preflight": {
+        "state": "ready"
+      },
+      "safe_next_action": {
+        "kind": "inspect",
+        "tool": "project_health",
+        "arguments": {
+          "project_id": "rproject_operation_10d14f679fdce735"
+        },
+        "reason": "Archived/superseded projects are preserved and not resumed automatically."
+      },
+      "trace": {
+        "support_ref": "sltrace_a33a38f8c9d2b584620216df",
+        "workflow_trace_id": "sltrace_a33a38f8c9d2b584620216df",
+        "local_journal": "not_started",
+        "cloud_trace_query": {
+          "project_id": "rproject_operation_10d14f679fdce735",
+          "operation_id": "health-ui:archived"
+        },
+        "external_host_visibility": "not_observable",
+        "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+      },
+      "recovery_signals": {
+        "host_connection": "unknown",
+        "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+        "retry_result": "not_observed",
+        "retry_receipt": {},
+        "dispatch": "none_incomplete",
+        "evidence": "projected_complete",
+        "critic": "not_pending",
+        "audit": "not_projected_in_core",
+        "external_host_error": "unobservable"
+      }
+    },
+    "state": "ready"
+  }
+]

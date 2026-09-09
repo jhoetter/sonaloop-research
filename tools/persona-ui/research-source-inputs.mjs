@@ -28,6 +28,7 @@ export const commonSourceInputs = [
 ];
 
 export const familySourceInputs = {
+  runs: ['tools/persona-ui/fixtures/project-health.json', 'sonaloop/ui_components/project_health.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/web/_runs_widget.py'],
   memory: ['tools/persona-ui/fixtures/memory.json', 'sonaloop/ui_components/memory.py', 'sonaloop/ui_components/memory_rows.py', 'sonaloop/ui_components/memory_outcomes.py', 'sonaloop/web/pages/personas.py'],
   calendar: ['tools/persona-ui/fixtures/calendar-plans.json', 'sonaloop/ui_components/calendar.py', 'sonaloop/web/pages/personas.py', 'sonaloop/web/pages/_calendar.py'],
   plans: ['tools/persona-ui/fixtures/calendar-plans.json', 'sonaloop/ui_components/plans.py', 'sonaloop/web/pages/personas.py'],
@@ -36,8 +37,14 @@ export const familySourceInputs = {
   assets: ['sonaloop/ui_components/assets.py', 'sonaloop/web/pages/assets.py'],
   notes: ['sonaloop/web/pages/library.py'],
   sections: ['sonaloop/web/pages/library.py'],
-  projects: ['sonaloop/ui_components/discovery.py', 'sonaloop/web/pages/projects.py'],
-  search: ['sonaloop/ui_components/discovery.py', 'sonaloop/web/_routes_api.py', 'sonaloop/web/_palette.py'],
+  projects: ['sonaloop/ui_components/project_graph.py', 'sonaloop/ui_components/project_results.py',
+    'sonaloop/ui_components/project_health.py', 'sonaloop/ui_components/predictions.py',
+    'sonaloop/ui_components/assets.py', 'sonaloop/ui_components/references.py', 'sonaloop/ui_components/prototypes.py',
+    'sonaloop/ui_components/council_formats.py', 'sonaloop/ui_components/syntheses.py', 'sonaloop/ui_components/reports.py',
+    'sonaloop/web/_graph_outline.py', 'sonaloop/web/_runs_widget.py', 'sonaloop/web/_report.py',
+    'sonaloop/web/_synthesis.py', 'sonaloop/charts_catalogue.py', 'sonaloop/_charts.py',
+    'sonaloop/suggestions/finding_kinds.json', 'tools/persona-ui/fixtures/projects.json', 'sonaloop/ui_components/projects.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/ui_components/discovery.py', 'sonaloop/web/pages/projects.py'],
+  search: ['sonaloop/ui_components/projects_rows.py', 'sonaloop/ui_components/discovery.py', 'sonaloop/web/_routes_api.py', 'sonaloop/web/_palette.py'],
   hypotheses: ['sonaloop/ui_components/bets.py', 'sonaloop/web/pages/hypotheses.py'],
   decisions: ['sonaloop/ui_components/bets.py', 'sonaloop/web/pages/decisions.py'],
   // Product Council sentiment and Session funnel charts share _synthesis.py;

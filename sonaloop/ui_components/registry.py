@@ -6,7 +6,7 @@ from typing import Callable
 
 from .library import collection, note_card, section_card
 from . import references, assets, prototypes, calendar, plans, bets, councils, council_formats, discovery, surveys, syntheses, sessions, session_funnels
-from . import memory, memory_outcomes
+from . import memory, memory_outcomes, projects, project_graph, project_results, predictions, project_health
 
 SCHEMA = "sonaloop.research-presentation.v1"
 
@@ -68,6 +68,16 @@ def _members(value):
 
 
 SURFACES = {
+    "get_project_graph": Surface("projects", project_graph.graph),
+    "get_study_result": Surface("projects", project_results.study),
+    "aggregate_predictions": Surface("projects", predictions.predictions),
+    "project_health": Surface("runs", project_health.health),
+    "start_project": Surface("projects", projects.started),
+    "query_projects": Surface("projects", projects.queried),
+    "supersede_project": Surface("projects", projects.superseded),
+    "archive_project": Surface("projects", projects.archived),
+    "delete_research_project": Surface("projects", projects.deleted),
+    **{name: Surface("projects", projects.icon) for name in ("set_project_icon", "generate_project_icon")},
     "list_active_projects": Surface("memory", memory.active_projects),
     "search_entities": Surface("memory", memory.entities),
     "resolve_entity": Surface("memory", memory.entity),

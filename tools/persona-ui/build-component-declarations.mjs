@@ -45,7 +45,7 @@ function boundSchema(value, depth = 0, detailDepth = 10) {
 function jsonDepth(value) {
   return value && typeof value === 'object' ? Math.max(0, ...Object.values(value).map(child => 1 + jsonDepth(child))) : 0;
 }
-const labels = { memory: 'Memory and Recorded Experience', calendar: 'Recorded Calendar and Activities', plans: 'Recorded Plans', prototypes: 'Prototypes', references: 'Captured References', assets: 'Files and Evidence', notes: 'Notes', sections: 'Sections', projects: 'Projects', search: 'Search',
+const labels = { runs: 'Project Health and Run Diagnostics', memory: 'Memory and Recorded Experience', calendar: 'Recorded Calendar and Activities', plans: 'Recorded Plans', prototypes: 'Prototypes', references: 'Captured References', assets: 'Files and Evidence', notes: 'Notes', sections: 'Sections', projects: 'Projects', search: 'Search',
   hypotheses: 'Hypotheses', decisions: 'Decisions', councils: 'Councils', surveys: 'Surveys',
   syntheses: 'Syntheses and Reports', sessions: 'Sessions and Funnels' };
 const { fixtures } = await nativeFixtureSet();

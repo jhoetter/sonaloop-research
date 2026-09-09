@@ -76,7 +76,7 @@ def lineage_content(project, *, prepared_refs=None, heading_icon=None):
             items.append(h("li", {}, label, ": ", prepared_refs.get(key, h("code", {}, pid))))
     if not items:
         return ""
-    return h("details", {"class_": "sl-project-lineage sl-research-project-lineage", "id": "project-lineage",
+    return h("details", {"class_": "sl-project-lineage", "id": "project-lineage",
                          "aria-label": t("lineage_h")},
              h("summary", {}, heading_icon, t("lineage_h")),
              h("ul", {"class_": "sl-pu-caps"}, fragment(items)))

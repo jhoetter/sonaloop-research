@@ -154,6 +154,24 @@ def test_waiting_has_exact_native_call_and_required_paths(recorded, store):
     assert "operation_id=" not in project_health.action_call(active["safe_next_action"])
 
 
+def test_native_preflight_qualifications_and_open_target_metadata_are_visible(recorded, store):
+    value = services.project_health(recorded["waiting"]["id"], store=store)
+    markup, _ = project_health.health(value)
+    for expected in ("target_identity_only", "is_evidence</dt><dd><span>false", "server_fetch_authorized</dt><dd><span>false",
+                     "stimulus_missing</dt><dd><span>true", "cohort_too_small</dt><dd><span>true", "blocked</dt><dd><span>true"):
+        assert expected in markup
+    hostile = '<img src=x onerror="bad()">qualified identity'
+    value["product_understanding"]["target"] = {"name": "A target", "qualifications": {
+        "external_host_verified": False, "unknown": None, "empty": [], "notes": [hostile]}}
+    value["preflight"]["action"]["manifest"] = {"steps_served": 0, "steps": [{"asset_version_id": "exact-asset-version"}]}
+    value["unmet_invariant"] = {"code": "unique-unmet-code", "message": "A blocker", "severity": "warning", "target": "unique-unmet-target"}
+    markup, _ = project_health.health(value)
+    for expected in ("external_host_verified</dt><dd><span>false", "unknown</dt><dd><span>null", "empty</dt><dd><span>[]",
+                     "qualified identity", "steps_served</dt><dd><span>0", "exact-asset-version", "unique-unmet-code", "unique-unmet-target"):
+        assert expected in markup
+    assert "&lt;img" in markup and "<img" not in markup and "<a " not in markup and "<button" not in markup
+
+
 def test_all_supplied_health_counts_and_report_sources_remain_literal(recorded, store):
     value = services.project_health(recorded["running"]["id"], store=store)
     # Authored projection fixtures exercise fields whose existence is already

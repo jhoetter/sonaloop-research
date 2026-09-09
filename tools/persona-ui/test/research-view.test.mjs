@@ -38,7 +38,7 @@ test('logging notification failure cannot erase a successfully rendered native r
 });
 
 test('all built resources bind the passive manifest, source and declared tools', async () => {
-  for (const family of ['memory', 'calendar', 'plans', 'prototypes', 'references', 'assets', 'notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions', 'surveys', 'councils', 'syntheses', 'sessions']) {
+  for (const family of ['runs', 'memory', 'calendar', 'plans', 'prototypes', 'references', 'assets', 'notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions', 'surveys', 'councils', 'syntheses', 'sessions']) {
     const { manifest } = await loadAsset(family, { verifySources: true });
     const tools = declarations.filter(item => item.componentId === manifest.component_id);
     assert.ok(tools.length > 0);

@@ -356,6 +356,20 @@ def red_team_write(value):
     return _write(value, "red_team", red_team_content)
 
 
+def query_council_card(row):
+    """The supplied lean substrate row, shared with the study result composition."""
+    from ..web._i18n import t
+    _text(row, "id", "project_id", "prompt", "created_at")
+    _counts(row, "statements", "votes", "questions")
+    _strings(row.get("persona_ids"))
+    h, _, _ = _kit()
+    return h("article", {"class_": "sl-research-card"}, h("h2", {}, row["prompt"]),
+        h("p", {"class_": "muted small"}, "council:", row["id"], " · project:", row["project_id"]),
+        h("p", {}, t("participants"), ": ", ", ".join(row["persona_ids"])),
+        h("p", {}, t("cf_query_counts", statements=row["statements"], votes=row["votes"], questions=row["questions"])),
+        h("p", {"class_": "muted small"}, t("created"), ": ", row["created_at"]))
+
+
 def query_councils(value):
     """Native offset page: integer row counts are not list_councils vote tallies."""
     from ..web._i18n import t
@@ -367,16 +381,7 @@ def query_councils(value):
             and (type(value["next_offset"]) is not int or value["next_offset"] < 0)):
         raise ValueError("Expected native next_offset or null")
     h, _, _ = _kit()
-    cards = []
-    for row in _rows(value.get("items")):
-        _text(row, "id", "project_id", "prompt", "created_at")
-        _counts(row, "statements", "votes", "questions")
-        _strings(row.get("persona_ids"))
-        cards.append(h("article", {"class_": "sl-research-card"}, h("h2", {}, row["prompt"]),
-            h("p", {"class_": "muted small"}, "council:", row["id"], " · project:", row["project_id"]),
-            h("p", {}, t("participants"), ": ", ", ".join(row["persona_ids"])),
-            h("p", {}, t("cf_query_counts", statements=row["statements"], votes=row["votes"], questions=row["questions"])),
-            h("p", {"class_": "muted small"}, t("created"), ": ", row["created_at"])))
+    cards = [query_council_card(row) for row in _rows(value.get("items"))]
     return h("div", {"class_": "sl-research-council-query"},
         h("p", {"class_": "muted small"}, t("cf_query_page", offset=value["offset"], shown=len(cards), total=value["total"])),
         collection(cards, empty=t("no_councils"), has_more=value["next_offset"] is not None)), "ready" if cards else "empty"

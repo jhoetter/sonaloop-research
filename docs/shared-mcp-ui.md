@@ -198,6 +198,51 @@ period totals and truncation notices remain visible. Product navigation, avatar
 resolution and clock-dependent today decorations are prepared outside the pure
 renderer. Invalid legacy optional shapes preserve a truthful product fallback.
 
+Project creation, offset queries, lineage, archive, deletion and icon results use
+the same Product header, lineage notice and stored icon specification bodies.
+Creation preserves warnings, operation identity and replay without claiming a run
+started. Archive preserves evidence; deletion shows actual table counts, including
+zero. A supersession keeps the recorded predecessor/successor direction. An icon
+specification never executes supplied SVG or loads its file/URL. Native icon
+generation is deterministic, not a newly introduced model call.
+
+The graph view uses the Product outline's five shared semantic row cells. The
+Product retains its own grouping, filters, media, dates and controls. The passive
+inventory keeps every supplied native node and edge, including unknown phases,
+literal voices counts, resolved Persona stub IDs, references and graph counts. It
+does not fetch the Product's additional session or decision records and does not
+turn supplied graph metadata into image pixels or execution authority.
+
+The Project inspector links to **Native study result** at `/jobs/{project_id}/results`.
+Only that explicit navigation requests the native automation result; ordinary
+project navigation and the cheap global run widget do not add another deep result
+query. This Product page and MCP compose the existing Project, lean Council,
+Synthesis, Health and prediction bodies. Missing nullable projections remain
+unavailable and are not retried by the renderer. Graph counts are not completion
+or displayed-row counts. A legacy native result that omits a bare-ID synthesis
+remains incomplete; the view does not silently fetch another record.
+
+**Project Health and Run Diagnostics** is a separate Component because its native
+v2 diagnostic shape is extensive. The existing Product support disclosure and
+attention sentence are shared; Product copy buttons and target links are prepared
+outside the body. Passive health preserves journal/lifecycle/preflight/evidence
+and recovery values, empty suggested arguments and required input paths.
+Preflight blockers, target identity/evidence restrictions, nested action metadata
+and the full supplied Product target remain visible as escaped native data. It grants
+no tool execution. Ready-to-display never means the engine finished, and unknown
+external host connectivity is not rewritten as a disconnected host. Its synthetic
+finished-state fixture is a prepared journal-boundary test, not evidence that a
+real research run passed finish gates. Desktop diagnostics use two reading columns;
+long Health and combined Study fixtures are captured at their recorded 960px
+viewport. Mobile tests retain and scroll all text; these desktop rasters do not
+claim a mobile capture of the same long scenario.
+
+Prediction aggregates show recorded estimates rather than observed behavior.
+Counts count prediction records, not unique people; supplied likelihood means are
+not recalculated, and null is distinct from zero. Native references may be capped
+at five per group. Both the native prediction tool and the Product result page
+use the same body and preserve its source addresses without loading the sources.
+
 Memory views share the Persona inspector's entity, fact, thread, recall and
 document bodies. Its collapsed whole-record overview uses the same digest and
 experience-summary content, independently of the search and historical-state

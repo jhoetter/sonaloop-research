@@ -230,6 +230,24 @@ def register_projects(app) -> None:
     def legacy_project_path_redirect(project_path: str, request: Request):
         return _redirect_legacy(request, f"/jobs/{project_path}")
 
+    @app.get("/jobs/{project_id}/results", response_class=HTMLResponse)
+    def project_native_results(project_id: str) -> str:
+        from ...ui_components.project_results import study
+        store = Store()
+        try:
+            value = services.get_study_result(project_id, store=store)
+        except KeyError:
+            return _layout(t("not_found"), _empty_state(t("not_found"), t("runtime_maybe_cleared"), icon="projects"),
+                           store, active="projects")
+        try:
+            result = study(value)[0]
+        except (ValueError, TypeError, KeyError):
+            result = h("p", {}, t("rpr_projection_unavailable"))
+        project = value["project"]
+        return _layout(t("rpr_study"), h("div", {"class_": "sl-syn-main"}, result), store, active="projects",
+                       crumbs=[(t("projects"), "/jobs"), (project["title"], f'/jobs/{project["id"]}'),
+                               (t("rpr_study"), None)])
+
     @app.get("/jobs/{project_id}", response_class=HTMLResponse)
     def project_detail(project_id: str,
                        kind: str = Query(default=""), phase: str = Query(default=""),
@@ -375,6 +393,9 @@ def register_projects(app) -> None:
                      }, creator_text) if creator_label else None), "cohort": cohort_html,
                      "lineage": raw(_project_lineage_html(project_record, store))}),
                    _project_icon_details_html(project_record),
+                   h("details", {"class_": "sl-project-lineage"},
+                     h("summary", {}, t("rpr_study")),
+                     h("p", {}, h("a", {"href": f'/jobs/{proj["id"]}/results'}, t("rpr_study")))),
                    h("div", {"class_": "pills"}, raw(run_chip)),
                    bar if not customer_surface else None),
                  (raw(_project_setup_details_html(project_record, store))

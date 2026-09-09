@@ -1,0 +1,1233 @@
+[
+  {
+    "scenario": "start_project",
+    "tool": "start_project",
+    "input": {
+      "title": "A fresh question",
+      "goal": "Who owns the unresolved handover?",
+      "description": "Inspect the source before concluding.",
+      "persona_ids": [
+        "persona_e4c09ed03f7bf2ef"
+      ],
+      "icon": "target",
+      "operation_id": "project-ui-new"
+    },
+    "value": {
+      "id": "rproject_operation_598082613a55fb15",
+      "slug": "a-fresh-question",
+      "title": "A fresh question",
+      "goal": "Who owns the unresolved handover?",
+      "description": "Inspect the source before concluding.",
+      "persona_ids": [
+        "persona_e4c09ed03f7bf2ef"
+      ],
+      "study_ids": [],
+      "study_tags": {},
+      "themes": [],
+      "status": "active",
+      "created_at": "2026-06-02T09:00:00+00:00",
+      "updated_at": "2026-06-02T09:00:00+00:00",
+      "methodology": "",
+      "phase": "",
+      "phase_log": {},
+      "sections": [],
+      "notes": [],
+      "council_ids": [],
+      "workflow_trace_id": "sltrace_8c2c98a251bb85d121f14cd5",
+      "operation_id": "project-ui-new",
+      "operation_fingerprint": "7c021d464ee2497a2af00f35f4708a02b5b3abb79421916694f91d4d4f1e0375",
+      "operation_state": "initialized",
+      "icon": {
+        "kind": "regular",
+        "name": "target"
+      },
+      "url": "http://127.0.0.1:8787/jobs/rproject_operation_598082613a55fb15",
+      "governance_contract": "dispatch_v1",
+      "warnings": [
+        "cohort memory is EMPTY (1 persona(s), 0 facts/events) — councils will be ungrounded; deepen with simulate-cohort (or ground personas from real material) before Discover"
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "query_projects",
+    "tool": "query_projects",
+    "input": {
+      "limit": 2,
+      "offset": 1
+    },
+    "value": {
+      "substrate_version": 1,
+      "total": 6,
+      "limit": 2,
+      "offset": 1,
+      "next_offset": 3,
+      "items": [
+        {
+          "id": "rproject_operation_863ae4bb6b868b75",
+          "slug": "successor",
+          "title": "Successor",
+          "goal": "Clarify who owns the handover",
+          "status": "active",
+          "workflow_trace_id": "sltrace_f9096fcd653a34a75517ffa4",
+          "methodology": "",
+          "councils": 0,
+          "artifacts": 0,
+          "assets": 0,
+          "persona_ids": [],
+          "created_at": "2026-06-02T09:00:00+00:00",
+          "updated_at": "2026-06-02T09:00:00+00:00"
+        },
+        {
+          "id": "rproject_operation_6ba68f5ee6f94f11",
+          "slug": "archive",
+          "title": "Archive",
+          "goal": "Clarify who owns the handover",
+          "status": "active",
+          "workflow_trace_id": "sltrace_53498984c86d84b7a1656547",
+          "methodology": "",
+          "councils": 0,
+          "artifacts": 0,
+          "assets": 0,
+          "persona_ids": [],
+          "created_at": "2026-06-02T09:00:00+00:00",
+          "updated_at": "2026-06-02T09:00:00+00:00"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "supersede_project",
+    "tool": "supersede_project",
+    "input": {
+      "project_id": "rproject_operation_863ae4bb6b868b75",
+      "supersedes_project_id": "rproject_operation_320547d40352b060",
+      "operation_id": "project-ui-lineage",
+      "reason": "The question was narrowed."
+    },
+    "value": {
+      "schema": "sonaloop.project_lineage.v1",
+      "project_id": "rproject_operation_863ae4bb6b868b75",
+      "supersedes_project_id": "rproject_operation_320547d40352b060",
+      "operation_id": "project-ui-lineage",
+      "reason": "The question was narrowed.",
+      "evidence_deleted": false,
+      "idempotent": false
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "archive_project",
+    "tool": "archive_project",
+    "input": {
+      "project_id": "rproject_operation_6ba68f5ee6f94f11",
+      "operation_id": "project-ui-archive",
+      "reason": "Retain earlier evidence."
+    },
+    "value": {
+      "project_id": "rproject_operation_6ba68f5ee6f94f11",
+      "status": "archived",
+      "operation_id": "project-ui-archive",
+      "evidence_deleted": false,
+      "idempotent": false
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "delete_research_project",
+    "tool": "delete_research_project",
+    "input": {
+      "project_id": "delete"
+    },
+    "value": {
+      "deleted": {
+        "research_open_questions": 0,
+        "methodology_judgments": 0,
+        "research_plans": 1,
+        "active_run_claims": 0,
+        "runs": 0,
+        "prediction_outcomes": 0,
+        "prototypes": 0,
+        "surveys": 0,
+        "hypotheses": 0,
+        "decision_records": 0,
+        "usability_sessions": 0,
+        "council_sessions": 0,
+        "syntheses": 0,
+        "events": 1,
+        "research_projects": 1
+      },
+      "project_id": "rproject_operation_632a492a3e425e95"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "set_project_icon",
+    "tool": "set_project_icon",
+    "input": {
+      "project_id": "rproject_operation_32a3e3c1403d9acb",
+      "icon": "target"
+    },
+    "value": {
+      "project_id": "rproject_operation_32a3e3c1403d9acb",
+      "icon": {
+        "kind": "regular",
+        "name": "target"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "generate_project_icon",
+    "tool": "generate_project_icon",
+    "input": {
+      "project_id": "rproject_operation_32a3e3c1403d9acb",
+      "prompt": "Handover relationships"
+    },
+    "value": {
+      "project_id": "rproject_operation_32a3e3c1403d9acb",
+      "icon": {
+        "kind": "custom",
+        "svg": "<svg class=\"ic project-custom-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"7.5\"></circle><path d=\"M12 7v5l3.5 2\"></path></svg>",
+        "svg_path": "data/project-icons/rproject_operation_32a3e3c1403d9acb-fbaafd1151e9ee10.svg",
+        "url": "http://127.0.0.1:8787/data/project-icons/rproject_operation_32a3e3c1403d9acb-fbaafd1151e9ee10.svg",
+        "prompt": "Handover relationships",
+        "generated_at": "2026-06-02T09:00:00+00:00"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "start_project-replay",
+    "tool": "start_project",
+    "input": {
+      "title": "A fresh question",
+      "goal": "Who owns the unresolved handover?",
+      "description": "Inspect the source before concluding.",
+      "persona_ids": [
+        "persona_e4c09ed03f7bf2ef"
+      ],
+      "icon": "target",
+      "operation_id": "project-ui-new"
+    },
+    "value": {
+      "id": "rproject_operation_598082613a55fb15",
+      "slug": "a-fresh-question",
+      "title": "A fresh question",
+      "goal": "Who owns the unresolved handover?",
+      "description": "Inspect the source before concluding.",
+      "persona_ids": [
+        "persona_e4c09ed03f7bf2ef"
+      ],
+      "study_ids": [],
+      "study_tags": {},
+      "themes": [],
+      "status": "active",
+      "created_at": "2026-06-02T09:00:00+00:00",
+      "updated_at": "2026-06-02T09:00:00+00:00",
+      "methodology": "",
+      "phase": "",
+      "phase_log": {},
+      "sections": [],
+      "notes": [],
+      "council_ids": [],
+      "workflow_trace_id": "sltrace_8c2c98a251bb85d121f14cd5",
+      "operation_id": "project-ui-new",
+      "operation_fingerprint": "7c021d464ee2497a2af00f35f4708a02b5b3abb79421916694f91d4d4f1e0375",
+      "operation_state": "initialized",
+      "icon": {
+        "kind": "regular",
+        "name": "target"
+      },
+      "url": "http://127.0.0.1:8787/jobs/rproject_operation_598082613a55fb15",
+      "governance_contract": "dispatch_v1",
+      "idempotent_replay": true,
+      "warnings": [
+        "cohort memory is EMPTY (1 persona(s), 0 facts/events) — councils will be ungrounded; deepen with simulate-cohort (or ground personas from real material) before Discover"
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "supersede_project-replay",
+    "tool": "supersede_project",
+    "input": {
+      "project_id": "rproject_operation_863ae4bb6b868b75",
+      "supersedes_project_id": "rproject_operation_320547d40352b060",
+      "operation_id": "project-ui-lineage",
+      "reason": "The question was narrowed."
+    },
+    "value": {
+      "schema": "sonaloop.project_lineage.v1",
+      "project_id": "rproject_operation_863ae4bb6b868b75",
+      "supersedes_project_id": "rproject_operation_320547d40352b060",
+      "operation_id": "project-ui-lineage",
+      "reason": "The question was narrowed.",
+      "evidence_deleted": false,
+      "idempotent": true
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "archive_project-replay",
+    "tool": "archive_project",
+    "input": {
+      "project_id": "rproject_operation_6ba68f5ee6f94f11",
+      "operation_id": "project-ui-archive",
+      "reason": "Retain earlier evidence."
+    },
+    "value": {
+      "project_id": "rproject_operation_6ba68f5ee6f94f11",
+      "status": "archived",
+      "operation_id": "project-ui-archive",
+      "evidence_deleted": false,
+      "idempotent": true
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "query-empty",
+    "tool": "query_projects",
+    "input": {
+      "q": "no-such-project-fixture",
+      "limit": 1,
+      "offset": 0
+    },
+    "value": {
+      "substrate_version": 1,
+      "total": 0,
+      "limit": 1,
+      "offset": 0,
+      "next_offset": null,
+      "items": []
+    },
+    "state": "empty"
+  },
+  {
+    "scenario": "icon-custom",
+    "tool": "set_project_icon",
+    "input": {
+      "project_id": "rproject_operation_32a3e3c1403d9acb",
+      "svg": "<svg viewBox=\"0 0 24 24\"><path d=\"M4 12h16\"/></svg>"
+    },
+    "value": {
+      "project_id": "rproject_operation_32a3e3c1403d9acb",
+      "icon": {
+        "kind": "custom",
+        "svg": "<svg viewBox=\"0 0 24 24\" class=\"ic project-custom-icon\" aria-hidden=\"true\"><path d=\"M4 12h16\"></path></svg>",
+        "svg_path": "data/project-icons/rproject_operation_32a3e3c1403d9acb-1dd5dc601e3876e1.svg",
+        "url": "http://127.0.0.1:8787/data/project-icons/rproject_operation_32a3e3c1403d9acb-1dd5dc601e3876e1.svg",
+        "updated_at": "2026-06-02T09:00:00+00:00"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "get_project_graph",
+    "tool": "get_project_graph",
+    "input": {
+      "project_id": "rproject_operation_4160b954fa53ee60"
+    },
+    "value": {
+      "project": {
+        "id": "rproject_operation_4160b954fa53ee60",
+        "slug": "handover-ownership",
+        "title": "Handover ownership",
+        "goal": "Can the next shift identify the owner?",
+        "status": "active",
+        "persona_ids": [
+          "persona_d3a79c1ba9b8a731"
+        ],
+        "themes": [],
+        "methodology": "",
+        "phase": "",
+        "integrity": {},
+        "product_understanding_current_id": "",
+        "product_understanding_versions": [],
+        "supersedes_project_id": "",
+        "superseded_by_project_id": "",
+        "lineage": {},
+        "archive": {},
+        "icon": {
+          "kind": "regular",
+          "name": "projects"
+        },
+        "url": "http://127.0.0.1:8787/jobs/rproject_operation_4160b954fa53ee60"
+      },
+      "methodology_state": {
+        "project_id": "rproject_operation_4160b954fa53ee60",
+        "methodology": "",
+        "phase": "",
+        "complete": false,
+        "steps": [
+          {
+            "key": "frame__root",
+            "name": "Frame the inquiry",
+            "mode": "diverge",
+            "is_fan": true,
+            "role": "frame",
+            "presentation": {},
+            "tags": [
+              "frame"
+            ],
+            "consumes": [],
+            "produces": {
+              "role": "frame"
+            },
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "status": "pending",
+            "exploration_count": 0,
+            "convergence_node": null,
+            "judgments": []
+          }
+        ],
+        "phases": [
+          {
+            "key": "frame__root",
+            "name": "Frame the inquiry",
+            "mode": "diverge",
+            "is_fan": true,
+            "role": "frame",
+            "presentation": {},
+            "tags": [
+              "frame"
+            ],
+            "consumes": [],
+            "produces": {
+              "role": "frame"
+            },
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "status": "pending",
+            "exploration_count": 0,
+            "convergence_node": null,
+            "judgments": []
+          }
+        ]
+      },
+      "prototypes": [],
+      "artifacts": [],
+      "assets": [],
+      "sections": [],
+      "nodes": [
+        {
+          "study_id": "council:council_8876a7a6b2f7e0e3",
+          "kind": "council",
+          "title": "Who owns the next action?",
+          "phase": "frame__root",
+          "bucket": "act",
+          "created_at": "2026-09-09T03:39:57.613412+00:00",
+          "council_count": 1,
+          "voices": 1,
+          "sentiment": {},
+          "stance_counts": {
+            "-1": 1
+          },
+          "personas": [
+            {
+              "id": "persona_d3a79c1ba9b8a731",
+              "display_name": "Graph reader",
+              "avatar": null
+            }
+          ],
+          "recommendations": 0,
+          "role": "",
+          "mode": "discovery",
+          "n_statements": 1,
+          "n_findings": 0,
+          "status": "",
+          "theme_tags": [
+            "council",
+            "frame"
+          ],
+          "color": "#6b7cff",
+          "kind_label": "Council",
+          "href": "/councils/council_8876a7a6b2f7e0e3"
+        },
+        {
+          "study_id": "synthesis:synthesis_0b77fb8bb31b26df",
+          "kind": "synthesis",
+          "title": "Name the next owner",
+          "phase": "frame__root",
+          "bucket": "act",
+          "created_at": "2026-09-09T03:39:57.617798+00:00",
+          "council_count": 1,
+          "council_ids": [
+            "council_8876a7a6b2f7e0e3"
+          ],
+          "voices": 0,
+          "sentiment": {},
+          "stance_counts": {},
+          "personas": [],
+          "recommendations": 0,
+          "role": "",
+          "mode": "",
+          "n_statements": 0,
+          "n_findings": 0,
+          "status": "done",
+          "theme_tags": [
+            "synthesis",
+            "frame"
+          ],
+          "color": "#a142f4",
+          "kind_label": "Report",
+          "href": "/syntheses/synthesis_0b77fb8bb31b26df"
+        },
+        {
+          "study_id": "note:note_b0b3f9504f416912",
+          "kind": "note",
+          "note_kind": "note",
+          "prototype_ids": [],
+          "lens": "",
+          "artifact_kind": "",
+          "title": "The team cannot find the owner.",
+          "phase": "",
+          "bucket": "",
+          "created_at": "2026-09-09T03:39:57.620612+00:00",
+          "council_count": 0,
+          "voices": 0,
+          "sentiment": {},
+          "recommendations": 0,
+          "role": "",
+          "mode": "",
+          "theme_tags": [
+            "note"
+          ],
+          "color": "#f29900",
+          "kind_label": "Note",
+          "href": "/notes/note_b0b3f9504f416912"
+        }
+      ],
+      "edges": [
+        {
+          "from_study": "council:council_8876a7a6b2f7e0e3",
+          "to_study": "synthesis:synthesis_0b77fb8bb31b26df",
+          "type": "refines",
+          "rationale": ""
+        }
+      ],
+      "open_questions": [
+        {
+          "id": "oq_edd701bfe4d20cd5",
+          "project_id": "rproject_operation_4160b954fa53ee60",
+          "study_id": null,
+          "text": "Who updates the owner?",
+          "status": "open",
+          "created_at": "2026-09-09T03:39:57.622303+00:00"
+        }
+      ],
+      "build_order": [
+        "council:council_8876a7a6b2f7e0e3",
+        "synthesis:synthesis_0b77fb8bb31b26df",
+        "note:note_b0b3f9504f416912"
+      ],
+      "counts": {
+        "studies": 3,
+        "edges": 1,
+        "open_questions": 1,
+        "themes": 0
+      },
+      "plan": {
+        "project_id": "rproject_operation_4160b954fa53ee60",
+        "goal": "Can the next shift identify the owner?",
+        "methodology": "",
+        "tasks": [
+          {
+            "id": "frame__root",
+            "title": "Frame the inquiry",
+            "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+            "phase_intent": "",
+            "plan_note": "",
+            "bucket": "analyze",
+            "capability": "frame",
+            "expected_output_kind": "",
+            "step": "",
+            "consumes": [],
+            "status": "todo",
+            "produces": [],
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "loop_back": "",
+            "presentation": {},
+            "frame": null
+          }
+        ],
+        "created_at": "2026-09-09T03:39:57.610449+00:00",
+        "updated_at": "2026-09-09T03:39:57.610498+00:00"
+      },
+      "reports": [],
+      "job_outcomes": []
+    }
+  },
+  {
+    "scenario": "get_study_result",
+    "tool": "get_study_result",
+    "input": {
+      "project_id": "rproject_operation_4160b954fa53ee60"
+    },
+    "value": {
+      "substrate_version": 1,
+      "project": {
+        "id": "rproject_operation_4160b954fa53ee60",
+        "slug": "handover-ownership",
+        "title": "Handover ownership",
+        "goal": "Can the next shift identify the owner?",
+        "status": "active",
+        "workflow_trace_id": "sltrace_d0d12c62b6c36c63e5031f1d",
+        "methodology": "",
+        "councils": 1,
+        "artifacts": 0,
+        "assets": 0,
+        "persona_ids": [
+          "persona_d3a79c1ba9b8a731"
+        ],
+        "created_at": "2026-09-09T03:39:57.606224+00:00",
+        "updated_at": "2026-09-09T03:39:57.620612+00:00"
+      },
+      "run_state": {
+        "state": "stalled",
+        "canonical_state": "stalled",
+        "last_activity": "2026-09-09T03:39:57.620612+00:00",
+        "next_ready": [
+          "frame__root"
+        ],
+        "canonical_schema": "sonaloop.project_health.v2",
+        "engine_finished": false,
+        "note": "council:council_8876a7a6b2f7e0e3 is not linked to a plan task. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:ae289529b516da70c541b7e04fdc02327838fc65c94b89e246a4a13bc322aaa0', project_id='rproject_operation_4160b954fa53ee60')."
+      },
+      "project_health": {
+        "schema": "sonaloop.project_health.v2",
+        "project_id": "rproject_operation_4160b954fa53ee60",
+        "state": "stalled",
+        "driver_state": "not_started",
+        "lifecycle": "active",
+        "engine_finished": false,
+        "persisted_run_status": "not_started",
+        "run_inventory": {
+          "active": 0,
+          "historical_finished": 0,
+          "total": 0
+        },
+        "unverified_output": false,
+        "activity_lifecycle": {
+          "state": "current",
+          "stale_after_hours": 6,
+          "expires_after_hours": 24,
+          "expires_at": "",
+          "resumable": false,
+          "note": ""
+        },
+        "last_activity": "2026-09-09T03:39:57.620612+00:00",
+        "run_id": "",
+        "run_operation_id": "",
+        "project_operation_id": "graph-ui-project",
+        "tasks": {
+          "done": 0,
+          "total": 1,
+          "next_ready": [
+            "frame__root"
+          ]
+        },
+        "last_successful_operation": {
+          "kind": "project_created",
+          "key": "graph-ui-project",
+          "at": "2026-09-09T03:39:57.606224+00:00"
+        },
+        "unmet_invariant": {
+          "code": "orphaned_evidence",
+          "message": "council:council_8876a7a6b2f7e0e3 is not linked to a plan task.",
+          "severity": "blocking",
+          "target": "/councils/council_8876a7a6b2f7e0e3"
+        },
+        "integrity_findings": [
+          {
+            "code": "orphaned_evidence",
+            "message": "council:council_8876a7a6b2f7e0e3 is not linked to a plan task.",
+            "severity": "blocking",
+            "target": "/councils/council_8876a7a6b2f7e0e3"
+          },
+          {
+            "code": "orphaned_evidence",
+            "message": "synthesis:synthesis_0b77fb8bb31b26df is not linked to a plan task.",
+            "severity": "blocking",
+            "target": "/syntheses/synthesis_0b77fb8bb31b26df"
+          }
+        ],
+        "evidence": {
+          "posture_counts": {},
+          "source_counts": {},
+          "orphaned": 2
+        },
+        "report_handoff": {
+          "exists": false,
+          "complete": false,
+          "handed_off": false,
+          "latest_report_id": "",
+          "latest_complete": false,
+          "lead_missing": false,
+          "completed_report_ids": [],
+          "incomplete_report_ids": [],
+          "stale_report_ids": [],
+          "latest_stale": false,
+          "required_source_ids": [],
+          "reports": []
+        },
+        "product_understanding": {
+          "required": false,
+          "present": false,
+          "current_id": "",
+          "target": {},
+          "revision": "",
+          "observed_at": "",
+          "version": 0,
+          "capability_counts": {
+            "observed_present": 0,
+            "observed_absent": 0,
+            "inferred": 0,
+            "unknown": 0
+          },
+          "contradictory_capability_keys": []
+        },
+        "preflight": {
+          "state": "ready"
+        },
+        "safe_next_action": {
+          "kind": "start_governed_run",
+          "tool": "start_run",
+          "arguments": {
+            "project_id": "rproject_operation_4160b954fa53ee60",
+            "operation_id": "recovery:ae289529b516da70c541b7e04fdc02327838fc65c94b89e246a4a13bc322aaa0"
+          },
+          "reason": "No existing run can be resumed; the stable create intent prevents duplicates."
+        },
+        "trace": {
+          "support_ref": "sltrace_d0d12c62b6c36c63e5031f1d",
+          "workflow_trace_id": "sltrace_d0d12c62b6c36c63e5031f1d",
+          "local_journal": "not_started",
+          "cloud_trace_query": {
+            "project_id": "rproject_operation_4160b954fa53ee60",
+            "operation_id": "graph-ui-project"
+          },
+          "external_host_visibility": "not_observable",
+          "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+        },
+        "recovery_signals": {
+          "host_connection": "unknown",
+          "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+          "retry_result": "not_observed",
+          "retry_receipt": {},
+          "dispatch": "none_incomplete",
+          "evidence": "missing",
+          "critic": "not_pending",
+          "audit": "not_projected_in_core",
+          "external_host_error": "unobservable"
+        }
+      },
+      "councils": [
+        {
+          "id": "council_8876a7a6b2f7e0e3",
+          "project_id": "rproject_operation_4160b954fa53ee60",
+          "prompt": "Who owns the next action?",
+          "persona_ids": [
+            "persona_d3a79c1ba9b8a731"
+          ],
+          "statements": 1,
+          "votes": 0,
+          "questions": 0,
+          "created_at": "2026-09-09T03:39:57.613412+00:00"
+        }
+      ],
+      "syntheses": [
+        {
+          "id": "synthesis_0b77fb8bb31b26df",
+          "title": "Name the next owner",
+          "start_input": "What makes the next step clear?",
+          "council_ids": [
+            "council_8876a7a6b2f7e0e3"
+          ],
+          "arc_narrative": "",
+          "gesamtbild": "Naming the owner helps the next shift.",
+          "positionierung": "",
+          "references": [],
+          "created_at": "2026-09-09T03:39:57.617798+00:00",
+          "goal": "",
+          "status": "done",
+          "next_council_question": "",
+          "stop_reason": "",
+          "iterations": 1,
+          "citations": [],
+          "phase": "",
+          "mode": "",
+          "role": "",
+          "methodology": "",
+          "statements": [],
+          "findings": [],
+          "prompts": [],
+          "scope": "convergence",
+          "project_id": "rproject_operation_4160b954fa53ee60",
+          "lead": "",
+          "sections": [],
+          "graph_snapshot": null,
+          "workflow_trace_id": "sltrace_d0d12c62b6c36c63e5031f1d",
+          "predictions": [],
+          "dispatch_provenance": {
+            "state": "outside_run"
+          },
+          "updated_at": "2026-09-09T03:39:57.617860+00:00"
+        }
+      ],
+      "predictions": {
+        "project_id": "rproject_operation_4160b954fa53ee60",
+        "total": 1,
+        "personas": 1,
+        "groups": [
+          {
+            "action": "Ask for the owner",
+            "step": 0,
+            "subject": "Handover",
+            "count": 1,
+            "personas": [
+              "persona_d3a79c1ba9b8a731"
+            ],
+            "triggers": [
+              "No owner is named"
+            ],
+            "refs": [],
+            "sources": [
+              {
+                "kind": "council",
+                "id": "council_8876a7a6b2f7e0e3",
+                "anchor": "pb1"
+              }
+            ],
+            "likelihood_mean": 0.6
+          }
+        ],
+        "by_step": {
+          "0": 1
+        },
+        "likelihood_scale": [
+          "rare",
+          "unlikely",
+          "possible",
+          "likely",
+          "certain"
+        ]
+      },
+      "open_questions": [
+        {
+          "id": "oq_edd701bfe4d20cd5",
+          "project_id": "rproject_operation_4160b954fa53ee60",
+          "study_id": null,
+          "text": "Who updates the owner?",
+          "status": "open",
+          "created_at": "2026-09-09T03:39:57.622303+00:00"
+        }
+      ],
+      "counts": {
+        "studies": 3,
+        "edges": 1,
+        "open_questions": 1,
+        "themes": 0
+      }
+    }
+  },
+  {
+    "scenario": "aggregate_predictions",
+    "tool": "aggregate_predictions",
+    "input": {
+      "project_id": "rproject_operation_4160b954fa53ee60"
+    },
+    "value": {
+      "project_id": "rproject_operation_4160b954fa53ee60",
+      "total": 1,
+      "personas": 1,
+      "groups": [
+        {
+          "action": "Ask for the owner",
+          "step": 0,
+          "subject": "Handover",
+          "count": 1,
+          "personas": [
+            "persona_d3a79c1ba9b8a731"
+          ],
+          "triggers": [
+            "No owner is named"
+          ],
+          "refs": [],
+          "sources": [
+            {
+              "kind": "council",
+              "id": "council_8876a7a6b2f7e0e3",
+              "anchor": "pb1"
+            }
+          ],
+          "likelihood_mean": 0.6
+        }
+      ],
+      "by_step": {
+        "0": 1
+      },
+      "likelihood_scale": [
+        "rare",
+        "unlikely",
+        "possible",
+        "likely",
+        "certain"
+      ]
+    }
+  },
+  {
+    "scenario": "get_project_graph-empty",
+    "tool": "get_project_graph",
+    "input": {
+      "project_id": "rproject_ee2d039285bda908"
+    },
+    "value": {
+      "project": {
+        "id": "rproject_ee2d039285bda908",
+        "slug": "no-observations-yet",
+        "title": "No observations yet",
+        "goal": "A new question",
+        "status": "active",
+        "persona_ids": [],
+        "themes": [],
+        "methodology": "",
+        "phase": "",
+        "integrity": {},
+        "product_understanding_current_id": "",
+        "product_understanding_versions": [],
+        "supersedes_project_id": "",
+        "superseded_by_project_id": "",
+        "lineage": {},
+        "archive": {},
+        "icon": {
+          "kind": "regular",
+          "name": "target"
+        },
+        "url": "http://127.0.0.1:8787/jobs/rproject_ee2d039285bda908"
+      },
+      "methodology_state": {
+        "project_id": "rproject_ee2d039285bda908",
+        "methodology": "",
+        "phase": "",
+        "complete": false,
+        "steps": [
+          {
+            "key": "frame__root",
+            "name": "Frame the inquiry",
+            "mode": "diverge",
+            "is_fan": true,
+            "role": "frame",
+            "presentation": {},
+            "tags": [
+              "frame"
+            ],
+            "consumes": [],
+            "produces": {
+              "role": "frame"
+            },
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "status": "pending",
+            "exploration_count": 0,
+            "convergence_node": null,
+            "judgments": []
+          }
+        ],
+        "phases": [
+          {
+            "key": "frame__root",
+            "name": "Frame the inquiry",
+            "mode": "diverge",
+            "is_fan": true,
+            "role": "frame",
+            "presentation": {},
+            "tags": [
+              "frame"
+            ],
+            "consumes": [],
+            "produces": {
+              "role": "frame"
+            },
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "status": "pending",
+            "exploration_count": 0,
+            "convergence_node": null,
+            "judgments": []
+          }
+        ]
+      },
+      "prototypes": [],
+      "artifacts": [],
+      "assets": [],
+      "sections": [],
+      "nodes": [],
+      "edges": [],
+      "open_questions": [],
+      "build_order": [],
+      "counts": {
+        "studies": 0,
+        "edges": 0,
+        "open_questions": 0,
+        "themes": 0
+      },
+      "plan": {
+        "project_id": "rproject_ee2d039285bda908",
+        "goal": "A new question",
+        "methodology": "",
+        "tasks": [
+          {
+            "id": "frame__root",
+            "title": "Frame the inquiry",
+            "intent": "Understand before concluding: read persona memory + author the research questions/hypotheses this inquiry needs before any council runs.",
+            "phase_intent": "",
+            "plan_note": "",
+            "bucket": "analyze",
+            "capability": "frame",
+            "expected_output_kind": "",
+            "step": "",
+            "consumes": [],
+            "status": "todo",
+            "produces": [],
+            "requires": {
+              "min_inputs": null,
+              "gate_tag": "",
+              "artifact_tags": [],
+              "session_of_tags": []
+            },
+            "loop_back": "",
+            "presentation": {},
+            "frame": null
+          }
+        ],
+        "created_at": "2026-09-09T03:39:58.050956+00:00",
+        "updated_at": "2026-09-09T03:39:58.050987+00:00"
+      },
+      "reports": [],
+      "job_outcomes": []
+    }
+  },
+  {
+    "scenario": "get_study_result-empty",
+    "tool": "get_study_result",
+    "input": {
+      "project_id": "rproject_ee2d039285bda908"
+    },
+    "value": {
+      "substrate_version": 1,
+      "project": {
+        "id": "rproject_ee2d039285bda908",
+        "slug": "no-observations-yet",
+        "title": "No observations yet",
+        "goal": "A new question",
+        "status": "active",
+        "workflow_trace_id": "sltrace_7833f233f57e6cd885f5efbd",
+        "methodology": "",
+        "councils": 0,
+        "artifacts": 0,
+        "assets": 0,
+        "persona_ids": [],
+        "created_at": "2026-09-09T03:39:58.049345+00:00",
+        "updated_at": "2026-09-09T03:39:58.049345+00:00"
+      },
+      "run_state": {
+        "state": "stalled",
+        "canonical_state": "stalled",
+        "last_activity": "2026-09-09T03:39:58.049345+00:00",
+        "next_ready": [
+          "frame__root"
+        ],
+        "canonical_schema": "sonaloop.project_health.v2",
+        "engine_finished": false,
+        "note": "Open plan work has not started a governed run yet. No existing run can be resumed; the stable create intent prevents duplicates. Call start_run(operation_id='recovery:54ddbd26a3c912080446723bfadffa033274b96fbb9030172a58c2663ef2262f', project_id='rproject_ee2d039285bda908')."
+      },
+      "project_health": {
+        "schema": "sonaloop.project_health.v2",
+        "project_id": "rproject_ee2d039285bda908",
+        "state": "stalled",
+        "driver_state": "not_started",
+        "lifecycle": "active",
+        "engine_finished": false,
+        "persisted_run_status": "not_started",
+        "run_inventory": {
+          "active": 0,
+          "historical_finished": 0,
+          "total": 0
+        },
+        "unverified_output": false,
+        "activity_lifecycle": {
+          "state": "current",
+          "stale_after_hours": 6,
+          "expires_after_hours": 24,
+          "expires_at": "",
+          "resumable": false,
+          "note": ""
+        },
+        "last_activity": "2026-09-09T03:39:58.049345+00:00",
+        "run_id": "",
+        "run_operation_id": "",
+        "project_operation_id": "",
+        "tasks": {
+          "done": 0,
+          "total": 1,
+          "next_ready": [
+            "frame__root"
+          ]
+        },
+        "last_successful_operation": {
+          "kind": "project_created",
+          "key": "",
+          "at": "2026-09-09T03:39:58.049345+00:00"
+        },
+        "unmet_invariant": {
+          "code": "run_not_started",
+          "message": "Open plan work has not started a governed run yet.",
+          "severity": "blocking"
+        },
+        "integrity_findings": [
+          {
+            "code": "run_not_started",
+            "message": "Open plan work has not started a governed run yet.",
+            "severity": "blocking"
+          }
+        ],
+        "evidence": {
+          "posture_counts": {},
+          "source_counts": {},
+          "orphaned": 0
+        },
+        "report_handoff": {
+          "exists": false,
+          "complete": false,
+          "handed_off": false,
+          "latest_report_id": "",
+          "latest_complete": false,
+          "lead_missing": false,
+          "completed_report_ids": [],
+          "incomplete_report_ids": [],
+          "stale_report_ids": [],
+          "latest_stale": false,
+          "required_source_ids": [],
+          "reports": []
+        },
+        "product_understanding": {
+          "required": false,
+          "present": false,
+          "current_id": "",
+          "target": {},
+          "revision": "",
+          "observed_at": "",
+          "version": 0,
+          "capability_counts": {
+            "observed_present": 0,
+            "observed_absent": 0,
+            "inferred": 0,
+            "unknown": 0
+          },
+          "contradictory_capability_keys": []
+        },
+        "preflight": {
+          "state": "ready"
+        },
+        "safe_next_action": {
+          "kind": "start_governed_run",
+          "tool": "start_run",
+          "arguments": {
+            "project_id": "rproject_ee2d039285bda908",
+            "operation_id": "recovery:54ddbd26a3c912080446723bfadffa033274b96fbb9030172a58c2663ef2262f"
+          },
+          "reason": "No existing run can be resumed; the stable create intent prevents duplicates."
+        },
+        "trace": {
+          "support_ref": "sltrace_7833f233f57e6cd885f5efbd",
+          "workflow_trace_id": "sltrace_7833f233f57e6cd885f5efbd",
+          "local_journal": "not_started",
+          "cloud_trace_query": {
+            "project_id": "rproject_ee2d039285bda908"
+          },
+          "external_host_visibility": "not_observable",
+          "limitation": "Sonaloop records its MCP boundary and local run journal. It cannot observe hidden provider prompts, reasoning, permission dialogs, internal retries, or host-only errors."
+        },
+        "recovery_signals": {
+          "host_connection": "unknown",
+          "host_connection_note": "No heartbeat contract exists; quiet activity is not proof of disconnect.",
+          "retry_result": "not_observed",
+          "retry_receipt": {},
+          "dispatch": "none_incomplete",
+          "evidence": "projected_complete",
+          "critic": "not_pending",
+          "audit": "not_projected_in_core",
+          "external_host_error": "unobservable"
+        }
+      },
+      "councils": [],
+      "syntheses": [],
+      "predictions": {
+        "project_id": "rproject_ee2d039285bda908",
+        "total": 0,
+        "personas": 0,
+        "groups": [],
+        "by_step": {},
+        "likelihood_scale": [
+          "rare",
+          "unlikely",
+          "possible",
+          "likely",
+          "certain"
+        ]
+      },
+      "open_questions": [],
+      "counts": {
+        "studies": 0,
+        "edges": 0,
+        "open_questions": 0,
+        "themes": 0
+      }
+    }
+  },
+  {
+    "scenario": "aggregate_predictions-empty",
+    "tool": "aggregate_predictions",
+    "input": {
+      "project_id": "rproject_ee2d039285bda908"
+    },
+    "value": {
+      "project_id": "rproject_ee2d039285bda908",
+      "total": 0,
+      "personas": 0,
+      "groups": [],
+      "by_step": {},
+      "likelihood_scale": [
+        "rare",
+        "unlikely",
+        "possible",
+        "likely",
+        "certain"
+      ]
+    }
+  }
+]

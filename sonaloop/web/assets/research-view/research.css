@@ -25,3 +25,7 @@
 
 .sl-research-card .sl-research-memory-entity-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px}
 .sl-research-card .sl-research-memory-state .sl-research-memory-entity{display:grid;gap:6px}
+
+.sl-research-graph-row{display:grid;gap:6px}.sl-research-graph-row .sl-research-outline-title{font-weight:600}.sl-research-graph-row .sl-research-outline-time,.sl-research-graph-personas{color:var(--muted)}
+
+@media(min-width:800px){.sl-research-health{column-count:2;column-gap:24px}.sl-research-health>h2,.sl-research-health>.sl-research-fields,.sl-research-health>.sl-research-prose{column-span:all}.sl-research-health>.sl-research-fields{row-gap:3px}.sl-research-health-section{break-inside:avoid}.sl-research-health-diagnostics{display:block;break-inside:avoid}.sl-research-study-findings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.sl-research-study-findings>*{min-width:0}}

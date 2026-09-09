@@ -7,6 +7,7 @@ from itertools import groupby
 
 from .. import presentation as _pres
 from ..project_trace import trace_node_health
+from ..ui_components.project_graph import outline_cells
 from ._components import _icon
 from ._filterbar import empty_filter_state
 from ._graph_outline_extras import extra_outline_items, drawer_url, producing_step
@@ -468,11 +469,8 @@ def _outline_html(graph: dict, sessions: dict | None = None, decisions: list | N
               " · ".join(relation_parts))
             if relation_parts else ""
         )
-        cells = [lead,
-                 h("span", {"class_": "ol-title"}, it["title"]),
-                 relation_summary,
-                 crew,
-                 h("span", {"class_": "ol-ts"}, ui.local_ts(timestamp))]
+        cells = outline_cells(it["title"], lead=lead, relations=relation_summary,
+                              crew=crew, timestamp=ui.local_ts(timestamp))
         ext = {"target": "_blank", "rel": "noopener"} if it.get("external") else {}
         if it["href"]:
             attrs["href"] = it["href"]

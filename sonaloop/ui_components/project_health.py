@@ -68,7 +68,8 @@ def diagnostics_content(run_state, *, prepared=None, passive=False):
         h("summary", summary_attrs, t("health_diagnostics")),
         h("p", {"class_": "muted small sl-run-diagnostics-help"}, t("health_diagnostics_help")),
         h("dl", {"class_": "sl-run-diagnostics-grid" + (" sl-research-fields" if passive else "")},
-          h("dt", {}, t("health_unmet")), h("dd", {}, unmet.get("message") or t("health_no_issues")),
+          h("dt", {}, t("health_unmet")), h("dd", {}, unmet.get("message") or t("health_no_issues"),
+            rows.fields([(key, unmet[key]) for key in ("code", "severity", "target") if key in unmet]) if passive else None),
           h("dt", {}, t("health_last_success")),
           h("dd", {}, h("code", {}, last.get("key") or last.get("kind") or "—"),
             (f' · {last.get("summary")}' if last.get("summary") else ""),
@@ -146,6 +147,17 @@ def _section(title, *content):
     return h("section", {"class_": "sl-research-health-section"}, h("h3", {}, title), *content)
 
 
+def _native_metadata(value):
+    """Escaped ancillary native qualifications, without interpreting authority."""
+    h, _, _ = _kit()
+    _json(value)
+    if isinstance(value, dict):
+        return rows.fields((key, _native_metadata(item)) for key, item in value.items()) if value else h("span", {}, "{}")
+    if isinstance(value, list):
+        return h("ul", {}, [h("li", {}, _native_metadata(item)) for item in value]) if value else h("span", {}, "[]")
+    return h("span", {}, "null" if value is None else str(value).lower() if type(value) is bool else value)
+
+
 def _preflight(value):
     h, _, _ = _kit()
     rows.texts(value, ("state",), ("gate", "kind", "task_id", "code", "message", "status"))
@@ -162,7 +174,9 @@ def _preflight(value):
         h("p", {"class_": "sl-research-prose"}, value["message"]) if "message" in value else None,
         _string_list(t("rph_listed_tools"), value["allowed_tools"]) if "allowed_tools" in value else None,
         h("p", {}, h("code", {}, action_call(call, keep_empty=True))) if call else None,
-        _action_details(call) if call else None)
+        _action_details(call) if call else None,
+        _section("action", _native_metadata({key: item for key, item in value["action"].items()
+            if key not in value or item != value[key]})) if value.get("action") else None)
 
 
 def _handoff(value):
@@ -197,8 +211,7 @@ def _product(value):
     _json(value["target"])
     return _section(t("rph_product"), rows.fields([(key, value[key]) for key in
         ("required", "present", "current_id", "revision", "observed_at", "version")]),
-        rows.fields([(key, value["target"][key]) for key in ("name", "identity", "url")
-                     if type(value["target"].get(key)) is str]),
+        _section("target", _native_metadata(value["target"])) if value["target"] else None,
         rows.fields(value["capability_counts"].items()),
         _string_list("contradictory_capability_keys", value.get("contradictory_capability_keys")))
 

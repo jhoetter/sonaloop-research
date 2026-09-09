@@ -2827,10 +2827,10 @@
     },
     {
       "tool": "start_project",
-      "family": "project",
+      "family": "projects",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared native project header and creation receipt retain warnings, operation identity and actual replay; no run execution is implied.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "start_project",
@@ -3082,10 +3082,10 @@
     },
     {
       "tool": "project_health",
-      "family": "project",
+      "family": "runs",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared Product diagnostic/attention bodies retain the actual native v2 state, journal, preflight, evidence and recovery signals; component readiness never claims engine completion.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "project_health",
@@ -3116,10 +3116,10 @@
     },
     {
       "tool": "supersede_project",
-      "family": "project",
+      "family": "projects",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared directed lineage body displays the recorded predecessor, operation and non-deletion receipt.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "supersede_project",
@@ -3133,10 +3133,10 @@
     },
     {
       "tool": "archive_project",
-      "family": "project",
+      "family": "projects",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared archive notice displays the confirmed evidence-preserving lifecycle receipt.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_plan.py",
         "symbol": "archive_project",
@@ -3354,10 +3354,10 @@
     },
     {
       "tool": "aggregate_predictions",
-      "family": "hypothesis_calibration",
+      "family": "projects",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared Product result composition shows supplied behavior estimates, record counts, sources and nullable likelihood; no observations or unique-person counts are invented.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_predictions.py",
         "symbol": "aggregate_predictions",
@@ -3677,10 +3677,10 @@
     },
     {
       "tool": "set_project_icon",
-      "family": "project",
+      "family": "projects",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared Product icon specification displays the stored native fields without evaluating SVG or fetching media.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_research.py",
         "symbol": "set_project_icon",
@@ -3694,10 +3694,10 @@
     },
     {
       "tool": "generate_project_icon",
-      "family": "project",
+      "family": "projects",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Display the native deterministic icon result and source specification; no provider or image loading occurs in presentation.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_research.py",
         "symbol": "generate_project_icon",
@@ -3711,10 +3711,10 @@
     },
     {
       "tool": "get_project_graph",
-      "family": "project",
+      "family": "projects",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Native node/edge inventory uses the real Product outline row cells; all supplied nodes retain literal phases, voices and reference identities without Product-only media/session enrichment.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_research.py",
         "symbol": "get_project_graph",
@@ -3847,10 +3847,10 @@
     },
     {
       "tool": "delete_research_project",
-      "family": "project",
+      "family": "projects",
       "treatment": "action_confirmation",
-      "reason": "Use this family’s exact impact preview/confirmation and native terminal result; do not automatically retry or invent a deleted/current entity.",
-      "status": "planned",
+      "reason": "Display the exact returned table deletion counts; no container deletion is inferred from zero.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_research.py",
         "symbol": "delete_research_project",
@@ -4834,10 +4834,10 @@
     },
     {
       "tool": "query_projects",
-      "family": "project",
+      "family": "projects",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "Shared project rows retain actual paginated substrate counts, lifecycle status and continuation.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_substrate.py",
         "symbol": "query_projects",
@@ -4885,10 +4885,10 @@
     },
     {
       "tool": "get_study_result",
-      "family": "project",
+      "family": "projects",
       "treatment": "surface",
-      "reason": "Render the native result using this shared semantic product family.",
-      "status": "planned",
+      "reason": "The actual Product native-results page and MCP share the same Project/Council/Synthesis/Health/Prediction composition, preserving unavailable projections and native graph-count scope.",
+      "status": "supported",
       "native": {
         "module": "sonaloop/mcp_server/_tools_substrate.py",
         "symbol": "get_study_result",

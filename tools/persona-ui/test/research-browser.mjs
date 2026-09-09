@@ -349,6 +349,10 @@ for case in json.loads(Path("tools/persona-ui/fixtures/council-formats.json").re
 for case in json.loads(Path("tools/persona-ui/fixtures/calendar-plans.json").read_text())["cases"]:
     family = "plans" if case["tool"] in {"put_day_plan", "get_day_plan", "put_period_plan", "get_period_plan", "list_period_plans"} else "calendar"
     specs.append((family + "-" + case["scenario"].replace("_", "-"), family, case["tool"], case["input"], case["value"]))
+for case in json.loads(Path("tools/persona-ui/fixtures/project-health.json").read_text()):
+    specs.append(("runs-" + case["scenario"].replace("_", "-"), "runs", case["tool"], case["input"], case["value"]))
+for case in json.loads(Path("tools/persona-ui/fixtures/projects.json").read_text()):
+    specs.append(("projects-" + case["scenario"].replace("_", "-"), "projects", case["tool"], case["input"], case["value"]))
 for case in json.loads(Path("tools/persona-ui/fixtures/memory.json").read_text())["cases"]:
     specs.append(("memory-" + case["scenario"].replace("_", "-"), "memory", case["tool"], case["input"], case["value"]))
 for scenario, family, tool, arguments, data in specs:
@@ -399,7 +403,9 @@ export async function exportScenarios(outputParent = process.env.RESEARCH_SCENAR
   assert.ok(noteFixture && noteFixture.tool === 'list_notes' && noteFixture.family === 'notes');
   const failed = { ...noteFixture, scenario: 'notes-error', state: 'unavailable',
     result: { isError: true, content: [{ type: 'text', text: 'Synthetic native tool failure; no operation was invoked.' }] } };
-  const scenarios = [...fixtures, failed].map(fixture => ({ fixture, viewport: { width: 390, height: ['memory', 'sessions', 'syntheses', 'councils', 'prototypes', 'calendar'].includes(fixture.family) ? 3800 : 844 } }));
+  const scenarios = [...fixtures, failed].map(fixture => ({ fixture, viewport:
+    fixture.family === 'runs' || fixture.tool === 'get_study_result' ? { width: 960, height: 4096 }
+      : { width: 390, height: ['memory', 'sessions', 'syntheses', 'councils', 'prototypes', 'calendar', 'projects'].includes(fixture.family) ? 3800 : 844 } }));
   scenarios.unshift({ fixture: noteFixture, viewport: { width: 960, height: 900 } });
   const rendererBytes = await readFile(fileURLToPath(import.meta.url)), bundle = await hostBundle();
   const { stdout: commit } = await execFile('git', ['rev-parse', 'HEAD'], { cwd: repo });
