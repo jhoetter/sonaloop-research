@@ -298,6 +298,28 @@ def test_empty_project_never_substitutes_workspace_depth(store, monkeypatch):
     assert "Unrelated workspace persona" not in response.text
 
 
+@pytest.mark.parametrize("project_id", ["missing-project", "foreign-project"])
+def test_missing_or_foreign_project_stops_before_cohort_reads(project_id, monkeypatch):
+    from sonaloop.web.pages import _cohort_results as product
+    reads = []
+    class ScopedStore:
+        def get_research_project_for_active_workspace(self, identifier):
+            reads.append(identifier)
+            return None
+
+        def get_research_project(self, identifier):
+            pytest.fail("Cohort page bypassed the active-workspace project boundary")
+
+    app = FastAPI()
+    product.register_cohort_results(app)
+    monkeypatch.setattr(product, "Store", ScopedStore)
+    monkeypatch.setattr(product, "_layout", lambda title, body, *args, **kwargs: str(body))
+    for name in ("get_cohort_preflight", "cohort_memory_depth", "assess_coverage"):
+        monkeypatch.setattr(services, name, forbidden)
+    response = TestClient(app).get(f"/jobs/{project_id}/cohort")
+    assert response.status_code == 404 and reads == [project_id]
+
+
 def test_actual_fastmcp_seven_schemas_and_single_execution(examples, monkeypatch):
     from sonaloop.mcp_server import build_server, _tools_eval, _tools_personas, _tools_plan
     original, server = original_server(), build_server()

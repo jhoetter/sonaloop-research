@@ -32,9 +32,10 @@ def register_cohort_results(app):
     @app.get("/jobs/{project_id}/cohort", response_class=HTMLResponse)
     def project_cohort(project_id: str, version_id: str | None = None):
         store = Store()
-        project = store.get_research_project(project_id)
+        project = store.get_research_project_for_active_workspace(project_id)
         if not project:
-            return _layout(t("not_found"), h("p", {}, t("not_found")), store, active="projects")
+            return HTMLResponse(_layout(t("not_found"), h("p", {}, t("not_found")),
+                                        store, active="projects"), status_code=404)
         pid = project["id"]
         members = project.get("persona_ids") or []
         revisions = project.get("cohort_revisions") or []
