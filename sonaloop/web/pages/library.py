@@ -712,13 +712,9 @@ def register_library(app) -> None:
             raw(PROTOTYPE_EXPAND_JS))
             if entry_available and src else
             raw(_empty_state(t("prototypes_h"), t("prototype_unavailable"), icon="prototype")))
-        body = fragment(
-            preview,
-            raw(replay_html),
-            h("div", {"class_": "sec", "id": "sec-sessions", "style": "margin-top:22px"},
-              h("h2", {}, f'{t("proto_sessions_h")} ({len(sessions)})'),
-              h("div", {"style": "margin-top:8px"}, sessions_html)),
-        )
+        from ...ui_components import prototypes as prototype_ui
+        body = prototype_ui.prototype_content(p, preview=preview, replays=raw(replay_html),
+                                              sessions=sessions_html, session_count=len(sessions))
         concept_in = []
         if proj:                                              # the concept that realises this prototype
             try:
@@ -749,14 +745,13 @@ def register_library(app) -> None:
             body=body,
             # Rail order is the §8.2 anatomy: project → kind-specifics → dates; the grounded
             # tally rides the static "Grounding" label (the session-rail convention).
-            prop_rows=[("projects", t("project"), proj_link),
-                       *detail_form_rows("prototype", p),
-                       ("square", t("fidelity"), prototype_fidelity_value(p)),
-                       ("personas", t("sessions"), str(len(sessions))),
-                       ("check", t("grounding_h"), f"{n_grounded}/{len(sessions)}" if sessions else "—"),
-                       ("dot", t("created"), ui.local_date(p.get("created_at") or ""))],
+            prop_rows=prototype_ui.prototype_properties(p, project=proj_link,
+                form_rows=detail_form_rows("prototype", p), fidelity=prototype_fidelity_value(p),
+                session_count=len(sessions), grounded=f"{n_grounded}/{len(sessions)}" if sessions else "—",
+                created=ui.local_date(p.get("created_at") or "")),
             rel_study_id=f"prototype:{p['id']}", rel_proj_id=p.get("project_id"), rel_extra_in=concept_in,
-            rail_sections=(([("sec-replays", t("replays_h"))] if replay_html else [])
+            rail_sections=(([("sec-notes", t("notes_h"))] if p.get("notes") else [])
+                           + ([("sec-replays", t("replays_h"))] if replay_html else [])
                            + [("sec-sessions", t("proto_sessions_h"))]),
             star=("prototype", p["id"], p["name"], f'/prototypes/{slug}'),
             # delete-only (no content editing): prototypes are recorded artifacts — the

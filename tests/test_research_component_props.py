@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator
 
-from sonaloop.ui_components.component_props import render_component_props
+from sonaloop.ui_components.component_props import render_component_props, public_component_value
 
 ROOT = Path(__file__).parents[1]
 DIRECTORY = ROOT / "sonaloop/ui_components/declarations"
@@ -72,6 +72,22 @@ def test_public_props_enforce_bytes_depth_and_finite_numbers():
         nested = [nested]
     with pytest.raises(ValueError, match="traversal"):
         render_component_props("sonaloop.research.notes-view", {"name": "list_notes", "value": nested})
+
+
+def test_remote_registration_public_alias_preserves_native_render_without_reserved_keys():
+    from test_research_prototype_ui import record
+    from sonaloop.ui_components.prototypes import registered_remote
+    native = {"prototype": record(), "note": {"id": "note", "title": "Concept", "text": "Actual note."},
+              "dispatch": {"dispatch_token": "not-a-public-prop"}}
+    before = deepcopy(native)
+    public = public_component_value("register_remote_prototype", native)
+    assert set(public) == {"artifact", "note"} and native == before
+    assert render_component_props("sonaloop.research.prototypes-view", {
+        "name": "register_remote_prototype", "value": public}) == registered_remote(native)
+    for value in (native, {**public, "dispatch": {}}, {**public, "artifact": {**record(), "_meta": {}}}):
+        with pytest.raises(ValueError):
+            render_component_props("sonaloop.research.prototypes-view", {
+                "name": "register_remote_prototype", "value": value})
 
 
 @pytest.mark.parametrize("family,name", [("sessions", "get_usability_session"), ("councils", "get_council"),

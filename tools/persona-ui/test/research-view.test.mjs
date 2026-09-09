@@ -38,7 +38,7 @@ test('logging notification failure cannot erase a successfully rendered native r
 });
 
 test('all built resources bind the passive manifest, source and declared tools', async () => {
-  for (const family of ['references', 'assets', 'notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions', 'surveys', 'councils', 'syntheses', 'sessions']) {
+  for (const family of ['calendar', 'plans', 'prototypes', 'references', 'assets', 'notes', 'sections', 'projects', 'search', 'hypotheses', 'decisions', 'surveys', 'councils', 'syntheses', 'sessions']) {
     const { manifest } = await loadAsset(family, { verifySources: true });
     const tools = declarations.filter(item => item.componentId === manifest.component_id);
     assert.ok(tools.length > 0);
@@ -61,7 +61,7 @@ test('customer declarations name exact authored props, fixture scenarios and res
       assert.equal(scenario.state, fixture.state);
       assert.ok(manifest.states.includes(scenario.state));
       assert.deepEqual(scenario.props, { name: fixture.tool,
-        value: ['search', 'fetch'].includes(fixture.tool) ? fixture.native : fixture.native.data });
+        value: fixture.public_value });
       assert.equal(JSON.stringify(scenario.props).includes('"_meta"'), false);
     }
   }
@@ -84,6 +84,7 @@ test('pure sanitizer preserves semantics while stripping active nodes, attribute
       <header><h2 onmouseover="window.compromised=true">Safe title</h2></header>
       <p class="sl-prose muted small external" contenteditable="true" tabindex="0">Keep <strong>bold</strong>, <em>emphasis</em>, <code>code</code> and <a href="javascript:window.compromised=true" target="_top" download>link text</a>.</p>
       <a href="https://forbidden.invalid/link" ping="https://forbidden.invalid/ping">External text</a>
+      <dl class="sl-research-fields" onclick="window.compromised=true"><dt id="private">Recorded field</dt><dd style="color:red">Native value</dd></dl>
       <ul><li>List item</li></ul><blockquote>Quote</blockquote><table><tbody><tr><td>Cell</td></tr></tbody></table>
       <script>window.compromised=true</script><style>body{display:none}</style>
       <link rel="stylesheet" href="https://forbidden.invalid/sheet"><meta http-equiv="refresh" content="0;url=https://forbidden.invalid/refresh"><base href="https://forbidden.invalid/base">
@@ -113,6 +114,7 @@ test('pure sanitizer preserves semantics while stripping active nodes, attribute
     assert.ok(observed.attributes.every(name => name === 'class'));
     assert.ok(!observed.classes.includes('external'));
     assert.match(observed.html, /<strong>bold<\/strong>/);
+    assert.match(observed.html, /<dl class="sl-research-fields"><dt>Recorded field<\/dt><dd>Native value<\/dd><\/dl>/);
     assert.match(observed.html, /<span class="sl-research-link">link text<\/span>/);
     for (const text of ['Safe title', 'List item', 'Quote', 'Cell', 'External text', 'Custom text']) assert.ok(observed.text.includes(text));
     assert.deepEqual(requests, [], 'Parsing and attaching passive HTML must not fetch external assets');
@@ -186,7 +188,7 @@ test('native count meters admit only a passive unit quantity and accessible labe
   } finally { await session.page.close(); }
 });
 
-for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'sections-empty', 'sections-detail',
+for (const scenario of ['plans-put-day-plan', 'plans-get-day-plan', 'plans-put-period-plan', 'plans-get-period-plan', 'plans-list-period-plans', 'calendar-get-current-state', 'calendar-get-calendar', 'calendar-get-calendar-period', 'calendar-get-activity', 'calendar-period-day', 'calendar-period-week', 'calendar-period-year', 'plans-plan-null', 'plans-period-plan-null', 'plans-plans-empty', 'calendar-calendar-empty', 'calendar-period-empty', 'calendar-state-before-events', 'prototypes-scaffolded', 'prototypes-registered', 'prototypes-remote', 'prototypes-detail', 'prototypes-list', 'prototypes-empty', 'prototypes-running', 'prototypes-reused', 'prototypes-hosted', 'prototypes-stopped', 'prototypes-idle', 'prototypes-deleted', 'prototypes-missing', 'notes-ready', 'notes-empty', 'sections-ready', 'sections-empty', 'sections-detail',
   'projects-ready', 'projects-empty', 'projects-detail', 'search-ready', 'search-empty', 'search-detail',
   'hypotheses-open', 'hypotheses-observed', 'hypotheses-dropped', 'hypotheses-empty',
   'decisions-proposed', 'decisions-adopted', 'decisions-superseded', 'decisions-empty',
@@ -201,7 +203,7 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
   'hypotheses-result-recorded', 'surveys-detail', 'syntheses-recorded', 'sessions-flow-funnel', 'councils-recorded'])
   test(`actual packaged MCP Apps bridge renders shared native ${scenario} HTML`, async () => {
     const fixture = fixtures.find(item => item.scenario === scenario);
-    const height = ['sessions', 'syntheses', 'councils'].includes(fixture.family) ? 3800 : 844;
+    const height = ['sessions', 'syntheses', 'councils', 'prototypes', 'calendar'].includes(fixture.family) ? 3800 : 844;
     const session = await openApp(browser, { family: fixture.family, viewport: { width: 390, height } });
     try {
       await session.send(fixture.result, fixture.input);
@@ -281,7 +283,13 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
           assert.ok(text.includes('Not answered') && text.includes('bargain: 2'));
           if (!scenario.includes('analysis')) assert.ok(text.includes('Repeated authored response.'));
           else assert.ok(!text.includes('Repeated authored response.'));
-        } else if (scenario.includes('head-to-head')) for (const value of ['Neither fits the night shift.', 'Intensity: 0', 'B → A', 'variant_a']) assert.ok(text.includes(value), value);
+        } else if (scenario.includes('head-to-head')) {
+          for (const value of ['Neither fits the night shift.', 'Intensity: 0', 'B → A', 'variant_a']) assert.ok(text.includes(value), value);
+          const voters = session.root.locator('th').filter({ hasText: /^Voters$/ });
+          assert.equal(await voters.count(), 1);
+          assert.equal(await voters.evaluate(node => { const range = document.createRange(); range.selectNodeContents(node); return range.getClientRects().length; }), 1,
+            'The Voters heading stays a readable unbroken word at 390px');
+        }
         else if (scenario.includes('red-team')) for (const value of ['The final owner can still be absent.', 'unknown-native-token']) assert.ok(text.includes(value), value);
         else assert.ok(text.includes('Offset 0') && text.includes('1 statements · 0 votes · 0 questions'));
         if (scenario.includes('-record-')) assert.ok(text.includes('Keep the full final context.') && await session.root.locator('.sl-research-claim-notice').count() > 0);
@@ -354,6 +362,52 @@ for (const scenario of ['notes-ready', 'notes-empty', 'sections-ready', 'section
             if (scenario === 'sessions-salience') for (const value of ['Owner salience hypothesis', 'x: 10%', 'not eye-tracking']) assert.ok(text.includes(value), value);
           }
         }
+      } else if (fixture.family === 'plans') {
+        const text = await session.root.innerText();
+        if (fixture.state === 'empty') assert.ok(text.includes('No plan is recorded for this period.'));
+        else for (const value of ['Keep the handover visible.', 'Confirm the owner', 'A named next shift', 'Less rushed', '2026-06-02', 'does not establish completed activity']) assert.ok(text.includes(value), value);
+        assert.ok(!text.includes('Completed activity'));
+      } else if (fixture.family === 'calendar') {
+        const text = await session.root.innerText();
+        assert.ok(!text.includes('<span') && !text.includes('<div'), 'Prepared semantic fragments are not printed as markup');
+        if (fixture.state === 'empty') assert.ok(text.includes('No activity records supplied.'));
+        else if (fixture.tool === 'get_current_state') {
+          assert.ok(text.includes(fixture.native.data.at_time));
+          assert.ok(text.includes(fixture.native.data.synthetic_notice));
+          assert.ok(text.includes(fixture.native.data.current_activity));
+          if (scenario === 'calendar-get-current-state') assert.ok(text.includes('Confirm the delivery') && text.includes('Waiting for delivery'));
+        } else if (fixture.tool === 'get_calendar_period') {
+          for (const value of ['Shift handover', '2026-06-02', 'uncertain', 'Events in this period: 1']) assert.ok(text.includes(value), value);
+          assert.ok(text.includes(fixture.native.data.view));
+          if (['day', 'year'].includes(fixture.native.data.view)) assert.ok(text.includes('Supplied activity records'));
+        } else {
+          for (const value of ['I will carry the pending issue.', 'Keep the issue visible.', 'note:note_fixture#line:2', 'A supplied source description.', 'disputed', 'simulated_episode', 'Recorded confidence']) assert.ok(text.includes(value), value);
+          assert.equal(await session.root.locator('dt').filter({ hasText: /^Recorded confidence$/ }).locator('xpath=following-sibling::dd[1]').innerText(), '0');
+          if (fixture.tool === 'get_calendar') assert.ok(text.includes('Planned review') && text.includes('Calendar block without a recorded activity'));
+        }
+        assert.equal(await session.root.locator('a,img,iframe,button').count(), 0);
+      } else if (scenario.startsWith('prototypes-') && scenario !== 'prototypes-empty') {
+        const text = await session.root.innerText();
+        if (['prototypes-deleted', 'prototypes-missing'].includes(scenario)) {
+          assert.ok(text.includes(`Prototype records deleted: ${scenario === 'prototypes-deleted' ? 1 : 0}`));
+          assert.ok(text.includes('Files on disk remain'));
+        } else if (['prototypes-stopped', 'prototypes-idle'].includes(scenario)) {
+          assert.ok(text.includes(scenario === 'prototypes-stopped' ? 'native runner reports' : 'No local process was found'));
+          assert.equal(text.includes('prototype_fixture'), scenario === 'prototypes-stopped');
+        } else {
+          assert.ok(text.includes('neither loaded nor executed'));
+          assert.ok(await session.root.locator('dl dt').count() > 0);
+          assert.equal(await session.root.locator('dt').count(), await session.root.locator('dd').count());
+          if (scenario === 'prototypes-running') assert.ok(text.includes('Local process started') && text.includes('12345'));
+          else if (scenario === 'prototypes-reused') assert.ok(text.includes('Existing local process') && text.includes('12345'));
+          else if (scenario === 'prototypes-hosted') assert.ok(text.includes('Hosted prototype address') && !text.includes('Process ID'));
+          else {
+            assert.ok(text.includes('v0.'));
+            if (scenario === 'prototypes-remote') assert.ok(text.includes('Handover needs a visible owner'));
+            if (scenario === 'prototypes-detail') assert.ok(text.includes('No local process') && text.includes('Synthetic authored artifact metadata.'));
+          }
+        }
+        assert.equal(await session.root.locator('a,img,iframe,button').count(), 0);
       } else if (scenario.startsWith('references-') && scenario !== 'references-empty') {
         const text = await session.root.innerText();
         if (scenario === 'references-deleted') assert.ok(text.includes('1 references removed'));

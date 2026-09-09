@@ -1,0 +1,905 @@
+{
+  "description": "Authored synthetic calendar and plan examples, captured through original native functions in an isolated temporary Store. They contain no customer data or provider execution. Browser scenarios replay these values without invoking native tools. Full native persona fields remain supplied data, not App authority.",
+  "cases": [
+    {
+      "scenario": "put_day_plan",
+      "tool": "put_day_plan",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "date": "2026-06-02",
+        "plan": {
+          "summary": "Keep the handover visible.",
+          "intentions": [
+            "Confirm the owner"
+          ],
+          "expected_milestones": [
+            "A named next shift"
+          ],
+          "mood_trajectory": "Less rushed",
+          "sample_days": [
+            "2026-06-02"
+          ]
+        }
+      },
+      "value": {
+        "id": "plan_b4d888f90aa00226",
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "scope": "day",
+        "period_start": "2026-06-02",
+        "period_end": "2026-06-02",
+        "created_at": "2026-09-09T01:53:10.252877+00:00",
+        "summary": "Keep the handover visible.",
+        "intentions": [
+          "Confirm the owner"
+        ],
+        "expected_milestones": [
+          "A named next shift"
+        ],
+        "mood_trajectory": "Less rushed",
+        "sample_days": [
+          "2026-06-02"
+        ]
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "get_day_plan",
+      "tool": "get_day_plan",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "date": "2026-06-02"
+      },
+      "value": {
+        "id": "plan_b4d888f90aa00226",
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "scope": "day",
+        "period_start": "2026-06-02",
+        "period_end": "2026-06-02",
+        "created_at": "2026-09-09T01:53:10.252877+00:00",
+        "summary": "Keep the handover visible.",
+        "intentions": [
+          "Confirm the owner"
+        ],
+        "expected_milestones": [
+          "A named next shift"
+        ],
+        "mood_trajectory": "Less rushed",
+        "sample_days": [
+          "2026-06-02"
+        ]
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "put_period_plan",
+      "tool": "put_period_plan",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "scope": "month",
+        "date": "2026-06-02",
+        "plan": {
+          "summary": "Keep the handover visible.",
+          "intentions": [
+            "Confirm the owner"
+          ],
+          "expected_milestones": [
+            "A named next shift"
+          ],
+          "mood_trajectory": "Less rushed",
+          "sample_days": [
+            "2026-06-02"
+          ]
+        }
+      },
+      "value": {
+        "id": "plan_a4c43f1700e7c38c",
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "scope": "month",
+        "period_start": "2026-06-01",
+        "period_end": "2026-06-30",
+        "created_at": "2026-09-09T01:53:10.256701+00:00",
+        "summary": "Keep the handover visible.",
+        "intentions": [
+          "Confirm the owner"
+        ],
+        "expected_milestones": [
+          "A named next shift"
+        ],
+        "mood_trajectory": "Less rushed",
+        "sample_days": [
+          "2026-06-02"
+        ]
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "get_period_plan",
+      "tool": "get_period_plan",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "scope": "month",
+        "date": "2026-06-02"
+      },
+      "value": {
+        "id": "plan_a4c43f1700e7c38c",
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "scope": "month",
+        "period_start": "2026-06-01",
+        "period_end": "2026-06-30",
+        "created_at": "2026-09-09T01:53:10.256701+00:00",
+        "summary": "Keep the handover visible.",
+        "intentions": [
+          "Confirm the owner"
+        ],
+        "expected_milestones": [
+          "A named next shift"
+        ],
+        "mood_trajectory": "Less rushed",
+        "sample_days": [
+          "2026-06-02"
+        ]
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "list_period_plans",
+      "tool": "list_period_plans",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "scope": "month"
+      },
+      "value": [
+        {
+          "id": "plan_a4c43f1700e7c38c",
+          "persona_id": "persona_4daec11fedb0ff3e",
+          "scope": "month",
+          "period_start": "2026-06-01",
+          "period_end": "2026-06-30",
+          "created_at": "2026-09-09T01:53:10.256701+00:00",
+          "summary": "Keep the handover visible.",
+          "intentions": [
+            "Confirm the owner"
+          ],
+          "expected_milestones": [
+            "A named next shift"
+          ],
+          "mood_trajectory": "Less rushed",
+          "sample_days": [
+            "2026-06-02"
+          ]
+        }
+      ],
+      "state": "ready"
+    },
+    {
+      "scenario": "get_current_state",
+      "tool": "get_current_state",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "at_time": "2026-06-02T23:59:00"
+      },
+      "value": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "display_name": "Calendar reader",
+        "at_time": "2026-06-02T23:59:00",
+        "current_activity": "Shift handover",
+        "current_tool": "E-Mail",
+        "collaboration_mode": "pair",
+        "mood": "uncertain",
+        "current_thought": "The open item is still unresolved.",
+        "blocked_by": [
+          "Waiting for delivery"
+        ],
+        "likely_next": [
+          "Confirm the delivery"
+        ],
+        "synthetic_notice": "State is simulated unless backed by attached evidence."
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "get_calendar",
+      "tool": "get_calendar",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "date": "2026-06-02"
+      },
+      "value": {
+        "persona": {
+          "id": "persona_4daec11fedb0ff3e",
+          "slug": "calendar-reader",
+          "display_name": "Calendar reader",
+          "source_description": "Calendar reader — source description",
+          "provenance": {
+            "source_description": "user",
+            "segment_hint": "not_provided",
+            "profile_fields": "llm_derived_from_source_description",
+            "evidence": "none",
+            "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+          },
+          "identity_traits": {
+            "gender_presentation": "unspecified",
+            "gender_confidence": "unspecified",
+            "age_range": "unspecified",
+            "appearance_notes": "unspecified",
+            "avatar_profile": "unspecified",
+            "avatar_constraints": "unspecified"
+          },
+          "segment": {
+            "customer_type": "Solo architect",
+            "market": "market",
+            "region": "region",
+            "firm_size": "1"
+          },
+          "demographics": {
+            "age": 40
+          },
+          "role": {
+            "title": "Owner",
+            "responsibilities": "does the work",
+            "seniority": "owner",
+            "decision_power": "full"
+          },
+          "company_context": {
+            "industry": "industry",
+            "size": "small",
+            "stack": "stack",
+            "operating_model": "solo"
+          },
+          "goals": [
+            "Calendar reader goal"
+          ],
+          "constraints": [
+            "limited time"
+          ],
+          "tool_ids": [
+            "cad",
+            "e_mail"
+          ],
+          "tools": [
+            "CAD",
+            "E-Mail"
+          ],
+          "relationships": [
+            {
+              "name": "Client",
+              "type": "customer",
+              "friction": "slow replies"
+            }
+          ],
+          "personality": {
+            "working_style": "pragmatic",
+            "communication_style": "direct",
+            "risk_tolerance": "medium",
+            "character_notes": "skeptical of hype"
+          },
+          "pain_points": [
+            "Calendar reader pain alpha",
+            "Calendar reader pain beta"
+          ],
+          "success_criteria": [
+            "it saves real time"
+          ],
+          "avatar": null,
+          "soul": {
+            "path": "data/personas/calendar-reader/SOUL.md",
+            "updated_at": "2026-09-09T01:53:09.794304+00:00",
+            "sha256": "4c532aa71f81fc67dbc36ae99a3454311e3ff954d2c3f7224325e100a4d8fa2f"
+          },
+          "created_at": "2026-09-09T01:53:09.793676+00:00",
+          "updated_at": "2026-09-09T01:53:09.793676+00:00",
+          "capabilities": null
+        },
+        "date": "2026-06-02",
+        "blocks": [
+          {
+            "calendar_event": {
+              "id": "cal_fixture",
+              "persona_id": "persona_4daec11fedb0ff3e",
+              "start": "2026-06-02T09:00:00",
+              "end": "2026-06-02T10:00:00",
+              "title": "Shift handover",
+              "participants": [
+                "Jo"
+              ],
+              "location_or_tool": "E-Mail",
+              "intent": "Confirm ownership",
+              "outcome": "Owner confirmed",
+              "created_at": "2026-06-02T10:00:00"
+            },
+            "activity": {
+              "id": "event_fixture",
+              "persona_id": "persona_4daec11fedb0ff3e",
+              "timestamp": "2026-06-02T09:00:00",
+              "event_type": "meeting",
+              "summary": "The owner is named.",
+              "task": "Shift handover",
+              "tool": "E-Mail",
+              "participants": [
+                "Jo"
+              ],
+              "collaboration_mode": "pair",
+              "what_happened": "Jo confirmed the next shift owner.",
+              "conversation": [
+                {
+                  "speaker": "Jo",
+                  "text": "I will carry the pending issue."
+                }
+              ],
+              "key_quotes": [
+                "Keep the issue visible."
+              ],
+              "actions_done": [
+                "Named the owner"
+              ],
+              "artifacts_touched": [
+                "Handover log"
+              ],
+              "persona_thought": "The open item is still unresolved.",
+              "decision": "Keep it on the log",
+              "open_loops": [
+                "Confirm the delivery"
+              ],
+              "impact": {
+                "mood": "uncertain",
+                "energy_delta": 0
+              },
+              "pain_points": [
+                "Late delivery"
+              ],
+              "goal_refs": [
+                "goal_fixture"
+              ],
+              "calendar_event_id": "cal_fixture",
+              "created_at": "2026-06-02T10:00:00",
+              "source_kind": "simulated_episode",
+              "source_refs": [
+                {
+                  "kind": "note",
+                  "id": "note_fixture",
+                  "anchor": "line:2",
+                  "quote": "A supplied source quote.",
+                  "text": "A supplied source description."
+                }
+              ],
+              "confidence": 0,
+              "review_status": "disputed"
+            },
+            "collaboration_mode": "pair",
+            "persona_thought": "The open item is still unresolved.",
+            "open_loops": [
+              "Confirm the delivery"
+            ]
+          },
+          {
+            "calendar_event": {
+              "id": "cal_planned",
+              "persona_id": "persona_4daec11fedb0ff3e",
+              "start": "2026-06-02T11:00:00",
+              "end": "2026-06-02T12:00:00",
+              "title": "Planned review",
+              "participants": [
+                "Jo"
+              ],
+              "location_or_tool": "E-Mail",
+              "intent": "Confirm ownership",
+              "outcome": "",
+              "created_at": "2026-06-02T10:00:00"
+            },
+            "activity": null,
+            "collaboration_mode": null,
+            "persona_thought": null,
+            "open_loops": []
+          }
+        ]
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "get_calendar_period",
+      "tool": "get_calendar_period",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "date": "2026-06-02",
+        "view": "month"
+      },
+      "value": {
+        "persona": {
+          "id": "persona_4daec11fedb0ff3e",
+          "slug": "calendar-reader",
+          "display_name": "Calendar reader",
+          "url": "http://127.0.0.1:8787/personas/persona_4daec11fedb0ff3e",
+          "age_range": "unspecified",
+          "role": "Owner",
+          "segment": "region"
+        },
+        "view": "month",
+        "anchor_date": "2026-06-02",
+        "period_start": "2026-06-01",
+        "period_end": "2026-06-30",
+        "daily_summaries": [
+          {
+            "date": "2026-06-02",
+            "mood": "uncertain"
+          }
+        ],
+        "events_total": 1,
+        "days": {
+          "2026-06-02": [
+            {
+              "id": "event_fixture",
+              "timestamp": "2026-06-02T09:00:00",
+              "event_type": "meeting",
+              "task": "Shift handover",
+              "tool": "E-Mail"
+            }
+          ]
+        }
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "get_activity",
+      "tool": "get_activity",
+      "input": {
+        "activity_id": "event_fixture"
+      },
+      "value": {
+        "persona": {
+          "id": "persona_4daec11fedb0ff3e",
+          "slug": "calendar-reader",
+          "display_name": "Calendar reader",
+          "source_description": "Calendar reader — source description",
+          "provenance": {
+            "source_description": "user",
+            "segment_hint": "not_provided",
+            "profile_fields": "llm_derived_from_source_description",
+            "evidence": "none",
+            "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+          },
+          "identity_traits": {
+            "gender_presentation": "unspecified",
+            "gender_confidence": "unspecified",
+            "age_range": "unspecified",
+            "appearance_notes": "unspecified",
+            "avatar_profile": "unspecified",
+            "avatar_constraints": "unspecified"
+          },
+          "segment": {
+            "customer_type": "Solo architect",
+            "market": "market",
+            "region": "region",
+            "firm_size": "1"
+          },
+          "demographics": {
+            "age": 40
+          },
+          "role": {
+            "title": "Owner",
+            "responsibilities": "does the work",
+            "seniority": "owner",
+            "decision_power": "full"
+          },
+          "company_context": {
+            "industry": "industry",
+            "size": "small",
+            "stack": "stack",
+            "operating_model": "solo"
+          },
+          "goals": [
+            "Calendar reader goal"
+          ],
+          "constraints": [
+            "limited time"
+          ],
+          "tool_ids": [
+            "cad",
+            "e_mail"
+          ],
+          "tools": [
+            "CAD",
+            "E-Mail"
+          ],
+          "relationships": [
+            {
+              "name": "Client",
+              "type": "customer",
+              "friction": "slow replies"
+            }
+          ],
+          "personality": {
+            "working_style": "pragmatic",
+            "communication_style": "direct",
+            "risk_tolerance": "medium",
+            "character_notes": "skeptical of hype"
+          },
+          "pain_points": [
+            "Calendar reader pain alpha",
+            "Calendar reader pain beta"
+          ],
+          "success_criteria": [
+            "it saves real time"
+          ],
+          "avatar": null,
+          "soul": {
+            "path": "data/personas/calendar-reader/SOUL.md",
+            "updated_at": "2026-09-09T01:53:09.794304+00:00",
+            "sha256": "4c532aa71f81fc67dbc36ae99a3454311e3ff954d2c3f7224325e100a4d8fa2f"
+          },
+          "created_at": "2026-09-09T01:53:09.793676+00:00",
+          "updated_at": "2026-09-09T01:53:09.793676+00:00",
+          "capabilities": null
+        },
+        "activity": {
+          "id": "event_fixture",
+          "persona_id": "persona_4daec11fedb0ff3e",
+          "timestamp": "2026-06-02T09:00:00",
+          "event_type": "meeting",
+          "summary": "The owner is named.",
+          "task": "Shift handover",
+          "tool": "E-Mail",
+          "participants": [
+            "Jo"
+          ],
+          "collaboration_mode": "pair",
+          "what_happened": "Jo confirmed the next shift owner.",
+          "conversation": [
+            {
+              "speaker": "Jo",
+              "text": "I will carry the pending issue."
+            }
+          ],
+          "key_quotes": [
+            "Keep the issue visible."
+          ],
+          "actions_done": [
+            "Named the owner"
+          ],
+          "artifacts_touched": [
+            "Handover log"
+          ],
+          "persona_thought": "The open item is still unresolved.",
+          "decision": "Keep it on the log",
+          "open_loops": [
+            "Confirm the delivery"
+          ],
+          "impact": {
+            "mood": "uncertain",
+            "energy_delta": 0
+          },
+          "pain_points": [
+            "Late delivery"
+          ],
+          "goal_refs": [
+            "goal_fixture"
+          ],
+          "calendar_event_id": "cal_fixture",
+          "created_at": "2026-06-02T10:00:00",
+          "source_kind": "simulated_episode",
+          "source_refs": [
+            {
+              "kind": "note",
+              "id": "note_fixture",
+              "anchor": "line:2",
+              "quote": "A supplied source quote.",
+              "text": "A supplied source description."
+            }
+          ],
+          "confidence": 0,
+          "review_status": "disputed"
+        }
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "period-day",
+      "tool": "get_calendar_period",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "date": "2026-06-02",
+        "view": "day"
+      },
+      "value": {
+        "persona": {
+          "id": "persona_4daec11fedb0ff3e",
+          "slug": "calendar-reader",
+          "display_name": "Calendar reader",
+          "url": "http://127.0.0.1:8787/personas/persona_4daec11fedb0ff3e",
+          "age_range": "unspecified",
+          "role": "Owner",
+          "segment": "region"
+        },
+        "view": "day",
+        "anchor_date": "2026-06-02",
+        "period_start": "2026-06-02",
+        "period_end": "2026-06-02",
+        "daily_summaries": [
+          {
+            "date": "2026-06-02",
+            "mood": "uncertain"
+          }
+        ],
+        "events_total": 1,
+        "days": {
+          "2026-06-02": [
+            {
+              "id": "event_fixture",
+              "timestamp": "2026-06-02T09:00:00",
+              "event_type": "meeting",
+              "task": "Shift handover",
+              "tool": "E-Mail"
+            }
+          ]
+        }
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "period-week",
+      "tool": "get_calendar_period",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "date": "2026-06-02",
+        "view": "week"
+      },
+      "value": {
+        "persona": {
+          "id": "persona_4daec11fedb0ff3e",
+          "slug": "calendar-reader",
+          "display_name": "Calendar reader",
+          "url": "http://127.0.0.1:8787/personas/persona_4daec11fedb0ff3e",
+          "age_range": "unspecified",
+          "role": "Owner",
+          "segment": "region"
+        },
+        "view": "week",
+        "anchor_date": "2026-06-02",
+        "period_start": "2026-06-01",
+        "period_end": "2026-06-07",
+        "daily_summaries": [
+          {
+            "date": "2026-06-02",
+            "mood": "uncertain"
+          }
+        ],
+        "events_total": 1,
+        "days": {
+          "2026-06-02": [
+            {
+              "id": "event_fixture",
+              "timestamp": "2026-06-02T09:00:00",
+              "event_type": "meeting",
+              "task": "Shift handover",
+              "tool": "E-Mail"
+            }
+          ]
+        }
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "period-year",
+      "tool": "get_calendar_period",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "date": "2026-06-02",
+        "view": "year"
+      },
+      "value": {
+        "persona": {
+          "id": "persona_4daec11fedb0ff3e",
+          "slug": "calendar-reader",
+          "display_name": "Calendar reader",
+          "url": "http://127.0.0.1:8787/personas/persona_4daec11fedb0ff3e",
+          "age_range": "unspecified",
+          "role": "Owner",
+          "segment": "region"
+        },
+        "view": "year",
+        "anchor_date": "2026-06-02",
+        "period_start": "2026-01-01",
+        "period_end": "2026-12-31",
+        "daily_summaries": [
+          {
+            "date": "2026-06-02",
+            "mood": "uncertain"
+          }
+        ],
+        "events_total": 1,
+        "days": {
+          "2026-06-02": [
+            {
+              "id": "event_fixture",
+              "timestamp": "2026-06-02T09:00:00",
+              "event_type": "meeting",
+              "task": "Shift handover",
+              "tool": "E-Mail"
+            }
+          ]
+        }
+      },
+      "state": "ready"
+    },
+    {
+      "scenario": "plan-null",
+      "tool": "get_day_plan",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "date": "2026-06-03"
+      },
+      "value": null,
+      "state": "empty"
+    },
+    {
+      "scenario": "period-plan-null",
+      "tool": "get_period_plan",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "scope": "year",
+        "date": "2025-01-01"
+      },
+      "value": null,
+      "state": "empty"
+    },
+    {
+      "scenario": "plans-empty",
+      "tool": "list_period_plans",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "scope": "year"
+      },
+      "value": [],
+      "state": "empty"
+    },
+    {
+      "scenario": "calendar-empty",
+      "tool": "get_calendar",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "date": "2026-06-03"
+      },
+      "value": {
+        "persona": {
+          "id": "persona_4daec11fedb0ff3e",
+          "slug": "calendar-reader",
+          "display_name": "Calendar reader",
+          "source_description": "Calendar reader — source description",
+          "provenance": {
+            "source_description": "user",
+            "segment_hint": "not_provided",
+            "profile_fields": "llm_derived_from_source_description",
+            "evidence": "none",
+            "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+          },
+          "identity_traits": {
+            "gender_presentation": "unspecified",
+            "gender_confidence": "unspecified",
+            "age_range": "unspecified",
+            "appearance_notes": "unspecified",
+            "avatar_profile": "unspecified",
+            "avatar_constraints": "unspecified"
+          },
+          "segment": {
+            "customer_type": "Solo architect",
+            "market": "market",
+            "region": "region",
+            "firm_size": "1"
+          },
+          "demographics": {
+            "age": 40
+          },
+          "role": {
+            "title": "Owner",
+            "responsibilities": "does the work",
+            "seniority": "owner",
+            "decision_power": "full"
+          },
+          "company_context": {
+            "industry": "industry",
+            "size": "small",
+            "stack": "stack",
+            "operating_model": "solo"
+          },
+          "goals": [
+            "Calendar reader goal"
+          ],
+          "constraints": [
+            "limited time"
+          ],
+          "tool_ids": [
+            "cad",
+            "e_mail"
+          ],
+          "tools": [
+            "CAD",
+            "E-Mail"
+          ],
+          "relationships": [
+            {
+              "name": "Client",
+              "type": "customer",
+              "friction": "slow replies"
+            }
+          ],
+          "personality": {
+            "working_style": "pragmatic",
+            "communication_style": "direct",
+            "risk_tolerance": "medium",
+            "character_notes": "skeptical of hype"
+          },
+          "pain_points": [
+            "Calendar reader pain alpha",
+            "Calendar reader pain beta"
+          ],
+          "success_criteria": [
+            "it saves real time"
+          ],
+          "avatar": null,
+          "soul": {
+            "path": "data/personas/calendar-reader/SOUL.md",
+            "updated_at": "2026-09-09T01:53:09.794304+00:00",
+            "sha256": "4c532aa71f81fc67dbc36ae99a3454311e3ff954d2c3f7224325e100a4d8fa2f"
+          },
+          "created_at": "2026-09-09T01:53:09.793676+00:00",
+          "updated_at": "2026-09-09T01:53:09.793676+00:00",
+          "capabilities": null
+        },
+        "date": "2026-06-03",
+        "blocks": []
+      },
+      "state": "empty"
+    },
+    {
+      "scenario": "period-empty",
+      "tool": "get_calendar_period",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "date": "2026-06-03",
+        "view": "day"
+      },
+      "value": {
+        "persona": {
+          "id": "persona_4daec11fedb0ff3e",
+          "slug": "calendar-reader",
+          "display_name": "Calendar reader",
+          "url": "http://127.0.0.1:8787/personas/persona_4daec11fedb0ff3e",
+          "age_range": "unspecified",
+          "role": "Owner",
+          "segment": "region"
+        },
+        "view": "day",
+        "anchor_date": "2026-06-03",
+        "period_start": "2026-06-03",
+        "period_end": "2026-06-03",
+        "daily_summaries": [],
+        "events_total": 0,
+        "days": {}
+      },
+      "state": "empty"
+    },
+    {
+      "scenario": "state-before-events",
+      "tool": "get_current_state",
+      "input": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "at_time": "2026-06-01T00:00:00"
+      },
+      "value": {
+        "persona_id": "persona_4daec11fedb0ff3e",
+        "display_name": "Calendar reader",
+        "at_time": "2026-06-01T00:00:00",
+        "current_activity": "not simulated yet",
+        "current_tool": null,
+        "collaboration_mode": null,
+        "mood": "unknown",
+        "current_thought": "unknown",
+        "blocked_by": [],
+        "likely_next": [
+          "Calendar reader goal"
+        ],
+        "synthetic_notice": "State is simulated unless backed by attached evidence."
+      },
+      "state": "ready"
+    }
+  ]
+}

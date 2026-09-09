@@ -25,7 +25,9 @@ PAGES_DIR = Path(__file__).resolve().parent.parent / "sonaloop" / "web" / "pages
 # .oqp-h rule itself, web_assets.py), U9/U10 (the oqpanel pills/ul margins moved
 # into the .oqpanel rules) and V2 (the council section-hint margins folded into the
 # now-global `.ihint` rule). ONLY lower it.
-STYLE_BASELINE = 23
+# Shared Calendar/Activity/Prototype body extraction moves these attributes to
+# their explicit pure-renderer owners; this ratchet measures page adapters only.
+STYLE_BASELINE = 10
 
 
 def _pages() -> list[Path]:
@@ -58,9 +60,9 @@ def test_inline_style_ratchet():
 # needs a design-system contract + a web/ui.py helper, not a new app-local class.
 ALLOWED_CLASS_TOKENS = {
     # generic text/layout utilities (web_assets.py "generic" block)
-    "muted", "small", "lead", "h1", "h1cnt", "page", "grid", "two", "right", "rows", "row",
-    "cnt", "pill", "pills", "sec", "title", "sub", "empty", "avatar",
-    "quote", "thought", "lbl", "lbl-soft", "ihint", "identity", "cap-row", "rico",
+    "muted", "small", "lead", "h1", "h1cnt", "page", "right", "rows", "row",
+    "cnt", "pill", "pills", "sec", "title", "sub", "avatar",
+    "lbl", "lbl-soft", "ihint", "identity", "cap-row", "rico",
     # project page: outline chrome (the spatial graph view + its toolbar/panel retired)
     "proj", "proj-head", "protoframe",
     # hypothesis/decision cards (.hyp co-located in pages/hypotheses.py)

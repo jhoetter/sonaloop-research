@@ -174,6 +174,30 @@ say when no pixels were supplied. `view_asset` image results are not yet registe
 by this passive metadata family. Confirmed detach results show the native count,
 including zero, and state that content-addressed file bytes are retained.
 
+Prototype views reuse the product detail body and prepared property projection.
+The product prepares its sandboxed preview, replay/session rows and navigation
+before rendering; the same body also shows the recorded prototype notes. Native
+MCP artifact responses supply metadata and locations, so their passive card does
+not fetch or execute a preview. Local running state is shown only when supplied.
+A remote `run_prototype` result exposes its hosted address with `pid: null` and
+`running: false`; it does not establish a local process or website availability.
+Local start/reuse receipts retain the reported process ID. Stop and delete cards
+show the native outcome, including a missing process or zero removed records;
+prototype files remain retained after deletion. These display-only views do not
+change native runner authorization or retry behavior.
+
+Recorded plans, current state, calendar periods and activity details reuse the
+Persona inspector's extracted bodies. The product includes the selected day's
+and period's stored plans. Plans describe intentions, not completed work. Current
+state preserves its supplied timestamp and synthetic-data notice. A calendar
+block without an activity stays planned; activity prose, conversation, zero-valued
+measurements, quotes and source references remain literal supplied data. Passive
+week/month agendas retain every supplied row; a year uses a readable supplied
+agenda instead of implying a complete distribution from a capped heatmap. Native
+period totals and truncation notices remain visible. Product navigation, avatar
+resolution and clock-dependent today decorations are prepared outside the pure
+renderer. Invalid legacy optional shapes preserve a truthful product fallback.
+
 Captured URL References reuse the product snapshot body. The passive view keeps
 all supplied headings and text; the product retains its compact clamped layout.
 A skipped capture stays distinct from a failed capture or a successful snapshot.
@@ -223,6 +247,15 @@ props)`. `props.name` selects an existing pure family projection;
 `props.value` supplies its authored view-model DTO. The helper calls the same
 `Surface.render` used after native MCP envelope validation. It never calls the
 named MCP tool, opens a Store or adds action permission.
+
+One explicit public DTO mapping handles a reserved JavaScript property name:
+`register_remote_prototype` uses `{artifact, note?}` as its public `value`, while
+the unchanged native result uses `{prototype, note?, dispatch?}`.
+`public_component_value()` prepares that authored example and the pure entry
+point maps `artifact` back for the existing renderer. Dispatch data is not a visual
+prop. The reserved-key ban remains intact. The fixture harness independently
+compares the public DTO's rendered HTML with the original native projection;
+native MCP text, structured content and input/result raster hashes are unchanged.
 
 The checked examples are synthetic public content. They contain no private
 presentation HTML, native envelope, credentials, dispatch metadata or runtime

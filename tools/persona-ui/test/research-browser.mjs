@@ -137,7 +137,7 @@ def audit(event, args):
         raise RuntimeError("Fixture renderer attempted runtime access: " + event)
 sys.addaudithook(audit)
 from sonaloop.ui_components.registry import render_tool, SURFACES
-from sonaloop.ui_components.component_props import render_component_props
+from sonaloop.ui_components.component_props import render_component_props, public_component_value
 from sonaloop.ui_components.library import note_content
 from sonaloop.ui_components.discovery import project_heading, search_hit_content
 from sonaloop.web._render import render_ref
@@ -237,7 +237,22 @@ asset_deliverable = {**asset, "direction": "out", "source": "synthesis:synthesis
 reference = {"id": "reference_fixture", "kind": "variant", "url": "https://example.invalid/handover", "title": "Handover concept", "label": "A", "captured_at": "2026-09-09T00:00:00Z",
     "snapshot": {"ok": True, "mode": "text", "description": "Synthetic captured page content.", "headings": ["Current owner", "Unresolved questions"], "text": "The next shift can find the current owner.\nOnly the supplied snapshot is shown."}}
 reference_skipped = {**reference, "snapshot": {"ok": False, "mode": "skipped", "description": "", "headings": [], "text": ""}}
+prototype = {"id": "prototype_fixture", "slug": "handover", "project_id": "project_fixture", "name": "Handover prototype", "version": "v0.2", "kind": "web", "type": "prototype", "path": "prototypes/handover", "entry": "index.html", "run": "static", "run_cmd": None, "notes": "Keep the owner visible.\nSynthetic authored artifact metadata.", "created_at": "2026-09-09T00:00:00Z", "fidelity": "midfi", "tags": ["midfi"], "url": ""}
+remote_prototype = {**prototype, "id": "remote_fixture", "slug": "handover-remote", "name": "Hosted handover", "path": "", "entry": "", "run": "remote", "url": "https://example.invalid/handover", "fidelity": "hifi", "tags": ["hifi"]}
 specs = [
+    ("prototypes-scaffolded", "prototypes", "scaffold_prototype", {"slug": "handover", "name": prototype["name"], "concept": {"title": "Handover", "screens": [{"id": "home", "title": "Handover", "elements": []}]}, "project_id": "project_fixture", "fidelity": "midfi"}, {**prototype, "version": "v0.1", "notes": ""}),
+    ("prototypes-registered", "prototypes", "register_prototype", {"slug": "handover", "name": prototype["name"], "path": prototype["path"], "version": "v0.2", "project_id": "project_fixture", "notes": prototype["notes"]}, prototype),
+    ("prototypes-remote", "prototypes", "register_remote_prototype", {"slug": remote_prototype["slug"], "name": remote_prototype["name"], "url": remote_prototype["url"], "project_id": "project_fixture", "version": "v0.2", "note_id": "note_fixture"}, {"prototype": remote_prototype, "note": note}),
+    ("prototypes-detail", "prototypes", "get_prototype", {"prototype_id": "prototype_fixture"}, {**prototype, "running": False}),
+    ("prototypes-list", "prototypes", "list_prototypes", {"project_id": "project_fixture"}, [{**remote_prototype, "running": False}]),
+    ("prototypes-empty", "prototypes", "list_prototypes", {"project_id": "project_fixture"}, []),
+    ("prototypes-running", "prototypes", "run_prototype", {"prototype_id": "prototype_fixture"}, {"prototype_id": "prototype_fixture", "url": "http://127.0.0.1:17471/index.html", "pid": 12345}),
+    ("prototypes-reused", "prototypes", "run_prototype", {"prototype_id": "prototype_fixture"}, {"prototype_id": "prototype_fixture", "url": "http://127.0.0.1:17471/index.html", "pid": 12345, "already_running": True}),
+    ("prototypes-hosted", "prototypes", "run_prototype", {"prototype_id": "remote_fixture"}, {"prototype_id": "remote_fixture", "url": remote_prototype["url"], "pid": None, "running": False, "remote": True}),
+    ("prototypes-stopped", "prototypes", "stop_prototype", {"prototype_id": "prototype_fixture"}, {"stopped": True, "prototype_id": "prototype_fixture"}),
+    ("prototypes-idle", "prototypes", "stop_prototype", {"prototype_id": "prototype_fixture"}, {"stopped": False}),
+    ("prototypes-deleted", "prototypes", "delete_prototype", {"prototype_id": "prototype_fixture"}, {"deleted": 1}),
+    ("prototypes-missing", "prototypes", "delete_prototype", {"prototype_id": "prototype_missing"}, {"deleted": 0}),
     ("references-added", "references", "add_artifact", {"project_id": "project_fixture", "url": reference["url"], "kind": "variant", "title": reference["title"], "label": "A", "capture": False}, reference_skipped),
     ("references-detail", "references", "get_artifact", {"project_id": "project_fixture", "artifact_id": "reference_fixture"}, reference),
     ("references-list", "references", "list_artifacts", {"project_id": "project_fixture"}, [reference]),
@@ -331,15 +346,19 @@ output = []
 # Checked synthetic DTOs from isolated native compatibility tests; never execute inputs.
 for case in json.loads(Path("tools/persona-ui/fixtures/council-formats.json").read_text())["cases"]:
     specs.append(("councils-" + case["tool"].replace("_", "-"), "councils", case["tool"], case["input"], case["value"]))
+for case in json.loads(Path("tools/persona-ui/fixtures/calendar-plans.json").read_text())["cases"]:
+    family = "plans" if case["tool"] in {"put_day_plan", "get_day_plan", "put_period_plan", "get_period_plan", "list_period_plans"} else "calendar"
+    specs.append((family + "-" + case["scenario"].replace("_", "-"), family, case["tool"], case["input"], case["value"]))
 for scenario, family, tool, arguments, data in specs:
     names, required = signatures[tool]
     assert set(arguments) <= names and required <= set(arguments), (scenario, "Invalid native fixture arguments")
     envelope = data if tool in {"search", "fetch"} else {"tool": tool, "data": data}
     html, state = render_tool(tool, envelope)
-    public_html, public_state = render_component_props(SURFACES[tool].component_id, {"name": tool, "value": data})
+    public_value = public_component_value(tool, data)
+    public_html, public_state = render_component_props(SURFACES[tool].component_id, {"name": tool, "value": public_value})
     assert str(public_html) == str(html) and public_state == state, "Public props and native projection diverged"
     output.append(dict(scenario=scenario, family=family, tool=tool, input=arguments, native=envelope,
-                       html=str(html), state=state, note_content=str(note_content(note)),
+                       html=str(html), state=state, public_value=public_value, note_content=str(note_content(note)),
                        project_heading=str(project_heading(project, level="h2")),
                        search_hit_content=str(search_hit_content(hit["title"], hit["text"])),
                        fetched_content=str(note_content(fetched)),
@@ -378,7 +397,7 @@ export async function exportScenarios(outputParent = process.env.RESEARCH_SCENAR
   assert.ok(noteFixture && noteFixture.tool === 'list_notes' && noteFixture.family === 'notes');
   const failed = { ...noteFixture, scenario: 'notes-error', state: 'unavailable',
     result: { isError: true, content: [{ type: 'text', text: 'Synthetic native tool failure; no operation was invoked.' }] } };
-  const scenarios = [...fixtures, failed].map(fixture => ({ fixture, viewport: { width: 390, height: ['sessions', 'syntheses', 'councils'].includes(fixture.family) ? 3800 : 844 } }));
+  const scenarios = [...fixtures, failed].map(fixture => ({ fixture, viewport: { width: 390, height: ['sessions', 'syntheses', 'councils', 'prototypes', 'calendar'].includes(fixture.family) ? 3800 : 844 } }));
   scenarios.unshift({ fixture: noteFixture, viewport: { width: 960, height: 900 } });
   const rendererBytes = await readFile(fileURLToPath(import.meta.url)), bundle = await hostBundle();
   const { stdout: commit } = await execFile('git', ['rev-parse', 'HEAD'], { cwd: repo });

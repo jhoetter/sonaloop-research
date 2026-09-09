@@ -10,6 +10,20 @@ import json
 from .registry import SURFACES
 
 
+def public_component_value(name: str, value):
+    """Prepare authored public view-model values without altering native MCP output.
+
+    The native remote-registration envelope uses the reserved JS key `prototype`.
+    Public examples use `artifact` for that one envelope; dispatch/private context
+    is not a visual prop. Other projections preserve their existing authored DTO.
+    """
+    if name == "register_remote_prototype":
+        if not isinstance(value, dict) or "prototype" not in value:
+            raise ValueError("Expected native remote registration envelope")
+        return {"artifact": value["prototype"], **({"note": value["note"]} if "note" in value else {})}
+    return value
+
+
 def render_component_props(component_id: str, props: dict):
     """Render {name, value} through the customer's existing pure projection."""
     if not isinstance(props, dict) or set(props) != {"name", "value"}:
@@ -31,4 +45,9 @@ def render_component_props(component_id: str, props: dict):
             pending.extend((child, depth + 1) for child in value)
     if len(json.dumps(props, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode()) > 8192:
         raise ValueError("Public Component props exceed the byte limit")
-    return surface.render(props["value"])
+    value = props["value"]
+    if props["name"] == "register_remote_prototype":
+        if not isinstance(value, dict) or "artifact" not in value or set(value) - {"artifact", "note"}:
+            raise ValueError("Expected public remote-registration artifact and optional note")
+        value = {"prototype": value["artifact"], **({"note": value["note"]} if "note" in value else {})}
+    return surface.render(value)

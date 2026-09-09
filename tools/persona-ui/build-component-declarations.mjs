@@ -42,7 +42,7 @@ function boundSchema(value, depth = 0) {
   if (depth >= 10 && typeof value.type === 'string') return { type: value.type };
   return Object.fromEntries(Object.entries(value).map(([key, child]) => [key, boundSchema(child, depth + 1)]));
 }
-const labels = { references: 'Captured References', assets: 'Files and Evidence', notes: 'Notes', sections: 'Sections', projects: 'Projects', search: 'Search',
+const labels = { calendar: 'Recorded Calendar and Activities', plans: 'Recorded Plans', prototypes: 'Prototypes', references: 'Captured References', assets: 'Files and Evidence', notes: 'Notes', sections: 'Sections', projects: 'Projects', search: 'Search',
   hypotheses: 'Hypotheses', decisions: 'Decisions', councils: 'Councils', surveys: 'Surveys',
   syntheses: 'Syntheses and Reports', sessions: 'Sessions and Funnels' };
 const { fixtures } = await nativeFixtureSet();
@@ -53,7 +53,7 @@ for (const [family, name] of Object.entries(labels)) {
   const scenarios = examples.map(item => ({ id: item.scenario,
     label: item.scenario.split('-').slice(1).join(' ').replace(/^./, letter => letter.toUpperCase()),
     state: item.state, variant: 'default', size: 'responsive', theme: 'light',
-    props: { name: item.tool, value: ['search', 'fetch'].includes(item.tool) ? item.native : item.native.data } }));
+    props: { name: item.tool, value: item.public_value } }));
   for (const item of scenarios) assert.ok(Buffer.byteLength(canonical(item.props)) <= 8192);
   const projectionNames = [...new Set(scenarios.map(item => item.props.name))];
   const selectors = projectionNames.map(name => ({ type: 'object', additionalProperties: false,

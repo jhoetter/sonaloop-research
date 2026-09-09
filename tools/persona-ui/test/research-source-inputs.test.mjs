@@ -27,6 +27,10 @@ test('owned and shared source mutations change exact families without editing th
   for (const [path, affected] of [
     ['sonaloop/ui_components/surveys.py', ['surveys', 'sessions']],
     ['sonaloop/ui_components/councils.py', ['councils']],
+    ['sonaloop/ui_components/calendar.py', ['calendar']],
+    ['sonaloop/ui_components/plans.py', ['plans']],
+    ['sonaloop/ui_components/prototypes.py', ['prototypes']],
+    ['tools/persona-ui/fixtures/calendar-plans.json', ['calendar', 'plans']],
     ['sonaloop/suggestions/finding_kinds.json', ['syntheses']],
     ['sonaloop/web/_synthesis.py', ['councils', 'syntheses', 'sessions']],
     ['sonaloop/ui_components/declarations/notes.json', ['notes']],

@@ -71,4 +71,4 @@ build-backend = "hatchling.build"
 packages = ["sonaloop"]
 
 [tool.hatch.build.targets.sdist]
-include = ["sonaloop", "README.md", "LICENSE", "AGENTS.md", "tools/persona-ui/*.mjs", "tools/persona-ui/*.json", "tools/persona-ui/test"]
+include = ["sonaloop", "README.md", "LICENSE", "AGENTS.md", "tools/persona-ui/*.mjs", "tools/persona-ui/*.json", "tools/persona-ui/test", "tools/persona-ui/fixtures"]

@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Callable
 
 from .library import collection, note_card, section_card
-from . import references, assets, bets, councils, council_formats, discovery, surveys, syntheses, sessions, session_funnels
+from . import references, assets, prototypes, calendar, plans, bets, councils, council_formats, discovery, surveys, syntheses, sessions, session_funnels
 
 SCHEMA = "sonaloop.research-presentation.v1"
 
@@ -67,6 +67,20 @@ def _members(value):
 
 
 SURFACES = {
+    **{name: Surface("plans", plans.plan) for name in (
+        "put_day_plan", "get_day_plan", "put_period_plan", "get_period_plan")},
+    "list_period_plans": Surface("plans", plans.plans),
+    "get_current_state": Surface("calendar", calendar.current_state),
+    "get_calendar": Surface("calendar", calendar.calendar),
+    "get_calendar_period": Surface("calendar", calendar.calendar_period),
+    "get_activity": Surface("calendar", calendar.activity),
+    **{name: Surface("prototypes", prototypes.prototype) for name in (
+        "scaffold_prototype", "register_prototype", "get_prototype")},
+    "register_remote_prototype": Surface("prototypes", prototypes.registered_remote),
+    "list_prototypes": Surface("prototypes", prototypes.prototypes),
+    "run_prototype": Surface("prototypes", prototypes.running),
+    "stop_prototype": Surface("prototypes", prototypes.stopped),
+    "delete_prototype": Surface("prototypes", prototypes.removed),
     "record_head_to_head": Surface("councils", council_formats.head_to_head_write),
     "get_head_to_head": Surface("councils", council_formats.head_to_head),
     "record_price_ladder": Surface("councils", council_formats.price_ladder_write),
