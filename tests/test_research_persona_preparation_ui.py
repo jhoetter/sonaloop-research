@@ -380,3 +380,14 @@ def test_actual_fastmcp_nine_schemas_outputs_and_single_native_execution(example
         assert result.content == text and result.structuredContent == structured
         assert result.meta["sonaloop/presentation"]["state"] == "ready"
         assert result.meta["sonaloop/presentation"]["text_sha256"] == hashlib.sha256(result.content[0].text.encode()).hexdigest()
+
+
+def test_preparation_labels_and_empty_values_are_readable_without_changing_native_values():
+    from sonaloop.ui_components import persona_preparation_rows as rows
+    before = [('next_action', 'ready_for_research'), ('memory_hits', 0), ('cursor', 2)]
+    markup = rows.fields(before)
+    assert 'Suggested next step' in markup and 'ready_for_research' in markup
+    assert 'Memory matches' in markup and '<dd>0</dd>' in markup
+    assert 'Build step' in markup and '<dd>2</dd>' in markup
+    assert 'No entries supplied.' in rows.text_list('Recorded gaps', [])
+    assert before == [('next_action', 'ready_for_research'), ('memory_hits', 0), ('cursor', 2)]

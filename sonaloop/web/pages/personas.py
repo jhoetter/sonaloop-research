@@ -9,6 +9,9 @@ from fastapi.responses import Response
 
 from ._ctx import *  # noqa: F401,F403  (shared render toolkit)
 from ._persona_preparation import readiness_html, capabilities_html, register_persona_preparation
+from ._persona_profiles import register_persona_profiles
+from ._persona_records import register_persona_records
+from ._cohort_results import register_cohort_results
 from ._calendar import _calendar_tabs, _period_calendar_html
 from .sessions import _sessions_section
 from .._html import register_css
@@ -17,6 +20,7 @@ from .._persona_view import persona_view_mount
 from ... import artifacts as _artifacts
 from ...ui_components import calendar as calendar_view, plans as plan_view
 from ...ui_components import memory as memory_view, memory_rows, memory_outcomes
+from ...ui_components import persona_profile_rows
 
 
 _PERSONA_CREATE_FIELDS = (
@@ -391,6 +395,9 @@ def _catalog_page(store: Store, *, q: str = "", cursor: str | None = None,
 
 def register_personas(app) -> None:
     register_persona_preparation(app)
+    register_persona_profiles(app)
+    register_persona_records(app)
+    register_cohort_results(app)
     @app.get("/personas", response_class=HTMLResponse)
     def personas_list(page: int = Query(default=1, ge=1), q: str = Query(default="")) -> str:
         # Paginated per the shared convention (docs/pagination.md): ?page=N rides the URL
@@ -410,7 +417,8 @@ def register_personas(app) -> None:
             h("a", {"class_": "sl-btn sl-btn--primary", "href": "/personas/new"},
               raw(_icon("plus")), " ", t("new_persona")),
             h("a", {"class_": "sl-btn", "href": "/personas/catalog"},
-              raw(_icon("search")), " ", t("catalog_open")))
+              raw(_icon("search")), " ", t("catalog_open")),
+            h("a", {"class_": "sl-btn", "href": "/cohorts"}, t("rcg_cohorts")))
         return _list_page(store, title=t("personas"), lead=t("personas_lead"), rows=rows,
                           empty_icon="personas", empty_msg=t("no_personas"), active="personas",
                           pre=_list_filter_box("/personas", q) if (q or pages > 1) else "",
@@ -614,8 +622,7 @@ def register_personas(app) -> None:
         # This persona's recorded usability sessions — each row deep-links into the replay view.
         usess = services.list_usability_sessions(persona_id=p["id"], store=store)
         sessions_html = _sessions_section(store, usess)
-        rel_rows = fragment(*(h("p", {}, h("strong", {}, r["name"]), " ",
-                              h("span", {"class_": "muted"}, f'— {r["type"]}: {r["friction"]}')) for r in p["relationships"]))
+        rel_rows = persona_profile_rows.relationships_content(p["relationships"])
         try:
             calendar_body = (calendar_view.calendar(day_calendar)[0] if day_calendar is not None
                              else _period_calendar_html(p["id"], selected_date, view, period))
@@ -637,25 +644,28 @@ def register_personas(app) -> None:
         main = h("div", {"data-persona-surface-section": True},
             detail_eyebrow(t("persona"), eyebrow_pills) if eyebrow_pills else "",
             persona_view_mount(p["id"]),
-            h("div", {"data-persona-surface-fallback": True}, _hero(p["display_name"], sub=f'{p["role"]["title"]} · {p["company_context"]["industry"]}',
+            h("div", {"data-persona-surface-fallback": True}, persona_profile_rows.heading(p,
                   top=detail_eyebrow(t("persona"), eyebrow_pills))),
             h("div", {"class_": "identity"}, h("div", {"data-persona-surface-fallback": True}, avatar), h("div", {},
               state_body)),
             raw(_persona_readiness_html(readiness)),
             h("p", {}, h("a", {"href": f'/personas/{p["id"]}/preparation'}, t("rpp_preparation"))),
+            h("p", {}, h("a", {"href": f'/personas/{p["id"]}/profile'}, t("rpf_profile_history")), " · ",
+                h("a", {"href": f'/personas/{p["id"]}/soul'}, t("rpf_soul")), " · ",
+                h("a", {"href": f'/personas/{p["id"]}/records'}, t("rprec_records"))),
             # the simulated LIFE (the calendar) is this persona's signature — surface it right after the
             # snapshot, before the analysis voices.
             cal_section,
             raw(voices),
             raw(sessions_html),
             _capabilities_html(p.get("capabilities") or {}),
-            h("div", {"class_": "sec", "id": "ziele", "data-persona-surface-fallback": True}, h("h2", {}, t("goals")), raw(_pills(p["goals"]))),
+            persona_profile_rows.list_section(t("goals"), p["goals"], section_id="ziele", fallback=True),
             h("div", {"class_": "sec", "id": "pains", **({"data-persona-surface-fallback": True} if not data["pain_points"] else {})}, h("h2", {}, t("pain_points")),
               # structured observations (issue + opportunity + severity/evidence) → the SAME finding row
               # as the synthesis; the plain profile list stays compact pills.
               (raw(memory_outcomes.pain_content(data["pain_points"]))
                if data["pain_points"] else raw(_pills(p["pain_points"])))),
-            h("div", {"class_": "sec", "id": "tools"}, h("h2", {}, t("tools")), raw(_pills(p["tools"]))),
+            persona_profile_rows.list_section(t("tools"), p["tools"], section_id="tools"),
             h("div", {"class_": "sec", "id": "bez"}, h("h2", {}, t("relationships")), rel_rows),
             # server-provided prev/next sibling URLs for the keymap's [ / ] bindings
             raw(sibling_attrs(*sibling_urls(

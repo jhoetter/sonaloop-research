@@ -28,6 +28,9 @@ export const commonSourceInputs = [
 ];
 
 export const familySourceInputs = {
+  records: ['sonaloop/ui_components/persona_records.py', 'sonaloop/ui_components/persona_record_rows.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/web/pages/personas.py', 'sonaloop/web/pages/_persona_records.py', 'tools/persona-ui/fixtures/records.json'],
+  profiles: ['sonaloop/ui_components/persona_profiles.py', 'sonaloop/ui_components/persona_profile_rows.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/web/pages/personas.py', 'sonaloop/web/pages/_persona_profiles.py', 'sonaloop/web/_routes_lists.py', 'tools/persona-ui/fixtures/profiles.json'],
+  cohorts: ['sonaloop/ui_components/cohort.py', 'sonaloop/ui_components/cohort_rows.py', 'sonaloop/ui_components/cohort_preflight.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/web/_cohort_integrity_view.py', 'sonaloop/web/pages/_cohort_results.py', 'sonaloop/web/pages/personas.py', 'sonaloop/web/pages/projects.py', 'tools/persona-ui/fixtures/cohorts.json'],
   preparation: ["sonaloop/ui_components/persona_preparation.py", "sonaloop/ui_components/persona_preparation_rows.py", "sonaloop/ui_components/projects_rows.py", "sonaloop/ui_components/memory.py", "sonaloop/ui_components/memory_rows.py", "sonaloop/web/pages/personas.py", "sonaloop/web/pages/_persona_preparation.py", "tools/persona-ui/fixtures/preparation.json"],
   runs: ['tools/persona-ui/fixtures/project-health.json', 'sonaloop/ui_components/project_health.py', 'sonaloop/ui_components/projects_rows.py', 'sonaloop/web/_runs_widget.py'],
   memory: ['tools/persona-ui/fixtures/memory.json', 'sonaloop/ui_components/memory.py', 'sonaloop/ui_components/memory_rows.py', 'sonaloop/ui_components/memory_outcomes.py', 'sonaloop/web/pages/personas.py'],

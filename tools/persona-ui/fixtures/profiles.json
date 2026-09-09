@@ -1,0 +1,960 @@
+[
+  {
+    "scenario": "profiles-empty",
+    "tool": "list_personas",
+    "input": {},
+    "value": {
+      "items": [],
+      "total": 0,
+      "has_more": false
+    },
+    "state": "empty"
+  },
+  {
+    "scenario": "profiles-query-empty",
+    "tool": "query_personas",
+    "input": {
+      "q": "missing"
+    },
+    "value": {
+      "substrate_version": 1,
+      "total": 0,
+      "limit": 50,
+      "offset": 0,
+      "next_offset": null,
+      "items": []
+    },
+    "state": "empty"
+  },
+  {
+    "scenario": "profiles-recorded",
+    "tool": "record_persona",
+    "input": {
+      "description": "Synthetic operations lead profile",
+      "profile": {
+        "display_name": "Morgan Lee",
+        "identity_traits": {
+          "gender_presentation": "unspecified",
+          "gender_confidence": "unspecified",
+          "age_range": "unspecified",
+          "appearance_notes": "unspecified",
+          "avatar_profile": "unspecified",
+          "avatar_constraints": "unspecified"
+        },
+        "segment": {
+          "customer_type": "Solo architect",
+          "market": "market",
+          "region": "region",
+          "firm_size": "1"
+        },
+        "demographics": {
+          "age": 40
+        },
+        "role": {
+          "title": "Operations lead",
+          "responsibilities": "does the work",
+          "seniority": "owner",
+          "decision_power": "full"
+        },
+        "company_context": {
+          "industry": "industry",
+          "size": "small",
+          "stack": "stack",
+          "operating_model": "solo"
+        },
+        "goals": [
+          "Keep handovers clear"
+        ],
+        "constraints": [
+          "limited time"
+        ],
+        "tool_ids": [
+          "cad",
+          "e_mail"
+        ],
+        "tools": [
+          "CAD",
+          "E-Mail"
+        ],
+        "relationships": [
+          {
+            "name": "Client",
+            "type": "customer",
+            "friction": "slow replies"
+          }
+        ],
+        "personality": {
+          "working_style": "pragmatic",
+          "communication_style": "direct",
+          "risk_tolerance": "medium",
+          "character_notes": "skeptical of hype"
+        },
+        "pain_points": [
+          "Late supplier replies"
+        ],
+        "success_criteria": [
+          "it saves real time"
+        ]
+      },
+      "generate_avatar": false
+    },
+    "value": {
+      "id": "persona_c685620fbe0d2a13",
+      "slug": "morgan-lee",
+      "display_name": "Morgan Lee",
+      "source_description": "Synthetic operations lead profile",
+      "provenance": {
+        "source_description": "user",
+        "segment_hint": "not_provided",
+        "profile_fields": "llm_derived_from_source_description",
+        "evidence": "none",
+        "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+      },
+      "identity_traits": {
+        "gender_presentation": "unspecified",
+        "gender_confidence": "unspecified",
+        "age_range": "unspecified",
+        "appearance_notes": "unspecified",
+        "avatar_profile": "unspecified",
+        "avatar_constraints": "unspecified"
+      },
+      "segment": {
+        "customer_type": "Solo architect",
+        "market": "market",
+        "region": "region",
+        "firm_size": "1"
+      },
+      "demographics": {
+        "age": 40
+      },
+      "role": {
+        "title": "Operations lead",
+        "responsibilities": "does the work",
+        "seniority": "owner",
+        "decision_power": "full"
+      },
+      "company_context": {
+        "industry": "industry",
+        "size": "small",
+        "stack": "stack",
+        "operating_model": "solo"
+      },
+      "goals": [
+        "Keep handovers clear"
+      ],
+      "constraints": [
+        "limited time"
+      ],
+      "tool_ids": [
+        "cad",
+        "e_mail"
+      ],
+      "tools": [
+        "CAD",
+        "E-Mail"
+      ],
+      "relationships": [
+        {
+          "name": "Client",
+          "type": "customer",
+          "friction": "slow replies"
+        }
+      ],
+      "personality": {
+        "working_style": "pragmatic",
+        "communication_style": "direct",
+        "risk_tolerance": "medium",
+        "character_notes": "skeptical of hype"
+      },
+      "pain_points": [
+        "Late supplier replies"
+      ],
+      "success_criteria": [
+        "it saves real time"
+      ],
+      "avatar": null,
+      "soul": {
+        "path": "data/personas/morgan-lee/SOUL.md",
+        "updated_at": "2026-09-09T05:09:47.248759+00:00",
+        "sha256": "a0cc60b3584ecdd363dac7e9ac7e15ed2661947514cbfbecd90fd072095082e2"
+      },
+      "created_at": "2026-09-09T05:09:47.248243+00:00",
+      "updated_at": "2026-09-09T05:09:47.248243+00:00",
+      "capabilities": null
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "profiles-get-empty-history",
+    "tool": "get_persona",
+    "input": {
+      "persona_id": "persona_c685620fbe0d2a13"
+    },
+    "value": {
+      "persona": {
+        "id": "persona_c685620fbe0d2a13",
+        "slug": "morgan-lee",
+        "display_name": "Morgan Lee",
+        "source_description": "Synthetic operations lead profile",
+        "provenance": {
+          "source_description": "user",
+          "segment_hint": "not_provided",
+          "profile_fields": "llm_derived_from_source_description",
+          "evidence": "none",
+          "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+        },
+        "identity_traits": {
+          "gender_presentation": "unspecified",
+          "gender_confidence": "unspecified",
+          "age_range": "unspecified",
+          "appearance_notes": "unspecified",
+          "avatar_profile": "unspecified",
+          "avatar_constraints": "unspecified"
+        },
+        "segment": {
+          "customer_type": "Solo architect",
+          "market": "market",
+          "region": "region",
+          "firm_size": "1"
+        },
+        "demographics": {
+          "age": 40
+        },
+        "role": {
+          "title": "Operations lead",
+          "responsibilities": "does the work",
+          "seniority": "owner",
+          "decision_power": "full"
+        },
+        "company_context": {
+          "industry": "industry",
+          "size": "small",
+          "stack": "stack",
+          "operating_model": "solo"
+        },
+        "goals": [
+          "Keep handovers clear"
+        ],
+        "constraints": [
+          "limited time"
+        ],
+        "tool_ids": [
+          "cad",
+          "e_mail"
+        ],
+        "tools": [
+          "CAD",
+          "E-Mail"
+        ],
+        "relationships": [
+          {
+            "name": "Client",
+            "type": "customer",
+            "friction": "slow replies"
+          }
+        ],
+        "personality": {
+          "working_style": "pragmatic",
+          "communication_style": "direct",
+          "risk_tolerance": "medium",
+          "character_notes": "skeptical of hype"
+        },
+        "pain_points": [
+          "Late supplier replies"
+        ],
+        "success_criteria": [
+          "it saves real time"
+        ],
+        "avatar": null,
+        "soul": {
+          "path": "data/personas/morgan-lee/SOUL.md",
+          "updated_at": "2026-09-09T05:09:47.248759+00:00",
+          "sha256": "a0cc60b3584ecdd363dac7e9ac7e15ed2661947514cbfbecd90fd072095082e2"
+        },
+        "created_at": "2026-09-09T05:09:47.248243+00:00",
+        "updated_at": "2026-09-09T05:09:47.248243+00:00",
+        "capabilities": {
+          "rungs": {
+            "see": true,
+            "walk": true,
+            "drive": true,
+            "login": false
+          },
+          "tech_comfort": 3,
+          "devices": [
+            "desktop",
+            "mobile"
+          ],
+          "accessibility": "",
+          "provenance": "derived"
+        }
+      },
+      "calendar_events": [],
+      "experience_events": [],
+      "daily_summaries": [],
+      "pain_points": [],
+      "reflections": []
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "profiles-updated",
+    "tool": "update_persona",
+    "input": {
+      "persona_id": "persona_c685620fbe0d2a13",
+      "patch": {
+        "goals": [
+          "Keep handovers clear",
+          "Protect focus time"
+        ]
+      },
+      "reason": "Host-authored synthetic goals"
+    },
+    "value": {
+      "id": "persona_c685620fbe0d2a13",
+      "slug": "morgan-lee",
+      "display_name": "Morgan Lee",
+      "source_description": "Synthetic operations lead profile",
+      "provenance": {
+        "source_description": "user",
+        "segment_hint": "not_provided",
+        "profile_fields": "llm_derived_from_source_description",
+        "evidence": "none",
+        "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+      },
+      "identity_traits": {
+        "gender_presentation": "unspecified",
+        "gender_confidence": "unspecified",
+        "age_range": "unspecified",
+        "appearance_notes": "unspecified",
+        "avatar_profile": "unspecified",
+        "avatar_constraints": "unspecified"
+      },
+      "segment": {
+        "customer_type": "Solo architect",
+        "market": "market",
+        "region": "region",
+        "firm_size": "1"
+      },
+      "demographics": {
+        "age": 40
+      },
+      "role": {
+        "title": "Operations lead",
+        "responsibilities": "does the work",
+        "seniority": "owner",
+        "decision_power": "full"
+      },
+      "company_context": {
+        "industry": "industry",
+        "size": "small",
+        "stack": "stack",
+        "operating_model": "solo"
+      },
+      "goals": [
+        "Keep handovers clear",
+        "Protect focus time"
+      ],
+      "constraints": [
+        "limited time"
+      ],
+      "tool_ids": [
+        "cad",
+        "e_mail"
+      ],
+      "tools": [
+        "CAD",
+        "E-Mail"
+      ],
+      "relationships": [
+        {
+          "name": "Client",
+          "type": "customer",
+          "friction": "slow replies"
+        }
+      ],
+      "personality": {
+        "working_style": "pragmatic",
+        "communication_style": "direct",
+        "risk_tolerance": "medium",
+        "character_notes": "skeptical of hype"
+      },
+      "pain_points": [
+        "Late supplier replies"
+      ],
+      "success_criteria": [
+        "it saves real time"
+      ],
+      "avatar": null,
+      "soul": {
+        "path": "data/personas/morgan-lee/SOUL.md",
+        "updated_at": "2026-09-09T05:09:47.255148+00:00",
+        "sha256": "f28448a1bf7d52eff8e7b25470ab5cb503d460c0e2318cbba7b4764bb98b87a2"
+      },
+      "created_at": "2026-09-09T05:09:47.248243+00:00",
+      "updated_at": "2026-09-09T05:09:47.255011+00:00",
+      "capabilities": null
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "profiles-soul",
+    "tool": "get_persona_soul",
+    "input": {
+      "persona_id": "persona_c685620fbe0d2a13"
+    },
+    "value": {
+      "persona_id": "persona_c685620fbe0d2a13",
+      "path": "data/personas/morgan-lee/SOUL.md",
+      "content": "# Morgan Lee\n\n## Identity\nMorgan Lee is a synthetic customer persona derived from:\n\n> Synthetic operations lead profile\n\nThis is not a real person. Treat all non-evidence-backed details as simulation assumptions.\n\n## Work Context\n- Role: Operations lead\n- Company context: industry (small people)\n- Tools: CAD, E-Mail\n- Operating model: solo\n\n## Inner Operating System\n- Working style: pragmatic\n- Communication style: direct\n- Risk tolerance: medium\n- Decision filter: it saves real time\n\n## Capabilities\n- Session rungs (fidelities this persona can be simulated at): see=yes · walk=yes · drive=yes · login=no\n- Tech comfort: 3/5 (comfortable) — navigates common patterns confidently; slows down and reads only when something surprises\n- Devices: desktop, mobile\n- Accessibility: none noted\n- Profile provenance: derived\n\n## Daily Reality\n- Not simulated yet.\n\n## Frictions\n- Late supplier replies\n\n## Motivations\n- Keep handovers clear\n- Protect focus time\n\n## Relationships\n- Client (customer): slow replies\n\n## Voice\nSpeak as a practical customer under real delivery pressure. Refer to concrete calendar moments, tools, handoffs, meetings, and open loops. Do not sound like a generic market research respondent.\n\n## Simulation Rules\n- Stay within the work context above unless new evidence is attached.\n- Do not steer this persona toward BIM, AI, automation, or any product direction unless the source description, recent events, or explicit task context supports it.\n- Treat inferred goals, tools, and pains as hypotheses, not facts; prefer ordinary daily work over vendor-friendly narratives.\n- Prefer mundane repeated friction over dramatic invented events.\n- Distinguish meetings, solo focus work, interruptions, admin, decisions, and follow-up.\n- Preserve unresolved loops across days.\n- Mark uncertainty instead of pretending inferred details are known.\n\n## Current State\nNo simulated day has been run yet.\n\n## Recent Work Signals\n- None yet.\n\n## Recent Reflections\n- None yet.\n\n## Grown Identity (Revisions)\n- None; core identity unchanged.\n"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "profiles-get-history",
+    "tool": "get_persona",
+    "input": {
+      "persona_id": "persona_c685620fbe0d2a13"
+    },
+    "value": {
+      "persona": {
+        "id": "persona_c685620fbe0d2a13",
+        "slug": "morgan-lee",
+        "display_name": "Morgan Lee",
+        "source_description": "Synthetic operations lead profile",
+        "provenance": {
+          "source_description": "user",
+          "segment_hint": "not_provided",
+          "profile_fields": "llm_derived_from_source_description",
+          "evidence": "none",
+          "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+        },
+        "identity_traits": {
+          "gender_presentation": "unspecified",
+          "gender_confidence": "unspecified",
+          "age_range": "unspecified",
+          "appearance_notes": "unspecified",
+          "avatar_profile": "unspecified",
+          "avatar_constraints": "unspecified"
+        },
+        "segment": {
+          "customer_type": "Solo architect",
+          "market": "market",
+          "region": "region",
+          "firm_size": "1"
+        },
+        "demographics": {
+          "age": 40
+        },
+        "role": {
+          "title": "Operations lead",
+          "responsibilities": "does the work",
+          "seniority": "owner",
+          "decision_power": "full"
+        },
+        "company_context": {
+          "industry": "industry",
+          "size": "small",
+          "stack": "stack",
+          "operating_model": "solo"
+        },
+        "goals": [
+          "Keep handovers clear",
+          "Protect focus time"
+        ],
+        "constraints": [
+          "limited time"
+        ],
+        "tool_ids": [
+          "cad",
+          "e_mail"
+        ],
+        "tools": [
+          "CAD",
+          "E-Mail"
+        ],
+        "relationships": [
+          {
+            "name": "Client",
+            "type": "customer",
+            "friction": "slow replies"
+          }
+        ],
+        "personality": {
+          "working_style": "pragmatic",
+          "communication_style": "direct",
+          "risk_tolerance": "medium",
+          "character_notes": "skeptical of hype"
+        },
+        "pain_points": [
+          "Late supplier replies"
+        ],
+        "success_criteria": [
+          "it saves real time"
+        ],
+        "avatar": null,
+        "soul": {
+          "path": "data/personas/morgan-lee/SOUL.md",
+          "updated_at": "2026-09-09T05:09:47.255148+00:00",
+          "sha256": "f28448a1bf7d52eff8e7b25470ab5cb503d460c0e2318cbba7b4764bb98b87a2"
+        },
+        "created_at": "2026-09-09T05:09:47.248243+00:00",
+        "updated_at": "2026-09-09T05:09:47.255011+00:00",
+        "capabilities": {
+          "rungs": {
+            "see": true,
+            "walk": true,
+            "drive": true,
+            "login": false
+          },
+          "tech_comfort": 3,
+          "devices": [
+            "desktop",
+            "mobile"
+          ],
+          "accessibility": "",
+          "provenance": "derived"
+        }
+      },
+      "calendar_events": [
+        {
+          "id": "calendar_profile",
+          "persona_id": "persona_c685620fbe0d2a13",
+          "start": "2026-04-03T09:00:00",
+          "end": "2026-04-03T09:30:00",
+          "title": "Review supplier replies",
+          "block_type": "focus"
+        }
+      ],
+      "experience_events": [
+        {
+          "id": "event_profile",
+          "persona_id": "persona_c685620fbe0d2a13",
+          "timestamp": "2026-04-03T09:00:00",
+          "event_type": "focus",
+          "summary": "Compared the received handover notes",
+          "task": "Review replies",
+          "tool": "Email",
+          "collaboration_mode": "solo",
+          "mood": "focused",
+          "thought": "Keep the next owner clear",
+          "pain_point": "",
+          "follow_up": "",
+          "entities": [],
+          "details": {
+            "completed": true,
+            "interruptions": 0
+          }
+        }
+      ],
+      "daily_summaries": [
+        {
+          "id": "day_profile",
+          "persona_id": "persona_c685620fbe0d2a13",
+          "date": "2026-04-03",
+          "summary": "Protected a review period"
+        }
+      ],
+      "pain_points": [
+        {
+          "id": "pain_profile",
+          "persona_id": "persona_c685620fbe0d2a13",
+          "issue": "Repeated supplier follow-ups",
+          "severity": 2,
+          "frequency": 1,
+          "affected_workflow": "Handover",
+          "opportunity": "Clarify the next owner",
+          "evidence_event_ids": [
+            "event_profile"
+          ]
+        }
+      ],
+      "reflections": [
+        {
+          "id": "reflection_profile",
+          "persona_id": "persona_c685620fbe0d2a13",
+          "period_start": "2026-04-03",
+          "period_end": "2026-04-03",
+          "summary": "Clear handovers reduced follow-up"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "profiles-second-record",
+    "tool": "record_persona",
+    "input": {
+      "description": "Second independent synthetic profile",
+      "profile": {
+        "display_name": "Riley Quinn",
+        "identity_traits": {
+          "gender_presentation": "unspecified",
+          "gender_confidence": "unspecified",
+          "age_range": "unspecified",
+          "appearance_notes": "unspecified",
+          "avatar_profile": "unspecified",
+          "avatar_constraints": "unspecified"
+        },
+        "segment": {
+          "customer_type": "Solo architect",
+          "market": "market",
+          "region": "region",
+          "firm_size": "1"
+        },
+        "demographics": {
+          "age": 40
+        },
+        "role": {
+          "title": "Owner",
+          "responsibilities": "does the work",
+          "seniority": "owner",
+          "decision_power": "full"
+        },
+        "company_context": {
+          "industry": "industry",
+          "size": "small",
+          "stack": "stack",
+          "operating_model": "solo"
+        },
+        "goals": [
+          "Riley Quinn goal"
+        ],
+        "constraints": [
+          "limited time"
+        ],
+        "tool_ids": [
+          "cad",
+          "e_mail"
+        ],
+        "tools": [
+          "CAD",
+          "E-Mail"
+        ],
+        "relationships": [
+          {
+            "name": "Client",
+            "type": "customer",
+            "friction": "slow replies"
+          }
+        ],
+        "personality": {
+          "working_style": "pragmatic",
+          "communication_style": "direct",
+          "risk_tolerance": "medium",
+          "character_notes": "skeptical of hype"
+        },
+        "pain_points": [
+          "Riley Quinn pain alpha",
+          "Riley Quinn pain beta"
+        ],
+        "success_criteria": [
+          "it saves real time"
+        ]
+      },
+      "generate_avatar": false
+    },
+    "value": {
+      "id": "persona_06cb6e36f727b6d9",
+      "slug": "riley-quinn",
+      "display_name": "Riley Quinn",
+      "source_description": "Second independent synthetic profile",
+      "provenance": {
+        "source_description": "user",
+        "segment_hint": "not_provided",
+        "profile_fields": "llm_derived_from_source_description",
+        "evidence": "none",
+        "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+      },
+      "identity_traits": {
+        "gender_presentation": "unspecified",
+        "gender_confidence": "unspecified",
+        "age_range": "unspecified",
+        "appearance_notes": "unspecified",
+        "avatar_profile": "unspecified",
+        "avatar_constraints": "unspecified"
+      },
+      "segment": {
+        "customer_type": "Solo architect",
+        "market": "market",
+        "region": "region",
+        "firm_size": "1"
+      },
+      "demographics": {
+        "age": 40
+      },
+      "role": {
+        "title": "Owner",
+        "responsibilities": "does the work",
+        "seniority": "owner",
+        "decision_power": "full"
+      },
+      "company_context": {
+        "industry": "industry",
+        "size": "small",
+        "stack": "stack",
+        "operating_model": "solo"
+      },
+      "goals": [
+        "Riley Quinn goal"
+      ],
+      "constraints": [
+        "limited time"
+      ],
+      "tool_ids": [
+        "cad",
+        "e_mail"
+      ],
+      "tools": [
+        "CAD",
+        "E-Mail"
+      ],
+      "relationships": [
+        {
+          "name": "Client",
+          "type": "customer",
+          "friction": "slow replies"
+        }
+      ],
+      "personality": {
+        "working_style": "pragmatic",
+        "communication_style": "direct",
+        "risk_tolerance": "medium",
+        "character_notes": "skeptical of hype"
+      },
+      "pain_points": [
+        "Riley Quinn pain alpha",
+        "Riley Quinn pain beta"
+      ],
+      "success_criteria": [
+        "it saves real time"
+      ],
+      "avatar": null,
+      "soul": {
+        "path": "data/personas/riley-quinn/SOUL.md",
+        "updated_at": "2026-09-09T05:09:47.263154+00:00",
+        "sha256": "94867bb0506876a9b8c0516cf0a31f157350a7a3a7d23b557a0b097f0841ab79"
+      },
+      "created_at": "2026-09-09T05:09:47.262896+00:00",
+      "updated_at": "2026-09-09T05:09:47.262896+00:00",
+      "capabilities": null
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "profiles-list-first",
+    "tool": "list_personas",
+    "input": {
+      "limit": 1
+    },
+    "value": {
+      "items": [
+        {
+          "id": "persona_c685620fbe0d2a13",
+          "slug": "morgan-lee",
+          "display_name": "Morgan Lee",
+          "url": "http://127.0.0.1:8787/personas/persona_c685620fbe0d2a13",
+          "age_range": "unspecified",
+          "role": "Operations lead",
+          "segment": "region"
+        }
+      ],
+      "total": 2,
+      "has_more": true,
+      "next_cursor": "eyJrIjogIm1vcmdhbiBsZWVcdTAwMWZtb3JnYW4tbGVlIiwgImYiOiAiZGEzNzkxZjg4MCJ9"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "profiles-list-next",
+    "tool": "list_personas",
+    "input": {
+      "limit": 1,
+      "cursor": "eyJrIjogIm1vcmdhbiBsZWVcdTAwMWZtb3JnYW4tbGVlIiwgImYiOiAiZGEzNzkxZjg4MCJ9"
+    },
+    "value": {
+      "items": [
+        {
+          "id": "persona_06cb6e36f727b6d9",
+          "slug": "riley-quinn",
+          "display_name": "Riley Quinn",
+          "url": "http://127.0.0.1:8787/personas/persona_06cb6e36f727b6d9",
+          "age_range": "unspecified",
+          "role": "Owner",
+          "segment": "region"
+        }
+      ],
+      "total": 2,
+      "has_more": false
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "profiles-list-full",
+    "tool": "list_personas",
+    "input": {
+      "limit": 1,
+      "compact": false
+    },
+    "value": {
+      "items": [
+        {
+          "id": "persona_c685620fbe0d2a13",
+          "slug": "morgan-lee",
+          "display_name": "Morgan Lee",
+          "source_description": "Synthetic operations lead profile",
+          "provenance": {
+            "source_description": "user",
+            "segment_hint": "not_provided",
+            "profile_fields": "llm_derived_from_source_description",
+            "evidence": "none",
+            "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+          },
+          "identity_traits": {
+            "gender_presentation": "unspecified",
+            "gender_confidence": "unspecified",
+            "age_range": "unspecified",
+            "appearance_notes": "unspecified",
+            "avatar_profile": "unspecified",
+            "avatar_constraints": "unspecified"
+          },
+          "segment": {
+            "customer_type": "Solo architect",
+            "market": "market",
+            "region": "region",
+            "firm_size": "1"
+          },
+          "demographics": {
+            "age": 40
+          },
+          "role": {
+            "title": "Operations lead",
+            "responsibilities": "does the work",
+            "seniority": "owner",
+            "decision_power": "full"
+          },
+          "company_context": {
+            "industry": "industry",
+            "size": "small",
+            "stack": "stack",
+            "operating_model": "solo"
+          },
+          "goals": [
+            "Keep handovers clear",
+            "Protect focus time"
+          ],
+          "constraints": [
+            "limited time"
+          ],
+          "tool_ids": [
+            "cad",
+            "e_mail"
+          ],
+          "tools": [
+            "CAD",
+            "E-Mail"
+          ],
+          "relationships": [
+            {
+              "name": "Client",
+              "type": "customer",
+              "friction": "slow replies"
+            }
+          ],
+          "personality": {
+            "working_style": "pragmatic",
+            "communication_style": "direct",
+            "risk_tolerance": "medium",
+            "character_notes": "skeptical of hype"
+          },
+          "pain_points": [
+            "Late supplier replies"
+          ],
+          "success_criteria": [
+            "it saves real time"
+          ],
+          "avatar": null,
+          "soul": {
+            "path": "data/personas/morgan-lee/SOUL.md",
+            "updated_at": "2026-09-09T05:09:47.255148+00:00",
+            "sha256": "f28448a1bf7d52eff8e7b25470ab5cb503d460c0e2318cbba7b4764bb98b87a2"
+          },
+          "created_at": "2026-09-09T05:09:47.248243+00:00",
+          "updated_at": "2026-09-09T05:09:47.255011+00:00",
+          "capabilities": {
+            "rungs": {
+              "see": true,
+              "walk": true,
+              "drive": true,
+              "login": false
+            },
+            "tech_comfort": 3,
+            "devices": [
+              "desktop",
+              "mobile"
+            ],
+            "accessibility": "",
+            "provenance": "derived"
+          }
+        }
+      ],
+      "total": 2,
+      "has_more": true,
+      "next_cursor": "eyJrIjogIm1vcmdhbiBsZWVcdTAwMWZtb3JnYW4tbGVlIiwgImYiOiAiMTkxYWFjMWUyYiJ9"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "profiles-query-first",
+    "tool": "query_personas",
+    "input": {
+      "limit": 1
+    },
+    "value": {
+      "substrate_version": 1,
+      "total": 2,
+      "limit": 1,
+      "offset": 0,
+      "next_offset": 1,
+      "items": [
+        {
+          "id": "persona_06cb6e36f727b6d9",
+          "slug": "riley-quinn",
+          "display_name": "Riley Quinn",
+          "url": "http://127.0.0.1:8787/personas/persona_06cb6e36f727b6d9",
+          "age_range": "unspecified",
+          "role": "Owner",
+          "segment": "region"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "profiles-query-next",
+    "tool": "query_personas",
+    "input": {
+      "limit": 1,
+      "offset": 1
+    },
+    "value": {
+      "substrate_version": 1,
+      "total": 2,
+      "limit": 1,
+      "offset": 1,
+      "next_offset": null,
+      "items": [
+        {
+          "id": "persona_c685620fbe0d2a13",
+          "slug": "morgan-lee",
+          "display_name": "Morgan Lee",
+          "url": "http://127.0.0.1:8787/personas/persona_c685620fbe0d2a13",
+          "age_range": "unspecified",
+          "role": "Operations lead",
+          "segment": "region"
+        }
+      ]
+    },
+    "state": "ready"
+  }
+]

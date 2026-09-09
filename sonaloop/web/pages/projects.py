@@ -395,7 +395,8 @@ def register_projects(app) -> None:
                    _project_icon_details_html(project_record),
                    h("details", {"class_": "sl-project-lineage"},
                      h("summary", {}, t("rpr_study")),
-                     h("p", {}, h("a", {"href": f'/jobs/{proj["id"]}/results'}, t("rpr_study")))),
+                     h("p", {}, h("a", {"href": f'/jobs/{proj["id"]}/results'}, t("rpr_study"))),
+                     h("p", {}, h("a", {"href": f'/jobs/{proj["id"]}/cohort'}, t("rcg_cohorts")))),
                    h("div", {"class_": "pills"}, raw(run_chip)),
                    bar if not customer_surface else None),
                  (raw(_project_setup_details_html(project_record, store))

@@ -21,6 +21,14 @@ def public_component_value(name: str, value):
         if not isinstance(value, dict) or "prototype" not in value:
             raise ValueError("Expected native remote registration envelope")
         return {"artifact": value["prototype"], **({"note": value["note"]} if "note" in value else {})}
+    if name in {"select_reaction_test_cohort", "record_cohort_preflight", "get_cohort_preflight"}:
+        if not isinstance(value, dict):
+            raise ValueError("Expected native cohort record")
+        if isinstance(value.get("dispatch"), dict) and "dispatch_token" in value["dispatch"]:
+            # This exact authority field is not a public presentation prop.
+            # The native result remains untouched; the pure body does not use it.
+            return {**value, "dispatch": {key: item for key, item in value["dispatch"].items()
+                if key != "dispatch_token"}}
     return value
 
 

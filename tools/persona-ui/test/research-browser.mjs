@@ -349,6 +349,9 @@ for case in json.loads(Path("tools/persona-ui/fixtures/council-formats.json").re
 for case in json.loads(Path("tools/persona-ui/fixtures/calendar-plans.json").read_text())["cases"]:
     family = "plans" if case["tool"] in {"put_day_plan", "get_day_plan", "put_period_plan", "get_period_plan", "list_period_plans"} else "calendar"
     specs.append((family + "-" + case["scenario"].replace("_", "-"), family, case["tool"], case["input"], case["value"]))
+for family in ("cohorts", "profiles", "records"):
+    for case in json.loads(Path("tools/persona-ui/fixtures/" + family + ".json").read_text()):
+        specs.append((case["scenario"].replace("_", "-"), family, case["tool"], case["input"], case["value"]))
 for case in json.loads(Path("tools/persona-ui/fixtures/preparation.json").read_text()):
     specs.append(("preparation-" + case["scenario"].replace("_", "-"), "preparation", case["tool"], case["input"], case["value"]))
 for case in json.loads(Path("tools/persona-ui/fixtures/project-health.json").read_text()):
@@ -366,15 +369,14 @@ for scenario, family, tool, arguments, data in specs:
     public_html, public_state = render_component_props(SURFACES[tool].component_id, {"name": tool, "value": public_value})
     assert str(public_html) == str(html) and public_state == state, "Public props and native projection diverged"
     output.append(dict(scenario=scenario, family=family, tool=tool, input=arguments, native=envelope,
-                       html=str(html), state=state, public_value=public_value, note_content=str(note_content(note)),
-                       project_heading=str(project_heading(project, level="h2")),
-                       search_hit_content=str(search_hit_content(hit["title"], hit["text"])),
-                       fetched_content=str(note_content(fetched)),
-                       passive_reference_html=str(render_ref({"kind": "council", "id": "council_real", "anchor": "statement_3",
-                          "quote": "An observation with substantial context. " * 12 + "Only applies during the pilot."}, passive=True))))
+                       html=str(html), state=state, public_value=public_value))
+shared = dict(note_content=str(note_content(note)), project_heading=str(project_heading(project, level="h2")),
+    search_hit_content=str(search_hit_content(hit["title"], hit["text"])), fetched_content=str(note_content(fetched)),
+    passive_reference_html=str(render_ref({"kind": "council", "id": "council_real", "anchor": "statement_3",
+        "quote": "An observation with substantial context. " * 12 + "Only applies during the pilot."}, passive=True)))
 declarations = [dict(tool=name, componentId=surface.component_id, resourceUri=surface.uri)
                 for name, surface in sorted(SURFACES.items())]
-print(json.dumps(dict(fixtures=output, declarations=declarations)))
+print(json.dumps(dict(fixtures=output, declarations=declarations, shared=shared)))
 `;
 
 export async function nativeFixtureSet() {
@@ -382,8 +384,8 @@ export async function nativeFixtureSet() {
   const { stdout } = await execFile(python, ['-B', '-c', fixturePython], { cwd: repo,
     env: { PATH: process.env.PATH || '', PYTHONPATH: repo, PYTHONDONTWRITEBYTECODE: '1', LANG: 'C.UTF-8' },
     maxBuffer: 1024 * 1024 });
-  const { fixtures, declarations } = JSON.parse(stdout);
-  return { declarations, fixtures: fixtures.map(value => ({ ...value,
+  const { fixtures, declarations, shared } = JSON.parse(stdout);
+  return { collectionBytes: Buffer.byteLength(stdout), declarations, fixtures: fixtures.map(value => ({ ...shared, ...value,
     result: { ...toolResult(value.html, { ...value, text: canonical(value.native) }), structuredContent: value.native } })) };
 }
 

@@ -240,8 +240,9 @@ def _persona_row(p: dict, store: Store) -> str:
     right = fragment(h("span", {"class_": "muted small"}, p["company_context"]["industry"]), meta,
                      raw(_star("persona", pid, p["display_name"], f"/personas/{pid}")))
     from .pages.edit import persona_list_actions
-    return _row(f'/personas/{pid}', _avatar(p, 22), p["display_name"], right,
-                sub=p["role"]["title"], actions=persona_list_actions(p))
+    from ..ui_components.persona_profile_rows import profile_row
+    return profile_row(p, prepared={"avatar": _avatar(p, 22), "right": right,
+        "actions": persona_list_actions(p)})
 
 
 def register_lists(app) -> None:

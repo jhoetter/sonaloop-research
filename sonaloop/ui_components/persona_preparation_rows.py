@@ -4,7 +4,12 @@ from __future__ import annotations
 import math
 
 from .library import _kit
-from .projects_rows import record, texts, strings, count, identity, fields, t
+from .projects_rows import record, texts, strings, count, identity, fields as native_fields, t
+
+
+def fields(pairs):
+    labels = {"next_action": t("rpp_next_action"), "memory_hits": t("rpp_memory_hits"), "cursor": t("rpp_cursor")}
+    return native_fields((labels.get(key, key), value) for key, value in pairs)
 
 
 def rows(value):
@@ -44,7 +49,9 @@ def section(title, *body):
 
 def text_list(title, value):
     h, _, _ = _kit()
-    return section(title, h("ul", {}, [h("li", {}, item) for item in strings(value)]))
+    strings(value)
+    return section(title, h("ul", {}, [h("li", {}, item) for item in value])
+        if value else h("p", {}, t("rpp_no_entries")))
 
 
 def readiness_record(value):

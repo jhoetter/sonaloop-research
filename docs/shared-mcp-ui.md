@@ -89,6 +89,36 @@ accepted human review remain separate from the ledger's classifications.
 
 ## Passive shared views
 
+Native Persona profiles use a separate passive **Profiles and history** family.
+The existing Product fallback hero, goals/tools sections, relationship text and
+listing row are shared pure bodies. Product adapters keep avatar resolution and
+edit controls. The five interactive Persona surface tools remain unchanged;
+older native profiles are never relabelled as surface DTOs. Explicit Product
+links open the native profile/history and supplied SOUL document. Those existing
+native getters may repair SOUL/runtime fields, as before; the renderer performs
+no reads or repairs. Returned calendar/experience/daily/pain/reflection records
+stay in closed local disclosures. Avatar paths and metadata are unloaded
+references, not proof that image pixels were rendered.
+
+**Cohort diagnostics** shares the existing Product cohort-integrity body and
+adds explicit stored-report, selection-history and coverage inspection. A
+historical preflight keeps its recorded verdict; only the existing Product
+adapter checks current freshness. Structural diversity, aggregate memory counts,
+coverage, recorded critic and selection/checkpoint flags remain distinct.
+The global report page reads persisted assessments rather than invoking the
+diversity writer. An empty project cohort never calls the native all-Persona
+depth query. Full provenance and overlap details remain supplied data, not new
+grounding or evidence. Unknown/invalid records preserve a truthful fallback.
+
+**Persona records and sources** displays stored identity revisions, voice checks
+and attached sources through the same Product record inspector. Revisions show
+their authored changes and references without recomputing current identity.
+Voice checks retain their recorded verdict and zero-valued scores; the candidate
+text is not returned, and a suggested rewrite is not that original text. Evidence
+paths, URLs and supplied prose remain literal; rendering never loads or verifies
+them. The Product checks active-workspace Persona ownership before reading the
+three histories. No new persistence or execution authority is introduced.
+
 Notes, Sections, Projects, Search, Hypotheses, Decisions, Councils, Surveys,
 Syntheses/Reports, Sessions, Files, Prototypes, Plans, Calendars, Memory and captured URL References
 have passive MCP resources registered on
@@ -365,7 +395,7 @@ screenshots from an earlier release. Focus, loading and error still require thei
 own declared scenario evidence; the readonly example covers success and disabled
 editing. This JSON example does not attest the live adapter's mutation workflow.
 
-One explicit public DTO mapping handles a reserved JavaScript property name:
+An explicit public DTO mapping handles a reserved JavaScript property name:
 `register_remote_prototype` uses `{artifact, note?}` as its public `value`, while
 the unchanged native result uses `{prototype, note?, dispatch?}`.
 `public_component_value()` prepares that authored example and the pure entry
@@ -374,8 +404,17 @@ prop. The reserved-key ban remains intact. The fixture harness independently
 compares the public DTO's rendered HTML with the original native projection;
 native MCP text, structured content and input/result raster hashes are unchanged.
 
+The cohort selection and recorded-preflight public DTOs omit exactly
+`dispatch.dispatch_token`. No recursive field deletion or other domain-data
+transformation occurs. The pure renderer does not read that authority field;
+tests compare identical rendered HTML before and after this mapping and verify
+that native MCP outputs remain unchanged. Authored repository render fixtures
+use an inert placeholder for transient synthetic dispatch tokens; original
+isolated native-test output stays in private qualification evidence. Public
+Component declarations contain the mapped view model without that grant field.
+
 The checked examples are synthetic public content. They contain no private
-presentation HTML, native envelope, credentials, dispatch metadata or runtime
+presentation HTML, native envelope, credentials, execution grants or runtime
 record copy. Their bounded JSON Schemas describe supported authored example
 shapes, rather than replacing the native business input/output schemas. Deep
 compound fields retain type-only checks within the public schema depth budget;

@@ -7,6 +7,8 @@ from typing import Callable
 from .library import collection, note_card, section_card
 from . import references, assets, prototypes, calendar, plans, bets, councils, council_formats, discovery, surveys, syntheses, sessions, session_funnels
 from . import persona_preparation
+from . import cohort, cohort_preflight, persona_profiles
+from . import persona_records
 from . import memory, memory_outcomes, projects, project_graph, project_results, predictions, project_health
 
 SCHEMA = "sonaloop.research-presentation.v1"
@@ -69,6 +71,23 @@ def _members(value):
 
 
 SURFACES = {
+    "record_persona_revision": Surface("records", persona_records.revision),
+    "list_persona_revisions": Surface("records", persona_records.revisions),
+    "record_persona_voice_check": Surface("records", persona_records.voice_check),
+    "attach_evidence": Surface("records", persona_records.evidence),
+    "record_persona": Surface("profiles", persona_profiles.profile),
+    "update_persona": Surface("profiles", persona_profiles.profile),
+    "get_persona": Surface("profiles", persona_profiles.detail),
+    "get_persona_soul": Surface("profiles", persona_profiles.soul),
+    "list_personas": Surface("profiles", persona_profiles.profiles),
+    "query_personas": Surface("profiles", persona_profiles.queried),
+    "evaluate_cohort_diversity": Surface("cohorts", cohort.diversity),
+    "record_cohort_critic": Surface("cohorts", cohort.critic),
+    "cohort_memory_depth": Surface("cohorts", cohort.depth),
+    "assess_coverage": Surface("cohorts", cohort.coverage),
+    "select_reaction_test_cohort": Surface("cohorts", cohort.selection),
+    "record_cohort_preflight": Surface("cohorts", cohort_preflight.preflight),
+    "get_cohort_preflight": Surface("cohorts", cohort_preflight.preflight),
     "persona_readiness": Surface("preparation", persona_preparation.readiness),
     "persona_task_readiness": Surface("preparation", persona_preparation.task_readiness),
     "prepare_persona_for_task": Surface("preparation", persona_preparation.snapshot),

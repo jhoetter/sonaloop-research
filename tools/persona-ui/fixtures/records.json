@@ -1,0 +1,345 @@
+[
+  {
+    "scenario": "records-source-url",
+    "tool": "attach_evidence",
+    "input": {
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "source_type": "url",
+      "content_or_path": "https://example.invalid/interview",
+      "notes": "Supplied interview location."
+    },
+    "value": {
+      "id": "evidence_5f83283a523461b1",
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "source_type": "url",
+      "content_or_path": "https://example.invalid/interview",
+      "notes": "Supplied interview location.",
+      "created_at": "2026-09-09T05:12:43.020371+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "records-source-path",
+    "tool": "attach_evidence",
+    "input": {
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "source_type": "document",
+      "content_or_path": "notes/field-interview.md"
+    },
+    "value": {
+      "id": "evidence_e527770b3027b175",
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "source_type": "document",
+      "content_or_path": "notes/field-interview.md",
+      "notes": null,
+      "created_at": "2026-09-09T05:12:43.022270+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "records-source-text",
+    "tool": "attach_evidence",
+    "input": {
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "source_type": "note",
+      "content_or_path": "The weekly checklist remains useful.\nNo new process was requested.",
+      "notes": ""
+    },
+    "value": {
+      "id": "evidence_6baeb2881652acaa",
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "source_type": "note",
+      "content_or_path": "The weekly checklist remains useful.\nNo new process was requested.",
+      "notes": "",
+      "created_at": "2026-09-09T05:12:43.023696+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "records-revisions-empty",
+    "tool": "list_persona_revisions",
+    "input": {
+      "persona_id": "persona_4ff75c07fc80a1cb"
+    },
+    "value": [],
+    "state": "empty"
+  },
+  {
+    "scenario": "records-revision-changes",
+    "tool": "record_persona_revision",
+    "input": {
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "revision": {
+        "effective_on": "2026-06-02",
+        "rationale": "A supplied interview describes the changed routine.",
+        "changes": {
+          "goals_add": [
+            "Review the checklist weekly"
+          ],
+          "goals_remove": [
+            "Records fixture goal"
+          ],
+          "constraints_add": [
+            "Friday review slot"
+          ],
+          "constraints_remove": [
+            "limited time"
+          ],
+          "pains_add": [
+            "Late supplier replies"
+          ],
+          "pains_remove": [
+            "Old manual filing"
+          ],
+          "tools_add": [
+            "Paper checklist"
+          ],
+          "tools_remove": [
+            "Unused spreadsheet"
+          ],
+          "personality": {
+            "working_style": "Keeps a weekly list",
+            "communication_style": "Asks concrete questions",
+            "risk_tolerance": "Cautious with workflow changes",
+            "character_notes": "Prefers familiar routines"
+          },
+          "notes": "Only the reported revision is presented."
+        },
+        "refs": [
+          {
+            "kind": "evidence",
+            "id": "evidence_5f83283a523461b1"
+          }
+        ]
+      }
+    },
+    "value": {
+      "id": "rev_c98a994876e4a973",
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "effective_on": "2026-06-02",
+      "rationale": "A supplied interview describes the changed routine.",
+      "changes": {
+        "goals_add": [
+          "Review the checklist weekly"
+        ],
+        "goals_remove": [
+          "Records fixture goal"
+        ],
+        "constraints_add": [
+          "Friday review slot"
+        ],
+        "constraints_remove": [
+          "limited time"
+        ],
+        "pains_add": [
+          "Late supplier replies"
+        ],
+        "pains_remove": [
+          "Old manual filing"
+        ],
+        "tools_add": [
+          "Paper checklist"
+        ],
+        "tools_remove": [
+          "Unused spreadsheet"
+        ],
+        "personality": {
+          "working_style": "Keeps a weekly list",
+          "communication_style": "Asks concrete questions",
+          "risk_tolerance": "Cautious with workflow changes",
+          "character_notes": "Prefers familiar routines"
+        },
+        "notes": "Only the reported revision is presented."
+      },
+      "refs": [
+        {
+          "kind": "evidence",
+          "id": "evidence_5f83283a523461b1"
+        }
+      ],
+      "created_at": "2026-09-09T05:12:43.026029+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "records-revision-no-change",
+    "tool": "record_persona_revision",
+    "input": {
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "revision": {
+        "effective_on": "2026-06-03",
+        "rationale": "No additional identity change is supported.",
+        "changes": {},
+        "refs": []
+      }
+    },
+    "value": {
+      "id": "rev_437487a6b8b46f28",
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "effective_on": "2026-06-03",
+      "rationale": "No additional identity change is supported.",
+      "changes": {},
+      "refs": [],
+      "created_at": "2026-09-09T05:12:43.028859+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "records-revisions-history",
+    "tool": "list_persona_revisions",
+    "input": {
+      "persona_id": "persona_4ff75c07fc80a1cb"
+    },
+    "value": [
+      {
+        "id": "rev_c98a994876e4a973",
+        "persona_id": "persona_4ff75c07fc80a1cb",
+        "effective_on": "2026-06-02",
+        "rationale": "A supplied interview describes the changed routine.",
+        "changes": {
+          "goals_add": [
+            "Review the checklist weekly"
+          ],
+          "goals_remove": [
+            "Records fixture goal"
+          ],
+          "constraints_add": [
+            "Friday review slot"
+          ],
+          "constraints_remove": [
+            "limited time"
+          ],
+          "pains_add": [
+            "Late supplier replies"
+          ],
+          "pains_remove": [
+            "Old manual filing"
+          ],
+          "tools_add": [
+            "Paper checklist"
+          ],
+          "tools_remove": [
+            "Unused spreadsheet"
+          ],
+          "personality": {
+            "working_style": "Keeps a weekly list",
+            "communication_style": "Asks concrete questions",
+            "risk_tolerance": "Cautious with workflow changes",
+            "character_notes": "Prefers familiar routines"
+          },
+          "notes": "Only the reported revision is presented."
+        },
+        "refs": [
+          {
+            "kind": "evidence",
+            "id": "evidence_5f83283a523461b1"
+          }
+        ],
+        "created_at": "2026-09-09T05:12:43.026029+00:00"
+      },
+      {
+        "id": "rev_437487a6b8b46f28",
+        "persona_id": "persona_4ff75c07fc80a1cb",
+        "effective_on": "2026-06-03",
+        "rationale": "No additional identity change is supported.",
+        "changes": {},
+        "refs": [],
+        "created_at": "2026-09-09T05:12:43.028859+00:00"
+      }
+    ],
+    "state": "ready"
+  },
+  {
+    "scenario": "records-voice-green",
+    "tool": "record_persona_voice_check",
+    "input": {
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "text": "I will keep my familiar checklist.",
+      "verdict": {
+        "scores": {
+          "authenticity": 4,
+          "register_match": 4,
+          "knowledge_grounding": 4,
+          "attribution_separation": 4
+        },
+        "issues": [],
+        "rewrite": null
+      }
+    },
+    "value": {
+      "id": "voicecheck_c249b0c99608d240",
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "kind": "persona_voice_check",
+      "green": true,
+      "scores": {
+        "authenticity": 4,
+        "register_match": 4,
+        "knowledge_grounding": 4,
+        "attribution_separation": 4
+      },
+      "issues": [],
+      "rewrite": null,
+      "text_sha256": "9f6d045840c0b347b72753360045895a7f6411c50244c00caf0b109b70742805",
+      "context_snapshot_id": null,
+      "deterministic_signals": [],
+      "created_at": "2026-09-09T05:12:43.033237+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "records-voice-red",
+    "tool": "record_persona_voice_check",
+    "input": {
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "text": "This information architecture increases cognitive load.",
+      "verdict": {
+        "scores": {
+          "authenticity": 0,
+          "register_match": 1,
+          "knowledge_grounding": 4,
+          "attribution_separation": 4
+        },
+        "issues": [
+          {
+            "kind": "analyst_register",
+            "detail": "The wording diagnoses a design instead of describing a routine."
+          }
+        ],
+        "rewrite": "Where should I start? I cannot find my checklist."
+      }
+    },
+    "value": {
+      "id": "voicecheck_57e7797a0c1b4d09",
+      "persona_id": "persona_4ff75c07fc80a1cb",
+      "kind": "persona_voice_check",
+      "green": false,
+      "scores": {
+        "authenticity": 0,
+        "register_match": 1,
+        "knowledge_grounding": 4,
+        "attribution_separation": 4
+      },
+      "issues": [
+        {
+          "kind": "analyst_register",
+          "detail": "The wording diagnoses a design instead of describing a routine."
+        }
+      ],
+      "rewrite": "Where should I start? I cannot find my checklist.",
+      "text_sha256": "ab382afb21acff719370d5321960febecbfa94da35ed1d0382a031f8c2ad428e",
+      "context_snapshot_id": null,
+      "deterministic_signals": [
+        {
+          "kind": "analyst_register",
+          "phrase": "information architecture"
+        },
+        {
+          "kind": "analyst_register",
+          "phrase": "cognitive load"
+        }
+      ],
+      "created_at": "2026-09-09T05:12:43.035425+00:00"
+    },
+    "state": "ready"
+  }
+]

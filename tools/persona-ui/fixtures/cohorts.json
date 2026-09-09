@@ -1,0 +1,2352 @@
+[
+  {
+    "scenario": "cohort-diversity-na",
+    "tool": "evaluate_cohort_diversity",
+    "input": {
+      "persona_ids": [
+        "persona_b90a74f561847bb3"
+      ]
+    },
+    "value": {
+      "id": "cohortdiv_4dfe44208da6c2b5",
+      "kind": "cohort_diversity",
+      "status": "na",
+      "green": true,
+      "detail": "need >=2 personas",
+      "persona_count": 1,
+      "duplicate_pairs": [],
+      "metrics": {},
+      "created_at": "2026-09-09T04:50:17.018327+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-diversity-duplicates",
+    "tool": "evaluate_cohort_diversity",
+    "input": {
+      "persona_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ]
+    },
+    "value": {
+      "id": "cohortdiv_1d0a3037eb968dbd",
+      "kind": "cohort_diversity",
+      "status": "red",
+      "green": false,
+      "persona_count": 2,
+      "personas_evaluated": [
+        "Cohort A",
+        "Cohort B"
+      ],
+      "duplicate_pairs": [
+        {
+          "a": "Cohort A",
+          "a_id": "persona_b90a74f561847bb3",
+          "b": "Cohort B",
+          "b_id": "persona_12a40d7085293647",
+          "similarity": 1.0
+        }
+      ],
+      "detail": "mean_pairwise_similarity=1.0 near_duplicate_pairs=1 max_segment_share=1.0 distinct_segment_ratio=0.5",
+      "metrics": {
+        "mean_pairwise_similarity": 1.0,
+        "near_duplicate_pairs": 1,
+        "max_segment_share": 1.0,
+        "distinct_segment_ratio": 0.5,
+        "segment_distribution": {
+          "solo architect": 2
+        }
+      },
+      "created_at": "2026-09-09T04:50:17.020861+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-critic-green",
+    "tool": "record_cohort_critic",
+    "input": {
+      "verdict": {
+        "outliers": [],
+        "cohort_note": "No outliers reported."
+      }
+    },
+    "value": {
+      "id": "cohortcritic_258c549e0748a7ea",
+      "persona_id": null,
+      "kind": "cohort_critic",
+      "green": true,
+      "outliers": [],
+      "cohort_note": "No outliers reported.",
+      "created_at": "2026-09-09T04:50:17.022440+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-critic-outlier",
+    "tool": "record_cohort_critic",
+    "input": {
+      "verdict": {
+        "outliers": [
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "persona_name": "Cohort B",
+            "dimension": "distinctiveness",
+            "severity": 5,
+            "reason": "Shares the same routine constraints."
+          }
+        ],
+        "cohort_note": "One recorded outlier."
+      }
+    },
+    "value": {
+      "id": "cohortcritic_824399846c4ea463",
+      "persona_id": null,
+      "kind": "cohort_critic",
+      "green": false,
+      "outliers": [
+        {
+          "persona_id": "persona_12a40d7085293647",
+          "persona_name": "Cohort B",
+          "reason": "Shares the same routine constraints.",
+          "dimension": "distinctiveness",
+          "severity": 5
+        }
+      ],
+      "cohort_note": "One recorded outlier.",
+      "created_at": "2026-09-09T04:50:17.023501+00:00"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-depth-zero",
+    "tool": "cohort_memory_depth",
+    "input": {
+      "persona_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ]
+    },
+    "value": {
+      "personas": 2,
+      "facts": 0,
+      "events": 0,
+      "avg_per_persona": 0.0,
+      "hint": "thin — deepen the cohort (simulate-cohort) for richer councils"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-coverage-empty",
+    "tool": "assess_coverage",
+    "input": {
+      "project": "rproject_operation_f905b30136d1b9b3"
+    },
+    "value": {
+      "schema": "coverage_assessment",
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "job": null,
+      "panel_size": 0,
+      "indicator": {
+        "level": "thin",
+        "score": 0,
+        "gap_count": 6,
+        "reasons": [
+          "Panel zu klein (0 < 3)."
+        ]
+      },
+      "dimensions": [
+        {
+          "dimension": "segment",
+          "counts": {},
+          "distinct": 0,
+          "assessed": 0,
+          "not_assessable": 0,
+          "dominant": null,
+          "dominant_share": 0.0,
+          "over_concentration": false,
+          "no_signal": true,
+          "thin": true
+        },
+        {
+          "dimension": "demographics",
+          "counts": {},
+          "distinct": 0,
+          "assessed": 0,
+          "not_assessable": 0,
+          "dominant": null,
+          "dominant_share": 0.0,
+          "over_concentration": false,
+          "no_signal": true,
+          "thin": true
+        },
+        {
+          "dimension": "attitude",
+          "counts": {},
+          "distinct": 0,
+          "assessed": 0,
+          "not_assessable": 0,
+          "dominant": null,
+          "dominant_share": 0.0,
+          "over_concentration": false,
+          "no_signal": true,
+          "thin": true
+        },
+        {
+          "dimension": "needs",
+          "counts": {},
+          "distinct": 0,
+          "assessed": 0,
+          "not_assessable": 0,
+          "dominant": null,
+          "dominant_share": 0.0,
+          "over_concentration": false,
+          "no_signal": true,
+          "thin": true
+        },
+        {
+          "dimension": "jtbd",
+          "counts": {},
+          "distinct": 0,
+          "assessed": 0,
+          "not_assessable": 0,
+          "dominant": null,
+          "dominant_share": 0.0,
+          "over_concentration": false,
+          "no_signal": true,
+          "thin": true
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "panel_too_small",
+          "dimension": null,
+          "reason": "Nur 0 Personas im Panel (Minimum 3 für Aussagekraft)."
+        },
+        {
+          "kind": "not_assessable",
+          "dimension": "segment",
+          "reason": "Segment: keine erfassbaren Werte — Dimension nicht beurteilbar."
+        },
+        {
+          "kind": "not_assessable",
+          "dimension": "demographics",
+          "reason": "Demografie/Firmografie: keine erfassbaren Werte — Dimension nicht beurteilbar."
+        },
+        {
+          "kind": "not_assessable",
+          "dimension": "attitude",
+          "reason": "Einstellung: keine erfassbaren Werte — Dimension nicht beurteilbar."
+        },
+        {
+          "kind": "not_assessable",
+          "dimension": "needs",
+          "reason": "Bedürfnisse: keine erfassbaren Werte — Dimension nicht beurteilbar."
+        },
+        {
+          "kind": "not_assessable",
+          "dimension": "jtbd",
+          "reason": "JTBD: keine erfassbaren Werte — Dimension nicht beurteilbar."
+        }
+      ],
+      "recommendations": [
+        {
+          "dimension": null,
+          "dimension_label": null,
+          "avoid_value": null,
+          "description": "Erweitere das Panel auf mindestens 3 Personas mit unterschiedlichen Profilen."
+        },
+        {
+          "dimension": "segment",
+          "dimension_label": "Segment",
+          "avoid_value": null,
+          "description": "Erfasse die Dimension Segment explizit in den Persona-Profilen, damit sie beurteilbar wird."
+        },
+        {
+          "dimension": "demographics",
+          "dimension_label": "Demografie/Firmografie",
+          "avoid_value": null,
+          "description": "Erfasse die Dimension Demografie/Firmografie explizit in den Persona-Profilen, damit sie beurteilbar wird."
+        },
+        {
+          "dimension": "attitude",
+          "dimension_label": "Einstellung",
+          "avoid_value": null,
+          "description": "Erfasse die Dimension Einstellung explizit in den Persona-Profilen, damit sie beurteilbar wird."
+        },
+        {
+          "dimension": "needs",
+          "dimension_label": "Bedürfnisse",
+          "avoid_value": null,
+          "description": "Erfasse die Dimension Bedürfnisse explizit in den Persona-Profilen, damit sie beurteilbar wird."
+        },
+        {
+          "dimension": "jtbd",
+          "dimension_label": "JTBD",
+          "avoid_value": null,
+          "description": "Erfasse die Dimension JTBD explizit in den Persona-Profilen, damit sie beurteilbar wird."
+        }
+      ],
+      "catalog_hint": "catalog_recommend({'facets': {...}, 'n': <missing>}) finds matching ready-made personas in the curated catalog; catalog_pull imports them — author new personas only for gaps the catalog cannot fill",
+      "declared_coverage": null
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-selected-not-checkpointed",
+    "tool": "select_reaction_test_cohort",
+    "input": {
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "persona_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ],
+      "selection_rationale": "Compare the existing routine perspectives.",
+      "operation_id": "cohort-ui-selection",
+      "dispatch_token": "synthetic-dispatch-no-authority"
+    },
+    "value": {
+      "schema": "sonaloop.reaction_cohort_selection.v1",
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "persona_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ],
+      "minimum_personas": 2,
+      "selection_rationale": "Compare the existing routine perspectives.",
+      "operation_id": "cohort-ui-selection",
+      "idempotent_replay": false,
+      "gate_passed": false,
+      "next": {
+        "tool": "run_step",
+        "arguments": {
+          "run_id": "run_operation_277967fd07729171"
+        },
+        "note": "The same frame dispatch remains open; run_step returns its updated one-action contract."
+      },
+      "dispatch": {
+        "state": "supporting_write",
+        "checkpointed": false,
+        "dispatch_token": "synthetic-dispatch-no-authority",
+        "task_id": "frame__react"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-selection-replayed",
+    "tool": "select_reaction_test_cohort",
+    "input": {
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "persona_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ],
+      "selection_rationale": "Compare the existing routine perspectives.",
+      "operation_id": "cohort-ui-selection",
+      "dispatch_token": "synthetic-dispatch-no-authority"
+    },
+    "value": {
+      "schema": "sonaloop.reaction_cohort_selection.v1",
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "persona_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ],
+      "minimum_personas": 2,
+      "selection_rationale": "Compare the existing routine perspectives.",
+      "operation_id": "cohort-ui-selection",
+      "idempotent_replay": true,
+      "gate_passed": false,
+      "next": {
+        "tool": "run_step",
+        "arguments": {
+          "run_id": "run_operation_277967fd07729171"
+        },
+        "note": "The same frame dispatch remains open; run_step returns its updated one-action contract."
+      },
+      "dispatch": {
+        "state": "supporting_write",
+        "checkpointed": false,
+        "dispatch_token": "synthetic-dispatch-no-authority",
+        "task_id": "frame__react"
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-coverage-declared",
+    "tool": "assess_coverage",
+    "input": {
+      "project": "rproject_operation_f905b30136d1b9b3",
+      "job": "positioning"
+    },
+    "value": {
+      "schema": "coverage_assessment",
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "job": "positioning",
+      "panel_size": 2,
+      "indicator": {
+        "level": "thin",
+        "score": 0,
+        "gap_count": 3,
+        "reasons": [
+          "Panel zu klein (2 < 3)."
+        ]
+      },
+      "dimensions": [
+        {
+          "dimension": "segment",
+          "counts": {
+            "Solo architect": 2
+          },
+          "distinct": 1,
+          "assessed": 2,
+          "not_assessable": 0,
+          "dominant": "Solo architect",
+          "dominant_share": 1.0,
+          "over_concentration": false,
+          "no_signal": false,
+          "thin": false
+        },
+        {
+          "dimension": "demographics",
+          "counts": {
+            "small": 2
+          },
+          "distinct": 1,
+          "assessed": 2,
+          "not_assessable": 0,
+          "dominant": "small",
+          "dominant_share": 1.0,
+          "over_concentration": false,
+          "no_signal": false,
+          "thin": false
+        },
+        {
+          "dimension": "attitude",
+          "counts": {
+            "medium": 2
+          },
+          "distinct": 1,
+          "assessed": 2,
+          "not_assessable": 0,
+          "dominant": "medium",
+          "dominant_share": 1.0,
+          "over_concentration": false,
+          "no_signal": false,
+          "thin": false
+        },
+        {
+          "dimension": "needs",
+          "counts": {
+            "maintain routines": 2
+          },
+          "distinct": 1,
+          "assessed": 2,
+          "not_assessable": 0,
+          "dominant": "maintain routines",
+          "dominant_share": 1.0,
+          "over_concentration": false,
+          "no_signal": false,
+          "thin": false
+        },
+        {
+          "dimension": "jtbd",
+          "counts": {
+            "supplier handoffs": 2
+          },
+          "distinct": 1,
+          "assessed": 2,
+          "not_assessable": 0,
+          "dominant": "supplier handoffs",
+          "dominant_share": 1.0,
+          "over_concentration": false,
+          "no_signal": false,
+          "thin": false
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "panel_too_small",
+          "dimension": null,
+          "reason": "Nur 2 Personas im Panel (Minimum 3 für Aussagekraft)."
+        },
+        {
+          "kind": "below_declared_min",
+          "dimension": null,
+          "reason": "Job 'Positioning' verlangt mindestens 4 Personas; das Panel hat 2."
+        },
+        {
+          "kind": "declared_axis_unmapped",
+          "dimension": null,
+          "axis": "current-alternative",
+          "reason": "Geforderte Achse 'current-alternative' lässt sich nicht aus den Persona-Feldern ableiten — manuell prüfen."
+        }
+      ],
+      "recommendations": [
+        {
+          "dimension": null,
+          "dimension_label": null,
+          "avoid_value": null,
+          "description": "Erweitere das Panel auf mindestens 3 Personas mit unterschiedlichen Profilen."
+        },
+        {
+          "dimension": null,
+          "dimension_label": null,
+          "avoid_value": null,
+          "description": "Füge Personas hinzu, bis das Panel die 4 für Job 'Positioning' geforderten Personas erreicht."
+        }
+      ],
+      "catalog_hint": "catalog_recommend({'facets': {...}, 'n': <missing>}) finds matching ready-made personas in the curated catalog; catalog_pull imports them — author new personas only for gaps the catalog cannot fill",
+      "declared_coverage": {
+        "job_id": "positioning",
+        "job_name": "Positioning",
+        "min_personas": 4,
+        "persona_axes": [
+          "segment",
+          "buying-stage",
+          "current-alternative"
+        ],
+        "note": "Cover both your target segment and the segments you are NOT for, plus at least one user of the incumbent alternative, so the positioning is tested against real competition."
+      }
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-preflight-reselection",
+    "tool": "record_cohort_preflight",
+    "input": {
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "representation": [
+        {
+          "persona_id": "persona_b90a74f561847bb3",
+          "posture": "target",
+          "rationale": "Existing operating role"
+        },
+        {
+          "persona_id": "persona_12a40d7085293647",
+          "posture": "skeptical",
+          "rationale": "Questions the added value"
+        }
+      ],
+      "dispatch_token": "synthetic-dispatch-no-authority"
+    },
+    "value": {
+      "schema": "sonaloop.cohort_integrity.v1",
+      "policy_version": "2026-08-08.2",
+      "status": "needs_reselection",
+      "thresholds": {
+        "min_personas": 2,
+        "min_independent_events_per_persona": 3,
+        "min_independent_evidence_per_persona_alternative": 2,
+        "min_independent_context_items_per_persona": 6,
+        "max_thin_fraction": 0.34,
+        "fresh_persona_hours": 24,
+        "lexical_overlap_reselection": 0.5,
+        "semantic_overlap_reselection": 0.82,
+        "min_countervoices": 1
+      },
+      "cohort_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ],
+      "cohort_ids_digest": "1b9bbd293c49a8248a26fce1feedf5e6b5dc5cf8d2771dbe69c161126ed599a0",
+      "stimulus_boundary": {
+        "kind": "project_created_at",
+        "at": "2026-09-09T04:50:17.040280+00:00",
+        "product_stimulus_digest": "2464af1b28b4c16ebfd0c95410f4b9d4f50725c404a10d2bd2658b6ed3512af4",
+        "project_goal_description_digest": "1b03d37cf62feec3320c0c81e6c14c78d3a143081dae1cdc8724a81341c59c3f",
+        "effective_hypotheses_digest": "d68b36383d867a18d6debfd5bce7bca1c7b2277f21cf0bf720327e92eb68b4df",
+        "product_understanding_id": "product_understanding_f5c0d0aeced77280",
+        "independent_target_context": "persona facts/events/evidence at or before project creation",
+        "product_stimulus": "project goal/description + hypotheses + Product Understanding",
+        "frame_ids": [
+          "frame__react"
+        ],
+        "frame_questions_count": 1,
+        "frame_questions_digest": "d68b36383d867a18d6debfd5bce7bca1c7b2277f21cf0bf720327e92eb68b4df",
+        "frame_hypotheses_count": 0,
+        "frame_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "additional_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "depth": {
+        "personas": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "display_name": "Cohort A",
+            "exists": true,
+            "thin": true,
+            "profile_claim_digest": "a85925b0689a593ffd9f3e5172168d618b2fccbc3b55a24a8921f2cdd4807ad8",
+            "profile_created_at": "2026-09-09T04:50:17.014719+00:00",
+            "profile_age_hours_at_project_start": 0.0,
+            "fresh_profile_at_project_start": true,
+            "depth": {
+              "facts": 0,
+              "events": 0,
+              "evidence": 0,
+              "independent_facts": 0,
+              "independent_events": 0,
+              "independent_evidence": 0,
+              "independent_context_items": 0,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "authored",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+              },
+              "independent_evidence_sources": [],
+              "event_range": {
+                "oldest": "",
+                "newest": ""
+              }
+            }
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "display_name": "Cohort B",
+            "exists": true,
+            "thin": true,
+            "profile_claim_digest": "53dd666c58959e35148824e6deda78a25f2657bfecabbf4fcdf1ca4fad99e6a2",
+            "profile_created_at": "2026-09-09T04:50:17.018927+00:00",
+            "profile_age_hours_at_project_start": 0.0,
+            "fresh_profile_at_project_start": true,
+            "depth": {
+              "facts": 0,
+              "events": 0,
+              "evidence": 0,
+              "independent_facts": 0,
+              "independent_events": 0,
+              "independent_evidence": 0,
+              "independent_context_items": 0,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "authored",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+              },
+              "independent_evidence_sources": [],
+              "event_range": {
+                "oldest": "",
+                "newest": ""
+              }
+            }
+          }
+        ],
+        "totals": {
+          "personas": 2,
+          "missing": 0,
+          "thin": 2,
+          "thin_fraction": 1.0,
+          "facts": 0,
+          "events": 0,
+          "evidence": 0,
+          "independent_context_items": 0
+        }
+      },
+      "leakage": {
+        "lexical": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "input_digest": "ae805fc707f4d7c0e2fc96b9abef1473dbd5346ea4a317bbc07d9e11e8e4f4c4",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1022,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 14,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "input_digest": "a7b71485ee09eff52949b479123756fdb2cd164ecdab3cbf82a8eded476db0dd",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1022,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 14,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          }
+        ],
+        "semantic": {
+          "provided": false,
+          "schema": "sonaloop.semantic_overlap.v1",
+          "threshold": 0.82,
+          "scores": []
+        },
+        "semantic_inputs": {
+          "persona_b90a74f561847bb3": "ae805fc707f4d7c0e2fc96b9abef1473dbd5346ea4a317bbc07d9e11e8e4f4c4",
+          "persona_12a40d7085293647": "a7b71485ee09eff52949b479123756fdb2cd164ecdab3cbf82a8eded476db0dd"
+        },
+        "high_overlap_persona_ids": [],
+        "circular_persona_ids": []
+      },
+      "representation": {
+        "schema": "sonaloop.cohort_representation.v1",
+        "declarations": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "posture": "target",
+            "rationale": "Existing operating role",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "not_required",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "posture": "skeptical",
+            "rationale": "Questions the added value",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "unverified",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          }
+        ],
+        "undeclared_persona_ids": [],
+        "complete": true,
+        "declared_countervoice_persona_ids": [
+          "persona_12a40d7085293647"
+        ],
+        "countervoice_persona_ids": [],
+        "countervoice_count": 0,
+        "unverified_countervoice_persona_ids": [
+          "persona_12a40d7085293647"
+        ],
+        "required_minimum": 1,
+        "allowed_counterpostures": [
+          "skeptical",
+          "indifferent",
+          "non_target"
+        ],
+        "verification_rule": "countervoice needs an exact basis_quote (>=8 chars) in a cited independent pre-project fact/event/evidence record",
+        "satisfied": false
+      },
+      "required_work": [
+        {
+          "kind": "reselect",
+          "code": "COUNTERVOICE_UNVERIFIED",
+          "minimum": 1,
+          "accepted_postures": [
+            "skeptical",
+            "indifferent",
+            "non_target"
+          ],
+          "unverified_persona_ids": [
+            "persona_12a40d7085293647"
+          ],
+          "tools": [
+            "recall_memory",
+            "get_persona",
+            "catalog_recommend",
+            "catalog_pull",
+            "record_cohort_preflight"
+          ]
+        },
+        {
+          "kind": "deepen",
+          "code": "INDEPENDENT_CONTEXT_TOO_THIN",
+          "persona_ids": [
+            "persona_b90a74f561847bb3",
+            "persona_12a40d7085293647"
+          ],
+          "minimums": {
+            "context_items": 6,
+            "events": 3,
+            "evidence_alternative": 2
+          },
+          "tools": [
+            "brief_day",
+            "record_day",
+            "continue_simulation",
+            "ingest_corpus",
+            "record_grounding",
+            "record_cohort_preflight"
+          ]
+        }
+      ],
+      "evaluated_at": "2026-09-09T04:50:17.069428+00:00",
+      "id": "cohort_preflight_42871ab014bfaa73",
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "version": 1,
+      "raw_status": "needs_reselection",
+      "supersedes": "",
+      "operation_id": "dispatch_3cbe3219cb650fe2",
+      "operation_fingerprint": "1bbaed8126dc838bc96c85c3ad52f8fb0a8ca7b8a73beec9f647ae73e95e9e29",
+      "remediation_task_id": "preflight__cohort_remediation_v1",
+      "idempotent_replay": false,
+      "dispatch": {
+        "state": "completed",
+        "checkpointed": true,
+        "task_id": "preflight__cohort_integrity",
+        "receipt": {
+          "run_id": "run_operation_277967fd07729171",
+          "cursor": 3,
+          "step_idx": 2,
+          "key": "run_operation_277967fd07729171:preflight__cohort_integrity",
+          "deduplicated": false
+        }
+      },
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_operation_f905b30136d1b9b3"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-preflight-get",
+    "tool": "get_cohort_preflight",
+    "input": {
+      "project_id": "rproject_operation_f905b30136d1b9b3"
+    },
+    "value": {
+      "schema": "sonaloop.cohort_integrity.v1",
+      "policy_version": "2026-08-08.2",
+      "status": "needs_reselection",
+      "thresholds": {
+        "min_personas": 2,
+        "min_independent_events_per_persona": 3,
+        "min_independent_evidence_per_persona_alternative": 2,
+        "min_independent_context_items_per_persona": 6,
+        "max_thin_fraction": 0.34,
+        "fresh_persona_hours": 24,
+        "lexical_overlap_reselection": 0.5,
+        "semantic_overlap_reselection": 0.82,
+        "min_countervoices": 1
+      },
+      "cohort_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ],
+      "cohort_ids_digest": "1b9bbd293c49a8248a26fce1feedf5e6b5dc5cf8d2771dbe69c161126ed599a0",
+      "stimulus_boundary": {
+        "kind": "project_created_at",
+        "at": "2026-09-09T04:50:17.040280+00:00",
+        "product_stimulus_digest": "2464af1b28b4c16ebfd0c95410f4b9d4f50725c404a10d2bd2658b6ed3512af4",
+        "project_goal_description_digest": "1b03d37cf62feec3320c0c81e6c14c78d3a143081dae1cdc8724a81341c59c3f",
+        "effective_hypotheses_digest": "d68b36383d867a18d6debfd5bce7bca1c7b2277f21cf0bf720327e92eb68b4df",
+        "product_understanding_id": "product_understanding_f5c0d0aeced77280",
+        "independent_target_context": "persona facts/events/evidence at or before project creation",
+        "product_stimulus": "project goal/description + hypotheses + Product Understanding",
+        "frame_ids": [
+          "frame__react"
+        ],
+        "frame_questions_count": 1,
+        "frame_questions_digest": "d68b36383d867a18d6debfd5bce7bca1c7b2277f21cf0bf720327e92eb68b4df",
+        "frame_hypotheses_count": 0,
+        "frame_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "additional_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "depth": {
+        "personas": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "display_name": "Cohort A",
+            "exists": true,
+            "thin": true,
+            "profile_claim_digest": "a85925b0689a593ffd9f3e5172168d618b2fccbc3b55a24a8921f2cdd4807ad8",
+            "profile_created_at": "2026-09-09T04:50:17.014719+00:00",
+            "profile_age_hours_at_project_start": 0.0,
+            "fresh_profile_at_project_start": true,
+            "depth": {
+              "facts": 0,
+              "events": 0,
+              "evidence": 0,
+              "independent_facts": 0,
+              "independent_events": 0,
+              "independent_evidence": 0,
+              "independent_context_items": 0,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "authored",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+              },
+              "independent_evidence_sources": [],
+              "event_range": {
+                "oldest": "",
+                "newest": ""
+              }
+            }
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "display_name": "Cohort B",
+            "exists": true,
+            "thin": true,
+            "profile_claim_digest": "53dd666c58959e35148824e6deda78a25f2657bfecabbf4fcdf1ca4fad99e6a2",
+            "profile_created_at": "2026-09-09T04:50:17.018927+00:00",
+            "profile_age_hours_at_project_start": 0.0,
+            "fresh_profile_at_project_start": true,
+            "depth": {
+              "facts": 0,
+              "events": 0,
+              "evidence": 0,
+              "independent_facts": 0,
+              "independent_events": 0,
+              "independent_evidence": 0,
+              "independent_context_items": 0,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "authored",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+              },
+              "independent_evidence_sources": [],
+              "event_range": {
+                "oldest": "",
+                "newest": ""
+              }
+            }
+          }
+        ],
+        "totals": {
+          "personas": 2,
+          "missing": 0,
+          "thin": 2,
+          "thin_fraction": 1.0,
+          "facts": 0,
+          "events": 0,
+          "evidence": 0,
+          "independent_context_items": 0
+        }
+      },
+      "leakage": {
+        "lexical": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "input_digest": "ae805fc707f4d7c0e2fc96b9abef1473dbd5346ea4a317bbc07d9e11e8e4f4c4",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1022,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 14,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "input_digest": "a7b71485ee09eff52949b479123756fdb2cd164ecdab3cbf82a8eded476db0dd",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1022,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 14,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          }
+        ],
+        "semantic": {
+          "provided": false,
+          "schema": "sonaloop.semantic_overlap.v1",
+          "threshold": 0.82,
+          "scores": []
+        },
+        "semantic_inputs": {
+          "persona_b90a74f561847bb3": "ae805fc707f4d7c0e2fc96b9abef1473dbd5346ea4a317bbc07d9e11e8e4f4c4",
+          "persona_12a40d7085293647": "a7b71485ee09eff52949b479123756fdb2cd164ecdab3cbf82a8eded476db0dd"
+        },
+        "high_overlap_persona_ids": [],
+        "circular_persona_ids": []
+      },
+      "representation": {
+        "schema": "sonaloop.cohort_representation.v1",
+        "declarations": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "posture": "target",
+            "rationale": "Existing operating role",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "not_required",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "posture": "skeptical",
+            "rationale": "Questions the added value",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "unverified",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          }
+        ],
+        "undeclared_persona_ids": [],
+        "complete": true,
+        "declared_countervoice_persona_ids": [
+          "persona_12a40d7085293647"
+        ],
+        "countervoice_persona_ids": [],
+        "countervoice_count": 0,
+        "unverified_countervoice_persona_ids": [
+          "persona_12a40d7085293647"
+        ],
+        "required_minimum": 1,
+        "allowed_counterpostures": [
+          "skeptical",
+          "indifferent",
+          "non_target"
+        ],
+        "verification_rule": "countervoice needs an exact basis_quote (>=8 chars) in a cited independent pre-project fact/event/evidence record",
+        "satisfied": false
+      },
+      "required_work": [
+        {
+          "kind": "reselect",
+          "code": "COUNTERVOICE_UNVERIFIED",
+          "minimum": 1,
+          "accepted_postures": [
+            "skeptical",
+            "indifferent",
+            "non_target"
+          ],
+          "unverified_persona_ids": [
+            "persona_12a40d7085293647"
+          ],
+          "tools": [
+            "recall_memory",
+            "get_persona",
+            "catalog_recommend",
+            "catalog_pull",
+            "record_cohort_preflight"
+          ]
+        },
+        {
+          "kind": "deepen",
+          "code": "INDEPENDENT_CONTEXT_TOO_THIN",
+          "persona_ids": [
+            "persona_b90a74f561847bb3",
+            "persona_12a40d7085293647"
+          ],
+          "minimums": {
+            "context_items": 6,
+            "events": 3,
+            "evidence_alternative": 2
+          },
+          "tools": [
+            "brief_day",
+            "record_day",
+            "continue_simulation",
+            "ingest_corpus",
+            "record_grounding",
+            "record_cohort_preflight"
+          ]
+        }
+      ],
+      "evaluated_at": "2026-09-09T04:50:17.069428+00:00",
+      "id": "cohort_preflight_42871ab014bfaa73",
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "version": 1,
+      "raw_status": "needs_reselection",
+      "supersedes": "",
+      "operation_id": "dispatch_3cbe3219cb650fe2",
+      "operation_fingerprint": "1bbaed8126dc838bc96c85c3ad52f8fb0a8ca7b8a73beec9f647ae73e95e9e29",
+      "remediation_task_id": "preflight__cohort_remediation_v1",
+      "history": [
+        {
+          "id": "cohort_preflight_42871ab014bfaa73",
+          "version": 1,
+          "status": "needs_reselection",
+          "raw_status": "needs_reselection",
+          "evaluated_at": "2026-09-09T04:50:17.069428+00:00",
+          "supersedes": ""
+        }
+      ],
+      "limitations": []
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-preflight-override",
+    "tool": "record_cohort_preflight",
+    "input": {
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "representation": [
+        {
+          "persona_id": "persona_b90a74f561847bb3",
+          "posture": "target",
+          "rationale": "Existing operating role"
+        },
+        {
+          "persona_id": "persona_12a40d7085293647",
+          "posture": "skeptical",
+          "rationale": "Questions the added value"
+        }
+      ],
+      "dispatch_token": "synthetic-dispatch-no-authority",
+      "override_rationale": "Retain this explicit synthetic limitation for the inspection fixture."
+    },
+    "value": {
+      "schema": "sonaloop.cohort_integrity.v1",
+      "policy_version": "2026-08-08.2",
+      "status": "overridden",
+      "thresholds": {
+        "min_personas": 2,
+        "min_independent_events_per_persona": 3,
+        "min_independent_evidence_per_persona_alternative": 2,
+        "min_independent_context_items_per_persona": 6,
+        "max_thin_fraction": 0.34,
+        "fresh_persona_hours": 24,
+        "lexical_overlap_reselection": 0.5,
+        "semantic_overlap_reselection": 0.82,
+        "min_countervoices": 1
+      },
+      "cohort_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ],
+      "cohort_ids_digest": "1b9bbd293c49a8248a26fce1feedf5e6b5dc5cf8d2771dbe69c161126ed599a0",
+      "stimulus_boundary": {
+        "kind": "project_created_at",
+        "at": "2026-09-09T04:50:17.040280+00:00",
+        "product_stimulus_digest": "2464af1b28b4c16ebfd0c95410f4b9d4f50725c404a10d2bd2658b6ed3512af4",
+        "project_goal_description_digest": "1b03d37cf62feec3320c0c81e6c14c78d3a143081dae1cdc8724a81341c59c3f",
+        "effective_hypotheses_digest": "d68b36383d867a18d6debfd5bce7bca1c7b2277f21cf0bf720327e92eb68b4df",
+        "product_understanding_id": "product_understanding_f5c0d0aeced77280",
+        "independent_target_context": "persona facts/events/evidence at or before project creation",
+        "product_stimulus": "project goal/description + hypotheses + Product Understanding",
+        "frame_ids": [
+          "frame__react"
+        ],
+        "frame_questions_count": 1,
+        "frame_questions_digest": "d68b36383d867a18d6debfd5bce7bca1c7b2277f21cf0bf720327e92eb68b4df",
+        "frame_hypotheses_count": 0,
+        "frame_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "additional_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "depth": {
+        "personas": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "display_name": "Cohort A",
+            "exists": true,
+            "thin": true,
+            "profile_claim_digest": "a85925b0689a593ffd9f3e5172168d618b2fccbc3b55a24a8921f2cdd4807ad8",
+            "profile_created_at": "2026-09-09T04:50:17.014719+00:00",
+            "profile_age_hours_at_project_start": 0.0,
+            "fresh_profile_at_project_start": true,
+            "depth": {
+              "facts": 0,
+              "events": 0,
+              "evidence": 0,
+              "independent_facts": 0,
+              "independent_events": 0,
+              "independent_evidence": 0,
+              "independent_context_items": 0,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "authored",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+              },
+              "independent_evidence_sources": [],
+              "event_range": {
+                "oldest": "",
+                "newest": ""
+              }
+            }
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "display_name": "Cohort B",
+            "exists": true,
+            "thin": true,
+            "profile_claim_digest": "53dd666c58959e35148824e6deda78a25f2657bfecabbf4fcdf1ca4fad99e6a2",
+            "profile_created_at": "2026-09-09T04:50:17.018927+00:00",
+            "profile_age_hours_at_project_start": 0.0,
+            "fresh_profile_at_project_start": true,
+            "depth": {
+              "facts": 0,
+              "events": 0,
+              "evidence": 0,
+              "independent_facts": 0,
+              "independent_events": 0,
+              "independent_evidence": 0,
+              "independent_context_items": 0,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "authored",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+              },
+              "independent_evidence_sources": [],
+              "event_range": {
+                "oldest": "",
+                "newest": ""
+              }
+            }
+          }
+        ],
+        "totals": {
+          "personas": 2,
+          "missing": 0,
+          "thin": 2,
+          "thin_fraction": 1.0,
+          "facts": 0,
+          "events": 0,
+          "evidence": 0,
+          "independent_context_items": 0
+        }
+      },
+      "leakage": {
+        "lexical": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "input_digest": "ae805fc707f4d7c0e2fc96b9abef1473dbd5346ea4a317bbc07d9e11e8e4f4c4",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1022,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 14,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "input_digest": "a7b71485ee09eff52949b479123756fdb2cd164ecdab3cbf82a8eded476db0dd",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1022,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 14,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          }
+        ],
+        "semantic": {
+          "provided": false,
+          "schema": "sonaloop.semantic_overlap.v1",
+          "threshold": 0.82,
+          "scores": []
+        },
+        "semantic_inputs": {
+          "persona_b90a74f561847bb3": "ae805fc707f4d7c0e2fc96b9abef1473dbd5346ea4a317bbc07d9e11e8e4f4c4",
+          "persona_12a40d7085293647": "a7b71485ee09eff52949b479123756fdb2cd164ecdab3cbf82a8eded476db0dd"
+        },
+        "high_overlap_persona_ids": [],
+        "circular_persona_ids": []
+      },
+      "representation": {
+        "schema": "sonaloop.cohort_representation.v1",
+        "declarations": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "posture": "target",
+            "rationale": "Existing operating role",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "not_required",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "posture": "skeptical",
+            "rationale": "Questions the added value",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "unverified",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          }
+        ],
+        "undeclared_persona_ids": [],
+        "complete": true,
+        "declared_countervoice_persona_ids": [
+          "persona_12a40d7085293647"
+        ],
+        "countervoice_persona_ids": [],
+        "countervoice_count": 0,
+        "unverified_countervoice_persona_ids": [
+          "persona_12a40d7085293647"
+        ],
+        "required_minimum": 1,
+        "allowed_counterpostures": [
+          "skeptical",
+          "indifferent",
+          "non_target"
+        ],
+        "verification_rule": "countervoice needs an exact basis_quote (>=8 chars) in a cited independent pre-project fact/event/evidence record",
+        "satisfied": false
+      },
+      "required_work": [
+        {
+          "kind": "reselect",
+          "code": "COUNTERVOICE_UNVERIFIED",
+          "minimum": 1,
+          "accepted_postures": [
+            "skeptical",
+            "indifferent",
+            "non_target"
+          ],
+          "unverified_persona_ids": [
+            "persona_12a40d7085293647"
+          ],
+          "tools": [
+            "recall_memory",
+            "get_persona",
+            "catalog_recommend",
+            "catalog_pull",
+            "record_cohort_preflight"
+          ]
+        },
+        {
+          "kind": "deepen",
+          "code": "INDEPENDENT_CONTEXT_TOO_THIN",
+          "persona_ids": [
+            "persona_b90a74f561847bb3",
+            "persona_12a40d7085293647"
+          ],
+          "minimums": {
+            "context_items": 6,
+            "events": 3,
+            "evidence_alternative": 2
+          },
+          "tools": [
+            "brief_day",
+            "record_day",
+            "continue_simulation",
+            "ingest_corpus",
+            "record_grounding",
+            "record_cohort_preflight"
+          ]
+        }
+      ],
+      "evaluated_at": "2026-09-09T04:50:17.086044+00:00",
+      "override": {
+        "rationale": "Retain this explicit synthetic limitation for the inspection fixture.",
+        "original_status": "needs_reselection",
+        "accepted_at": "2026-09-09T04:50:17.086044+00:00"
+      },
+      "id": "cohort_preflight_342caf966d5ac963",
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "version": 2,
+      "raw_status": "needs_reselection",
+      "supersedes": "cohort_preflight_42871ab014bfaa73",
+      "operation_id": "dispatch_f8468474b9e5363e",
+      "operation_fingerprint": "7ece735b44da9fbfe69fd58d641ebf59067ae0a496347a5a8a382b3f42450101",
+      "idempotent_replay": false,
+      "dispatch": {
+        "state": "completed",
+        "checkpointed": true,
+        "task_id": "preflight__cohort_remediation_v1",
+        "receipt": {
+          "run_id": "run_operation_277967fd07729171",
+          "cursor": 4,
+          "step_idx": 3,
+          "key": "run_operation_277967fd07729171:preflight__cohort_remediation_v1",
+          "deduplicated": false
+        }
+      },
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_operation_f905b30136d1b9b3"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-preflight-limitations",
+    "tool": "get_cohort_preflight",
+    "input": {
+      "project_id": "rproject_operation_f905b30136d1b9b3"
+    },
+    "value": {
+      "schema": "sonaloop.cohort_integrity.v1",
+      "policy_version": "2026-08-08.2",
+      "status": "overridden",
+      "thresholds": {
+        "min_personas": 2,
+        "min_independent_events_per_persona": 3,
+        "min_independent_evidence_per_persona_alternative": 2,
+        "min_independent_context_items_per_persona": 6,
+        "max_thin_fraction": 0.34,
+        "fresh_persona_hours": 24,
+        "lexical_overlap_reselection": 0.5,
+        "semantic_overlap_reselection": 0.82,
+        "min_countervoices": 1
+      },
+      "cohort_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ],
+      "cohort_ids_digest": "1b9bbd293c49a8248a26fce1feedf5e6b5dc5cf8d2771dbe69c161126ed599a0",
+      "stimulus_boundary": {
+        "kind": "project_created_at",
+        "at": "2026-09-09T04:50:17.040280+00:00",
+        "product_stimulus_digest": "2464af1b28b4c16ebfd0c95410f4b9d4f50725c404a10d2bd2658b6ed3512af4",
+        "project_goal_description_digest": "1b03d37cf62feec3320c0c81e6c14c78d3a143081dae1cdc8724a81341c59c3f",
+        "effective_hypotheses_digest": "d68b36383d867a18d6debfd5bce7bca1c7b2277f21cf0bf720327e92eb68b4df",
+        "product_understanding_id": "product_understanding_f5c0d0aeced77280",
+        "independent_target_context": "persona facts/events/evidence at or before project creation",
+        "product_stimulus": "project goal/description + hypotheses + Product Understanding",
+        "frame_ids": [
+          "frame__react"
+        ],
+        "frame_questions_count": 1,
+        "frame_questions_digest": "d68b36383d867a18d6debfd5bce7bca1c7b2277f21cf0bf720327e92eb68b4df",
+        "frame_hypotheses_count": 0,
+        "frame_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "additional_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "depth": {
+        "personas": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "display_name": "Cohort A",
+            "exists": true,
+            "thin": true,
+            "profile_claim_digest": "a85925b0689a593ffd9f3e5172168d618b2fccbc3b55a24a8921f2cdd4807ad8",
+            "profile_created_at": "2026-09-09T04:50:17.014719+00:00",
+            "profile_age_hours_at_project_start": 0.0,
+            "fresh_profile_at_project_start": true,
+            "depth": {
+              "facts": 0,
+              "events": 0,
+              "evidence": 0,
+              "independent_facts": 0,
+              "independent_events": 0,
+              "independent_evidence": 0,
+              "independent_context_items": 0,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "authored",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+              },
+              "independent_evidence_sources": [],
+              "event_range": {
+                "oldest": "",
+                "newest": ""
+              }
+            }
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "display_name": "Cohort B",
+            "exists": true,
+            "thin": true,
+            "profile_claim_digest": "53dd666c58959e35148824e6deda78a25f2657bfecabbf4fcdf1ca4fad99e6a2",
+            "profile_created_at": "2026-09-09T04:50:17.018927+00:00",
+            "profile_age_hours_at_project_start": 0.0,
+            "fresh_profile_at_project_start": true,
+            "depth": {
+              "facts": 0,
+              "events": 0,
+              "evidence": 0,
+              "independent_facts": 0,
+              "independent_events": 0,
+              "independent_evidence": 0,
+              "independent_context_items": 0,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "authored",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+              },
+              "independent_evidence_sources": [],
+              "event_range": {
+                "oldest": "",
+                "newest": ""
+              }
+            }
+          }
+        ],
+        "totals": {
+          "personas": 2,
+          "missing": 0,
+          "thin": 2,
+          "thin_fraction": 1.0,
+          "facts": 0,
+          "events": 0,
+          "evidence": 0,
+          "independent_context_items": 0
+        }
+      },
+      "leakage": {
+        "lexical": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "input_digest": "ae805fc707f4d7c0e2fc96b9abef1473dbd5346ea4a317bbc07d9e11e8e4f4c4",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1022,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 14,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "input_digest": "a7b71485ee09eff52949b479123756fdb2cd164ecdab3cbf82a8eded476db0dd",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1022,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 14,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          }
+        ],
+        "semantic": {
+          "provided": false,
+          "schema": "sonaloop.semantic_overlap.v1",
+          "threshold": 0.82,
+          "scores": []
+        },
+        "semantic_inputs": {
+          "persona_b90a74f561847bb3": "ae805fc707f4d7c0e2fc96b9abef1473dbd5346ea4a317bbc07d9e11e8e4f4c4",
+          "persona_12a40d7085293647": "a7b71485ee09eff52949b479123756fdb2cd164ecdab3cbf82a8eded476db0dd"
+        },
+        "high_overlap_persona_ids": [],
+        "circular_persona_ids": []
+      },
+      "representation": {
+        "schema": "sonaloop.cohort_representation.v1",
+        "declarations": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "posture": "target",
+            "rationale": "Existing operating role",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "not_required",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "posture": "skeptical",
+            "rationale": "Questions the added value",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "unverified",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          }
+        ],
+        "undeclared_persona_ids": [],
+        "complete": true,
+        "declared_countervoice_persona_ids": [
+          "persona_12a40d7085293647"
+        ],
+        "countervoice_persona_ids": [],
+        "countervoice_count": 0,
+        "unverified_countervoice_persona_ids": [
+          "persona_12a40d7085293647"
+        ],
+        "required_minimum": 1,
+        "allowed_counterpostures": [
+          "skeptical",
+          "indifferent",
+          "non_target"
+        ],
+        "verification_rule": "countervoice needs an exact basis_quote (>=8 chars) in a cited independent pre-project fact/event/evidence record",
+        "satisfied": false
+      },
+      "required_work": [
+        {
+          "kind": "reselect",
+          "code": "COUNTERVOICE_UNVERIFIED",
+          "minimum": 1,
+          "accepted_postures": [
+            "skeptical",
+            "indifferent",
+            "non_target"
+          ],
+          "unverified_persona_ids": [
+            "persona_12a40d7085293647"
+          ],
+          "tools": [
+            "recall_memory",
+            "get_persona",
+            "catalog_recommend",
+            "catalog_pull",
+            "record_cohort_preflight"
+          ]
+        },
+        {
+          "kind": "deepen",
+          "code": "INDEPENDENT_CONTEXT_TOO_THIN",
+          "persona_ids": [
+            "persona_b90a74f561847bb3",
+            "persona_12a40d7085293647"
+          ],
+          "minimums": {
+            "context_items": 6,
+            "events": 3,
+            "evidence_alternative": 2
+          },
+          "tools": [
+            "brief_day",
+            "record_day",
+            "continue_simulation",
+            "ingest_corpus",
+            "record_grounding",
+            "record_cohort_preflight"
+          ]
+        }
+      ],
+      "evaluated_at": "2026-09-09T04:50:17.086044+00:00",
+      "override": {
+        "rationale": "Retain this explicit synthetic limitation for the inspection fixture.",
+        "original_status": "needs_reselection",
+        "accepted_at": "2026-09-09T04:50:17.086044+00:00"
+      },
+      "id": "cohort_preflight_342caf966d5ac963",
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "version": 2,
+      "raw_status": "needs_reselection",
+      "supersedes": "cohort_preflight_42871ab014bfaa73",
+      "operation_id": "dispatch_f8468474b9e5363e",
+      "operation_fingerprint": "7ece735b44da9fbfe69fd58d641ebf59067ae0a496347a5a8a382b3f42450101",
+      "history": [
+        {
+          "id": "cohort_preflight_42871ab014bfaa73",
+          "version": 1,
+          "status": "needs_reselection",
+          "raw_status": "needs_reselection",
+          "evaluated_at": "2026-09-09T04:50:17.069428+00:00",
+          "supersedes": ""
+        },
+        {
+          "id": "cohort_preflight_342caf966d5ac963",
+          "version": 2,
+          "status": "overridden",
+          "raw_status": "needs_reselection",
+          "evaluated_at": "2026-09-09T04:50:17.086044+00:00",
+          "supersedes": "cohort_preflight_42871ab014bfaa73"
+        }
+      ],
+      "limitations": [
+        {
+          "id": "limitation_c60e8f01476a16a1",
+          "schema": "sonaloop.report_limitation.v1",
+          "kind": "cohort_integrity_override",
+          "cohort_preflight_id": "cohort_preflight_342caf966d5ac963",
+          "original_status": "needs_reselection",
+          "rationale": "Retain this explicit synthetic limitation for the inspection fixture.",
+          "created_at": "2026-09-09T04:50:17.086044+00:00"
+        }
+      ]
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-preflight-historical",
+    "tool": "get_cohort_preflight",
+    "input": {
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "version_id": "cohort_preflight_42871ab014bfaa73"
+    },
+    "value": {
+      "schema": "sonaloop.cohort_integrity.v1",
+      "policy_version": "2026-08-08.2",
+      "status": "needs_reselection",
+      "thresholds": {
+        "min_personas": 2,
+        "min_independent_events_per_persona": 3,
+        "min_independent_evidence_per_persona_alternative": 2,
+        "min_independent_context_items_per_persona": 6,
+        "max_thin_fraction": 0.34,
+        "fresh_persona_hours": 24,
+        "lexical_overlap_reselection": 0.5,
+        "semantic_overlap_reselection": 0.82,
+        "min_countervoices": 1
+      },
+      "cohort_ids": [
+        "persona_b90a74f561847bb3",
+        "persona_12a40d7085293647"
+      ],
+      "cohort_ids_digest": "1b9bbd293c49a8248a26fce1feedf5e6b5dc5cf8d2771dbe69c161126ed599a0",
+      "stimulus_boundary": {
+        "kind": "project_created_at",
+        "at": "2026-09-09T04:50:17.040280+00:00",
+        "product_stimulus_digest": "2464af1b28b4c16ebfd0c95410f4b9d4f50725c404a10d2bd2658b6ed3512af4",
+        "project_goal_description_digest": "1b03d37cf62feec3320c0c81e6c14c78d3a143081dae1cdc8724a81341c59c3f",
+        "effective_hypotheses_digest": "d68b36383d867a18d6debfd5bce7bca1c7b2277f21cf0bf720327e92eb68b4df",
+        "product_understanding_id": "product_understanding_f5c0d0aeced77280",
+        "independent_target_context": "persona facts/events/evidence at or before project creation",
+        "product_stimulus": "project goal/description + hypotheses + Product Understanding",
+        "frame_ids": [
+          "frame__react"
+        ],
+        "frame_questions_count": 1,
+        "frame_questions_digest": "d68b36383d867a18d6debfd5bce7bca1c7b2277f21cf0bf720327e92eb68b4df",
+        "frame_hypotheses_count": 0,
+        "frame_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "additional_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "depth": {
+        "personas": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "display_name": "Cohort A",
+            "exists": true,
+            "thin": true,
+            "profile_claim_digest": "a85925b0689a593ffd9f3e5172168d618b2fccbc3b55a24a8921f2cdd4807ad8",
+            "profile_created_at": "2026-09-09T04:50:17.014719+00:00",
+            "profile_age_hours_at_project_start": 0.0,
+            "fresh_profile_at_project_start": true,
+            "depth": {
+              "facts": 0,
+              "events": 0,
+              "evidence": 0,
+              "independent_facts": 0,
+              "independent_events": 0,
+              "independent_evidence": 0,
+              "independent_context_items": 0,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "authored",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+              },
+              "independent_evidence_sources": [],
+              "event_range": {
+                "oldest": "",
+                "newest": ""
+              }
+            }
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "display_name": "Cohort B",
+            "exists": true,
+            "thin": true,
+            "profile_claim_digest": "53dd666c58959e35148824e6deda78a25f2657bfecabbf4fcdf1ca4fad99e6a2",
+            "profile_created_at": "2026-09-09T04:50:17.018927+00:00",
+            "profile_age_hours_at_project_start": 0.0,
+            "fresh_profile_at_project_start": true,
+            "depth": {
+              "facts": 0,
+              "events": 0,
+              "evidence": 0,
+              "independent_facts": 0,
+              "independent_events": 0,
+              "independent_evidence": 0,
+              "independent_context_items": 0,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "authored",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence."
+              },
+              "independent_evidence_sources": [],
+              "event_range": {
+                "oldest": "",
+                "newest": ""
+              }
+            }
+          }
+        ],
+        "totals": {
+          "personas": 2,
+          "missing": 0,
+          "thin": 2,
+          "thin_fraction": 1.0,
+          "facts": 0,
+          "events": 0,
+          "evidence": 0,
+          "independent_context_items": 0
+        }
+      },
+      "leakage": {
+        "lexical": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "input_digest": "ae805fc707f4d7c0e2fc96b9abef1473dbd5346ea4a317bbc07d9e11e8e4f4c4",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1022,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 14,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "input_digest": "a7b71485ee09eff52949b479123756fdb2cd164ecdab3cbf82a8eded476db0dd",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1022,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 14,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          }
+        ],
+        "semantic": {
+          "provided": false,
+          "schema": "sonaloop.semantic_overlap.v1",
+          "threshold": 0.82,
+          "scores": []
+        },
+        "semantic_inputs": {
+          "persona_b90a74f561847bb3": "ae805fc707f4d7c0e2fc96b9abef1473dbd5346ea4a317bbc07d9e11e8e4f4c4",
+          "persona_12a40d7085293647": "a7b71485ee09eff52949b479123756fdb2cd164ecdab3cbf82a8eded476db0dd"
+        },
+        "high_overlap_persona_ids": [],
+        "circular_persona_ids": []
+      },
+      "representation": {
+        "schema": "sonaloop.cohort_representation.v1",
+        "declarations": [
+          {
+            "persona_id": "persona_b90a74f561847bb3",
+            "posture": "target",
+            "rationale": "Existing operating role",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "not_required",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          },
+          {
+            "persona_id": "persona_12a40d7085293647",
+            "posture": "skeptical",
+            "rationale": "Questions the added value",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "unverified",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          }
+        ],
+        "undeclared_persona_ids": [],
+        "complete": true,
+        "declared_countervoice_persona_ids": [
+          "persona_12a40d7085293647"
+        ],
+        "countervoice_persona_ids": [],
+        "countervoice_count": 0,
+        "unverified_countervoice_persona_ids": [
+          "persona_12a40d7085293647"
+        ],
+        "required_minimum": 1,
+        "allowed_counterpostures": [
+          "skeptical",
+          "indifferent",
+          "non_target"
+        ],
+        "verification_rule": "countervoice needs an exact basis_quote (>=8 chars) in a cited independent pre-project fact/event/evidence record",
+        "satisfied": false
+      },
+      "required_work": [
+        {
+          "kind": "reselect",
+          "code": "COUNTERVOICE_UNVERIFIED",
+          "minimum": 1,
+          "accepted_postures": [
+            "skeptical",
+            "indifferent",
+            "non_target"
+          ],
+          "unverified_persona_ids": [
+            "persona_12a40d7085293647"
+          ],
+          "tools": [
+            "recall_memory",
+            "get_persona",
+            "catalog_recommend",
+            "catalog_pull",
+            "record_cohort_preflight"
+          ]
+        },
+        {
+          "kind": "deepen",
+          "code": "INDEPENDENT_CONTEXT_TOO_THIN",
+          "persona_ids": [
+            "persona_b90a74f561847bb3",
+            "persona_12a40d7085293647"
+          ],
+          "minimums": {
+            "context_items": 6,
+            "events": 3,
+            "evidence_alternative": 2
+          },
+          "tools": [
+            "brief_day",
+            "record_day",
+            "continue_simulation",
+            "ingest_corpus",
+            "record_grounding",
+            "record_cohort_preflight"
+          ]
+        }
+      ],
+      "evaluated_at": "2026-09-09T04:50:17.069428+00:00",
+      "id": "cohort_preflight_42871ab014bfaa73",
+      "project_id": "rproject_operation_f905b30136d1b9b3",
+      "version": 1,
+      "raw_status": "needs_reselection",
+      "supersedes": "",
+      "operation_id": "dispatch_3cbe3219cb650fe2",
+      "operation_fingerprint": "1bbaed8126dc838bc96c85c3ad52f8fb0a8ca7b8a73beec9f647ae73e95e9e29",
+      "remediation_task_id": "preflight__cohort_remediation_v1",
+      "history": [
+        {
+          "id": "cohort_preflight_42871ab014bfaa73",
+          "version": 1,
+          "status": "needs_reselection",
+          "raw_status": "needs_reselection",
+          "evaluated_at": "2026-09-09T04:50:17.069428+00:00",
+          "supersedes": ""
+        },
+        {
+          "id": "cohort_preflight_342caf966d5ac963",
+          "version": 2,
+          "status": "overridden",
+          "raw_status": "needs_reselection",
+          "evaluated_at": "2026-09-09T04:50:17.086044+00:00",
+          "supersedes": "cohort_preflight_42871ab014bfaa73"
+        }
+      ],
+      "limitations": []
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-depth-deep",
+    "tool": "cohort_memory_depth",
+    "input": {
+      "persona_ids": [
+        "persona_44c990abbb2a287e",
+        "persona_cfdf3fb9068e98ce"
+      ]
+    },
+    "value": {
+      "personas": 2,
+      "facts": 6,
+      "events": 6,
+      "avg_per_persona": 6.0,
+      "hint": "deep"
+    },
+    "state": "ready"
+  },
+  {
+    "scenario": "cohort-preflight-pass",
+    "tool": "record_cohort_preflight",
+    "input": {
+      "project_id": "rproject_operation_cfece3e644036a57",
+      "representation": [
+        {
+          "persona_id": "persona_44c990abbb2a287e",
+          "posture": "target",
+          "rationale": "Independent operating role"
+        },
+        {
+          "persona_id": "persona_cfdf3fb9068e98ce",
+          "posture": "indifferent",
+          "rationale": "Existing routine is sufficient",
+          "basis_quote": "existing manual checklist is sufficient",
+          "evidence_refs": [
+            {
+              "kind": "evidence",
+              "id": "evidence_cohort_ui_b"
+            }
+          ]
+        }
+      ],
+      "dispatch_token": "synthetic-dispatch-no-authority"
+    },
+    "value": {
+      "schema": "sonaloop.cohort_integrity.v1",
+      "policy_version": "2026-08-08.2",
+      "status": "pass",
+      "thresholds": {
+        "min_personas": 2,
+        "min_independent_events_per_persona": 3,
+        "min_independent_evidence_per_persona_alternative": 2,
+        "min_independent_context_items_per_persona": 6,
+        "max_thin_fraction": 0.34,
+        "fresh_persona_hours": 24,
+        "lexical_overlap_reselection": 0.5,
+        "semantic_overlap_reselection": 0.82,
+        "min_countervoices": 1
+      },
+      "cohort_ids": [
+        "persona_44c990abbb2a287e",
+        "persona_cfdf3fb9068e98ce"
+      ],
+      "cohort_ids_digest": "c6aabf14f5f829ba417392f713c3cdc3de22bdf9a6249c407273130397519079",
+      "stimulus_boundary": {
+        "kind": "project_created_at",
+        "at": "2026-09-09T04:50:17.117238+00:00",
+        "product_stimulus_digest": "281e73ddcb7d4b5544160188bac9d3f7d93587764f4db432c0a7e4de74d2493d",
+        "project_goal_description_digest": "cea0380f1f35a21b74ba2d3b9568fb9c0997371dda1e5e80f05ba3d2ab241e04",
+        "effective_hypotheses_digest": "d3cf7e2d858ae422939b8999552dbab09eef32c7b38696f373caaa57f4bcbac1",
+        "product_understanding_id": "product_understanding_5143f41f00eb8655",
+        "independent_target_context": "persona facts/events/evidence at or before project creation",
+        "product_stimulus": "project goal/description + hypotheses + Product Understanding",
+        "frame_ids": [
+          "frame__react"
+        ],
+        "frame_questions_count": 1,
+        "frame_questions_digest": "48222598bdd3c4a806c27dc9dc75f1cf92caa6c7321a41f262f090bf4f2fd0d2",
+        "frame_hypotheses_count": 1,
+        "frame_hypotheses_digest": "aa1ba67fb360a859e14d2cc84ee218465fe7b700c2d372c933985d9ab4a10681",
+        "additional_hypotheses_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "depth": {
+        "personas": [
+          {
+            "persona_id": "persona_44c990abbb2a287e",
+            "display_name": "Independent A",
+            "exists": true,
+            "thin": false,
+            "profile_claim_digest": "6f60221df162b592f6c83c88f1bbdb537bbab53df8f653ae0c6953530d1143cf",
+            "profile_created_at": "2026-01-01T08:00:00Z",
+            "profile_age_hours_at_project_start": 6020.84,
+            "fresh_profile_at_project_start": false,
+            "depth": {
+              "facts": 3,
+              "events": 3,
+              "evidence": 1,
+              "independent_facts": 3,
+              "independent_events": 3,
+              "independent_evidence": 1,
+              "independent_context_items": 7,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "grounded",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence.",
+                "grounding": "independent interview + work diary"
+              },
+              "independent_evidence_sources": [
+                {
+                  "id": "evidence_cohort_ui_a",
+                  "source_type": "synthetic_interview_fixture",
+                  "created_at": "2026-01-02T08:00:00Z",
+                  "age_hours_at_project_start": 5996.84
+                }
+              ],
+              "event_range": {
+                "oldest": "2026-01-02T09:00:00Z",
+                "newest": "2026-01-04T09:00:00Z"
+              }
+            }
+          },
+          {
+            "persona_id": "persona_cfdf3fb9068e98ce",
+            "display_name": "Independent B",
+            "exists": true,
+            "thin": false,
+            "profile_claim_digest": "e2e5677029b2d9523e760de5a2e5125dceb2368f72d47fcefa981763df63ef73",
+            "profile_created_at": "2026-01-01T08:00:00Z",
+            "profile_age_hours_at_project_start": 6020.84,
+            "fresh_profile_at_project_start": false,
+            "depth": {
+              "facts": 3,
+              "events": 3,
+              "evidence": 1,
+              "independent_facts": 3,
+              "independent_events": 3,
+              "independent_evidence": 1,
+              "independent_context_items": 7,
+              "post_project_or_stimulus_bound": {
+                "facts": 0,
+                "events": 0,
+                "evidence": 0
+              }
+            },
+            "source_provenance": {
+              "origin": "grounded",
+              "profile": {
+                "source_description": "user",
+                "segment_hint": "not_provided",
+                "profile_fields": "llm_derived_from_source_description",
+                "evidence": "none",
+                "synthetic_notice": "This profile is simulated and must be validated against real customer evidence.",
+                "grounding": "independent interview + work diary"
+              },
+              "independent_evidence_sources": [
+                {
+                  "id": "evidence_cohort_ui_b",
+                  "source_type": "synthetic_interview_fixture",
+                  "created_at": "2026-01-02T08:00:00Z",
+                  "age_hours_at_project_start": 5996.84
+                }
+              ],
+              "event_range": {
+                "oldest": "2026-01-02T09:00:00Z",
+                "newest": "2026-01-04T09:00:00Z"
+              }
+            }
+          }
+        ],
+        "totals": {
+          "personas": 2,
+          "missing": 0,
+          "thin": 0,
+          "thin_fraction": 0.0,
+          "facts": 6,
+          "events": 6,
+          "evidence": 2,
+          "independent_context_items": 14
+        }
+      },
+      "leakage": {
+        "lexical": [
+          {
+            "persona_id": "persona_44c990abbb2a287e",
+            "input_digest": "b0240647c84766eb35f0d1c558318668fa90505467dde77742293eee274eea84",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1012,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 16,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          },
+          {
+            "persona_id": "persona_cfdf3fb9068e98ce",
+            "input_digest": "b8f9353788d04dc1c131e0df8bcd8cd62679c9189afb7c99acaa51afb8476377",
+            "feature_schema": "sonaloop.cohort_integrity.features.v1",
+            "algorithm": "token_coverage_0.55+jaccard_0.20+bigram_coverage_0.25",
+            "score": 0.1017,
+            "hypothesis_token_count": 6,
+            "profile_token_count": 15,
+            "shared_token_count": 1,
+            "shared_tokens": [
+              "work"
+            ],
+            "shared_bigram_count": 0,
+            "matched_stimulus_segment_digest": "22d72cf98ad7884f7024cd54da14b1a0a606e8a0346c1e38168b06d461570649"
+          }
+        ],
+        "semantic": {
+          "provided": false,
+          "schema": "sonaloop.semantic_overlap.v1",
+          "threshold": 0.82,
+          "scores": []
+        },
+        "semantic_inputs": {
+          "persona_44c990abbb2a287e": "b0240647c84766eb35f0d1c558318668fa90505467dde77742293eee274eea84",
+          "persona_cfdf3fb9068e98ce": "b8f9353788d04dc1c131e0df8bcd8cd62679c9189afb7c99acaa51afb8476377"
+        },
+        "high_overlap_persona_ids": [],
+        "circular_persona_ids": []
+      },
+      "representation": {
+        "schema": "sonaloop.cohort_representation.v1",
+        "declarations": [
+          {
+            "persona_id": "persona_44c990abbb2a287e",
+            "posture": "target",
+            "rationale": "Independent operating role",
+            "evidence_refs": [],
+            "basis_quote": "",
+            "grounding_status": "not_required",
+            "quote_matched_ref": null,
+            "rejected_evidence_refs": []
+          },
+          {
+            "persona_id": "persona_cfdf3fb9068e98ce",
+            "posture": "indifferent",
+            "rationale": "Existing routine is sufficient",
+            "evidence_refs": [
+              {
+                "kind": "evidence",
+                "id": "evidence_cohort_ui_b"
+              }
+            ],
+            "basis_quote": "existing manual checklist is sufficient",
+            "grounding_status": "grounded_context",
+            "quote_matched_ref": {
+              "kind": "evidence",
+              "id": "evidence_cohort_ui_b"
+            },
+            "rejected_evidence_refs": []
+          }
+        ],
+        "undeclared_persona_ids": [],
+        "complete": true,
+        "declared_countervoice_persona_ids": [
+          "persona_cfdf3fb9068e98ce"
+        ],
+        "countervoice_persona_ids": [
+          "persona_cfdf3fb9068e98ce"
+        ],
+        "countervoice_count": 1,
+        "unverified_countervoice_persona_ids": [],
+        "required_minimum": 1,
+        "allowed_counterpostures": [
+          "skeptical",
+          "indifferent",
+          "non_target"
+        ],
+        "verification_rule": "countervoice needs an exact basis_quote (>=8 chars) in a cited independent pre-project fact/event/evidence record",
+        "satisfied": true
+      },
+      "required_work": [],
+      "evaluated_at": "2026-09-09T04:50:17.136557+00:00",
+      "id": "cohort_preflight_164daf0bad9a99e7",
+      "project_id": "rproject_operation_cfece3e644036a57",
+      "version": 1,
+      "raw_status": "pass",
+      "supersedes": "",
+      "operation_id": "dispatch_1344798156fc923a",
+      "operation_fingerprint": "19fcc856af34151eb448b76360c55301d31073f988179aad3a924fdd44efa119",
+      "idempotent_replay": false,
+      "dispatch": {
+        "state": "completed",
+        "checkpointed": true,
+        "task_id": "preflight__cohort_integrity",
+        "receipt": {
+          "run_id": "run_operation_49f84a1c38fd43c4",
+          "cursor": 3,
+          "step_idx": 2,
+          "key": "run_operation_49f84a1c38fd43c4:preflight__cohort_integrity",
+          "deduplicated": false
+        }
+      },
+      "project_url": "http://127.0.0.1:8787/jobs/rproject_operation_cfece3e644036a57"
+    },
+    "state": "ready"
+  }
+]

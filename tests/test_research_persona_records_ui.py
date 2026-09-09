@@ -248,7 +248,7 @@ def test_product_bad_stored_record_does_not_hide_other_sources(examples, store, 
 
 def test_real_registered_product_route(examples):
     pid = case(examples, "records-voice-green")["persona_id"]
-    response = TestClient(web.app).get(f"/personas/{pid}/records")
+    response = TestClient(web.create_app()).get(f"/personas/{pid}/records")
     assert response.status_code == 200 and rows.revision_content(case(examples, "records-revision-changes")) in response.text
     assert rows.voice_content(case(examples, "records-voice-green")) in response.text
 
