@@ -15,6 +15,9 @@ const execFile = promisify(execFileCallback);
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const origin = 'http://127.0.0.1:17481'; // All routes intercepted; no port is bound.
 const browserExecutable = process.env.RESEARCH_BROWSER_EXECUTABLE || chromium.executablePath();
+const publicEntryPath = 'sonaloop/web/assets/persona-view/persona-public-props.js';
+const publicDeclarationPath = 'sonaloop/ui_components/declarations/persona.json';
+const publicFixturePath = 'tools/persona-ui/test/persona-component-fixtures.mjs';
 export const canonical = value => JSON.stringify(value, (_, item) => item && typeof item === 'object' && !Array.isArray(item)
   ? Object.fromEntries(Object.keys(item).sort().map(key => [key, item[key]])) : item);
 export const sha = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -31,7 +34,7 @@ export function personaScenario() {
 const hostSource = `import {AppBridge,PostMessageTransport} from '@modelcontextprotocol/ext-apps/app-bridge';
 const frame=document.querySelector('iframe'),seed=await(await fetch('/fixture/seed')).json();
 const bridge=window.bridge=new AppBridge(null,{name:'Synthetic Persona capture host',version:'1'},
-  {serverTools:{},logging:{}},{hostContext:{locale:'en',theme:'light'}});
+  {serverTools:{},logging:{}},{hostContext:{locale:seed.props?.locale||'en',theme:'light'}});
 window.logs=[];window.calls=[];window.initialized=false;
 bridge.onloggingmessage=value=>logs.push(value);
 bridge.oncalltool=async request=>{
@@ -102,7 +105,9 @@ async function capture(browser, asset, bundle, scenario, viewport) {
     assert.equal(await card.locator('img').count(), 0, 'The fixture uses the native placeholder');
     assert.equal(await card.locator('form,dialog').count(), 0, 'No editor or generation action was opened');
     assert.equal(await card.getByRole('alert').count(), 0);
-    assert.equal(await card.locator('[data-field]:enabled').count(), 7, 'Canonical capabilities remain intact');
+    assert.equal(await card.locator('[data-field]:enabled').count(), scenario.result.structuredContent.capabilities.edit.length,
+      'The exact canonical capability values determine editing');
+    assert.equal(await card.locator('[data-action="avatar"]').isEnabled(), scenario.result.structuredContent.capabilities.generate_avatar);
     assert.ok(await frame.locator('html').evaluate(node => node.scrollWidth <= innerWidth), 'No horizontal overflow');
     await card.evaluate(async () => { await document.fonts.ready; await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))); });
     const calls = await page.evaluate(() => window.calls);
@@ -123,27 +128,79 @@ async function capture(browser, asset, bundle, scenario, viewport) {
     assert.equal(dimensions.height, crop.height);
     assert.ok(png.length <= 2 * 1024 * 1024 && dimensions.width * dimensions.height <= 4 * 1024 * 1024);
     assert.ok(dimensions.width <= 4096 && dimensions.height <= 4096);
-    return { png, dimensions, crop, calls };
+    return { png, dimensions, crop, calls, dom: await card.evaluate(element => element.outerHTML) };
   } finally { await page.close(); }
 }
 
-export async function exportPersonaScenarios(outputParent = resolve(tmpdir(), 'sonaloop-persona-ui-scenarios'), { allowDirty = false } = {}) {
+async function capturePublicDom(browser, asset, bundle, props, viewport) {
+  const style = await readFile(resolve(repo, 'sonaloop/web/assets', asset.manifest.product.style.file));
+  assert.equal(sha(style), asset.manifest.product.style.sha256);
+  const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
+  const errors = [], requests = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.addInitScript(value => { window.publicPersonaProps = value; }, props);
+  await page.route('**/*', route => {
+    const url = new URL(route.request().url());
+    if (url.origin === origin && url.pathname === '/') return route.fulfill({ contentType: 'text/html', body:
+      `<!doctype html><html><head><style>body{font:14px/1.5 system-ui;margin:0;padding:20px}${style.toString().replace(/<\/style/gi, '<\\/style')}</style></head><body><main></main><script>${bundle.replace(/<\/script/gi, '<\\/script')}</script></body></html>` });
+    requests.push(url.href); return route.abort();
+  });
+  try {
+    await page.goto(origin);
+    const card = page.locator('.sl-persona-view');
+    await card.waitFor();
+    await card.locator('summary').click();
+    assert.equal(await card.locator('button:enabled').count(), 0);
+    assert.equal(await card.locator('details[open]').count(), 1);
+    assert.deepEqual(errors, []); assert.deepEqual(requests, [], 'The direct public entry performs no native/media requests');
+    return await card.evaluate(element => element.outerHTML);
+  } finally { await page.close(); }
+}
+
+export async function exportPersonaScenarios(outputParent = resolve(tmpdir(), 'sonaloop-persona-ui-scenarios'),
+  { allowDirty = false, publicComponent = false } = {}) {
   const source = await sourceIdentity();
   assert.ok(allowDirty || !source.dirty, 'Final Persona export requires a clean source checkout');
-  const asset = await loadAsset(), scenario = personaScenario();
+  const asset = await loadAsset();
+  const scenario = publicComponent ? (await import('./persona-component-fixtures.mjs')).personaComponentScenario() : personaScenario();
   const rendererBytes = await readFile(fileURLToPath(import.meta.url));
-  const fixtureBytes = await readFile(new URL('./fixture.mjs', import.meta.url));
+  const fixturePath = publicComponent ? resolve(repo, publicFixturePath) : fileURLToPath(new URL('./fixture.mjs', import.meta.url));
+  const fixtureBytes = await readFile(fixturePath);
+  let declarationBytes, propsBytes, publicEntryBytes, publicBundle;
+  if (publicComponent) {
+    declarationBytes = await readFile(resolve(repo, publicDeclarationPath));
+    publicEntryBytes = await readFile(resolve(repo, publicEntryPath));
+    propsBytes = canonical(scenario.props);
+    const declaration = JSON.parse(declarationBytes);
+    const declared = declaration.scenarios.find(item => item.id === scenario.scenario);
+    assert.ok(declared, 'The public case belongs to the pinned declaration');
+    assert.deepEqual(declared.props, scenario.props);
+    assert.equal(declared.state, scenario.state);
+    assert.deepEqual(scenario.result.structuredContent, scenario.props.value);
+    assert.equal(asset.manifest.sources[publicDeclarationPath], sha(declarationBytes));
+    assert.equal(asset.manifest.sources[publicFixturePath], sha(fixtureBytes));
+    assert.equal(asset.manifest.sources[publicEntryPath], sha(publicEntryBytes));
+    publicBundle = (await build({ stdin: { contents:
+      `import {createPersonaFromProps} from './${publicEntryPath}';window.publicPersonaView=createPersonaFromProps(document.querySelector('main'),window.publicPersonaProps);`,
+      resolveDir: repo }, bundle: true, format: 'iife', write: false, target: 'es2022' })).outputFiles[0].text;
+  }
   const bundle = (await build({ stdin: { contents: hostSource, resolveDir: resolve(repo, 'tools/persona-ui') },
     bundle: true, format: 'esm', write: false, target: 'es2022' })).outputFiles[0].text;
   await mkdir(outputParent, { recursive: true });
   const output = await mkdtemp(resolve(outputParent, 'run-'));
   const browser = await chromium.launch({ executablePath: browserExecutable, headless: true });
   const rendererBuild = { harnessSha256: sha(rendererBytes), fixtureSha256: sha(fixtureBytes),
-    bridgeBundleSha256: sha(bundle), executableSha256: sha(await readFile(browserExecutable)), browserVersion: browser.version() };
+    bridgeBundleSha256: sha(bundle), executableSha256: sha(await readFile(browserExecutable)), browserVersion: browser.version(),
+    ...(publicComponent ? { publicEntrySha256: sha(publicEntryBytes), publicBundleSha256: sha(publicBundle) } : {}) };
   const receipts = [];
   try {
     for (const viewport of [{ width: 960, height: 1000 }, { width: 390, height: 1000 }]) {
-      const { png, dimensions, crop, calls } = await capture(browser, asset, bundle, scenario, viewport);
+      const { png, dimensions, crop, calls, dom } = await capture(browser, asset, bundle, scenario, viewport);
+      let publicDom;
+      if (publicComponent) {
+        publicDom = await capturePublicDom(browser, asset, publicBundle, scenario.props, viewport);
+        assert.equal(publicDom, dom, 'The actual JSON entry and unchanged AppBridge produce identical full-card DOM');
+      }
       const directory = resolve(output, `${scenario.scenario}-${viewport.width}`);
       await mkdir(directory);
       const input = canonical(scenario.input), result = canonical(scenario.result), transcript = canonical(calls);
@@ -157,14 +214,21 @@ export async function exportPersonaScenarios(outputParent = resolve(tmpdir(), 's
         image: { mediaType: 'image/png', sha256: sha(png), bytes: png.length, ...dimensions },
         presentation: { avatar: 'native_placeholder', details: 'expanded', steps: [{ action: 'click', target: '.sl-persona-view details > summary' }] },
         simulatedMcp: { calls: calls.length, transcriptSha256: sha(transcript), response: 'same_canonical_fixture_result' },
+        ...(publicComponent ? { publicComponent: { declarationSha256: sha(declarationBytes), propsSha256: sha(propsBytes),
+          scenarioId: scenario.scenario, entryPoint: { source: publicEntryPath, exportName: 'createPersonaFromProps' },
+          domSha256: sha(dom), equivalence: 'exact_outerHTML', directNativeCalls: 0, directMediaRequests: 0 } } : {}),
         files: { image: 'view.png', manifest: 'manifest.json', resource: 'resource.html', input: 'input.json', result: 'result.json',
-          renderer: 'renderer.mjs', fixture: 'fixture.mjs', bridge: 'host.bundle.js', simulatedMcp: 'simulated-mcp.json' },
+          renderer: 'renderer.mjs', fixture: 'fixture.mjs', bridge: 'host.bundle.js', simulatedMcp: 'simulated-mcp.json',
+          ...(publicComponent ? { declaration: 'declaration.json', props: 'props.json', publicEntry: 'public-entry.js',
+            publicBundle: 'public-view.bundle.js', publicDom: 'public-dom.html', appDom: 'app-dom.html' } : {}) },
         checks: { protocol: 'MCP Apps AppBridge', nativeToolCalls: 0, providerCalls: 0, simulatedMcpCalls: calls.length,
           simulatedWriteCalls: 0, runtimeVerification: 'not_asserted', humanAcceptance: 'not_asserted' } };
       const receiptBytes = `${canonical(receipt)}\n`;
       await Promise.all(Object.entries({ 'view.png': png, 'manifest.json': asset.manifestBytes, 'resource.html': asset.resource,
         'input.json': input, 'result.json': result, 'renderer.mjs': rendererBytes, 'fixture.mjs': fixtureBytes,
-        'host.bundle.js': bundle, 'simulated-mcp.json': transcript, 'receipt.json': receiptBytes })
+        'host.bundle.js': bundle, 'simulated-mcp.json': transcript, 'receipt.json': receiptBytes,
+        ...(publicComponent ? { 'declaration.json': declarationBytes, 'props.json': propsBytes, 'public-entry.js': publicEntryBytes,
+          'public-view.bundle.js': publicBundle, 'public-dom.html': publicDom, 'app-dom.html': dom } : {}) })
         .map(([name, bytes]) => writeFile(resolve(directory, name), bytes)));
       receipts.push({ directory, receiptSha256: sha(receiptBytes), ...receipt });
     }
@@ -172,15 +236,20 @@ export async function exportPersonaScenarios(outputParent = resolve(tmpdir(), 's
     assert.equal(finalSource.commit, source.commit, 'Source commit remained stable during capture');
     assert.ok(allowDirty || !finalSource.dirty, 'Final Persona export remained clean');
     assert.equal(sha(await readFile(fileURLToPath(import.meta.url))), rendererBuild.harnessSha256);
-    assert.equal(sha(await readFile(new URL('./fixture.mjs', import.meta.url))), rendererBuild.fixtureSha256);
+    assert.equal(sha(await readFile(fixturePath)), rendererBuild.fixtureSha256);
     assert.equal((await loadAsset()).manifest.build_id, asset.manifest.build_id);
     await writeFile(resolve(output, 'index.json'), `${canonical({ dataKind: 'synthetic_fixture', scenarios: receipts })}\n`);
     return { output, scenarios: receipts.map(({ directory, image, state, tool, receiptSha256 }) => ({ directory, image, state, tool, receiptSha256 })) };
   } finally { await browser.close(); }
 }
 
+export async function exportPersonaComponentScenarios(outputParent, options = {}) {
+  return exportPersonaScenarios(outputParent, { ...options, publicComponent: true });
+}
+
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const report = await exportPersonaScenarios(process.argv[2]);
+  const args = process.argv.slice(2), publicComponent = args.includes('--public-component');
+  const report = await exportPersonaScenarios(args.filter(arg => arg !== '--public-component')[0], { publicComponent });
   const stdout = `${JSON.stringify(report, null, 2)}\n`;
   await writeFile(resolve(report.output, 'stdout.json'), stdout);
   process.stdout.write(stdout);
