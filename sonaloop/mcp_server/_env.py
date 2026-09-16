@@ -49,6 +49,7 @@ _NEXT: dict[str, dict[str, Any]] = {
     "record_presentation_plan": {"name": "export_synthesis", "reason": "render the reviewed presentation through the workspace PowerPoint master"},
     "brief_month": {"name": "record_month_bundle", "reason": "persist the authored month bundle through the loop"},
     "begin_persona_month_simulation": {"name": "record_month_bundle", "reason": "persist the authored month bundle through the full simulation loop"},
+    "begin_persona_enrichment": {"name": "record_persona_enrichment", "reason": "persist the minimal profile additions plus concrete dated lived days"},
     "record_month_bundle": {"name": "brief_month", "reason": "continue with the next month"},
     "brief_evidence_check": {"name": "record_evidence_check", "reason": "persist provenance verdict (confirmed/contradicted)"},
     "brief_synthesis": {"name": "record_synthesis", "reason": "persist the cross-council synthesis you authored"},

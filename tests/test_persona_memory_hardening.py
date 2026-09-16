@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import asyncio
+
 import pytest
+from conftest import create_persona
+from test_seeded_scaffolding import _host_content
 
 from sonaloop import memory, services
 from sonaloop.config import utc_now_iso
-from conftest import create_persona
 
 
 def _event(pid: str, event_id: str, day: str, task: str = "Renewal review") -> dict:
@@ -143,6 +146,99 @@ def test_identity_update_requires_exact_state_bound_preview_token(store):
         services.update_persona(
             pid, {"display_name": "Safia Meier"}, "stale preview",
             current["updated_at"], preview["confirmation_token"], store=store)
+
+
+def test_update_persona_mcp_self_previews_identity_change_and_retries(store):
+    from sonaloop.mcp_server import build_server
+
+    pid = create_persona(store, "Safia")
+    server = build_server()
+
+    def call(args):
+        result = asyncio.run(server.call_tool("update_persona", args))
+        return result.structuredContent if hasattr(result, "structuredContent") else result[1]
+
+    first = call({
+        "persona_id": pid,
+        "patch": {"display_name": "Safia Berger"},
+        "reason": "correct the displayed name",
+    })
+    assert first["ok"] is True
+    assert first["data"]["applied"] is False
+    assert first["data"]["status"] == "confirmation_required"
+    assert store.get_persona(pid)["display_name"] == "Safia"
+    retry = first["data"]["next_action"]["add_arguments"]
+    second = call({
+        "persona_id": pid,
+        "patch": {"display_name": "Safia Berger"},
+        "reason": "correct the displayed name",
+        **retry,
+    })
+    assert second["ok"] is True
+    assert second["data"]["display_name"] == "Safia Berger"
+
+
+def test_persona_enrichment_records_minimal_profile_additions_and_lived_day(store):
+    pid = create_persona(store, "Daniela")
+    persona = store.get_persona(pid)
+    day_plan, activities = _host_content(store, pid)
+    chat = services.chat_with_persona(pid, "Was machst du gern am Wochenende?", store=store)
+    services.record_chat_turn(
+        pid, chat["chat_id"], "Was machst du gern am Wochenende?",
+        "Ich koche gern kreativ und notiere gelungene Rezepte in einem schwarzen Heft.",
+        store=store,
+    )
+    brief = services.begin_persona_enrichment(
+        pid, "Add creative cooking and one private day", chat["chat_id"], store=store)
+    assert brief["next_action"]["tool"] == "record_persona_enrichment"
+    assert brief["frame"]["source_chat"]["turns"][0]["persona_reply"].startswith("Ich koche")
+
+    out = services.record_persona_enrichment(pid, {
+        "reason": "User explicitly asked to adopt the private-life details",
+        "profile_patch": {"personality": {"hobbies": ["Creative weekend cooking"]}},
+        "days": [{
+            "date": "2026-08-08",
+            "workday_start_hour": 9,
+            "seed": "private-saturday",
+            "day_plan": day_plan,
+            "plan": {
+                "summary": "A private Saturday",
+                "intentions": ["Cook with family"],
+                "expected_milestones": ["One recipe recorded"],
+                "mood_trajectory": "From tired to restored",
+                "sample_days": ["2026-08-08"],
+            },
+            "activities": activities,
+            "deltas": {"entities": [], "facts": [], "threads": [], "event_links": []},
+        }],
+    }, expected_updated_at=persona["updated_at"], store=store)
+    assert out["applied"] is True
+    assert out["profile_updated"] is True
+    assert out["changed_fields"] == ["personality"]
+    assert out["days"][0]["activities"] == 5
+    assert store.get_persona(pid)["personality"]["hobbies"] == ["Creative weekend cooking"]
+    assert len(store.list_experience_events(pid, "2026-08-08T00:00", "2026-08-08T23:59")) == 5
+    assert "Creative weekend cooking" in services.get_persona_soul(pid, store=store)["content"]
+
+    with pytest.raises(ValueError, match="identity fields"):
+        services.record_persona_enrichment(pid, {
+            "reason": "not an enrichment",
+            "profile_patch": {"display_name": "Different Daniela"},
+            "days": [],
+        }, store=store)
+    with pytest.raises(ValueError, match="already contain lived events"):
+        services.record_persona_enrichment(pid, {
+            "reason": "duplicate date",
+            "profile_patch": {},
+            "days": [{
+                "date": "2026-08-08",
+                "day_plan": day_plan,
+                "plan": {"summary": "same", "intentions": [],
+                         "expected_milestones": [], "mood_trajectory": "same",
+                         "sample_days": []},
+                "activities": activities,
+            }],
+        }, store=store)
 
 
 def test_identity_revision_requires_resolving_source_refs(store):

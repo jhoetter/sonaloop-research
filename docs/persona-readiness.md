@@ -97,13 +97,26 @@ partition. Pruning archives old raw episodes reversibly; it does not silently de
 
 ## Destructive boundary
 
-Profile edits should use `preview_persona_update`, then `update_persona` with the returned
+When a user asks to adopt hobbies, routines, relationships or concrete experiences from a
+conversation, start with `begin_persona_enrichment(persona_id, request, source_chat_id?)`.
+The returned frame distinguishes a **minimal routine profile patch** from concrete **dated lived
+days**. Author that one payload and call `record_persona_enrichment`; it validates every profile
+field, day block, activity and memory delta before the first write. Chat turns by themselves remain
+conversation artifacts and never silently become official profile fields, facts or calendar events.
+The recorder accepts up to eight previously unused dates per call and refuses identity fields;
+name, role, segment, demographics and company context stay on the explicit identity-update path.
+
+Profile corrections should use `preview_persona_update`, then `update_persona` with the returned
 `expected_updated_at` and a non-empty reason. The preview is side-effect free and includes the exact
 field diff, identity/routine risk, linked-project/session/history counts and the history contract.
 Changes to name, source description, identity traits, segment, demographics, role or company context
 also require its state-bound `confirmation_token`; a changed persona version or changed patch
-invalidates that token. Past sessions and frozen task-context snapshots remain unchanged; future
-context uses the revised profile. Immutable ids, provenance and runtime counters are not editable.
+invalidates that token. For MCP hosts that do not surface `preview_persona_update`, calling
+`update_persona` without a token now returns the same bounded preview **in band**, changes nothing,
+and supplies the exact `expected_updated_at` and `preview_token` additions for retrying that same
+tool with the identical minimal patch and reason. Past sessions and frozen task-context snapshots
+remain unchanged; future context uses the revised profile. Immutable ids, provenance and runtime
+counters are not editable.
 Identity evolution through lived time still requires an explicit rationale and resolving
 fact/digest/event/evidence refs.
 

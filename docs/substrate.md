@@ -53,6 +53,13 @@ separate chats, gather selected turns with `brief_memory_from_chat`, persist a p
 Approved notes are loaded only into later chats and are labelled synthetic conversation — never
 independent evidence, lived experience, facts or identity revision.
 
+When the user explicitly asks to adopt chat material into the persona itself, use
+`begin_persona_enrichment(persona_id, request, source_chat_id)` and author the returned
+`record_persona_enrichment` payload. It accepts a minimal routine-profile patch plus up to eight
+dated lived days. Identity fields remain on the state-bound `update_persona` confirmation path.
+This keeps a saved conversation, durable chat memory, profile fields and simulated lived experience
+as distinct artifacts while giving weak MCP hosts one clear write path for an intentional adoption.
+
 CLI: `chat-brief`, `chat-record`, `chat-get`, `chat-list`, plus `query-*`,
 `study-result`, `substrate-schema` and the `chat-memory-*` review commands.
 

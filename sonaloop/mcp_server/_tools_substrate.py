@@ -66,7 +66,10 @@ def register_substrate(mcp):
     def record_chat_turn(persona_id: str, chat_id: str, user_message: str, persona_reply: str,
                          refs: list[dict[str, Any]] | None = None) -> dict[str, Any]:
         """Persist one authored chat exchange (the durable, queryable artifact). Emits
-        the `chat.recorded` lifecycle event."""
+        the `chat.recorded` lifecycle event. This does NOT change the official profile,
+        facts, calendar or lived experiences. If the user asks to adopt chat material,
+        call begin_persona_enrichment(source_chat_id=chat_id), author its contract, then
+        record_persona_enrichment."""
         t = time.perf_counter()
         return _env("record_chat_turn",
                     services.record_chat_turn(persona_id, chat_id, user_message, persona_reply, refs), t)

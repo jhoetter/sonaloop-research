@@ -25,6 +25,8 @@ def test_next_recommended_dag():
     assert env2["next_recommended_tool"]["name"] == "record_cohort_critic"
     month = _env("begin_persona_month_simulation", {}, 0.0)
     assert month["next_recommended_tool"]["name"] == "record_month_bundle"
+    enrichment = _env("begin_persona_enrichment", {}, 0.0)
+    assert enrichment["next_recommended_tool"]["name"] == "record_persona_enrichment"
 
 
 def test_next_recommended_tool_respects_trace_contract():
@@ -52,6 +54,7 @@ def test_expected_tools_registered():
         "brief_memory_from_chat", "record_memory_proposal", "review_memory_proposal",
         "get_memory_proposal", "list_memory_proposals",
         "brief_day", "put_day_plan", "record_day",
+        "begin_persona_enrichment", "record_persona_enrichment",
         "begin_persona_month_simulation", "brief_month", "record_month_bundle",
         "get_persona_memory", "export_persona_memory",
         "brief_consolidation", "record_memory_deltas",

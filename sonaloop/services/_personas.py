@@ -98,6 +98,23 @@ def render_soul(persona: dict[str, Any], store: Store | None = None,
     ) or "- None yet."
     daily_reality = "\n".join(f"- {s['date']}: {s['mood']}; open loops: {', '.join(s['open_loops']) or 'none'}" for s in summaries) or "- Not simulated yet."
     relationships = "\n".join(f"- {r['name']} ({r['type']}): {r['friction']}" for r in persona["relationships"])
+    personality = persona.get("personality") or {}
+    personality_details = []
+    character_notes = str(personality.get("character_notes") or "").strip()
+    if character_notes:
+        personality_details.append(f"- Character notes: {character_notes[:800]}")
+    for key in sorted(set(personality) - {
+            "working_style", "communication_style", "risk_tolerance", "character_notes"})[:8]:
+        value = personality.get(key)
+        if isinstance(value, list):
+            rendered = ", ".join(str(item).strip() for item in value[:8] if str(item).strip())
+        elif isinstance(value, (str, int, float, bool)):
+            rendered = str(value).strip()
+        else:
+            continue
+        if rendered:
+            personality_details.append(f"- {key.replace('_', ' ').title()}: {rendered[:800]}")
+    personality_details_block = "\n".join(personality_details)
     caps = capability_profile(persona)                                      # noqa: F821 (bound)
     comfort = _A.resolve_tech_comfort(caps["tech_comfort"]) or {"value": 3, "label": "comfortable", "hint": ""}
     rungs = caps.get("rungs") or {}
@@ -122,6 +139,7 @@ This is not a real person. Treat all non-evidence-backed details as simulation a
 - Communication style: {persona['personality']['communication_style']}
 - Risk tolerance: {persona['personality']['risk_tolerance']}
 - Decision filter: {', '.join(persona['success_criteria'])}
+{personality_details_block}
 
 ## Capabilities
 - Session rungs (fidelities this persona can be simulated at): {rung_line}

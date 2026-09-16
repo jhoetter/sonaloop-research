@@ -20,6 +20,9 @@ def register_personas(mcp):
         """Gather the prompt + frame to AUTHOR one persona profile from a source
         description. You write the profile JSON from `instructions`, then call
         record_persona. Detects/persists the content language from the description.
+        This is creation-only: never use it to edit an existing persona. For hobbies,
+        routines and lived experiences use begin_persona_enrichment; for a narrow
+        correction use update_persona with a MINIMAL patch.
         BEFORE authoring: the curated catalog has 300+ ready-made personas with lived
         memory (catalog_search / catalog_recommend → catalog_pull) — author only what
         the catalog does not already cover."""
@@ -188,17 +191,69 @@ def register_personas(mcp):
                     services.preview_persona_update(persona_id, patch, expected_updated_at), t)
 
     @mcp.tool()
+    def begin_persona_enrichment(persona_id: str, request: str,
+                                 source_chat_id: str | None = None) -> dict[str, Any]:
+        """START HERE when the user wants to adopt hobbies, routines, relationships or
+        concrete private/work experiences into an existing persona. Optionally loads a
+        saved persona chat as source material. Returns the exact minimal profile + dated
+        day contract for record_persona_enrichment; the chat alone is never official memory."""
+        t = time.perf_counter()
+        return _env("begin_persona_enrichment", services.begin_persona_enrichment(
+            persona_id, request, source_chat_id), t)
+
+    @mcp.tool()
+    def record_persona_enrichment(persona_id: str, enrichment: dict[str, Any],
+                                  expected_updated_at: str | None = None,
+                                  allow_existing_dates: bool = False) -> dict[str, Any]:
+        """Validate and persist one host-authored persona enrichment: a MINIMAL routine
+        profile patch plus up to eight concrete dated lived days. Identity changes stay
+        on update_persona's confirmation path."""
+        t = time.perf_counter()
+        return _env("record_persona_enrichment", services.record_persona_enrichment(
+            persona_id, enrichment, expected_updated_at, allow_existing_dates), t)
+
+    @mcp.tool()
     def update_persona(persona_id: str, patch: dict[str, Any], reason: str,
                        expected_updated_at: str | None = None,
                        preview_token: str | None = None) -> dict[str, Any]:
-        """Apply a host-authored patch to a persona's profile; records a revision with the reason.
+        """Apply a host-authored MINIMAL patch to a persona's profile; never replay the full
+        profile and never call brief_persona for edits. Records a revision with the reason.
         Changes to identity fields (name, role, segment, demographics, company context or source
-        description) require the exact preview_token from preview_persona_update. Routine changes
-        remain one-step. Re-preview whenever the persona or patch changes.
+        description) are two-step. If preview_token is absent, this SAME tool returns an in-band
+        confirmation preview and exact retry additions; reuse the identical patch/reason and add
+        those values. Routine changes remain one-step. Re-preview whenever persona or patch changes.
         A `capabilities` patch ({rungs:{see,walk,drive,login}, tech_comfort: 1-5 (see
         suggest_tech_comfort), devices, accessibility, provenance}) is validated (shape +
         vocabulary) and merged into a full normalized profile, marked authored."""
         t = time.perf_counter()
+        if not preview_token:
+            preview = services.preview_persona_update(persona_id, patch, expected_updated_at)
+            if preview["risk"]["confirmation_required"] and not preview["no_op"]:
+                bounded_preview = {
+                    key: preview[key]
+                    for key in (
+                        "persona_id", "expected_updated_at", "changed_fields", "risk", "impact",
+                        "confirmation_token", "history_contract", "no_op",
+                    )
+                }
+                return _env("update_persona", {
+                    "applied": False,
+                    "status": "confirmation_required",
+                    "preview": bounded_preview,
+                    "next_action": {
+                        "tool": "update_persona",
+                        "reuse_exact_arguments": ["persona_id", "patch", "reason"],
+                        "add_arguments": {
+                            "expected_updated_at": preview["expected_updated_at"],
+                            "preview_token": preview["confirmation_token"],
+                        },
+                    },
+                    "note": (
+                        "No profile fields were changed. The user-requested identity update is "
+                        "ready; retry this same tool with the identical patch and reason plus the "
+                        "returned expected_updated_at and preview_token."
+                    ),
+                }, t)
         return _env("update_persona",
                     services.update_persona(
                         persona_id, patch, reason, expected_updated_at, preview_token), t)

@@ -128,8 +128,8 @@ DOCS = [
               "alles, was er erlebt hat. Kein statisches Profil — er erinnert sich und entwickelt sich.",
               "A synthetic customer with a **SOUL** (who they are) and a growing memory of everything "
               "they've been through. Not a static profile — it remembers and evolves."),
-     "why": ("Antworten kommen aus vorab aufgebauter Alltagskontinuität und verschieben sich mit der Zeit, statt jedes Mal denselben Satz zu wiederholen. Reife verlangt Profil, unabhängige Evidenz, konsolidierte Fakten, Digest und eine aktuelle Stimmprüfung. Für wichtige Aufgaben wird der verwendete Kontext eingefroren; Chat-Antworten werden nie still zu Fakten.",
-             "Answers come from pre-built everyday continuity and shift over time instead of repeating the same line. Readiness requires profile depth, independent evidence, consolidated facts, a digest, and a current voice check. Consequential tasks freeze the context used; chat replies never silently become facts.")},
+     "why": ("Antworten kommen aus vorab aufgebauter Alltagskontinuität und verschieben sich mit der Zeit, statt jedes Mal denselben Satz zu wiederholen. Reife verlangt Profil, unabhängige Evidenz, konsolidierte Fakten, Digest und eine aktuelle Stimmprüfung. Für wichtige Aufgaben wird der verwendete Kontext eingefroren; Chat-Antworten werden nie still zu Fakten. Wenn du Inhalte aus einem Chat offiziell übernehmen willst, trennt die Persona-Ergänzung einen kleinen Profil-Patch von konkreten datierten Erlebnissen und schreibt beides erst nach vollständiger Validierung.",
+             "Answers come from pre-built everyday continuity and shift over time instead of repeating the same line. Readiness requires profile depth, independent evidence, consolidated facts, a digest, and a current voice check. Consequential tasks freeze the context used; chat replies never silently become facts. When you explicitly adopt chat material, persona enrichment separates a small profile patch from concrete dated experiences and writes both only after full validation.")},
     {"art": "project", "icon": "projects", "name": "projects", "group": "container",
      "what": ("Der Behälter für *eine* Studie — eine Frage, von offener Erkundung bis zur klaren Antwort. "
               "Alles, was zu dieser Frage gehört, lebt hier.",
@@ -746,7 +746,8 @@ RECIPES = [
 # to the raw catalogue label. DOMAIN_META: key -> (title_de, title_en, desc_de, desc_en).
 DOMAIN_META = {
     "personas":   ("Personas", "Personas",
-                   "Personas aufbauen, für Aufgaben einfrieren und ihre Stimme prüfen.", "Build personas, freeze task contexts, and check their voice."),
+                   "Personas aufbauen, Chat-Inhalte kontrolliert in Profil und Erlebnisse übernehmen, für Aufgaben einfrieren und ihre Stimme prüfen.",
+                   "Build personas, deliberately adopt chat material into profile and lived experiences, freeze task contexts, and check their voice."),
     "simulation": ("Simulation & Erinnerung", "Simulation & memory",
                    "Einen Tag direkt oder einen ganzen Kalendermonat über einen klaren Einstieg simulieren und Persona-Erinnerung abrufen.",
                    "Simulate one day directly or a whole calendar month through one clear front door, then recall persona memory."),

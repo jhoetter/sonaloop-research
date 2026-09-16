@@ -246,6 +246,8 @@ TOOL_ANNOTATIONS: dict[str, dict[str, Any]] = {
     "validate_persona_output": R("Validate persona output"),
     "record_persona_voice_check": W("Record persona voice check", idempotent=True),
     "preview_persona_update": R("Preview persona update"),
+    "begin_persona_enrichment": R("Begin persona enrichment"),
+    "record_persona_enrichment": W("Record persona enrichment"),
     "list_personas": R("List personas"),
     "get_persona_soul": W("Get persona SOUL"),  # verifies/repairs native materialized identity
     "prepare_persona_agent_context": R("Prepare persona agent context"),

@@ -39,6 +39,7 @@ _SKIPPED: dict[str, str] = {
     "proto_read": "needs a live Playwright browser session",
     "list_flow_manifests": "requires an authenticated active remote workspace; dedicated admission tests drive a non-empty lean index",
     "get_flow_manifest": "requires an authenticated active remote workspace; dedicated admission tests drive the bounded 50-step exact record",
+    "get_persona_surface_operation": "requires a native Persona operation ID; dedicated Persona surface operation tests cover the bounded projection",
     "view_persona_avatar": "returns bounded multimodal image content, not tokenized text; dedicated avatar tests cover it",
 }
 
@@ -526,6 +527,8 @@ def _tool_args(ids: dict[str, Any]) -> dict[str, dict]:
         "brief_evidence_check": {"persona_id": pid},
         "brief_month": {"persona_id": pid, "month": ids["month"]},
         "begin_persona_month_simulation": {"persona_id": pid, "month": ids["month"]},
+        "begin_persona_enrichment": {"persona_id": pid,
+                                       "request": "Add a cooking hobby and private routines"},
         "brief_period": {"persona_id": pid, "scope": "week", "date": day},
         "brief_persona_revision": {"persona_id": pid},
         "extract_pain_points": {"persona_id": pid},
@@ -536,6 +539,7 @@ def _tool_args(ids: dict[str, Any]) -> dict[str, dict]:
         "get_open_loops": {"persona_id": pid},
         "get_period_plan": {"persona_id": pid, "scope": "week", "date": ids["sim_dates"][0]},
         "get_persona": {"persona_id": pid},
+        "get_persona_surface": {"persona_id": pid},
         "persona_readiness": {"persona_id": pid},
         "brief_persona_memory_onboarding": {"persona_id": pid, "days": 28},
         "persona_task_readiness": {"persona_id": pid,
