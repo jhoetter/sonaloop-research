@@ -525,6 +525,7 @@ def _tool_args(ids: dict[str, Any]) -> dict[str, dict]:
         "brief_eval_critic": {"persona_id": pid},
         "brief_evidence_check": {"persona_id": pid},
         "brief_month": {"persona_id": pid, "month": ids["month"]},
+        "begin_persona_month_simulation": {"persona_id": pid, "month": ids["month"]},
         "brief_period": {"persona_id": pid, "scope": "week", "date": day},
         "brief_persona_revision": {"persona_id": pid},
         "extract_pain_points": {"persona_id": pid},

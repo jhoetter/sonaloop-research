@@ -225,15 +225,19 @@ def register_personas(mcp):
                     services.refresh_persona_from_source(persona_id, force=force), t)
 
     @mcp.tool()
-    def generate_avatar(persona_id: str, style: str | None = None) -> dict[str, Any]:
+    def generate_avatar(persona_id: str, style: str | None = None,
+                        reference_persona_ids: list[str] | None = None) -> dict[str, Any]:
         """Generate (or regenerate) the persona's avatar image — needs OPENAI_API_KEY.
+        Optionally pass up to four personas whose existing portraits define the shared
+        illustration style; their identities are explicitly excluded from the new portrait.
         Without the key this degrades gracefully (in-band note, no error)."""
         t = time.perf_counter()
         if not avatars_enabled():
             # Cold start without the optional key is normal — answer in-band, never raise.
             return _env("generate_avatar",
                         {"avatar": None, "skipped": True, "note": AVATAR_DISABLED_NOTE}, t)
-        return _env("generate_avatar", generate_persona_avatar(persona_id, style), t)
+        return _env("generate_avatar", generate_persona_avatar(
+            persona_id, style, reference_persona_ids=reference_persona_ids), t)
 
     # ----- persona evidence + export — relocated here (M3) -----
     @mcp.tool()

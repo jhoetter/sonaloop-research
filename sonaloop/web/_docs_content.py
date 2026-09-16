@@ -262,11 +262,11 @@ SCHEMAS = {
     "persona": {
         "holds": (["**SOUL** — die autoritative Identität (Rolle, Firmen-Kontext, Werte, Eigenheiten)",
                    "Ziele, Constraints und Pain-Points",
-                   "Avatar-Pfad + Provenienz; in der Cloud wird das Bild nur über die aktive Workspace-Grenze ausgeliefert",
+                   "Avatar-Pfad + Provenienz; bis zu vier bestehende Workspace-Avatare können bei der Generierung nur den Illustrationsstil vorgeben",
                    "Das **Gedächtnis** liegt in eigenen, zeit-indizierten Records (s. u.)"],
                   ["**SOUL** — the authoritative identity (role, company context, values, quirks)",
                    "Goals, constraints and pain points",
-                   "Avatar path + provenance; Cloud serves the image only through the active workspace boundary",
+                   "Avatar path + provenance; up to four existing workspace avatars can guide illustration style only during generation",
                    "**Memory** lives in separate, time-indexed records (see below)"]),
         "made": (),
         "made_note": ("Eine Persona ist ein Graph-**Node**. Ihr Gedächtnis sind eigene Records — "
@@ -748,7 +748,8 @@ DOMAIN_META = {
     "personas":   ("Personas", "Personas",
                    "Personas aufbauen, für Aufgaben einfrieren und ihre Stimme prüfen.", "Build personas, freeze task contexts, and check their voice."),
     "simulation": ("Simulation & Erinnerung", "Simulation & memory",
-                   "Tage/Monate simulieren und Persona-Erinnerung abrufen.", "Simulate days/months and recall persona memory."),
+                   "Einen Tag direkt oder einen ganzen Kalendermonat über einen klaren Einstieg simulieren und Persona-Erinnerung abrufen.",
+                   "Simulate one day directly or a whole calendar month through one clear front door, then recall persona memory."),
     "research":   ("Projekt-Graph & Report", "Project graph & report",
                    "Der Studien-Container, sein Graph und der finale Report.", "The study container, its graph, and the final report."),
     "plan":       ("Plan & Steuerung", "Plan & run loop",

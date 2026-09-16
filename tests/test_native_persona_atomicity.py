@@ -97,6 +97,58 @@ def test_legacy_regeneration_keeps_old_avatar_bytes_immutable(store, monkeypatch
     assert avatar.get_persona_avatar_content(pid, store)[0] == png("green")
 
 
+def test_avatar_can_use_other_workspace_personas_as_style_references(store, monkeypatch):
+    target = create_persona(store, "Reference Target")
+    first = create_persona(store, "Reference One")
+    second = create_persona(store, "Reference Two")
+    reference_payloads = {first: png("navy"), second: png("green")}
+    for persona_id, payload in reference_payloads.items():
+        row = store.get_persona(persona_id)
+        path = avatar.config.partition_dir() / "avatars" / f"{persona_id}.png"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(payload)
+        row["avatar"] = {"path": f"data/avatars/{persona_id}.png"}
+        store.upsert_persona(row)
+
+    calls = []
+    monkeypatch.setenv("OPENAI_API_KEY", "not-a-real-key")
+    monkeypatch.delenv("OPENAI_IMAGE_MODEL", raising=False)
+    monkeypatch.setattr(avatar, "load_env", lambda: None)
+
+    def provider(url, fields, files, key):
+        calls.append((url, fields, files, key))
+        return {"data": [{"b64_json": base64.b64encode(png("purple")).decode()}]}
+
+    monkeypatch.setattr(avatar, "_post_multipart", provider)
+    result = avatar.generate_persona_avatar(
+        target, store=store, reference_persona_ids=[first, second, first],
+    )
+
+    url, fields, files, key = calls[0]
+    assert url.endswith("/v1/images/edits") and key == "not-a-real-key"
+    assert fields["model"] == "gpt-image-2.5-sunburst"
+    assert "only as references for the shared illustration language" in fields["prompt"]
+    assert [item[0] for item in files] == ["image[]", "image[]"]
+    assert [item[3] for item in files] == [reference_payloads[first], reference_payloads[second]]
+    assert result["reference_persona_ids"] == [first, second]
+    assert avatar.get_persona_avatar_content(target, store)[0] == png("purple")
+
+
+def test_avatar_reference_constraints_fail_before_provider(store, monkeypatch):
+    target = create_persona(store, "Reference Constraints")
+    monkeypatch.setenv("OPENAI_API_KEY", "not-a-real-key")
+    monkeypatch.setattr(avatar, "load_env", lambda: None)
+    with pytest.raises(ValueError, match="own avatar reference"):
+        avatar.generate_persona_avatar(
+            target, store=store, reference_persona_ids=[target],
+        )
+    with pytest.raises(ValueError, match="at most 4"):
+        avatar.generate_persona_avatar(
+            target, store=store,
+            reference_persona_ids=[f"persona_reference_{index}" for index in range(5)],
+        )
+
+
 def test_post_commit_soul_failure_is_uncertain_and_never_serves_stale_identity(store, monkeypatch):
     from sonaloop.storage import _personas
     from sonaloop.persona_surface_contract import PersonaSurfaceError

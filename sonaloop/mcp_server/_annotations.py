@@ -374,6 +374,7 @@ TOOL_ANNOTATIONS: dict[str, dict[str, Any]] = {
     "get_persona_memory": R("Get persona memory"),
     "export_persona_memory": W("Export persona memory", idempotent=True),
     "brief_month": R("Brief month bundle"),
+    "begin_persona_month_simulation": R("Begin persona month simulation"),
     "record_month_bundle": W("Record month bundle"),
     "get_current_state": R("Get current state"),
     "get_calendar": R("Get calendar day"),

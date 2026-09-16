@@ -39,6 +39,20 @@ plan, sampled mundane days, per-day consolidation, a digest and the persisted se
 Product-task material must not be written backwards into pre-project memory. A build without an
 independent corpus returns an explicit blocked grounding dispatch; it does not manufacture one.
 
+## One calendar month through one front door
+
+For an explicit month such as August 2026, an MCP host starts with
+`begin_persona_month_simulation(persona_id, month="2026-08")`. The read returns the
+SOUL, current projects, open threads, prior-month digest, world context, anti-steering
+instruction and the exact month-bundle schema together. The host authors the returned
+`bundle`, then calls `record_month_bundle` once. That write persists the month plan,
+3–4 representative working days, their activities and memory deltas, and the month
+digest through the complete simulation/consolidation loop.
+
+`brief_day` / `record_day` remain the single-day path. The month front door keeps
+clients from trying to discover or chain dozens of daily calls when the requested unit
+is already a calendar month.
+
 ## Task-specific use and reproducibility
 
 Global readiness does not imply readiness for every assignment.

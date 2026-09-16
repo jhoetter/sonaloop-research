@@ -29,6 +29,17 @@ profile basis; `stale` is based on a profile digest, not the avatar write timest
 The native avatar remains authoritative. DTOs contain no paths, bearer tokens,
 arbitrary URLs or image bytes. Reads do not repair SOUL or mutate the store.
 
+The model-visible `generate_avatar` tool is also available to normal Remote-MCP
+workspace users. It accepts up to four `reference_persona_ids`; each reference is
+resolved through the active workspace and must already have a valid PNG avatar.
+References guide only illustration language, crop, lighting, background and finish.
+The prompt explicitly requires a new fictional identity and excludes copying faces,
+hair, clothing or other identifying features. With references, Research calls the
+OpenAI Images edit endpoint; without them it calls image generation. The default
+model is `gpt-image-2.5-sunburst`, configurable through `OPENAI_IMAGE_MODEL`.
+Provider credentials remain server-side, and the workspace write/entitlement gates
+apply before a Remote-MCP call can spend them.
+
 Every write binds an operation ID to the authenticated actor/workspace and exact
 request digest. Exact retry rechecks current authority and returns the current
 canonical DTO without re-executing the durable operation; mismatched reuse fails.

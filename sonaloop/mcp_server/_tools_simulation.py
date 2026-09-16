@@ -179,6 +179,22 @@ def register_simulation(mcp):
 
     # ----- F3 autonomous loop driver (month bundles) — relocated here (M3) -----
     @mcp.tool()
+    def begin_persona_month_simulation(persona_id: str, month: str) -> dict[str, Any]:
+        """START HERE when the user asks to simulate one calendar month such as
+        2026-08. Returns all context and the exact host-authored bundle contract in
+        one call; author that bundle, then call record_month_bundle once."""
+        t = time.perf_counter()
+        brief = services.brief_month(persona_id, month)
+        return _env("begin_persona_month_simulation", {
+            **brief,
+            "next_action": {
+                "tool": "record_month_bundle",
+                "arguments": {"persona_id": brief["persona_id"], "month": brief["month"]},
+                "author_argument": "bundle",
+            },
+        }, t)
+
+    @mcp.tool()
     def brief_month(persona_id: str, month: str) -> dict[str, Any]:
         """GATHER context to author a whole month bundle (period plan + sample days + digest),
         chained on the prior month. Then record_month_bundle."""

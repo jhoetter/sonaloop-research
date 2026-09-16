@@ -3,21 +3,20 @@ from __future__ import annotations
 import base64
 import copy
 import hashlib
-from io import BytesIO
 import json
 import os
 import re
+import secrets
 import urllib.request
+from io import BytesIO
 from pathlib import Path
 from typing import Any
 
 from . import config
-from .config import load_env, utc_now_iso
-from .services import stable_id
-from .storage import Store
 from ._persona_native import persona_profile_version, persona_version
+from .config import load_env, utc_now_iso
 from .persona_surface_contract import MAX_AVATAR_BYTES, MAX_AVATAR_DIMENSION
-
+from .storage import Store
 
 # The single, helpful degradation message (cold start without an OPENAI_API_KEY is normal):
 # avatars are optional eye-candy, never a blocker — everything else works without the key.
@@ -37,6 +36,55 @@ def _post_json(url: str, payload: dict[str, Any], api_key: str) -> dict[str, Any
         url,
         data=json.dumps(payload).encode("utf-8"),
         headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=180) as resp:
+        payload = resp.read(MAX_AVATAR_BYTES * 2 + 1)
+        if len(payload) > MAX_AVATAR_BYTES * 2:
+            raise ValueError("image provider response exceeds the delivery limit")
+        result = json.loads(payload)
+        request_id = resp.headers.get("x-request-id", "")
+        if re.fullmatch(r"[A-Za-z0-9_-]{1,200}", request_id):
+            result["_request_id"] = request_id
+        return result
+
+
+def _post_multipart(
+    url: str,
+    fields: dict[str, str],
+    files: list[tuple[str, str, str, bytes]],
+    api_key: str,
+) -> dict[str, Any]:
+    """POST the bounded multipart shape required by the Images edit endpoint."""
+    boundary = f"sonaloop-{secrets.token_hex(18)}"
+    body = bytearray()
+    for name, value in fields.items():
+        body.extend(f"--{boundary}\r\n".encode("ascii"))
+        body.extend(
+            f'Content-Disposition: form-data; name="{name}"\r\n\r\n'.encode("ascii")
+        )
+        body.extend(value.encode("utf-8"))
+        body.extend(b"\r\n")
+    for name, filename, content_type, payload in files:
+        if not re.fullmatch(r"[A-Za-z0-9_.-]{1,192}", filename):
+            raise ValueError("unsafe reference avatar filename")
+        body.extend(f"--{boundary}\r\n".encode("ascii"))
+        body.extend(
+            f'Content-Disposition: form-data; name="{name}"; filename="{filename}"\r\n'.encode(
+                "ascii"
+            )
+        )
+        body.extend(f"Content-Type: {content_type}\r\n\r\n".encode("ascii"))
+        body.extend(payload)
+        body.extend(b"\r\n")
+    body.extend(f"--{boundary}--\r\n".encode("ascii"))
+    req = urllib.request.Request(
+        url,
+        data=bytes(body),
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": f"multipart/form-data; boundary={boundary}",
+        },
         method="POST",
     )
     with urllib.request.urlopen(req, timeout=180) as resp:
@@ -156,9 +204,17 @@ def get_persona_avatar_content(
     return data, persona
 
 
-def generate_persona_avatar(persona_id: str, style: str | None = None, store: Store | None = None,
-                            *, prompt: str | None = None, expected_version: str | None = None,
-                            before_provider=None, before_persist=None) -> dict[str, Any]:
+def generate_persona_avatar(
+    persona_id: str,
+    style: str | None = None,
+    store: Store | None = None,
+    *,
+    prompt: str | None = None,
+    expected_version: str | None = None,
+    reference_persona_ids: list[str] | None = None,
+    before_provider=None,
+    before_persist=None,
+) -> dict[str, Any]:
     load_env()
     store = store or Store()
     lookup = getattr(store, "get_persona_for_active_workspace", store.get_persona)
@@ -171,7 +227,7 @@ def generate_persona_avatar(persona_id: str, style: str | None = None, store: St
     api_key = os.getenv("OPENAI_API_KEY", "")
     if not api_key:
         raise RuntimeError(AVATAR_DISABLED_NOTE)
-    model = os.getenv("OPENAI_IMAGE_MODEL", "gpt-image-1")
+    model = os.getenv("OPENAI_IMAGE_MODEL", "gpt-image-2.5-sunburst")
     # Default to the active workspace runtime.  Local mode's partition is DATA_DIR,
     # preserving the historical data/avatars location exactly.
     partition = config.partition_dir()
@@ -202,13 +258,55 @@ def generate_persona_avatar(persona_id: str, style: str | None = None, store: St
     if prompt is not None:
         prompt_persona.setdefault("identity_traits", {})["avatar_profile"] = prompt
     prompt = build_avatar_prompt(prompt_persona, style)
+    reference_ids = list(dict.fromkeys(
+        str(value or "").strip() for value in (reference_persona_ids or [])
+    ))
+    if any(not value for value in reference_ids):
+        raise ValueError("reference_persona_ids must contain non-empty persona ids")
+    if len(reference_ids) > 4:
+        raise ValueError("reference_persona_ids accepts at most 4 personas")
+    if persona["id"] in reference_ids or str(persona.get("slug") or "") in reference_ids:
+        raise ValueError("the target persona cannot be its own avatar reference")
+    reference_files: list[tuple[str, str, str, bytes]] = []
+    resolved_reference_ids: list[str] = []
+    for index, reference_id in enumerate(reference_ids, 1):
+        reference_bytes, reference_persona = get_persona_avatar_content(reference_id, store)
+        validate_avatar_png(reference_bytes)
+        resolved_reference_ids.append(str(reference_persona["id"]))
+        reference_files.append((
+            "image[]",
+            f"reference-{index}.png",
+            "image/png",
+            reference_bytes,
+        ))
+    if reference_files:
+        prompt += (
+            " Use the supplied portraits only as references for the shared illustration "
+            "language, crop, lighting, background treatment, and finish. Create a new fictional "
+            "person from the target profile; do not copy any reference person's identity, face, "
+            "hair, clothing, or other identifying features."
+        )
     if before_provider:
         before_provider()
-    result = _post_json(
-        "https://api.openai.com/v1/images/generations",
-        {"model": model, "prompt": prompt, "n": 1, "size": "1024x1024", "quality": "medium"},
-        api_key,
-    )
+    if reference_files:
+        result = _post_multipart(
+            "https://api.openai.com/v1/images/edits",
+            {
+                "model": model,
+                "prompt": prompt,
+                "n": "1",
+                "size": "1024x1024",
+                "quality": "medium",
+            },
+            reference_files,
+            api_key,
+        )
+    else:
+        result = _post_json(
+            "https://api.openai.com/v1/images/generations",
+            {"model": model, "prompt": prompt, "n": 1, "size": "1024x1024", "quality": "medium"},
+            api_key,
+        )
     data = result["data"][0]
     if data.get("b64_json"):
         img_bytes = base64.b64decode(data["b64_json"], validate=True)
@@ -251,6 +349,8 @@ def generate_persona_avatar(persona_id: str, style: str | None = None, store: St
         "sha256": image_sha,
         "profile_version": persona_profile_version(persona),
     }
+    if resolved_reference_ids:
+        avatar["reference_persona_ids"] = resolved_reference_ids
     if re.fullmatch(r"[A-Za-z0-9_-]{1,200}", str(result.get("_request_id") or "")):
         avatar["request_id"] = result["_request_id"]
     usage = result.get("usage")
