@@ -199,7 +199,9 @@ def simulate_day(
         current = end
         participants = block.get("participants", [])
         tool = block["tool"]
-        pain = rng.choice(persona["pain_points"])
+        # Keep the historical RNG progression stable, but never invent a pain point
+        # when the host explicitly authored an empty list for this activity.
+        rng.choice(persona["pain_points"])
         prior_events = store.list_experience_events(persona["id"])[-5:]
         frame = {
             "persona_name": persona["display_name"],
@@ -237,7 +239,7 @@ def simulate_day(
         if frame["title"] not in (activities or {}):
             raise ValueError(f"simulate_day: no authored activity for block '{frame['title']}'.")
         generated = _llm.validate_activity_payload((activities or {})[frame["title"]], frame)
-        generated_pains = generated.get("pain_points", []) or [pain]
+        generated_pains = generated.get("pain_points", [])
         day_pains.extend(generated_pains)
         outcome = "left an open follow-up" if generated.get("open_loops") else "resolved enough to move forward"
         if "open" in outcome:

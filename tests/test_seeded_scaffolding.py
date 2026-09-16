@@ -42,6 +42,8 @@ def test_simulate_day_scaffolding_is_reproducible(store):
     run1 = services.simulate_day(pid, "2026-06-02", seed="regression-seed", day_plan=dp, activities=acts, store=store)
     run2 = services.simulate_day(pid, "2026-06-02", seed="regression-seed", day_plan=dp, activities=acts, store=store)
 
+    assert all(event["pain_points"] == [] for event in run1["experience_events"])
+
     sched1 = [(c["start"], c["end"], c["title"]) for c in run1["calendar_events"]]
     sched2 = [(c["start"], c["end"], c["title"]) for c in run2["calendar_events"]]
     assert sched1 == sched2, "same seed must reproduce identical scaffolding"
